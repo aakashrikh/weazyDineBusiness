@@ -1,0 +1,209 @@
+import React, { Component } from 'react';
+import {
+    View,ImageBackground,
+    StyleSheet,Pressable,ActivityIndicator,
+    Image,Text,Dimensions, ScrollView
+} from 'react-native';
+import {Header,Icon} from "react-native-elements";
+import LinearGradient from 'react-native-linear-gradient';
+
+//Global Style Import
+const styles = require('../Components/Style.js');
+
+const win = Dimensions.get('window');
+const ratio = win.width/541; //541 is actual image width
+class Social extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+          text:""
+        }
+      }
+
+  //for header left component
+  renderLeftComponent()
+  {
+    return(
+      
+   
+       <View style={{flexDirection:"row",width:win.width/2}}>
+       {/* <Image source={require("../img/icons/pin1.png")} 
+        style={{height:20,width:20,marginTop:10}}/> */}
+        <Text style={style.text}>Social</Text>
+       </View>
+
+    )
+  }
+
+  //for header right component
+  renderRightComponent()
+  {
+    return(
+
+      <View style={{width:win.width/3,marginTop:5,flexDirection:"row",justifyContent:"space-evenly"}}>
+         <Icon
+          name='bookmark-outline'
+          size={22}
+          color='black' 
+          type="ionicon"
+          style={{margin:5}}
+        /> 
+    
+        <Icon
+          name='settings-outline'
+          size={22}
+          color='black' 
+          type="ionicon"
+          style={{marginTop:5}} 
+        /> 
+
+        <Icon
+          name='search'
+          size={22}
+          color='black' 
+          type="ionicon"
+          style={{marginTop:5}} 
+        /> 
+      </View>
+    )
+  }
+
+  // this is the main Component where all the components are called
+    render(){
+        return(
+            <View style={[styles.container,{backgroundColor:"#f5f5f5",height:"100%"}]}>
+                <View>
+                <Header 
+                statusBarProps={{ barStyle: 'light-content' }}
+                leftComponent={this.renderLeftComponent()}
+                rightComponent={this.renderRightComponent()}
+                ViewComponent={LinearGradient} // Don't forget this!
+                linearGradientProps={{
+                colors: ['white', 'white'],
+                start: { x: 0, y: 0.5 },
+                end: { x: 1, y: 0.5 },
+                
+                }}
+                />
+                </View>
+
+                <Post/>
+              
+            </View>
+
+  
+                )
+}
+}
+
+export default Social;
+
+//this is the component for Post 
+class Post extends Component{
+
+  constructor(props) {
+    super(props);
+    // Don't call this.setState() here!
+    this.state = {data:[],  isLoading: true};
+  }
+
+  componentDidMount()
+  {
+    fetch('https://greenrabbit.in/hnn/public/api/news')
+    .then((response) => response.json())
+    .then((json) => {
+      
+      this.setState({ data: json });
+    })
+    .catch((error) => console.error(error))
+    .finally(() => {
+      this.setState({ isLoading: false });
+    });
+  }
+
+
+  render(){
+
+    const { data, isLoading } = this.state;
+    if(isLoading)
+    {
+      return(
+        <View>
+          <ActivityIndicator size="large" color="orange" />
+        </View>
+      )
+    }
+   else{
+     let news=data.map((news,id)=>{
+      return(
+        <View>
+          {/* this is the card component for post */}
+          <View style={style.card}>
+            {/* Card Header */}
+            <View style={style.cardHeader}>
+              <Image source={require("../img/logo/mp.png")} style={style.profileImage}/>
+              <View style={{flexDirection:"column",paddingLeft:15}}>
+                <Text style={style.name}>Mast & Harbour</Text>
+                <Text style={style.postTime}>3 hours ago</Text>
+              </View>
+            </View>
+            {/* Image */}
+            <View>
+            <Text style={{marginTop:10}}>{news.heading}</Text>
+              <Image source={require("../img/post.jpg")}
+              style={style.postImage}/>
+            </View>
+  
+            <View>
+              <Icon type="ionicon" name="heart" />
+            </View>
+          </View>
+      </View>)
+     })
+     
+     return(
+      <ScrollView style={{backgroundColor:'#f2f2f2'}}>
+      {news}
+        </ScrollView>
+     )
+   }
+     
+  }
+}
+
+
+
+//internal stylesheet 
+const style=StyleSheet.create({
+    text:{
+        fontFamily:"Montserrat-SemiBold",
+        fontSize:18,
+        margin:10
+    },
+    card:{
+      backgroundColor:"#fff"
+    },
+    cardHeader:{
+      flexDirection:"row",
+      padding:10,
+      // backgroundColor:"red"
+    },
+    profileImage:{
+        height:37,
+        width:37
+    },
+    name:{
+      fontFamily:"Montserrat-SemiBold",
+      fontSize:15
+    },
+    postTime:{
+      fontFamily:"Montserrat-Regular",
+      color:"grey"
+    },
+    postImage:{
+      width:Dimensions.get("window").width,
+      height:"100%"
+
+    }
+
+})

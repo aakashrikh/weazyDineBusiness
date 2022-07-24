@@ -1,0 +1,296 @@
+import React, { Component } from "react";
+import { Text, View , StyleSheet,Image, TextInput, TouchableOpacity, Pressable, Dimensions} from 'react-native';
+import { FlatList, ScrollView } from "react-native-gesture-handler";
+import {Icon } from "react-native-elements"
+
+const Products=[
+  {
+      id:'1',
+      userName:'Product 1',
+      userImage:require('../img/logo/mp.png'),
+      add:'Add',
+      messageText:'Laptop',
+      quantity:0
+  },
+  {
+      id:'2',
+      userName:'Product 2',
+      userImage:require('../img/logo/mp.png'),
+      add:'Add',
+      quantity:0,
+      messageText:'Mobile phones'
+  },
+  {
+      id:'3',
+      userName:'Product 3',
+      userImage:require('../img/logo/mp.png'),
+      add:'Add',
+      messageText:'Clothes',
+      quantity:0,
+  },
+ 
+
+]
+
+
+
+
+export default class Favorites extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+        prod_id:"",
+        add:"Add",
+        status:false,
+        object:{}
+    }   
+}
+
+componentDidMount()
+{
+  Products.map((value)=>{
+    const object = this.state.object;
+    // console.warn(value.quantity);
+    object[value.id] = value.quantity;
+    this.setState({ object });
+})
+}
+  change=(quant)=>{
+    if(quant){
+        quant ++;
+        this.state.prod_id= quant
+        this.setState({status:!this.state.status})
+    } 
+  }
+
+  add =(item)=>{
+
+  
+    const object = this.state.object;
+    object[item] ++;
+    this.setState({ object });
+  }
+
+  remove =(item)=>{
+    const object = this.state.object;
+    object[item] --;
+    this.setState({ object });
+  }
+    render()
+    {
+        
+        return(
+                <View style={{backgroundColor:"white",padding:5, flex:1}}>
+                    <Text>
+                        </Text>
+                  <View style={styles.header}>
+                      
+                <Text style={styles.chat}>Favorites</Text>
+                
+                    {/* <TouchableOpacity>
+                        <Text style={styles.dotsIcon}><MaterialCommunityIcons name='dots-vertical' color={'grey'} size={30} /></Text>
+                    </TouchableOpacity> */}
+             </View>
+             <FlatList 
+              data={Products}
+              keyExtractor={item=>item.id}
+              renderItem={({item})=>(
+                <Pressable style={{width:"100%"}} >
+                    <View style={{height:120}}>
+                <View style={styles.userInfo} >
+                <View style={styles.userImageWrapper}>
+                    <Image style={styles.userImg} source={item.userImage}/>
+                </View>
+
+                <View style={styles.textSection}>
+                    <View style={styles.userinfoText}>
+                        <Text style={styles.userName}>{item.userName}</Text>
+
+                        
+
+                    </View>
+
+                    <View style={{flexDirection:"row", justifyContent:"space-between"}}>
+
+                    <Text style={styles.messageText}>{item.messageText}</Text>
+
+                    {(this.state.object[item.id] >0) ?
+
+                    <View style={[styles.postTime,{marginTop:10, flexDirection:"row"}]} >
+                        <Icon name="add-circle-outline"
+                        onPress={()=>this.add(item.id)}
+                         />
+                            <Text style={{fontSize:20, paddingLeft:5,paddingRight:5}}>
+                            
+                            {this.state.object[item.id]}
+                            
+                            </Text>
+                            <Icon name="remove-circle-outline"
+                            onPress={()=>this.remove(item.id)} />
+                        </View> 
+
+                        : 
+                        <Text style={styles.postTime}
+                        onPress={()=>this.add(item.id)}>Add</Text>
+              }
+
+                    </View>
+                </View>
+                </View>
+                </View>
+              </Pressable>
+
+              )}
+             />
+                </View>
+        );
+    }
+}
+const styles= StyleSheet.create({
+    tasks:{fontSize:18,marginTop:5,marginLeft:10,fontWeight:"bold"},
+    
+    textinput:{height:35,borderWidth:1,width:400,color:"black",backgroundColor:"#BBC0C4", alignSelf:"center",fontSize:18, marginTop:12,borderRadius:6,borderColor:"grey",marginBottom:10 },
+
+    textinput2:{marginTop:4},
+    header:{
+      flexDirection:'row',
+      height:40,
+      width:Dimensions.get('window').width-10,
+       justifyContent:"space-between",
+      borderBottomWidth:1,
+      borderColor:"#f0f0f0"
+  },
+  chat:{
+      fontSize:20,
+      marginLeft:10,
+      marginTop:5,
+      
+  },
+  searchIcon:{
+    //  marginLeft:270,
+     marginTop:5,
+     
+  },
+  dotsIcon:{
+      marginTop:5,
+      marginLeft:10
+  },
+  userInfo:{
+    flexDirection:"row",
+
+    // justifyContent:"space-between"
+  },
+  userImageWrapper:{
+      height:100,
+    paddingTop:7,
+    paddingBottom:5,
+
+  },
+  empImageWrapper:{
+    paddingTop:10,
+    paddingBottom:10,
+
+  },
+  userImg:{
+    marginTop:-5,
+    width:80,
+    height:80,
+    borderRadius:25
+  },
+  empImg:{
+    width:50,
+    height:50,
+    borderRadius:25
+  },
+  textSection:{
+    flexDirection:"column",
+    justifyContent:"center",
+    // padding:5,
+    marginLeft:10,
+    marginBottom:15,
+    width:"80%",
+    borderBottomWidth:1,
+    borderColor:"#F5F5F5"
+  },
+  userName:{
+    fontSize:16,
+  },
+  empName:{
+    fontSize:16,
+  },
+  postTime:{
+    fontSize:18,
+    color:"#326bf3",
+    marginRight:15
+  },
+  userinfoText:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    marginBottom:0
+  },
+  empinfoText:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    marginBottom:0
+  },
+  messageText:{
+    fontSize:14,
+    color:"grey"
+  },
+  designationText:{
+    fontSize:15,
+    color:"grey"
+  },
+
+newText:{
+    fontSize:20,
+    fontFamily:"Raleway-Bold",
+    marginLeft:10
+},
+newSearchIcon:{
+    alignItems:"flex-end",
+
+    fontWeight:"bold"
+ },
+newContainer:{
+    padding:5,
+    borderBottomWidth:0.5,
+    borderBottomColor:"grey",
+    justifyContent:"space-between",
+    flexDirection:"row",
+    width:"100%"
+},
+icon:{
+    marginTop:5,
+    marginLeft:20,
+    fontSize:20,
+    marginBottom:10
+},
+Text:{
+    position:"absolute",
+    fontSize:18,
+    marginTop:15,
+    marginLeft:80,
+    fontFamily:"Raleway-Medium"
+},
+inviteButton:{
+    flexDirection:"row",
+    borderWidth:1,
+    borderColor:"#8DB600",
+    width:'90%',
+    alignSelf:"center",
+    borderRadius:25,
+    marginTop:5,
+    marginBottom:20
+},
+inviteText:{
+    fontSize:20,
+    fontFamily:"Raleway-Medium",
+    marginTop:7,
+    marginLeft:10,
+},
+
+
+
+    
+})

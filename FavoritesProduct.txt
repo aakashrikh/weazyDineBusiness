@@ -1,0 +1,191 @@
+import React, { Component } from 'react';
+import { TouchableOpacity } from 'react-native';
+import {
+    View,ImageBackground,
+    StyleSheet,Pressable,
+    Image,Text,Dimensions
+} from 'react-native';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import {Header,Icon} from 'react-native-elements'
+import { ScrollView } from 'react-native-gesture-handler';
+
+//Global Style Import
+const styles = require('../Components/Style.js');
+
+const win = Dimensions.get('window');
+
+
+class Favorites extends Component{
+
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+            <View style={[styles.container,]}>
+                            
+                  <ScrollView style={{flex:1}}>
+                        <Card navigation={this.props.navigation} />
+                        <Card navigation={this.props.navigation} />
+                        <Card navigation={this.props.navigation} />
+                        <Card navigation={this.props.navigation} />
+                        <Card navigation={this.props.navigation} />
+                  </ScrollView>
+                 
+               
+               
+            </View>
+
+    )
+}
+}
+
+export default Favorites;
+
+
+
+class Card extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+            <View style={style.card}>
+
+                   <View style={{flexDirection:"row",}}>
+                      {/* View for Image */}
+                       <View style={{width:Dimensions.get("window").width/3.1}}>
+                        <Image source={require("../img/f1.jpg")}
+                        style={style.logo}/>
+                        </View>
+                        {/* View for Content */}
+                        
+                        <View style={{flexDirection:"column",width:Dimensions.get("window").width/1.5}}>
+                            {/* View for name and heart */}
+                            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+                                 {/* Text View */}
+                                <View style={{width:170,}}>
+                        <Text style={[styles.smallHeading,{top:10,}]}>
+                            Bbq Chicken (Half)
+                            </Text>
+                        <Text style={[styles.p,{top:5,fontSize:13, }]}> 
+                        Freshly marinated chicken Barbequed with spiced and butter</Text>
+                        </View>
+                        {/* View for heart icon  */}
+                        <View>
+                        <Text style={{padding:10,}}>
+                        <Icon name="heart" color="red" size={24} type="ionicon"/>
+                        </Text>
+                        </View>
+                        </View>
+                        {/* View for Price and offer */}
+                        <View style={{flexDirection:"row",justifyContent:"space-between", marginTop:8 }}>
+                            <View style={{flexDirection:"row"}}>
+                        <Text style={[styles.p,{fontFamily:"Raleway-Bold",textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid'}]}>
+                            240/-
+                            </Text>
+                            <Text style={[styles.p,{marginLeft:10, fontFamily:"Raleway-Bold"}]}>
+                            200/-
+                            </Text>
+                            </View>
+
+                            <View>
+                        <TouchableOpacity style={[style.viewDetailsButton,{flexDirection:"row"}]}
+                        onPress={()=>this.props.navigation.navigate("ShopOffers")}
+                        >
+                            
+                            <MaterialCommunityIcons name="sale"  size={22} />
+                            <Text style={style.textButton}>
+                                Offers
+                            </Text>
+                        </TouchableOpacity>
+                        </View>
+                            </View>
+
+                        </View>
+                        
+                   </View>
+               </View>
+        )
+    }
+}
+
+const style=StyleSheet.create({
+    header:{
+        width:Dimensions.get("window").width/2-40,
+        height:50,
+        backgroundColor:"#fff",
+        
+        justifyContent:"center",
+        borderColor:"black"
+    },
+    headerText:{
+        fontSize:20,
+        borderColor:"black",
+        color:"black",
+        alignSelf:"center",
+        fontFamily:"Raleway-SemiBold",
+    },
+    text:{
+        fontFamily:"Raleway-SemiBold",
+        fontSize:18,
+        margin:10
+    },
+    card:{
+        backgroundColor:"#fff",
+        alignSelf:"center",
+        width:Dimensions.get("window").width,
+        top:5,
+        marginBottom:10,
+        shadowRadius: 50,
+        shadowOffset: { width: 50, height: 50 },
+        
+    },
+    logo:{
+        height:100,
+        width:110,
+        // borderWidth:0.2,
+        borderColor:"black",
+        borderRadius:10,
+        margin:10,
+        marginLeft:10
+    },
+    signIn: {
+        width: '100%',
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,   
+        flexDirection:"row",
+        elevation:1,
+    },
+    textSignIn:{
+      fontFamily:"Raleway-Bold",
+      fontSize:16,
+    },
+    viewDetailsButton:{
+        borderColor:"#000",
+        height:35,
+        flexDirection:"row",
+        justifyContent:"space-evenly",
+        width:110,
+        alignContent:"center",
+        alignItems:"center",
+        alignSelf:"flex-end",
+        borderRadius:10,
+        // position:"absolute",
+        // top:80,
+        // left:165
+        //alignSelf:"flex-end"
+    },
+    textButton:{
+        fontFamily:"Raleway-SemiBold",
+        fontSize:15,
+        color:"#000",
+        marginLeft:-10
+
+    }
+})
