@@ -15,7 +15,7 @@ import Toast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swiper from 'react-native-swiper';
 import SwiperFlatList from 'react-native-swiper-flatlist'
-
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -232,192 +232,40 @@ get_cover=()=>{
 
                             });
 }
+
+share_whatsapp = () =>
+{
+    alert("ddss");
+}
     render(){
     
         return(
            
             <View style={[styles.container,{backgroundColor:"transparent"}]}>
-            {/* View for Banner Image */}
-           
-            <View style={[style.card,{backgroundColor:"#fff",height:450}]} >
-                {(this.state.covers.length==0)?
-                <View>
-                      <Image resizeMode="cover" source={require('../img/MarketBoi.png')} style={{width:"100%",height:300,marginTop:-60}} />
-                  
-                    </View>:
-                    <>
-                    {(this.state.covers.length==1)?
-                <View>
-                      <Image resizeMode="cover" source={{uri:global.image_url+this.state.covers[0].image}} style={{width:"100%",height:300,marginTop:-60}} />
-                  
-                    </View>:
-                <Swiper style={styles.wrapper}
-                 autoplay={true}>
-                     {
-               this.state.covers.map((covers,id)=>{
-            return(
-                
-                <View>
-                   
-                    <Image resizeMode="cover" source={{uri:global.image_url+covers.image}} style={{width:"100%",height:300}} />
-                    </View>
-                    )
-                })
-            }
-                </Swiper>
-    }
-                </>
-    }
+                <View style={{width:'100%',height:150,backgroundColor:'rgba(233,149,6,1)'}}>
+                <View style={{width:'80%',padding:20,paddingTop:30}}>
+                    <Text style={[styles.heading,{color:'#eee',fontSize:20, fontWeight:'bold'}]}>Welcome to Weazy Dine</Text>
                 </View>
-                {/* edit button */}
-                <TouchableOpacity style={style.editIcon}
-                onPress={()=>this.props.navigation.navigate("MultipleImage")}>
-                    <Icon  name="camera" type="ionicon" size={20} color="#000"/>
-                    
-                </TouchableOpacity>
-
-                {/* View for profile image and name */}
-                <View style={{top:-350,padding:15, flexDirection:"row"}}>
-                {this.state.image_load ? 
-                <View style={style.profileImg}> 
-                <View style={style.loader}>
-                <ActivityIndicator size="small" color="#326bf3" />
-                </View>
-                </View>
-                :
-                          <Image source={{uri:this.state.image}} style={style.profileImg} />
-                          }
-                        
-
-                    <Pressable onPress={()=>this.RBSheet.open()}  style={style.camIcon}>
-                    <Icon type="ionicon" name="camera"  size={20} color="#000"/>
-                    </Pressable>
-
-                    
-                        {/* Bottom Sheet for Camera */}
-                        <RBSheet
-                        ref={ref => {
-                            this.RBSheet = ref;
-                        }}
-                        closeOnDragDown={true}
-                        closeOnPressMask={true}
-                        height={150}
-                        customStyles={{
-                            container:{
-                                borderTopLeftRadius:20,
-                                borderTopRightRadius:20
-                            },
-                        wrapper: {
-                            // backgroundColor: "transparent",
-                            borderWidth: 1
-                        },
-                        draggableIcon: {
-                            backgroundColor: "grey"
-                        }
-                        }}
-                        >
-                        {/* bottom sheet elements */}
-                        <View>
-                        
-                        {/* Bottom sheet View */}
-                            <View style={{width:"100%",padding:20}}>
-                            <TouchableOpacity onPress={this.camera}>
-                                        <Text style={style.iconPencil}>
-                                            <Icon name='camera' type="ionicon" color={'#0077c0'} size={25}/>
-                                        </Text>
-                                        <Text style={style.Text}>Take a picture</Text>
-                                        </TouchableOpacity>
-
-                                        <TouchableOpacity onPress={this.gallery} > 
-                                        <Text style={style.iconPencil}>
-                                            <Icon name='folder' type="ionicon" color={'#0077c0'} size={25}/>
-                                        </Text>
-                                        <Text style={style.Text}>Select from library</Text>
-                                        </TouchableOpacity>
-
-                            </View>
-                        
+                    <View style={{width:'90%',height:130,backgroundColor:'#fff',alignSelf:'center',position:'absolute',marginTop:90,borderRadius:10,padding:10}}>
+                        <Text style={[styles.h3]}>Share More to Earn More </Text>
+                        <Text style={[styles.p]}>Your customer can visit your online store and place the orders from this link</Text>
+                       <View style={{flexDirection:'row'}}>
+                        <Text style={[styles.p,{marginTop:15}]}>https://dine.weazy.in/yishjkh</Text>
+                        <TouchableOpacity onclick={()=>{this.share_whatsapp()}} style={[styles.catButton,{backgroundColor:"#25d366",width:100,padding:5,alignSelf:'flex-end',borderRadius:5,marginLeft:10,marginTop:10}]}>
+                    <View style={{flexDirection:"row",alignSelf:"center"}}>
+                         <MaterialCommunityIcons name="whatsapp"  color={"#fff"} type="ionicon" size={20} /> 
+                         <Text style={[style.buttonText,{color:"#fff",marginLeft:3,marginTop:-1}]}>Share</Text>
                         </View>
-                        </RBSheet>
-                    <View style={{flexDirection:"column",alignSelf:"center"}}>
-                        {/* name text */}
-                        <Text style={style.nameText}>
-                            <Text style={{fontFamily:"Raleway-Bold",marginLeft:10}}>
-                                 {this.state.name}
-                            </Text>
-                        </Text>
-                        
-                        <Text style={style.text}>
-                            {global.msg}
-                        </Text>
+                    </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-                
-            {/* View for main container */}
-            <View style={style.mainContainer}>
-                    <ScrollView>
-                        {(this.state.step>0)?
-                    <View style={{flexDirection:"row",alignItems:"center",marginHorizontal:20}}>
-                    <LinearProgress value={this.state.per}
-                        trackColor="#f2f2f2"
-                        style={{ marginVertical: 5, marginTop: 20, width: "90%", alignSelf: "center", height: 7, borderRadius: 10 }}
-                        variant="determinate"
-                        color="#326bf3" />
-                        <Text style={{ color: '#000', fontFamily: "Roboto-Regular", marginTop: 12,marginLeft:10 }}>
-                        {this.state.per*100}%
-                                </Text>
-                                <Text style={[styles.h5,{marginLeft:21}]}>
-                    You are just {this.state.step} steps away to complete your profile
-                </Text>
-              </View>
-              :
-              <></>
-                        }
-               
-            
-            {(!this.state.image_loade )?
-                <TouchableOpacity onPress={()=>this.RBSheet.open()} style={[style.cardView,{marginTop:15, borderWidth:1,borderRadius:10,borderColor:'#ececec', flexDirection:"row",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingRight:0,marginLeft:20,marginRight:20}]}>
-                <View style={{width:'20%',paddingTop:5,}}>
-                            <Image source={require('../img/shop-icon.png')} style={{width:40,height:40,marginLeft:10,marginTop:10}} />
-                            </View>
-                            <View style={{width:'80%',paddingTop:10,paddingBottom:10}}>
-                              <Text style={{fontSize:RFValue(12,580),fontFamily:"Roboto-Bold"}}>Upload Your Profile Picture</Text>
-                              <Text style={{fontSize:RFValue(10,580),fontFamily:"Roboto-Regular",marginTop:2}}>Upload your profile picture to showcase your profile good to your customers</Text>
-                          
-                            </View>
-                            
-                          </TouchableOpacity>
-                          :
-                          <></>
-            }
-                
-                {(!this.state.cover_step)?
-                    <TouchableOpacity onPress={()=>{this.props.navigation.navigate("MultipleImage")}} style={[style.cardView,{marginTop:15, borderWidth:1,borderColor:'#ececec',borderRadius:10, flexDirection:"row",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingRight:0,marginLeft:20,marginRight:20}]}>
-                <View style={{width:'20%',paddingTop:5,}}>
-                            <Image source={require('../img/cam.png')} style={{width:40,height:40,marginLeft:10,marginTop:10}} />
-                            </View>
-                            <View style={{width:'80%',paddingTop:10,paddingBottom:10}}>
-                              <Text style={{fontSize:RFValue(12,580),fontFamily:"Roboto-Bold"}}>Upload Your First Cover Picture</Text>
-                              <Text style={{fontSize:RFValue(10,580),fontFamily:"Roboto-Regular",marginTop:2}}>Upload your cover picture to showcase your profile good to your customers</Text>
-                          
-                            </View>
-                            
-                          </TouchableOpacity>
-
-                            :
-                            <></>
-                }
-                          
-                          <Demo navigation={this.props.navigation}/>
-                   </ScrollView>
+            {/* View for Banner Image */}
+             <Demo navigation={this.props.navigation}/>
+                 
             </View>
                
 
-        
-
-          
-           
-            </View>
            
         )
     }

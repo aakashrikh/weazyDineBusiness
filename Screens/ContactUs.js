@@ -100,55 +100,55 @@ class FAQ extends Component{
     render(){
 
         return(
-            
-            <View style={{marginTop:10,backgroundColor:"#fff"}}>
-            <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),}]}>FAQ</Text>
+       <></>     
+        //     <View style={{marginTop:10,backgroundColor:"#fff"}}>
+        //     <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),}]}>FAQ</Text>
 
-            {/* Question View */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answers")}>
-            <View style={style.questView} >
+        //     {/* Question View */}
+        //     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answers")}>
+        //     <View style={style.questView} >
                 
-                <Text style={styles.p}>How to create an offer?</Text>
-                <Icon type="ionicon" name="chevron-forward-outline" />
+        //         <Text style={styles.p}>How to create an offer?</Text>
+        //         <Icon type="ionicon" name="chevron-forward-outline" />
                 
-            </View>
-            </TouchableOpacity >
-                {/* Question View */}
-                <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer1")}>    
-            <View style={style.questView}>
-            <Text style={styles.p}>How to verify myself</Text>
-            <Icon type="ionicon" name="chevron-forward-outline" />
-        </View>
-        </TouchableOpacity>
-            {/* Question View */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer2")}>
-            <View style={style.questView}>
-            <Text style={styles.p}>How can I add my shop?</Text>
-            <Icon type="ionicon" name="chevron-forward-outline" />
-            </View>
-            </TouchableOpacity>
-            {/* Question View */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer3")}>
-            <View style={style.questView}>
-            <Text style={styles.p}>Are the Users genuine?</Text>
-            <Icon type="ionicon" name="chevron-forward-outline" />
-            </View>
-            </TouchableOpacity>
-            {/* Question View */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer4")}>
-            <View style={style.questView}>
-            <Text style={styles.p}>Do I benefit from these offers?</Text>
-            <Icon type="ionicon" name="chevron-forward-outline" />
-            </View>
-            </TouchableOpacity>
-            {/* Question View */}
-            <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer5")}>
-            <View style={style.questView}>
-            <Text style={styles.p}>Do these discount vary from your side?</Text>
-            <Icon type="ionicon" name="chevron-forward-outline" />
-            </View>
-            </TouchableOpacity>
-            </View>
+        //     </View>
+        //     </TouchableOpacity >
+        //         {/* Question View */}
+        //         <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer1")}>    
+        //     <View style={style.questView}>
+        //     <Text style={styles.p}>How to verify myself</Text>
+        //     <Icon type="ionicon" name="chevron-forward-outline" />
+        // </View>
+        // </TouchableOpacity>
+        //     {/* Question View */}
+        //     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer2")}>
+        //     <View style={style.questView}>
+        //     <Text style={styles.p}>How can I add my shop?</Text>
+        //     <Icon type="ionicon" name="chevron-forward-outline" />
+        //     </View>
+        //     </TouchableOpacity>
+        //     {/* Question View */}
+        //     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer3")}>
+        //     <View style={style.questView}>
+        //     <Text style={styles.p}>Are the Users genuine?</Text>
+        //     <Icon type="ionicon" name="chevron-forward-outline" />
+        //     </View>
+        //     </TouchableOpacity>
+        //     {/* Question View */}
+        //     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer4")}>
+        //     <View style={style.questView}>
+        //     <Text style={styles.p}>Do I benefit from these offers?</Text>
+        //     <Icon type="ionicon" name="chevron-forward-outline" />
+        //     </View>
+        //     </TouchableOpacity>
+        //     {/* Question View */}
+        //     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Answer5")}>
+        //     <View style={style.questView}>
+        //     <Text style={styles.p}>Do these discount vary from your side?</Text>
+        //     <Icon type="ionicon" name="chevron-forward-outline" />
+        //     </View>
+        //     </TouchableOpacity>
+        //     </View>
         )
     }
 }
@@ -157,14 +157,25 @@ class FAQ extends Component{
 class Mail extends Component{
     render(){
         return(
+            <View>
             <View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
                     <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0}]}>
                         Mail us
                     </Text>
-                    <Text style={styles.h5} onPress={() => Linking.openURL('mailto:support@marketpluss.com') }>
-                        support@marketpluss.com
+                    <Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@marketpluss.com') }>
+                        support@weazy.in
                     </Text>
                 </View>
+
+<View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
+<Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0}]}>
+    Call US
+</Text>
+<Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@marketpluss.com') }>
+    7060222517
+</Text>
+</View>
+</View>
         )
     }
 }

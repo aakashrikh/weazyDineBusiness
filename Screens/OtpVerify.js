@@ -255,9 +255,7 @@ class OtpVerify extends Component
 
                 {/* Image */}
                 <Image source={require('../img/tickotp.png')} style={styles.image}/>
-
-               
-                
+  
               </View>
 
               {/* Heading */}
@@ -391,7 +389,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 45,
     borderWidth: 0,
-    borderBottomWidth: 1,
+    borderWidth: 1,
     fontSize:24,
     borderColor:'#eee',
     color:"#326bf3"

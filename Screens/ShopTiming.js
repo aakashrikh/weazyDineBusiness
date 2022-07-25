@@ -108,7 +108,7 @@ class ShopTiming extends Component {
             .then((json) => {
                 if (json.status) {
 
-                    this.props.navigation.navigate("UploadLogo")
+                    this.props.navigation.navigate("VerificationDone")
 
                 }
                 console.warn(json);
@@ -189,7 +189,7 @@ class ShopTiming extends Component {
             <View style={styles.container}>
                 <ScrollView>
                     <Text style={[styles.h4, { alignSelf: "center", fontFamily: "Roboto-Medium", marginTop: 40 }]}>
-                        Step 2 of 6
+                        Step 2 of 2
                     </Text>
 
                     {/* heading */}
@@ -209,7 +209,7 @@ class ShopTiming extends Component {
                                     </View>
                                     <View style={{ width: "10%", marginLeft: 5 }}>
                                         <Switch
-                                            trackColor={{ false: "#d3d3d3", true: "#326bf3" }}
+                                            trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
                                             thumbColor={"white"}
                                             value={value.status}
                                             onValueChange={() => this.update_time(id)}
@@ -257,15 +257,15 @@ class ShopTiming extends Component {
                         <View>
                             <TouchableOpacity
                                 onPress={() => this.update_vendor_timing()}
-                                style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, width: "60%", alignSelf: "center" }]}>
+                                style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, width: "80%", alignSelf: "center" }]}>
                                 <LinearGradient
-                                    colors={['#326bf3', '#0b2654']}
+                                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
                                     style={[styles.signIn]}>
 
                                     <Text style={[styles.textSignIn, {
                                         color: '#fff'
                                     }]}>
-                                        Update Time
+                                        Next
                                     </Text>
 
                                 </LinearGradient>
@@ -273,7 +273,7 @@ class ShopTiming extends Component {
                         </View>
                         :
                         <View style={style.loader}>
-                            <ActivityIndicator size={"large"} color="#326bf3" />
+                            <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
                         </View>
                     }
                 </ScrollView>

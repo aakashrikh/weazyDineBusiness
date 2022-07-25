@@ -181,7 +181,7 @@ class CreateShopProfile extends Component {
                     {/* <Steps /> */}
 
                     <Text style={[styles.h4, { alignSelf: "center", fontFamily: "Roboto-Medium", marginTop: 40 }]}>
-                        Step 1 of 6
+                        Step 1 of 2
                     </Text>
 
                     {/* heading */}
@@ -197,7 +197,11 @@ class CreateShopProfile extends Component {
                                 onChangeText={(e) => { this.setState({ name: e }) }}
                                 style={{
                                     fontSize: RFValue(11, 580),
-                                    color: "black"
+                                    color: "black",
+                                    borderWidth:1,
+                                    borderRadius:5,
+                                    borderColor:'#5d5d5d',
+                                    marginTop:10,
                                 }}
                                 inputContainerStyle={{
                                     width: Dimensions.get("window").width / 1.12,
@@ -255,7 +259,11 @@ class CreateShopProfile extends Component {
                                 onChangeText={(e) => { this.setState({ shopDescription: e }) }}
                                 style={{
                                     fontSize: RFValue(11, 580),
-                                    color: "black"
+                                    color: "black",
+                                    borderWidth:1,
+                                    borderRadius:5,
+                                    borderColor:'#5d5d5d',
+                                    marginTop:10,
                                 }}
                                 inputContainerStyle={{
                                     width: Dimensions.get("window").width / 1.12,
@@ -271,7 +279,11 @@ class CreateShopProfile extends Component {
                                     onChangeText={(e) => { this.setState({ whatsapp_number: e }) }}
                                     style={{
                                         fontSize: RFValue(11, 580),
-                                        color: "black"
+                                    color: "black",
+                                    borderWidth:1,
+                                    borderRadius:5,
+                                    borderColor:'#5d5d5d',
+                                    marginTop:10,
                                     }}
                                     inputContainerStyle={{
                                         width: Dimensions.get("window").width / 1.12,
@@ -291,9 +303,9 @@ class CreateShopProfile extends Component {
                         <View>
                             <TouchableOpacity
                                 onPress={() => this.vendor_registration()}
-                                style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, alignSelf: "center" }]}>
+                                style={[styles.buttonStyles, {width:'90%', marginBottom: 15, marginTop: 25, alignSelf: "center" }]}>
                                 <LinearGradient
-                                    colors={['#326bf3', '#0b2654']}
+                                     colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
                                     style={[styles.signIn]}>
 
                                     <Text style={[styles.textSignIn, {

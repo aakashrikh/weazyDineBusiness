@@ -74,7 +74,9 @@ import TopDeals from './Screens/TopDeals';
 import VerifyVoucher from './Screens/VerifyVoucher';
 import VoucherDetails from './Screens/VoucherDetails';
 import CashbackHistory from './Screens/CashbackHistory';
-
+import Tables from './Screens/Tables';
+import OtherCharges from './Screens/OtherCharges';
+import TableView from './Screens/TableView';
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0);
 OneSignal.setAppId("797f6c8e-274b-4455-a7b8-41300ca5d882");
@@ -112,7 +114,7 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api="https://beta-api.marketpluss.com/api/";
+ global.vendor_api="http://10.0.2.2:8000/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo
@@ -136,13 +138,13 @@ class TabNav extends Component{
         headerShown:false,
         tabBarIcon:({focused, color,tintColor})=>{
           let iconName;
-          if(route.name=="Feeds"){
+          if(route.name=="Tables"){
             return(
               <Image source={require('./img/icons/feeds.png')} 
               style={{width:25,height:25,marginTop:5,tintColor: focused ? "": color}}/>
             )
           }
-          else if(route.name=="Services"){
+          else if(route.name=="Products"){
             return(
               <Image source={require('./img/icons/services.png')} 
               style={{width:22,height:22,marginTop:5,tintColor: focused ? "": color}}/>
@@ -188,9 +190,9 @@ class TabNav extends Component{
     }}>
         
         <Tab.Screen name="Home" component={Home}/>
-        <Tab.Screen name="Feeds" component={Feeds}/>
+        <Tab.Screen name="Tables" component={Tables}/>
 
-        <Tab.Screen name="Services" component={TopTab}/>
+        <Tab.Screen name="Products" component={TopTab}/>
 
         
 
@@ -351,15 +353,15 @@ render(){
         <Stacks.Screen name="CreateShopProfile" component={CreateShopProfile} options={{headerShown: false}}/>
         <Stacks.Screen name="ShopTiming" component={ShopTiming} options={{headerShown: false}}/>
          
-          <Stacks.Screen name="EnableLocation" component={EnableLocation} options={{headerShown: false}}/>
-          <Stacks.Screen name="LocationAccess" component={LocationAccess} options={{headerShown: false}}/>
-          <Stacks.Screen name="LocationDetails" component={LocationDetails} options={{headerShown: false}}/>
-          <Stacks.Screen name="ChooseCategories" component={ChooseCategories} options={{headerShown: false}}/>
-          <Stacks.Screen name="UnderVerification" component={UnderVerification} options={{headerShown: false}}/>
+          {/* <Stacks.Screen name="EnableLocation" component={EnableLocation} options={{headerShown: false}}/> */}
+          {/* <Stacks.Screen name="LocationAccess" component={LocationAccess} options={{headerShown: false}}/> */}
+          {/* <Stacks.Screen name="LocationDetails" component={LocationDetails} options={{headerShown: false}}/> */}
+          {/* <Stacks.Screen name="ChooseCategories" component={ChooseCategories} options={{headerShown: false}}/> */}
+          {/* <Stacks.Screen name="UnderVerification" component={UnderVerification} options={{headerShown: false}}/> */}
           <Stacks.Screen name="VerificationDone" component={VerificationDone} options={{headerShown: false}}/>
-          <Stacks.Screen name="UploadLogo" component={UploadLogo} options={{headerShown:false}}/>
-          <Stacks.Screen name="UploadCovers" component={UploadCovers} options={{headerShown:false}}/>
-          <Stacks.Screen name="ChooseSubCategories" component={ChooseSubCategory} options={{headerShown: false}}/>
+          {/* <Stacks.Screen name="UploadLogo" component={UploadLogo} options={{headerShown:false}}/> */}
+          {/* <Stacks.Screen name="UploadCovers" component={UploadCovers} options={{headerShown:false}}/> */}
+          {/* <Stacks.Screen name="ChooseSubCategories" component={ChooseSubCategory} options={{headerShown: false}}/> */}
          
 
           </> 
@@ -411,7 +413,10 @@ render(){
           <Stacks.Screen name="TopDeals" component={TopDeals} options={{headerShown:false}}/>
           <Stacks.Screen name="VerifyVoucher" component={VerifyVoucher} options={{headerShown:false}}/>  
           <Stacks.Screen name="VoucherDetails" component={VoucherDetails} options={{headerShown:false}}/>
-          <Stacks.Screen name="CashbackHistory" component={CashbackHistory} options={{headerShown:false}}/>        
+          <Stacks.Screen name="CashbackHistory" component={CashbackHistory} options={{headerShown:false}}/> 
+          <Stacks.Screen name="TableView" component={TableView} options={{headerShown:false}}/> 
+          <Stacks.Screen name="OtherCharges" component={OtherCharges } options={{headerShown:false}}/> 
+               
    </>
       ) 
       }  

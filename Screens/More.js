@@ -124,6 +124,18 @@ constructor(props){
                             style={{height:20,width:20,alignSelf:"center"}}/>
                         </View>
                     </TouchableOpacity >
+
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate("OtherCharges")}>
+                        <View style={style.questView} >
+                            <View style={{flexDirection:"row"}}>
+                                <Image source={require('../img/icons/about.png')} style={style.Icon}/>
+                                <Text style={style.texxt}>Other Charges</Text>
+                            </View>
+                            <Image source={require('../img/icons/right-arrow.png')}
+                            style={{height:20,width:20,alignSelf:"center"}}/>
+                        </View>
+                    </TouchableOpacity >
+
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("ChangeShopTime")}>
                         <View style={style.questView} >
                             <View style={{flexDirection:"row"}}>
@@ -147,7 +159,7 @@ constructor(props){
                     </TouchableOpacity >
                     
                     {/* Category change */}
-                    <TouchableOpacity onPress={()=>this.props.navigation.navigate("CategoryChange")}>    
+                    {/* <TouchableOpacity onPress={()=>this.props.navigation.navigate("CategoryChange")}>    
                         <View style={style.questView}>
                             <View style={{flexDirection:"row"}}>
                                 <Image source={require('../img/icons/list.png')} style={style.Icon}/>
@@ -156,7 +168,7 @@ constructor(props){
                             <Image source={require('../img/icons/right-arrow.png')}
                             style={{height:20,width:20,alignSelf:"center"}}/>                        
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* Notifications */}
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("Notification")}>
@@ -200,7 +212,7 @@ constructor(props){
                         <View style={style.questView}>
                             <View style={{flexDirection:"row"}}>
                                 <Image source={require('../img/icons/phone.png')} style={style.Icon}/>
-                                <Text style={style.texxt}>Contact Us</Text>
+                                <Text style={style.texxt}>Support</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}
                             style={{height:20,width:20,alignSelf:"center"}}/>                        

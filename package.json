@@ -71,6 +71,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.1.1",
+    "react-native-swipe-list-view": "^3.2.9",
     "react-native-swiper": "^1.6.0",
     "react-native-swiper-flatlist": "^3.0.14",
     "react-native-tab-view": "2.x",
