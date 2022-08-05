@@ -114,7 +114,7 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api="http://10.0.2.2:8000/api/";
+ global.vendor_api="https://weazydine.healthyrabbit.in/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo

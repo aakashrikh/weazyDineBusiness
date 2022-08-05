@@ -31,7 +31,8 @@ class Tables extends Component {
             status: "active",
             isloading:true,
             data:[],
-            table_load:false
+            table_load:false,
+            interval:''
 
         };
 
@@ -79,27 +80,30 @@ class Tables extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
+                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
                   //  clearInterval(myInterval);
                 }
                 else {
-
-                    let myInterval = setInterval(() => {
-                        this.fetch_table_vendors();
-                        // this.get_profile();
-        
-                    }, 5000);
-
-                    // Toast.show(json.msg)
-                    
+                    console.warn(json.data);
                     if(json.data.length>0)
                     {
                        // console.warn(json.data)
                         this.setState({data:json.data})
                     }
+
+                    // let myInterval = setInterval(() => {
+                    //     this.fetch_table_vendors();
+                    //     // this.get_profile();
+        
+                    // }, 10000);
+
+                    // this.setState({interval:myInterval});
+                    // Toast.show(json.msg)
+                    
+                    
                 }
                 return json;
             }).catch((error) => {
