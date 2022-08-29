@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity
+    ScrollView, Dimensions, TouchableOpacity,FlatList,
+    Modal,
+    Linking
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,6 +15,7 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Toast from "react-native-simple-toast";
 import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -27,8 +30,13 @@ class TableView extends Component {
         super(props);
         this.state = {
             category: "",
-            status: "active"
-
+            status: "active",
+            data:[],
+            isloading:true,
+            cart:[],
+            modalVisible: false,
+            total_price:0,
+            bill:[]
         };
        
     }
@@ -37,6 +45,55 @@ class TableView extends Component {
     componentDidMount()
     {
      //   this.RBSheet.open();
+     this.fetch_table_order()
+    }
+
+    fetch_table_order = () => {
+        fetch(global.vendor_api + 'fetch_ongoing_order_for_table', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
+              table_id: this.props.route.params.table_id,
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                 console.warn(json)
+                if (!json.status) {
+                    var msg = json.msg;
+                    Toast.show(msg);
+                  //  clearInterval(myInterval);
+                }
+                else {
+                    console.warn(json.data);
+                    if(json.data.length>0)
+                    {
+                       // console.warn(json.data)
+                        this.setState({data:json.data[0]})
+                        this.setState({cart:json.data[0].cart})
+                    }
+
+                    // let myInterval = setInterval(() => {
+                    //     this.fetch_table_vendors();
+                    //     // this.get_profile();
+        
+                    // }, 10000);
+
+                    // this.setState({interval:myInterval});
+                    // Toast.show(json.msg)
+              
+                    
+                }
+                this.setState({isloading:false})
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.setState({ isloading:false })
+            });
     }
     //for header left component
     renderLeftComponent() {
@@ -65,45 +122,6 @@ class TableView extends Component {
             </View>
 
         )
-    }
-
-    add = () => {
-        if (this.state.category != "") {
-            fetch(global.vendor_api + 'create_category_vendor', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': global.token
-                },
-                body: JSON.stringify({
-                    category_name: this.state.category,
-                    status: this.state.status
-                })
-            }).then((response) => response.json())
-                .then((json) => {
-                    // console.warn(json)
-                    if (!json.status) {
-                        var msg = json.msg;
-                        Toast.show(msg);
-                    }
-                    else {
-                        Toast.show(json.msg)
-                        this.props.navigation.goBack()
-                        this.props.route.params.get_cat();
-
-                    }
-                    return json;
-                }).catch((error) => {
-                    console.error(error);
-                }).finally(() => {
-                    this.setState({ isloading: false })
-                });
-
-        }
-        else {
-            Toast.show('Please add Category first!');
-        }
     }
 
 
@@ -143,8 +161,98 @@ class TableView extends Component {
     {
         alert("Sss");
     }
-    render() {
 
+
+    complete_order = (status) =>
+    {
+        fetch(global.vendor_api + 'update_order_status_by_vendor', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
+              order_status: status,
+              order_id: this.state.data.order_code,
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                 console.warn(json)
+                if (!json.status) {
+                    var msg = json.msg;
+                    Toast.show(msg);
+                  //  clearInterval(myInterval);
+                }
+                else {
+                    console.warn(json.data);
+                    if(json.data.length>0)
+                    {
+                       // console.warn(json.data)
+                        this.setState({data:json.data[0]})
+                        this.setState({cart:json.data[0].cart})
+                    }
+                    this.setState({modalVisible:true})
+                }
+               // this.setState({isloading:false})
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+               // this.setState({ isloading:false })
+            });
+    }
+
+    genrate_bill  = () =>
+    {
+        fetch(global.vendor_api + 'generate_bill_by_table', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
+              table_id: this.props.route.params.table_id, 
+              order_id: this.state.data.order_code,
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                 console.warn(json)
+                if (!json.status) {
+                    var msg = json.msg;
+                    Toast.show(msg);
+                  //  clearInterval(myInterval);
+                }
+                else {
+                    console.warn(json.data);
+                    if(json.data.length>0)
+                    {
+                       // console.warn(json.data)
+                        this.setState({bill:json.data[0]})
+                        this.setState({cart:json.data[0].cart})
+                    }
+                    this.setState({modalVisible:true})
+                }
+               // this.setState({isloading:false})
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+               // this.setState({ isloading:false })
+            });
+    }
+
+
+    addonItem = ({item})=>(
+        <View style={{margin:5,borderWidth:1,padding:5,borderRadius:5}}>
+            <Text>{item.addon_name}</Text>
+            </View>
+    )
+
+
+    render() {
+        const { modalVisible } = this.state;
         return (
             <View style={[styles.container,{backgroundColor:'#f2f2f2'}]}>
                 <View>
@@ -161,78 +269,113 @@ class TableView extends Component {
                         }}
                     />
                 </View>
-                <View style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    
-                <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView')}} style={{width:'100%',marginTop:10,backgroundColor:'#fff',width:'100%',alignSelf:'center',borderRadius:5}}>
-                   <View style={{width:'100%'}}>
-                    <View style={{flexDirection:'row',width:'100%',padding:10, borderBottomWidth:1,borderBottomColor:'#ececec'}}>
-                    <View style={{width:'20%',width:50,height:50,backgroundColor:'darkred',borderRadius:5}}>
-                        <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
-                    </View>
+              
+                   <ScrollView style={{backgroundColor:'#fff'}}>
+
+                    {
+                    (!this.state.isloading)?(
                    
-                    <View style={{marginLeft:20,width:'60%'}}>
-                    <Text style={styles.h4}>Coffie</Text>
-                    <Text style={styles.p}>2 * 30</Text>
-                    </View>
+                        (this.state.cart.length>0)?
 
-                    <View style={{marginLeft:20,width:'20%'}}>
-                    <Text style={styles.h3}>302</Text>
-                    </View>
-
-                    </View>
-
-                    <View style={{flexDirection:'row',width:'100%',padding:10, borderBottomWidth:1,borderBottomColor:'#ececec'}}>
+                        (this.state.cart.map((item,index)=>{
+return(
+                            <View style={{flexDirection:'row',width:'100%',padding:10, borderBottomWidth:1,borderBottomColor:'#ececec'}}>
                     <View style={{width:'20%',width:50,height:50,backgroundColor:'darkred',borderRadius:5}}>
                         <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
                     </View>
 
                     <View style={{marginLeft:20,width:'60%'}}>
-                    <Text style={styles.h4}>Coffie</Text>
-                    <Text style={styles.p}>2 * 30</Text>
+                    <Text style={styles.h4}>{item.product.product_name} 
+                    {(item.variant != null)?<Text>- {item.variant.variant_name}</Text>:('')}
+                    
+                  </Text>
+
+                 <View style={{flexDirection:'column'}}>
+                  {(item.addons.length > 0)?(
+
+                            <FlatList
+                            numColumns={3} 
+                            data={item.addons}
+                            renderItem={this.addonItem}
+                            keyExtractor={item => item.id}
+                            />
+
+                  ):
+                  <></>
+                }
+                </View>
+                    
+                    <Text style={styles.p}>{item.product_quantity} * {item.product_price/item.product_quantity} </Text>
                     </View>
 
                     <View style={{marginLeft:20,width:'20%'}}>
-                    <Text style={styles.h3}>302</Text>
+                    <Text style={styles.h3}>₹{item.product_price}</Text>
                     </View>
 
                     </View>
+)
+            }))
+            :
+            <View style={{paddingTop:120,alignItems:"center"}}>
+                            <View style={{alignSelf:"center"}}>
+                            <Image source={require("../img/no-product.png")}
+                            style={{width:300,height:300}} />
+                             <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+                    No Orders Found!
+                </Text>
+                        </View>  
+                        </View>
+                   
+                        
+                    ):
+                    <Loaders />
 
-
+                    }
+               
+{
+     (!this.state.isloading)?(
+                   
+        (this.state.cart.length>0)?
+        <View style={{marginBottom:100}}>
                     <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:10,marginBottom:5}}>
                         <Text style={[styles.h4,{width:'80%'}]}>Item Total</Text>
-                        <Text style={[styles.h4,{width:'20%',alignSelf:'flex-end'}]}>300</Text>
+                        <Text style={[styles.h4,{width:'20%',alignSelf:'flex-end'}]}>₹{this.state.data.order_amount}</Text>
                     </View>
 
-                    <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:5,marginBottom:5}}>
+                    {/* <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:5,marginBottom:5}}>
                         <Text style={[styles.h4,{width:'80%'}]}>GST (15%)</Text>
                         <Text style={[styles.h4,{width:'20%',alignSelf:'flex-end'}]}>300</Text>
-                    </View>
+                    </View> */}
 
-                    <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:10,marginBottom:15}}>
-                        <Text style={[styles.h3,{width:'80%'}]}>Grand Total</Text>
-                        <Text style={[styles.h3,{width:'20%',alignSelf:'flex-end'}]}>300</Text>
+                    
                     </View>
+                    :
+               <Text></Text>
+     ):
+     <></>
+}
 
-                    </View>
-                </TouchableOpacity>
-                 
 
-                </View>
+</ScrollView>
 
                 <View style={{width:'100%',height:50,backgroundColor:'#fff',position:'absolute',bottom:0}}>
+
+                {(this.state.cart.length>0)?
                 <TouchableOpacity
             // onPress={this.send_otp}
-            onPress={()=>this.sendOtp()}
+            onPress={()=>this.genrate_bill()}
             style={[styles.buttonStyle,{bottom:10}]}>
                 <LinearGradient 
                     colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
-                    style={[styles.signIn,{borderRadius:10,width:'80%',alignSelf:'center',position:'absolute'}]}>
+                    style={[styles.signIn,{borderRadius:10,width:'80%',alignSelf:'center'}]}>
 
                     <Text style={[styles.textSignIn, {
                     color:'#fff'}]}>Generate Bill</Text>
                     
                 </LinearGradient>
-            </TouchableOpacity>
+            </TouchableOpacity>:
+            <></>
+                    }
                 </View>
 
                  {/* Bottom Sheet for Camera */}
@@ -262,11 +405,11 @@ class TableView extends Component {
                         
                         {/* Bottom sheet View */}
                             <View style={{width:"100%",padding:20}}>
-                            <TouchableOpacity onPress={()=>{this.save_qr()}} style={{flexDirection:'row'}}>
+                            <TouchableOpacity onPress={()=>{Linking.openURL(this.props.route.params.table_url)}} style={{flexDirection:'row'}}>
                                         <Text style={style.iconPencil}>
                                             <Icon name='qr-code-outline' type="ionicon" color={'#0077c0'} size={30}/>
                                         </Text>
-                                        <Text style={[styles.h4,{marginLeft:20,marginTop:4}]}>Download Table QR</Text>
+                                        <Text style={[styles.h4,{marginLeft:20,marginTop:4}]}>View Table QR</Text>
                                         </TouchableOpacity>
 
                                         <TouchableOpacity onPress={()=>{this.delete_table()}} style={{flexDirection:'row',marginTop:10}}> 
@@ -280,6 +423,38 @@ class TableView extends Component {
                         
                         </View>
                         </RBSheet>
+                        <View style={style.centeredView}>
+                        <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert("Modal has been closed.");
+                            this.setModalVisible(!modalVisible);
+                        }}
+                        >
+          <View style={style.centeredView}>
+            <View style={style.modalView}>
+              <Text style={[styles.h4,{alignSelf:'center'}]}>Generating your Bill!</Text>
+              
+              <Text style={[styles.h3,{marginTop:5}]}>Total - Rs.1992</Text>
+              <TouchableOpacity
+            // onPress={this.send_otp}
+            // onPress={()=>this.complete_order()}
+            onPress={()=>this.props.navigation.navigate("GenerateBill",{bill:this.state.bill})}
+            >
+                <LinearGradient 
+                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                    style={[{borderRadius:10,width:'80%',alignSelf:'center',backgroundColor:'red',padding:5,borderRadius:5,paddingLeft:10,paddingRight:10,marginTop:20}]}>
+                    <Text style={[styles.textSignIn, {
+                    color:'#fff'}]}>Mark Complete</Text>
+                    
+                </LinearGradient>
+            </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        </View>
             </View>
         )
     }
@@ -327,6 +502,28 @@ class Loaders extends Component {
 export default TableView
 
 const style = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        width:300,
+        backgroundColor: "white",
+        borderRadius: 5,
+        padding: 15,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
     fieldsTitle: {
         fontFamily: "Raleway-Regular",
         // color:"grey",

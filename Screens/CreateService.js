@@ -249,7 +249,10 @@ class Fields extends Component {
                         Toast.show(json.msg)
                         this.props.get_cat();
                         this.props.get_product(0);
-                        this.props.navigation.navigate(this.props.back,{refresh:true})
+
+                        
+                        this.props.navigation.navigate('ProductVariants',{product_id:json.data.id,variants:json.data.variants,addons:json.data.addons,});
+                        //this.props.navigation.navigate(this.props.back,{refresh:true})
                         
                     }
                     return json;
@@ -337,7 +340,7 @@ class Fields extends Component {
 
                 <View>
                     <Text style={style.fieldsTitle}>
-                        Description <Text style={{ color: "grey" }}>(50words) </Text>
+                        Descript <Text style={{ color: "grey" }}>(50words) </Text>
                     </Text>
                     <TextInput 
                     multiline={true}
@@ -353,6 +356,7 @@ class Fields extends Component {
                 </View>
 
                 <View>
+                  
                     <View style={{ flexDirection: "row", width: "100%" }}>
 
 

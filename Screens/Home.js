@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text,View,ScrollView,
     StyleSheet,Image,Pressable,ActivityIndicator,
-    TouchableOpacity,ImageBackground
+    TouchableOpacity,ImageBackground,Linking
 } from 'react-native';
 import {Icon,LinearProgress} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -44,7 +44,8 @@ class Home extends Component{
             per:0,
             cover_load:true,
             cover_step:true,
-            image_loade:true
+            image_loade:true,
+            link:""
     };
 }
 
@@ -108,7 +109,7 @@ get_profile=()=>{
 
                         })}).then((response) => response.json())
                         .then((json) => {
-                            console.warn(json)
+    
                             if(!json.status)
                             {
                                 
@@ -117,6 +118,7 @@ get_profile=()=>{
                                
                                 this.setState({data:json.data})
                                 this.setState({id:json.data.id})
+                                this.setState({link:json.data.link})
                                 json.data.map(value=>{
                                     this.setState({step:value.step});
                                     if(value.step == 2)
@@ -233,9 +235,9 @@ get_cover=()=>{
                             });
 }
 
-share_whatsapp = () =>
+share_whatsapp = (link) =>
 {
-    alert("ddss");
+    Linking.openURL('whatsapp://send?text=Hey there! Sign-up on the MarketPluss app using my referral code and get ₹' + this.state.earner+' \n\nDownload the app: '+link).catch(e=>Toast.show("WhatsApp is not installed in your device"));
 }
     render(){
     
@@ -250,8 +252,8 @@ share_whatsapp = () =>
                         <Text style={[styles.h3]}>Share More to Earn More </Text>
                         <Text style={[styles.p]}>Your customer can visit your online store and place the orders from this link</Text>
                        <View style={{flexDirection:'row'}}>
-                        <Text style={[styles.p,{marginTop:15}]}>https://dine.weazy.in/yishjkh</Text>
-                        <TouchableOpacity onclick={()=>{this.share_whatsapp()}} style={[styles.catButton,{backgroundColor:"#25d366",width:100,padding:5,alignSelf:'flex-end',borderRadius:5,marginLeft:10,marginTop:10}]}>
+                        <Text style={[styles.p,{marginTop:15}]}>{this.state.link}</Text>
+                        <TouchableOpacity onPress={()=>{this.share_whatsapp(this.state.link)}} style={[styles.catButton,{backgroundColor:"#25d366",width:100,padding:5,alignSelf:'flex-end',borderRadius:5,marginLeft:10,marginTop:10}]}>
                     <View style={{flexDirection:"row",alignSelf:"center"}}>
                          <MaterialCommunityIcons name="whatsapp"  color={"#fff"} type="ionicon" size={20} /> 
                          <Text style={[style.buttonText,{color:"#fff",marginLeft:3,marginTop:-1}]}>Share</Text>

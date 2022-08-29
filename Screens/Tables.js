@@ -64,6 +64,7 @@ class Tables extends Component {
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
             this.fetch_table_vendors();
         });
+
     }
 
     fetch_table_vendors = ()=>
@@ -80,14 +81,14 @@ class Tables extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                 console.warn(json)
+                // console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
                   //  clearInterval(myInterval);
                 }
                 else {
-                    console.warn(json.data);
+                   // console.warn(json.data);
                     if(json.data.length>0)
                     {
                        // console.warn(json.data)
@@ -100,7 +101,7 @@ class Tables extends Component {
         
                     // }, 10000);
 
-                    // this.setState({interval:myInterval});
+                 //   this.setState({interval:myInterval});
                     // Toast.show(json.msg)
                     
                     
@@ -112,6 +113,8 @@ class Tables extends Component {
                 this.setState({ isloading:false })
             });
     }
+
+
 
     add = () => {
 
@@ -127,7 +130,7 @@ class Tables extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
+                    console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
@@ -151,7 +154,7 @@ class Tables extends Component {
     (
         <>
         {(item.table_status == 'active')?
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id})}} style={{width:'100%',marginTop:10,padding:10,backgroundColor:'#fff',width:'90%',alignSelf:'center',borderRadius:5}}>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_url:item.qr_link})}} style={{width:'100%',marginTop:10,padding:10,backgroundColor:'#fff',width:'90%',alignSelf:'center',borderRadius:5}}>
                    <View style={{flexDirection:'row'}}>
                     <View style={{width:60,height:60,backgroundColor:'darkred',borderRadius:5}}>
                         <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>

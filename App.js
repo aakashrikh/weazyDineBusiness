@@ -77,6 +77,10 @@ import CashbackHistory from './Screens/CashbackHistory';
 import Tables from './Screens/Tables';
 import OtherCharges from './Screens/OtherCharges';
 import TableView from './Screens/TableView';
+import ProductVariants from './Screens/ProductVariants';
+import GenerateBill from './Screens/GenerateBill';
+import Wallet from './Screens/Wallet';
+
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0);
 OneSignal.setAppId("797f6c8e-274b-4455-a7b8-41300ca5d882");
@@ -230,7 +234,7 @@ componentDidMount(){
       global.vendor=JSON.parse(result).vendor_id;
       global.step=this.state.step
       global.msg="Welcome Back"
-      this.get_profile();
+      this.get_profile(JSON.parse(result).token);
       setTimeout(() => {SplashScreen.hide(); }, 50)
     }
     else{
@@ -261,13 +265,14 @@ login = (step) =>
     this.setState({islogin:false})
   }
 
-  get_profile=()=>{
+  get_profile=(token)=>{
+
     fetch(global.vendor_api+'get_vendor_profile', { 
       method: 'POST',
         headers: {    
             Accept: 'application/json',  
               'Content-Type': 'application/json',
-              'Authorization':global.token  
+              'Authorization':token  
              }, 
               body: JSON.stringify({ 
     
@@ -416,7 +421,10 @@ render(){
           <Stacks.Screen name="CashbackHistory" component={CashbackHistory} options={{headerShown:false}}/> 
           <Stacks.Screen name="TableView" component={TableView} options={{headerShown:false}}/> 
           <Stacks.Screen name="OtherCharges" component={OtherCharges } options={{headerShown:false}}/> 
-               
+          <Stacks.Screen name="GenerateBill" component={GenerateBill} options={{headerShown:false}}/>
+          <Stacks.Screen name="ProductVariants" component={ProductVariants} options={{headerShown:false}}/> 
+          <Stacks.Screen name="AddCover" component={AddCover} options={{headerShown:false}}/> 
+          <Stacks.Screen name="Wallet" component={Wallet} options={{headerShown:false}}/> 
    </>
       ) 
       }  

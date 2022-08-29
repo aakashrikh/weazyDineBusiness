@@ -125,6 +125,17 @@ constructor(props){
                         </View>
                     </TouchableOpacity >
 
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate("MultipleImage")}>
+                        <View style={style.questView} >
+                            <View style={{flexDirection:"row"}}>
+                                <Image source={require('../img/icons/about.png')} style={style.Icon}/>
+                                <Text style={style.texxt}>Add  Covers Pictures</Text>
+                            </View>
+                            <Image source={require('../img/icons/right-arrow.png')}
+                            style={{height:20,width:20,alignSelf:"center"}}/>
+                        </View>
+                    </TouchableOpacity >
+
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("OtherCharges")}>
                         <View style={style.questView} >
                             <View style={{flexDirection:"row"}}>
@@ -220,7 +231,7 @@ constructor(props){
                     </TouchableOpacity>
 
                     {/* How to use */}
-                    <TouchableOpacity onPress={()=>Linking.openURL('https://www.youtube.com/channel/UCQ85cK-wQljpJN56ERsbWCA')}>    
+                    {/* <TouchableOpacity onPress={()=>Linking.openURL('https://www.youtube.com/channel/UCQ85cK-wQljpJN56ERsbWCA')}>    
                         <View style={style.questView}>
                             <View style={{flexDirection:"row"}}>
                                 <Image source={require('../img/icons/question.png')} style={style.Icon}/>
@@ -229,7 +240,7 @@ constructor(props){
                             <Image source={require('../img/icons/right-arrow.png')}
                             style={{height:20,width:20,alignSelf:"center"}}/>                        
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     
                     {/* logout */}
                     <TouchableOpacity onPress={()=>this.logOut()}>

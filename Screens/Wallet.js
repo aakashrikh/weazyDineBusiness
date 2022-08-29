@@ -23,13 +23,14 @@ const win = Dimensions.get('window');
 const styles = require('../Components/Style.js');
 
 
-class CashbackHistory extends Component {
+class Wallet extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isLoading: true,
             data: [],
-            page: 1
+            page: 1,
+            wallet:0
         }
 
     }
@@ -52,7 +53,7 @@ class CashbackHistory extends Component {
     renderCenterComponent() {
         return (
             <View>
-                <Text style={style.text}>Orders</Text>
+                <Text style={style.text}>Payment History</Text>
             </View>
 
         )
@@ -60,7 +61,7 @@ class CashbackHistory extends Component {
 
     fetch_order = (page_id) => {
 
-        fetch(global.vendor_api + 'get_orders_vendor', {
+        fetch(global.vendor_api + 'fetch_vendor_txn', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -73,12 +74,20 @@ class CashbackHistory extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
+                console.warn(json)
                 if (!json.status) {
 
                    
                 }
                 else {
-                    this.setState({ data: json.data.data });
+                    var obj=json.data.data;
+                   // this.setState({ data: json.data.data });
+                    // if(page_id==1)
+                    // {
+                    //   this.setState({data:[] , isLoading:false})
+                    // }
+                  this.setState({data:this.state.data.concat(obj)});
+                  this.setState({bal:json.data.wallet});
                     // this.props.navigation.navigate("More")
 
                 }
@@ -111,43 +120,27 @@ class CashbackHistory extends Component {
                     <View style={{ flexDirection: "row",marginTop: 5, marginLeft: 15,width:'100%' }}>
 
                         <View style={{width:'65%'}}>
-                        <Text style={[styles.h5,{marginBottom:5}]}>
-                            {item.order_code}
-                        </Text>
+                       
 
                         <Text style={styles.h4}>
-                            {item.user.name}
+                            {item.txn_comment}
                         </Text>
-                        <Text style={[styles.h5,{marginBottom:10}]}>
-                            {moment.utc(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
+                        <Text style={[styles.h5,{marginTop:5}]}>
+                            {moment.utc(item.updated_at).format('ddd, MMMM Do YYYY, h:mm a')}
                         </Text>
                         <Text >
-                         <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20 }]}>Rs {item.total_amount}/-</Text>
+                         
                         </Text>
                     </View>
 
                     <View style={{width:'30%'}}>
-                        {(item.order_status == 'pending')?
-                          <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                          <Text style={[styles.p, { color: 'green',alignSelf:'center' }]}>{item.order_status}</Text>
-                      </Text>
-                        :
-                        (item.order_status == 'cancelled')?
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: 'red',alignSelf:'center' }]}>{item.order_status}</Text>
-                    </Text>
-                        :
-                        (item.order_status == 'completed')?
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#222',alignSelf:'center' }]}>{item.order_status}</Text>
-                    </Text>
-                        :
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: 'orange',alignSelf:'center' }]}>{item.order_status}</Text>
-                    </Text>
-
+                        {
+                            item.txn_type == "credit" ?
+                            <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20,color:'green',alignSelf:'flex-end' }]}>+ ₹{item.txn_amount}/-</Text>
+                      :
+                        <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20,color:'red',alignSelf:'flex-end' }]}>- ₹{item.txn_amount}/-</Text>
                         }
-                      
+                    
                     </View>
                 </View>
                 </View>
@@ -171,10 +164,20 @@ class CashbackHistory extends Component {
 
                     }}
                 />
+{(!this.state.isLoading) ?
+                    [
+                        <View style={{backgroundColor:'#fff',padding:20}}>
+                            <Text style={styles.h4}>WeazyDine Balance</Text>
+                            <Text style={{fontSize:30}}>₹ {this.state.wallet}</Text>
+                            </View>
+                    ]:
+                    <></>
 
+}
 
                 {(!this.state.isLoading) ?
                     [
+                       
                         (this.state.data.length > 0) ?
                             <FlatList
                                 data={this.state.data}
@@ -280,7 +283,7 @@ class CashbackHistory extends Component {
     }
 }
 
-export default CashbackHistory;
+export default Wallet;
 
 //Styling
 const style = StyleSheet.create({

@@ -11,10 +11,16 @@ import MultiSelect from 'react-native-multiple-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
-import {Picker} from '@react-native-picker/picker';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
+
+var radio_props = [
+    {label: 'Veg', value: 1 },
+    {label: 'Non-Veg', value: 0 }
+  ];
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -41,7 +47,7 @@ class EditService extends Component{
     }
 
     componentDidMount(){
-        console.log(this.state.category)
+        console.log("Sssss",this.props.route.params.category)
     }
   
     //for header left component
@@ -107,7 +113,8 @@ class Fields extends Component{
             product_type:"product",
             type:'product',
             prod_id:"",
-            height:0
+            height:0,
+            is_veg:1,
             
         };
     }
@@ -185,6 +192,7 @@ componentDidMount = async()=>
         this.setState({description:this.props.data.description})
         this.setState({image:global.image_url+this.props.data.product_img})
         this.setState({c_id:this.props.data.vendor_category_id});
+        this.setState({is_veg:this.props.data.is_veg});
 }
 
     set_value = (index) =>
@@ -244,7 +252,7 @@ create=()=>{
         form.append("type",this.state.type);
         form.append("product_img", photo);
         form.append("product_id",this.state.prod_id);
-        
+        form.append("is_veg",this.state.is_veg);
         fetch(global.vendor_api+'vendor_update_product', { 
             method: 'POST',
             body: form,
@@ -264,6 +272,7 @@ create=()=>{
                                      Toast.show(json.msg)
                                      this.props.get_cat();
                                      this.props.get_product(0);
+                                    
                                      this.props.navigation.navigate("Services",{refresh:"Ss"})
                                  }
                                 return json;    
@@ -348,6 +357,18 @@ create=()=>{
                 </Text>
             </View>
 
+            <View style={{marginTop:20,alignSelf:'center'}}>
+        <RadioForm
+          formHorizontal={true}
+          radio_props={radio_props}
+          animation={true}
+          initial={0}
+          labelHorizontal={false}
+          labelStyle={{marginRight:20}}
+          onPress={(value) => {this.setState({is_veg:value})}}
+        />
+      </View>
+
             <View>
                 <Text style={style.fieldsTitle}>
                     Description <Text style={{color:"grey"}}>(50words) </Text>
@@ -364,11 +385,18 @@ create=()=>{
                     style={[style.textInput,{alignItems:"flex-start",height: Math.max(35, this.state.height)}]}
                     />
             </View>
-
+            
             <View>
+
+            </View>
+            <View>
+                
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('ProductVariants',{product_id:this.state.prod_id,variants:this.props.data.variants,addons:this.props.data.addons})}}>
+                    <Text style={{fontSize:18}}> + VARIANTS & ADD-ONS</Text>
+                    </TouchableOpacity>
                 <View style={{flexDirection:"row",width:"100%"}}>
 
-
+               
                     <View style={{width:"60%"}}>
                         <Text style={style.fieldsTitle}>
                         Upload Image

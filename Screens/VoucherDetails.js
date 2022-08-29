@@ -30,6 +30,7 @@ class VoucherDetails extends Component {
             isloading:false,
             load:true,
             data:'',
+            cart:[],
             comment:"Invaild Customer"
         }
 
@@ -54,13 +55,14 @@ class VoucherDetails extends Component {
            })
            .then((response) => response.json())
            .then((json) => {
-               console.warn(json)
+              // console.warn(json)
              if(!json.status){
      
              }
              else{
-                
+               // console.warn(json.data[0].cart)
                  this.setState({data:json.data[0]})
+                 this.setState({cart:json.data[0].cart})
                  this.setState({ load: false });
              }
            })
@@ -84,7 +86,7 @@ class VoucherDetails extends Component {
             <View>
 
                 <Text style={style.text}>
-                Voucher: {this.props.route.params.code}
+                {this.props.route.params.code}
                 </Text>
             </View>
 
@@ -128,7 +130,11 @@ class VoucherDetails extends Component {
    
     }
 
-
+addonItem = ({item})=>(
+    <View style={{margin:5,borderWidth:1,padding:5,borderRadius:5}}>
+        <Text>{item.addon_name}</Text>
+        </View>
+)
     render() {
         return (
             <View style={[styles.container,{backgroundColor:'#f2f2f2'}]}>
@@ -144,11 +150,11 @@ class VoucherDetails extends Component {
 
                     }}
                 />
-
-                {(!this.state.load)?
+<ScrollView>
+                {
+                (!this.state.load)?
                  <View style={{backgroundColor:'#fff',marginTop:10,padding:10}}>
                 <View style={{ flexDirection: "row", marginTop: 20,marginLeft:20 }}>
-                    <Image source={{uri:this.state.data.user.profile_pic}} style={{ width: 60, height: 60, borderRadius: 60 }} />
                     <View style={{ marginTop: 0, marginLeft: 15 }}>
                         <Text style={styles.h3}>
                             {this.state.data.user.name}
@@ -162,12 +168,39 @@ class VoucherDetails extends Component {
 
                 <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
                 <View style={{ flexDirection: "row",  marginTop: 10, }} >
-                        <Text style={styles.h4}>
-                          Voucher Code:
-                        </Text>
-                        <Text style={[styles.h4, { fontFamily: "Roboto-Regular",marginLeft:10,borderWidth:1,padding:2,paddingHorizontal:20, borderStyle:"dotted" }]}>
-                        {this.state.data.order_code}
-                        </Text>
+                       
+                <Text style={[styles.h4, { fontFamily: "Roboto-Regular",borderRadius:5,marginLeft:10,borderWidth:1,padding:2,paddingHorizontal:20, borderStyle:"dotted" }]}>
+                       
+                       {
+                       (this.state.data.order_type == 'delivery' || this.state.data.order_type == 'takeaway')?
+                       <Text>{this.state.data.order_type}</Text>
+                       :
+                       <Text>Dine In</Text>
+                       }
+                       </Text>
+                       <View style={{marginLeft:20}}>
+                       {(this.state.data.order_status == 'pending')?
+                          <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                          <Text style={[styles.p, { color: 'green',alignSelf:'center' }]}>{this.state.data.order_status}</Text>
+                      </Text>
+                        :
+                        (this.state.data.order_status == 'cancelled')?
+                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: 'red',alignSelf:'center' }]}>{this.state.data.order_status}</Text>
+                    </Text>
+                        :
+                        (this.state.data.order_status == 'completed')?
+                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: '#222',alignSelf:'center' }]}>{this.state.data.order_status}</Text>
+                    </Text>
+                        :
+                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: 'orange',alignSelf:'center' }]}>{this.state.data.order_status}</Text>
+                    </Text>
+
+                        }
+                        
+                       </View>
                     </View>
                     <View
   style={{
@@ -176,26 +209,104 @@ class VoucherDetails extends Component {
     marginTop:10
   }}
 />
+
+
+{
+                    (!this.state.load)?(
+                   
+                        (this.state.cart.length>0)?
+                        
+                        (this.state.cart.map((item,index)=>{
+                            return(
+                            <View style={{flexDirection:'row',width:'100%',padding:10, borderBottomWidth:1,borderBottomColor:'#ececec'}}>
+                                
+
+                    <View style={{marginLeft:10,width:'80%'}}>
+                    <Text style={[styles.h4]}>{item.product.product_name} 
+                    {(item.variant != null)?<Text>- {item.variant.variant_name}</Text>:('')}
+                    
+                  </Text>
+                <View style={{flexDirection:'column'}}>
+                  {(item.addons.length > 0)?(
+
+                            <FlatList
+                            numColumns={3} 
+                            data={item.addons}
+                            renderItem={this.addonItem}
+                            keyExtractor={item => item.id}
+                            />
+
+                  ):
+                  <></>
+                }
+                </View>
+                    
+                    <Text style={styles.p}>{item.product_quantity} X {item.product_price/item.product_quantity} </Text>
+                    
+                    </View>
+
+                    <View style={{marginLeft:20,width:'20%'}}>
+                    <Text style={[styles.h4,{fontWeight:'bold'}]}>₹{item.product_price}</Text>
+                    </View>
+
+                    </View>
+)
+            }))
+            :
+            <Text>No OnGoing Orders</Text>
+                   
+                        
+                    ):
+                    <Text>Loading...</Text>
+
+                    }
+
+
                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                        <Text style={styles.h4}>
-                          Order Amount 
+                        <Text style={styles.h5}>
+                          Item Total
                         </Text>
-                        <Text style={[styles.h4 , { fontFamily: "Roboto-Regular", }]}>
+                        <Text style={[styles.h5 , { fontFamily: "Roboto-Regular", }]}>
                         Rs.{this.state.data.order_amount}
                         </Text>
                     </View>
 
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                        <Text style={[styles.h4,{color:"green"}]}>
-                         {(this.state.data.order_discount/this.state.data.order_amount*100).toFixed(1)} % Discount Applied
+                        <Text style={[styles.h5,{color:"green"}]}>
+                        CGST
                         </Text>
-                        <Text style={[styles.h4, { color: "green", fontFamily: "Roboto-Regular", }]}>
-                       Rs.  {this.state.data.order_discount}
+                        <Text style={[styles.h5, { color: "green", fontFamily: "Roboto-Regular", }]}>
+                       Rs.  {this.state.data.cgst}
                         </Text>
                     </View>
+
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
+                        <Text style={[styles.h5,{color:"green"}]}>
+                         SGST
+                        </Text>
+                        <Text style={[styles.h5, { color: "green", fontFamily: "Roboto-Regular", }]}>
+                       Rs.  {this.state.data.sgst}
+                        </Text>
+                    </View>
+
+{(this.state.data.order_discount>0)?
+  <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
+  <Text style={[styles.h5,{color:"green"}]}>
+   {(this.state.data.order_discount/this.state.data.order_amount*100).toFixed(1)} % Discount Applied
+  </Text>
+  <Text style={[styles.h5, { color: "green", fontFamily: "Roboto-Regular", }]}>
+ Rs.  {this.state.data.order_discount}
+  </Text>
+</View>
+:
+<></>
+}
+                  
+
+
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
                         <Text style={styles.h4}>
-                            Final Total
+                           Grand Total
                         </Text>
                         <Text style={[styles.h4, { fontFamily: "Roboto-Regular", }]}>
                        Rs. {this.state.data.total_amount}
@@ -209,6 +320,7 @@ class VoucherDetails extends Component {
                 :
                <ActivityIndicator size="large" color="#0000ff" style={{marginTop:50}}></ActivityIndicator>
 }
+</ScrollView>
 
                 {!this.state.isloading ?
                 (this.state.data.order_status == 'pending')?

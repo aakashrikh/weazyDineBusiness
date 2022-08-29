@@ -85,7 +85,7 @@ class Demo extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
+                 console.warn(json)
                 if (json.status) {
 
                     this.setState({ item: json.data })
@@ -161,7 +161,7 @@ class Demo extends Component {
                 <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Business</Text>
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     {/* Shop Visits View  */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("VerifyVoucher")}>
+                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                     <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -174,13 +174,13 @@ class Demo extends Component {
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                Rs.{item.total_earnning}
+                                {item.orders}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
 
                     {/* Total Feed Views */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("Wallet")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -203,7 +203,7 @@ class Demo extends Component {
 
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     {/* Shop Visits View  */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("VerifyVoucher")}>
+                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>
                     <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -216,7 +216,7 @@ class Demo extends Component {
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                Rs.{item.total_earnning}
+                             {item.shop_visit}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -231,11 +231,11 @@ class Demo extends Component {
                                 <Icon type="ionicon" name="cash-outline" color="#222"
                                     style={{ marginRight: 10,fontSize:16, top: 2 }} size={20} />
                                 <Text style={{ color: '#222', fontFamily: "Roboto-Regular", marginTop: 4 }}>
-                                    TOTAL SALES
+                                    TOTAL CUSTOMER
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                Rs.{item.total_earnning}
+                                {item.customer}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
