@@ -1,4 +1,4 @@
-rootProject.name = 'marketpluss'
+rootProject.name = 'weazydinebusiness'
 include ':react-native-otp-verify'
 project(':react-native-otp-verify').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-otp-verify/android')
 include ':react-native-android-location-enabler'

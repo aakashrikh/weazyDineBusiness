@@ -127,7 +127,7 @@ class TableView extends Component {
 
     delete_table = () =>
     {
-        alert(this.props.route.params.table_id);
+
         fetch(global.vendor_api + 'delete_table_vendor', {
             method: 'POST',
             headers: {
@@ -437,7 +437,7 @@ return(
             <View style={style.modalView}>
               <Text style={[styles.h4,{alignSelf:'center'}]}>Generating your Bill!</Text>
               
-              <Text style={[styles.h3,{marginTop:5}]}>Total - Rs.1992</Text>
+              <Text style={[styles.h3,{marginTop:5}]}>Total -  ₹{this.state.bill.total_amount}</Text>
               <TouchableOpacity
             // onPress={this.send_otp}
             // onPress={()=>this.complete_order()}

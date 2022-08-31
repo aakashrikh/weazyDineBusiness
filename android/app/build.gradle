@@ -1,4 +1,4 @@
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -7,10 +7,10 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/'}
     }
     dependencies {
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.2'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.10, 0.99.99]'
     }
 }
-
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -146,7 +146,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
     }
@@ -217,7 +217,7 @@ dependencies {
     implementation project(':react-native-code-push')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    compile project(':react-native-otp-verify')
+    implementation project(':react-native-otp-verify')
     implementation project(':react-native-vector-icons')
     implementation(project(':react-native-maps'))
             {
@@ -234,7 +234,7 @@ dependencies {
     // For WebP support, including animated WebP
     implementation 'com.facebook.fresco:animated-webp:2.0.0'
     implementation 'com.facebook.fresco:webpsupport:2.0.0'
-
+    implementation 'androidx.work:work-runtime:2.7.1'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'

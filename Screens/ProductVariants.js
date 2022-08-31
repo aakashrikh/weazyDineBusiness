@@ -104,7 +104,7 @@ console.warn(this.state.v_data);
                               this.props.navigation.goBack();
                           }
   
-                          this.setState({isLoading:false});
+                          this.setState({isLoading2:false});
                          return json;    
                      }).catch((error) => {  
                              console.error(error);   
@@ -365,7 +365,7 @@ console.warn(this.state.v_data);
                     />
                 </View>
              
-      <View style={{padding:10}}>
+      <ScrollView style={{padding:10,flexGrow:1,marginBottom:100}}>
         
         <View style={{backgroundColor:'#fff',padding:15,borderRadius:5,marginTop:10}}>
         <TouchableOpacity onPress={()=>{this.show_varient()}}>
@@ -451,8 +451,7 @@ console.warn(this.state.v_data);
     
         </View>
 
-      </View>
-         
+   
       <RBSheet
           ref={ref => {
             this.RBSheet = ref;
@@ -469,14 +468,19 @@ console.warn(this.state.v_data);
           {/* <YourOwnComponent /> */}
           <Addons  fetch_addon={this.fetch_addon} RBSheet={this.RBSheet}/>
         </RBSheet>
+
+        
         {(!this.state.isLoading2)?
- <TouchableOpacity onPress={() => this.update_product_variant()}  style={{alignSelf:'center',padding:10,borderWidth:1,borderRadius:5,borderColor:'#ececec',backgroundColor:'rgba(233,149,6,1)',width:'80%',height:50,position:'absolute',top:'100%'}}>
- <Text style={{color:'#fff',alignSelf:'center',marginTop:5,fontSize:16}}>Save & continue</Text>
-</TouchableOpacity>
-:
-<ActivityIndicator size="large" color="rgba(233,149,6,1)" />
-        }
-       
+    <TouchableOpacity onPress={() => this.update_product_variant()}  style={{alignSelf:'center',padding:10,borderWidth:1,borderRadius:5,borderColor:'#ececec',backgroundColor:'rgba(233,149,6,1)',width:'80%',height:50,marginTop:30,marginBottom:30}}>
+    <Text style={{color:'#fff',alignSelf:'center',marginTop:5,fontSize:16}}>Save & continue</Text>
+    </TouchableOpacity>
+
+    :
+    <ActivityIndicator size="large" color="rgba(233,149,6,1)" />
+      }
+      
+</ScrollView>
+
       </View>
     );
   }
