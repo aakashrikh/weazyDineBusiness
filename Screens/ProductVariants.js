@@ -101,7 +101,7 @@ console.warn(this.state.v_data);
                              Toast.show(json.msg);
                           }
                           else{
-                              this.props.navigation.goBack();
+                              this.props.navigation.navigate("Products",{refresh:true});
                           }
   
                           this.setState({isLoading2:false});

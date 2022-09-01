@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Text,View,ScrollView,
-    StyleSheet,Image,Pressable,ActivityIndicator,
-    TouchableOpacity,ImageBackground,Linking
+    Text, View, ScrollView,
+    StyleSheet, Image, Pressable, ActivityIndicator,
+    TouchableOpacity, ImageBackground, Linking, Dimensions
 } from 'react-native';
-import {Icon,LinearProgress} from 'react-native-elements';
+import { Icon, LinearProgress } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Demo from './Demo.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
@@ -22,254 +22,271 @@ const styles = require('../Components/Style.js');
 
 const options = {
     title: "Pick an Image",
-    storageOptions:{
+    storageOptions: {
         skipBackup: true,
-        path:'images'
+        path: 'images'
     }
 }
 
-class Home extends Component{
+class Home extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            name:"",
-            data:"",
-            image_load:false,
-            isloading:true,
-            id:"",
-            covers:[],
-            image:"" ,
-            step:0,
-            per:0,
-            cover_load:true,
-            cover_step:true,
-            image_loade:true,
-            link:""
-    };
-}
+        this.state = {
+            name: "",
+            data: "",
+            image_load: false,
+            isloading: true,
+            id: "",
+            covers: [],
+            image: "",
+            step: 0,
+            per: 0,
+            cover_load: true,
+            cover_step: true,
+            image_loade: true,
+            link: ""
+        };
+    }
 
 
-//function to launch camera
-camera =()=>{
+    //function to launch camera
+    camera = () => {
 
-    launchCamera(options, (response)=>{
-        
-        if(response.didCancel){
-            // console.warn(response)
-            console.warn("User cancelled image picker");
-        } else if (response.error){
-            console.warn('ImagePicker Error: ', response.error);
-        }else{
-            console.warn(response)
-            const source = {uri: response.assets.uri};
-          let path = response.assets.map((path)=>{
-              return (
-                  this.setState({image:path.uri}) 
-              )
-          });
-          this.upload_image();
-        }
-    })
-  }
+        launchCamera(options, (response) => {
+
+            if (response.didCancel) {
+                // console.warn(response)
+                console.warn("User cancelled image picker");
+            } else if (response.error) {
+                console.warn('ImagePicker Error: ', response.error);
+            } else {
+                console.warn(response)
+                const source = { uri: response.assets.uri };
+                let path = response.assets.map((path) => {
+                    return (
+                        this.setState({ image: path.uri })
+                    )
+                });
+                this.upload_image();
+            }
+        })
+    }
 
 
-//function to launch gallery
-gallery =()=>{
-    ImagePicker.openPicker({
-        width:300,
-        height:400,
-        cropping:true,
-        compressImageQuality:0.5
-    }).then(image=>{
-        this.setState({image:image.path});
-        this.upload_image();      
-    })  
-}
+    //function to launch gallery
+    gallery = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+            compressImageQuality: 0.5
+        }).then(image => {
+            this.setState({ image: image.path });
+            this.upload_image();
+        })
+    }
 
-componentDidMount = async()=>
-{   
-    // alert(global.vendor)
-    this.get_profile()
-    this.get_cover()
-    this.focusListener=this.props.navigation.addListener('focus', ()=>{
+    componentDidMount = async () => {
+        // alert(global.vendor)
         this.get_profile()
         this.get_cover()
-    })
-}
-get_profile=()=>{
-    fetch(global.vendor_api+'get_vendor_profile', { 
-        method: 'POST',
-          headers: {    
-              Accept: 'application/json',  
-                'Content-Type': 'application/json',
-                'Authorization':global.token  
-               }, 
-                body: JSON.stringify({ 
-
-                        })}).then((response) => response.json())
-                        .then((json) => {
-    
-                            if(!json.status)
-                            {
-                                
-                            }
-                            else{
-                              
-                             
-                                this.setState({data:json.data})
-                                this.setState({id:json.data.id})
-                                this.setState({link:json.link})
-                                json.data.map(value=>{
-                                    this.setState({step:value.step});
-                                    if(value.step == 2)
-                                    {
-                                        this.setState({per:0.8})
-                                    }
-                                    else if(value.step == 1)
-                                    {
-                                        this.setState({per:0.9})
-                                    }
-                                    else 
-                                    {
-                                        this.setState({per:1})
-                                    }
-                                    
-                                    this.setState({image:value.profile_pic})
-                                    
-                                    if(value.profile_pic == "" || value.profile_pic == null)
-                                    {
-                                        this.setState({image_loade:false})
-                                    }
-                                    this.setState({id:value.id})
-                                    this.setState({name:value.name})
-                                    // alert(value.category_type)
-                                 global.category_type=value.category_type
-                                }) 
-                            }
-                            global.vendor=this.state.id,
-                            global.pic=this.state.image,
-                            global.name=this.state.name
-                           return json;    
-                       }).catch((error) => {  
-                               console.error(error);   
-                            }).finally(() => {
-                               this.setState({isloading:false})
-
-                            });
-}
-
-//function to upload image
-upload_image = () =>
-{
-    this.RBSheet.close()
-    this.setState({image_load:true});
-    var form = new FormData();
-    if(this.state.image != '')
-    {
-        var photo = {
-            uri: this.state.image,
-            type: 'image/jpeg',
-            name: 'aakash.jpg',
-          };
-          form.append("update_profile_picture", photo);  
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.get_profile()
+            this.get_cover()
+        })
     }
-    form._parts.map(value=>{
-        console.warn(value)
-    })
-    
-      fetch(global.vendor_api+'update_profile_picture_vendor', { 
-        method: 'POST',
-        body: form,
-          headers: {  
-            'Content-Type': 'multipart/form-data', 
-            'Authorization':global.token
-               }, 
-                }).then((response) => response.json())
-                        .then((json) => {
-                            console.warn(json)
-                            if(json.status){
-                                this.setState({photo:global.image_url+json.profile_pic})
-                               this.get_profile();
-                            }  
-                            
-                            return json
-                       }).catch((error) => {  
-                               console.error(error);   
-                               
-                            }).finally(() => {
-                                this.setState({image_load:false});
-                            });
-}
-
-get_cover=()=>{
-    fetch(global.vendor_api+'get_cover_vendor', { 
-        method: 'POST',
-          headers: {    
-              Accept: 'application/json',  
+    get_profile = () => {
+        fetch(global.vendor_api + 'get_vendor_profile', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization':global.token  
-               }, 
-                body: JSON.stringify({ 
-                        })}).then((response) => response.json())
-                        .then((json) => {
-                            // console.warn(json)
-                            if(!json.status)
-                            {
-                                
-                            }
-                            else{
-                                if(json.covers.length==0)
-                                {
-                                    this.setState({cover_step:false})
-                                }
-                                this.setState({covers:json.covers}) 
-                               
-                            }
-                            
-                           return json;    
-                       }).catch((error) => {  
-                               console.error(error);   
-                            }).finally(() => {
-                               this.setState({isloading:false,cover_load:false})
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
 
-                            });
-}
+            })
+        }).then((response) => response.json())
+            .then((json) => {
 
-share_whatsapp = (link) =>
-{
-    Linking.openURL('whatsapp://send?text=Hey there! Sign-up on the MarketPluss app using my referral code and get ₹' + this.state.earner+' \n\nDownload the app: '+link).catch(e=>Toast.show("WhatsApp is not installed in your device"));
-}
-    render(){
-    
-        return(
-           
-            <View style={[styles.container,{backgroundColor:"transparent"}]}>
-                <View style={{width:'100%',height:150,backgroundColor:'rgba(233,149,6,1)'}}>
-                <View style={{width:'80%',padding:20,paddingTop:30}}>
-                    <Text style={[styles.heading,{color:'#eee',fontSize:20, fontWeight:'bold'}]}>Welcome to Weazy Dine</Text>
-                </View>
-                    <View style={{width:'90%',height:130,backgroundColor:'#fff',alignSelf:'center',position:'absolute',marginTop:90,borderRadius:10,padding:10}}>
-                        <Text style={[styles.h3]}>Share More to Earn More </Text>
-                        <Text style={[styles.p]}>Your customer can visit your online store and place the orders from this link</Text>
-                       <View style={{flexDirection:'row'}}>
-                        <Text style={[styles.p,{marginTop:15}]}>{this.state.link}</Text>
-                        <TouchableOpacity onPress={()=>{this.share_whatsapp(this.state.link)}} style={[styles.catButton,{backgroundColor:"#25d366",width:100,padding:5,alignSelf:'flex-end',borderRadius:5,marginLeft:10,marginTop:10}]}>
-                    <View style={{flexDirection:"row",alignSelf:"center"}}>
-                         <MaterialCommunityIcons name="whatsapp"  color={"#fff"} type="ionicon" size={20} /> 
-                         <Text style={[style.buttonText,{color:"#fff",marginLeft:3,marginTop:-1}]}>Share</Text>
-                        </View>
-                    </TouchableOpacity>
-                        </View>
+                if (!json.status) {
+
+                }
+                else {
+
+
+                    this.setState({ data: json.data })
+                    this.setState({ id: json.data.id })
+                    this.setState({ link: json.link })
+                    json.data.map(value => {
+                        this.setState({ step: value.step });
+                        if (value.step == 2) {
+                            this.setState({ per: 0.8 })
+                        }
+                        else if (value.step == 1) {
+                            this.setState({ per: 0.9 })
+                        }
+                        else {
+                            this.setState({ per: 1 })
+                        }
+
+                        this.setState({ image: value.profile_pic })
+
+                        if (value.profile_pic == "" || value.profile_pic == null) {
+                            this.setState({ image_loade: false })
+                        }
+                        this.setState({ id: value.id })
+                        this.setState({ name: value.name })
+                        // alert(value.category_type)
+                        global.category_type = value.category_type
+                    })
+                }
+                global.vendor = this.state.id,
+                    global.pic = this.state.image,
+                    global.name = this.state.name
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.setState({ isloading: false })
+
+            });
+    }
+
+    //function to upload image
+    upload_image = () => {
+        this.RBSheet.close()
+        this.setState({ image_load: true });
+        var form = new FormData();
+        if (this.state.image != '') {
+            var photo = {
+                uri: this.state.image,
+                type: 'image/jpeg',
+                name: 'aakash.jpg',
+            };
+            form.append("update_profile_picture", photo);
+        }
+        form._parts.map(value => {
+            console.warn(value)
+        })
+
+        fetch(global.vendor_api + 'update_profile_picture_vendor', {
+            method: 'POST',
+            body: form,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': global.token
+            },
+        }).then((response) => response.json())
+            .then((json) => {
+                console.warn(json)
+                if (json.status) {
+                    this.setState({ photo: global.image_url + json.profile_pic })
+                    this.get_profile();
+                }
+
+                return json
+            }).catch((error) => {
+                console.error(error);
+
+            }).finally(() => {
+                this.setState({ image_load: false });
+            });
+    }
+
+    get_cover = () => {
+        fetch(global.vendor_api + 'get_cover_vendor', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                // console.warn(json)
+                if (!json.status) {
+
+                }
+                else {
+                    if (json.covers.length == 0) {
+                        this.setState({ cover_step: false })
+                    }
+                    this.setState({ covers: json.covers })
+
+                }
+
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.setState({ isloading: false, cover_load: false })
+
+            });
+    }
+
+    share_whatsapp = (link) => {
+        Linking.openURL('whatsapp://send?text=Hey there! Sign-up on the MarketPluss app using my referral code and get ₹' + this.state.earner + ' \n\nDownload the app: ' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
+    }
+    render() {
+
+        return (
+
+            <View style={[styles.container, { backgroundColor: "#fff" }]}>
+                {/* <View style={{width:Dimensions.get('window').width,backgroundColor:"#EDA332",flexDirection:"row",height:70,borderBottomEndRadius:15,borderBottomStartRadius:15}}>
+                    <View style={{ width: '80%',  }}>
+                        <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18,580), fontWeight: 'bold', marginTop:15,left:10 }]}>Welcome to Weazy Dine</Text>
+                    </View>
+
+                    <View style={{ width: '20%', padding: 17,}}>
+                        <TouchableOpacity style={{backgroundColor:"#fff",height:30,width:30,borderRadius:50,justifyContent:"center"}}>
+                            <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)'/>
+                        </TouchableOpacity>
+                    </View>
+                </View> */}
+                <View style={{ width: '100%', height: 100, backgroundColor: 'rgba(233,149,6,1)', flexDirection:"row",borderBottomEndRadius:15,borderBottomStartRadius:15}}>
+                    <View style={{ width: '80%', paddingTop:20 }}>
+                        <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18,580), fontWeight: 'bold', marginTop:25,left:20 }]}>Welcome to Weazy Dine</Text>
+                    </View>
+                    <View style={{ width: '20%', padding: 20, paddingTop: 30, }}>
+                        <TouchableOpacity style={{backgroundColor:"#fff",height:30,width:30,borderRadius:50,justifyContent:"center",marginLeft:5,marginTop:17}}>
+                            <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)'/>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            {/* View for Banner Image */}
-             <Demo navigation={this.props.navigation}/>
-                 
-            </View>
-               
+                {/* View for Banner Image */}
+                <Demo navigation={this.props.navigation} />
 
-           
+                <View style={{
+                    width: '90%', height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 2
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 4,
+                    elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
+                }}>
+                    <Text style={[styles.h3]}>Share More to Earn More </Text>
+                    <Text style={[styles.p,{fontFamily:"Roboto-SemiBold"}]}>Your customer can visit your online store and place the orders from this link</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={[styles.p, { marginTop: 15, fontFamily:"Roboto-SemiBold" }]}>{this.state.link}</Text>
+                        <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
+                            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+                                <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
+                                <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+            </View>
+
+
+
         )
     }
 }
@@ -280,89 +297,90 @@ export default Home;
 
 
 
-const style=StyleSheet.create({
-    bannerImg:{
-        height:"100%",
-        width:"100%",
+const style = StyleSheet.create({
+    bannerImg: {
+        height: "100%",
+        width: "100%",
         // marginTop:10
     },
     child: {
         height: 200,
-        width:"100%",
-        justifyContent:"center",
-        alignItems:"center",
-        marginRight:20,
-        marginLeft:20,
-        borderRadius:5,    
-      },
-    carousel:{
-        width:"100%", 
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        marginRight: 20,
+        marginLeft: 20,
+        borderRadius: 5,
+    },
+    carousel: {
+        width: "100%",
         borderRadius: 15,
         height: 200,
-        alignItems: 'center', 
+        alignItems: 'center',
         alignContent: 'center',
         alignSelf: 'center',
         // marginTop:5,
     },
-    camIcon:{
-        top:60,right:20,backgroundColor:"#dcdcdc",
-    height:30,width:30,padding:5,alignContent:"center",
-    borderRadius:30, justifyContent:"center"},
+    camIcon: {
+        top: 60, right: 20, backgroundColor: "#dcdcdc",
+        height: 30, width: 30, padding: 5, alignContent: "center",
+        borderRadius: 30, justifyContent: "center"
+    },
 
-    editIcon:{
-        position:"absolute",
-        top:40,
-        right:5,backgroundColor:"#dcdcdc",
-        height:30,width:30,padding:5,alignContent:"center",
-        borderRadius:30, justifyContent:"center"
+    editIcon: {
+        position: "absolute",
+        top: 40,
+        right: 5, backgroundColor: "#dcdcdc",
+        height: 30, width: 30, padding: 5, alignContent: "center",
+        borderRadius: 30, justifyContent: "center"
     },
-    iconPencil:{
-        marginLeft:20,
-        fontSize:20,
-        marginBottom:10
+    iconPencil: {
+        marginLeft: 20,
+        fontSize: 20,
+        marginBottom: 10
     },
-    Text:{
-        position:"absolute",
-        fontSize:RFValue(15,580),
-        marginLeft:80,
-        fontFamily:"Raleway-Medium"
+    Text: {
+        position: "absolute",
+        fontSize: RFValue(15, 580),
+        marginLeft: 80,
+        fontFamily: "Raleway-Medium"
     },
-    
-    profileImg:{
-        height:85,
-        width:85,
-        borderRadius:100,
+
+    profileImg: {
+        height: 85,
+        width: 85,
+        borderRadius: 100,
         // marginLeft:10
     },
-    nameText:{
-        color:'#fff',
-        fontSize:RFValue(17,580),
+    nameText: {
+        color: '#fff',
+        fontSize: RFValue(17, 580),
         // paddingLeft:0,
-        fontFamily:"Raleway-Regular",
+        fontFamily: "Raleway-Regular",
     },
-    text:{
-        color:'#fff',
-        fontSize:RFValue(11,580),
+    text: {
+        color: '#fff',
+        fontSize: RFValue(11, 580),
         // paddingLeft:10,
-        fontFamily:"Roboto-Regular",
+        fontFamily: "Roboto-Regular",
     },
-    mainContainer:{
-        backgroundColor:"#fff",
-        flex:1,
+    mainContainer: {
+        backgroundColor: "#fff",
+        flex: 1,
         // top:-50,
         // position:"absolute",
-        width:"100%",
-        height:"100%",
-        marginTop:-330,
-        borderTopLeftRadius:30,
-        borderTopRightRadius:30
+        width: "100%",
+        height: "100%",
+        marginTop: -330,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30
     },
-    loader:{
-        shadowOffset:{width:50,height:50},
-        marginBottom:5,
-        marginTop:30,
-        shadowRadius:50,
-        elevation:5,
-        backgroundColor:"#fbf9f9",width:30,height:30,borderRadius:50,padding:5,alignSelf:"center"
+    loader: {
+        shadowOffset: { width: 50, height: 50 },
+        marginBottom: 5,
+        marginTop: 30,
+        shadowRadius: 50,
+        elevation: 5,
+        backgroundColor: "#fbf9f9", width: 30, height: 30, borderRadius: 50, padding: 5, alignSelf: "center"
     },
 })

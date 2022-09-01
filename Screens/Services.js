@@ -41,15 +41,16 @@ class Services extends Component{
     }
     componentDidMount = ()=>
     {  
-        console.warn(this.props)
+        console.warn("component",this.props,this.props.route.params)
         this.get_category()  ;
         this.get_vendor_product(0);
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
             this.get_category()  ;
-            console.warn(this.props.route.params);
-            // if(this.props.route.params!=undefined){
-            // this.get_category()
-            // }
+            console.warn("component2",this.props.route.params);
+            if(this.props.route.params!=undefined){
+            this.get_category();
+            this.get_vendor_product(0);
+            }
         })  
     
     }
@@ -113,7 +114,7 @@ class Services extends Component{
                                         
                                     }
                                  
-                                   console.warn(json.data)
+                                   console.warn("get_vendor_product",json.data)
                                 //    this.setState({prod_id:json.data[0].id})
                                 //    alert(this.state.prod_id)
                                 this.setState({isloading:false,load_data:false})
@@ -122,7 +123,7 @@ class Services extends Component{
                            }).catch((error) => {  
                                    console.error(error);   
                                 }).finally(() => {
-                                   
+                                    this.setState({isloading:false})
                                 });
     }
     
@@ -134,7 +135,7 @@ class Services extends Component{
         })
         .then((response) => response.json())
         .then((json) => {
-            console.warn(json)
+            console.warn("get_category",json)
             if(json.status)
             {
                 if(json.data.length>0)
@@ -175,50 +176,50 @@ filter=(id)=>{
     this.setState({last_select:id});
     }
 
-toggle=(id)=>{
-        // alert(id)
-        const object=this.state.object;
-        if(object[id]==true)
-        {
-            object[id]=false;
-            var status="inactive"
+    toggle=(id)=>{
+            // alert(id)
+            const object=this.state.object;
+            if(object[id]==true)
+            {
+                object[id]=false;
+                var status="inactive"
+            }
+            else
+            {
+                object[id]=true; 
+                var status="active"
+            }
+            this.setState({object});
+            fetch(global.vendor_api+'update_status_product_offer', { 
+                method: 'POST',
+                headers: {    
+                    Accept: 'application/json',  
+                        'Content-Type': 'application/json',
+                        'Authorization': global.token
+                    }, 
+                        body: JSON.stringify({ 
+                            action_id:id,
+                            type:'product' ,
+                            status:status
+                                })
+                            }).then((response) => response.json())
+                                .then((json) => {
+                                    console.warn("toggle",json)
+                                    if(!json.status)
+                                    {
+                                        var msg=json.msg;
+                                        Toast.show(msg);
+                                        
+                                    }
+                                    else{
+                                    //   Toast.show("jhsd")
+                                }                                 
+                            }).catch((error) => {  
+                                    console.error(error);   
+                                    }).finally(() => {
+                                    this.setState({isloading:false})
+                                    });
         }
-        else
-        {
-            object[id]=true; 
-            var status="active"
-        }
-        this.setState({object});
-        fetch(global.vendor_api+'update_status_product_offer', { 
-            method: 'POST',
-              headers: {    
-                  Accept: 'application/json',  
-                    'Content-Type': 'application/json',
-                    'Authorization': global.token
-                   }, 
-                    body: JSON.stringify({ 
-                        action_id:id,
-                        type:'product' ,
-                        status:status
-                            })
-                        }).then((response) => response.json())
-                            .then((json) => {
-                                console.warn(json)
-                                if(!json.status)
-                                {
-                                    var msg=json.msg;
-                                    Toast.show(msg);
-                                    
-                                }
-                                else{
-                                //   Toast.show("jhsd")
-                               }                                 
-                           }).catch((error) => {  
-                                   console.error(error);   
-                                }).finally(() => {
-                                   this.setState({isloading:false})
-                                });
-    }
 
 
 
@@ -248,32 +249,34 @@ toggle=(id)=>{
                         <ScrollView style={{flex:1}}>
                       {/* Particular Card Component */}
                       {!this.state.isloading ? 
-                      (this.state.data !="") ?
-                        <Card navigation={this.props.navigation}
-                        data={this.state.data}
-                        category={this.state.category}
-                        load_more={this.load_more}
-                        load_data={this.state.load_data}
-                        toggle={this.toggle}
-                        get_category={this.get_category}
-                        get_vendor_product={this.get_vendor_product}
-                        object={this.state.object}
-                         />
-                        
-                        :
-                        <View style={{paddingTop:120,alignItems:"center"}}>
-                            <View style={{alignSelf:"center"}}>
-                            <Image source={require("../img/no-product.png")}
-                            style={{width:300,height:300}} />
-                             <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
-                    No Products Found!
-                </Text>
-                        </View>  
-                        </View>
-                        
+                      <>
+                        {(this.state.data !="") ?
+                            <Card navigation={this.props.navigation}
+                            data={this.state.data}
+                            category={this.state.category}
+                            load_more={this.load_more}
+                            load_data={this.state.load_data}
+                            toggle={this.toggle}
+                            get_category={this.get_category}
+                            get_vendor_product={this.get_vendor_product}
+                            object={this.state.object}
+                            />
+                            
+                            :
+                            <View style={{paddingTop:120,alignItems:"center"}}>
+                                <View style={{alignSelf:"center"}}>
+                                <Image source={require("../img/no-product.png")}
+                                style={{width:300,height:300}} />
+                                <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+                        No Products Found!
+                    </Text>
+                            </View>  
+                            </View>
+                        }
+                        </>
                         :
                         <View >
-                        <Loaders />
+                            <Loaders />
                         </View>
                       }
                   </ScrollView>
@@ -446,7 +449,7 @@ class Card extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                console.warn(json)
+                                console.warn("delete_product",json)
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
@@ -467,7 +470,7 @@ class Card extends Component{
       
       editNavigation =()=>{
         // alert(this.state.id)
-        console.warn(this.props.category)
+        console.warn("props",this.props.category)
         this.props.navigation.navigate("EditService",
         {data:this.state.id,
         category:this.props.category,

@@ -166,13 +166,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="cash-outline" color="#222"
-                                    style={{ marginRight: 10, top: 2 }} size={20} />
-                                <Text style={{ color: '#222',fontSize:16, fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
+                                <Text style={{ color: '#222',fontSize:16, fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                    ORDERS
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 {item.orders}
                             </Text>
                         </LinearGradient>
@@ -185,13 +185,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="cash-outline" color="#222"
-                                    style={{ marginRight: 10,fontSize:16, top: 2 }} size={20} />
-                                <Text style={{ color: '#222', fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="cash-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10,fontSize:16, top: 2 }} size={25} />
+                                <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     TOTAL SALES
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 Rs.{item.total_earnning}
                             </Text>
                         </LinearGradient>
@@ -208,13 +208,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="cash-outline" color="#222"
-                                    style={{ marginRight: 10, top: 2 }} size={20} />
-                                <Text style={{ color: '#222',fontSize:16, fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="eye-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
+                                <Text style={{ color: '#222',fontSize:16, fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                  STORE VISIT
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                              {item.shop_visit}
                             </Text>
                         </LinearGradient>
@@ -227,13 +227,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="cash-outline" color="#222"
-                                    style={{ marginRight: 10,fontSize:16, top: 2 }} size={20} />
-                                <Text style={{ color: '#222', fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="person-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10,fontSize:16, top: 2 }} size={25} />
+                                <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     TOTAL CUSTOMER
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 {item.customer}
                             </Text>
                         </LinearGradient>
@@ -251,13 +251,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="gift-outline" color="#222"
-                                    style={{ marginRight: 10, top: 2 }} size={20} />
-                                <Text style={{ color: '#222', fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="person-add-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
+                                <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     New Customer
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 {this.state.first_deal}%
                             </Text>
                         </LinearGradient>
@@ -270,13 +270,13 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="gift-outline" color="#222"
-                                    style={{ marginRight: 10, top: 2 }} size={20} />
-                                <Text style={{ color: '#222', fontFamily: "Roboto-Regular", marginTop: 4 }}>
+                                <Icon type="ionicon" name="people-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
+                                <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     All Customer
                                 </Text>
                             </View>
-                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 {this.state.recurring_deal}%
                             </Text>
                         </LinearGradient>
@@ -377,7 +377,7 @@ const style = StyleSheet.create({
     containerMain: {
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        marginTop:80
+        marginTop:10
         // position:"absolute"
     },
     gradientView: {
@@ -390,6 +390,14 @@ const style = StyleSheet.create({
         // justifyContent:"space-evenly",
         marginLeft: 15,
         flexDirection: "column",
-        justifyContent: "space-around"
+        justifyContent: "space-around",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     }
 })

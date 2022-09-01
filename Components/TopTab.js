@@ -26,8 +26,9 @@ class TopTab extends Component{
         {
         tabStyle: { marginTop:28 },
         labelPosition: "below-icon",
-        activeTintColor: "#326bf3",
+        activeTintColor: "#EDA332",
         inactiveTintColor:"#c0c0c0",
+        indicatorStyle: { backgroundColor: "#EDA332", height: 2 },
         style: {
         backgroundColor: "white",
         // height:55,
@@ -35,11 +36,12 @@ class TopTab extends Component{
       },
       
       labelStyle: {
-        fontSize: RFValue(10,580),
+        fontSize: RFValue(11,580),
         fontFamily:"Raleway-Bold"
         // paddingBottom:5,
       },
-    }}>
+    }}
+    >
       <Tabs.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} />
       <Tabs.Screen name="Service" component={Services} options={{title:"Menu"}} props={this.props}/>
       <Tabs.Screen name="Package" component={Packages} options={{title:"Combos"}} />

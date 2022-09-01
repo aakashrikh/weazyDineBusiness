@@ -156,8 +156,8 @@ class TabNav extends Component{
           }
           else if(route.name=="Home"){
             return(
-              <Image source={require('./img/icons/mp.png')} 
-              style={{width:23,height:23,marginTop:5,tintColor: focused ? "": color}}/>
+              <Image source={require('./img/icons/logo.png')} 
+              style={{width:30,height:30,marginTop:5,tintColor: focused ? "": color}}/>
             )
           }
           else if(route.name=="Offers"){
@@ -188,7 +188,7 @@ class TabNav extends Component{
       },
       
       labelStyle: {
-        fontSize: 14,
+        fontSize:12,
         paddingBottom:5,
       },
     }}>

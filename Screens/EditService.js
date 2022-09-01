@@ -273,7 +273,7 @@ create=()=>{
                                      this.props.get_cat();
                                      this.props.get_product(0);
                                     
-                                     this.props.navigation.navigate("Services",{refresh:"Ss"})
+                                     this.props.navigation.navigate("Products",{refresh:true})
                                  }
                                 return json;    
                             }).catch((error) => {  

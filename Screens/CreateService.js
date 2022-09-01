@@ -202,7 +202,7 @@ class Fields extends Component {
         else if (this.state.category == "") {
             Toast.show("Add category first !");
         }
-        else if (this.state.our_price > this.state.market_price) {
+        else if (this.state.market_price<this.state.our_price) {
             Toast.show("Your price should be less than market price !");
         }
 
@@ -258,8 +258,8 @@ class Fields extends Component {
                         this.props.get_product(0);
 
                         
-                        this.props.navigation.navigate('ProductVariants',{product_id:json.data.id,variants:json.data.variants,addons:json.data.addons,});
-                        //this.props.navigation.navigate(this.props.back,{refresh:true})
+                        this.props.navigation.navigate('ProductVariants',{product_id:json.data.id,variants:json.data.variants,addons:json.data.addons,refresh:true});
+                        // this.props.navigation.navigate(this.props.back,{refresh:true})
                         
                     }
                     return json;

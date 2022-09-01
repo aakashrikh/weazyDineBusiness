@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, TextInput,
+    StyleSheet, Image, TextInput,Linking,
     ScrollView, Dimensions, TouchableOpacity,FlatList,ActivityIndicator
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
@@ -47,6 +47,7 @@ class Tables extends Component {
             </View>
         )
     }
+
     //for header center component
     renderCenterComponent() {
         return (
@@ -54,6 +55,25 @@ class Tables extends Component {
                 <Text style={style.text}>Tables</Text>
             </View>
 
+        )
+    }
+
+    //for right component
+    renderRightComponent() {
+        return (
+            <View>
+                {(!this.state.table_load )?
+                <TouchableOpacity style={{backgroundColor:"#EDA332",padding:5,borderRadius:5}}>
+                    <Icon type="ionicon" name="add" size={30} color="#fff"
+                    onPress={() => this.add()} />
+                </TouchableOpacity>
+                :
+                <View style={style.loader}>
+                    <ActivityIndicator size={"small"} color="rgba(233,149,6,1)" />
+                </View>
+
+                }
+            </View>
         )
     }
 
@@ -154,29 +174,52 @@ class Tables extends Component {
     (
         <>
         {(item.table_status == 'active')?
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_url:item.qr_link})}} style={{width:'100%',marginTop:10,padding:10,backgroundColor:'#fff',width:'90%',alignSelf:'center',borderRadius:5}}>
-                   <View style={{flexDirection:'row'}}>
-                    <View style={{width:60,height:60,backgroundColor:'darkred',borderRadius:5}}>
-                        <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_url:item.qr_link,table_name:item.table_name})}} style={[style.viewBox,
+            {marginTop:10,padding:10,backgroundColor:'#fff',width:Dimensions.get('window').width/1.05,alignSelf:'center',borderRadius:5,flexDirection:"row"}]}>
+                   {/* <View style={{flexDirection:'row'}}>
+                        <View style={{width:60,height:60,backgroundColor:'#EDA332',borderRadius:5}}>
+                            <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
+                        </View>
+                        <View style={{marginLeft:20}}>
+                            <Text style={styles.h3}>{item.table_name}</Text>
+                            <Text style={[styles.p,{fontSize:RFValue(12,580)}]}>{item.table_status}</Text>
+                        </View>
+                        <View style={{padding:5,backgroundColor:'#EDA332',borderRadius:5,}}>
+
+                        </View>
+                    </View> */}
+                    <View style={{width:"20%"}}>
+                        <View style={{width:60,height:60,backgroundColor:'#EDA332',borderRadius:5}}>
+                            <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
+                        </View>
                     </View>
-                    <View style={{marginLeft:20}}>
-                    <Text style={styles.h3}>{item.table_name}</Text>
-                    <Text style={styles.p}>{item.table_status}</Text>
+
+                    <View style={{width:"50%"}}>
+                        <Text style={styles.h3}>{item.table_name}</Text>
+                        <Text style={[styles.p,{fontSize:RFValue(12,580)}]}>{item.table_status}</Text>
                     </View>
+
+                    <View style={{width:"30%",alignItems:"center",justifyContent:"center"}}>
+                        <TouchableOpacity onPress={()=>{Linking.openURL(item.qr_link)}}
+                        style={{backgroundColor:"#EDA332",padding:5,paddingTop:2,paddingHorizontal:10,flexDirection:"row",borderRadius:5}}>
+                            <Text style={{color:"#fff",fontSize:RFValue(12,580),fontFamily:"Raleway-Bold"}}>View QR</Text>
+                            <Icon type="ionicon" name="qr-code-outline" size={20} color="#fff" style={{marginLeft:5,marginTop:2}} />
+                        </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
-        :
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id})}} style={{width:'100%',marginTop:10,padding:10,backgroundColor:'darkred',width:'90%',alignSelf:'center',borderRadius:5}}>
-        <View style={{flexDirection:'row'}}>
-         <View style={{width:60,height:60,backgroundColor:'darkred',borderRadius:5}}>
-             <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
-         </View>
-         <View style={{marginLeft:20}}>
-         <Text style={[styles.h3,{color:'#eee'}]}>{item.table_name}</Text>
-         <Text style={[styles.p,{color:'#eee'}]}>{item.table_status}</Text>
-         </View>
-         </View>
-     </TouchableOpacity>
+                :
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_name:item.table_name})}} style={[style.viewBox,
+                {width:'100%',marginTop:10,padding:10,backgroundColor:'#EDA332',width:'90%',alignSelf:'center',borderRadius:5}]}>
+            <View style={{flexDirection:'row'}}>
+            <View style={{width:60,height:60,backgroundColor:'#E47635',borderRadius:5}}>
+                <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
+            </View>
+            <View style={{marginLeft:20}}>
+            <Text style={[styles.h3,{color:'#eee'}]}>{item.table_name}</Text>
+            <Text style={[styles.p,{color:'#eee',fontSize:RFValue(12,580)}]}>{item.table_status}</Text>
+            </View>
+            </View>
+        </TouchableOpacity>
 
         }
         </>
@@ -185,12 +228,13 @@ class Tables extends Component {
     render() {
 
         return (
-            <View style={[styles.container,{backgroundColor:'#f2f2f2'}]}>
+            <View style={[styles.container]}>
                 <View>
                     <Header
                         statusBarProps={{ barStyle: 'light-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
+                        rightComponent={this.renderRightComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
                             colors: ['#fff', '#fff'],
@@ -199,7 +243,6 @@ class Tables extends Component {
                         }}
                     />
                 </View>
-                <View style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
                 {!this.state.isloading ? 
                       (this.state.data.length >0) ?
 
@@ -208,14 +251,15 @@ class Tables extends Component {
                       data={this.state.data}
                       renderItem={this.productCard}
                       keyExtractor={item=>item.id} 
+                      style={{marginBottom:10}}
                       />
                 
                 :
-                <View style={{paddingTop:120,alignItems:"center"}}>
+                <View style={{paddingTop:150,alignItems:"center"}}>
                 <View style={{alignSelf:"center"}}>
-                <Image source={require("../img/no-product.png")}
-                style={{width:300,height:300}} />
-                 <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+                <Image source={require("../img/no-table.webp")}
+                style={{width:340,height:200}} />
+                 <Text style={[styles.h3,{top:20,alignSelf:"center"}]}>
         No Record Found!
     </Text>
             </View>  
@@ -235,7 +279,7 @@ class Tables extends Component {
                     style={style.textInput}/>
                 </View> */}
 
-                {(!this.state.table_load )?
+                {/* {(!this.state.table_load )?
                     <TouchableOpacity style={style.uploadButton} onPress={() => this.add()} >
                         <Text style={style.buttonText}>
                             Add New Table
@@ -246,9 +290,8 @@ class Tables extends Component {
            <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
            </View>
 
-                }
+                } */}
                     
-                </View>
             </View>
         )
     }
@@ -302,14 +345,14 @@ const style = StyleSheet.create({
     uploadButton: {
         backgroundColor: "rgba(233,149,6,1)",
         // width: 105,
-        height: 40,
         justifyContent: "center",
         padding: 5,
         borderRadius: 5,
         alignSelf: "center",
         alignItems: "center",
         // marginLeft:20,
-        marginTop: 20
+        marginTop: 70,
+        paddingHorizontal:15
     },
     buttonText: {
         fontFamily: "Raleway-SemiBold",
@@ -323,10 +366,21 @@ const style = StyleSheet.create({
     },
     loader:{
         shadowOffset:{width:50,height:50},
-        marginTop:20,
+        // marginTop:20,
         shadowRadius:50,
         elevation:5,
         alignSelf:"center",
+        justifyContent:"center",
         backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,
     },
+    viewBox:{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+    }
 })
