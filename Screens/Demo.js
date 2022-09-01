@@ -85,7 +85,6 @@ class Demo extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                 console.warn(json)
                 if (json.status) {
 
                     this.setState({ item: json.data })

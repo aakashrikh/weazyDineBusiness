@@ -115,10 +115,11 @@ get_profile=()=>{
                                 
                             }
                             else{
-                               
+                              
+                             
                                 this.setState({data:json.data})
                                 this.setState({id:json.data.id})
-                                this.setState({link:json.data.link})
+                                this.setState({link:json.link})
                                 json.data.map(value=>{
                                     this.setState({step:value.step});
                                     if(value.step == 2)

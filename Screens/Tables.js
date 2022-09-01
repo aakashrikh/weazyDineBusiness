@@ -211,7 +211,17 @@ class Tables extends Component {
                       />
                 
                 :
-                <Text>No Tables Found</Text>
+                <View style={{paddingTop:120,alignItems:"center"}}>
+                <View style={{alignSelf:"center"}}>
+                <Image source={require("../img/no-product.png")}
+                style={{width:300,height:300}} />
+                 <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+        No Record Found!
+    </Text>
+            </View>  
+            </View>
+
+
                 :
                 <Loaders />
     }
