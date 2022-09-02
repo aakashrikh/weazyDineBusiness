@@ -15,6 +15,7 @@ import {Picker} from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -28,6 +29,12 @@ const options = {
     },
     quality:0.5
 }
+
+
+var radio_props = [
+    {label: 'Veg', value: 1 },
+    {label: 'Non-Veg', value: 0 }
+  ];
 
 class CreatePackages extends Component{
     constructor(props){
@@ -95,8 +102,8 @@ class Fields extends Component{
             image_load:'',
             vendor_category_id:'',
             type:"package",
-            height:0
-                
+            height:0,
+                 is_veg:1,
             
         };
     }
@@ -237,7 +244,7 @@ create=()=>{
             form.append("description",this.state.description);
             form.append("type",this.state.type);
             form.append("product_img", photo);
-            
+            form.append("is_veg",this.state.is_veg);
             fetch(global.vendor_api+'vendor_add_product', { 
                 method: 'POST',
                 body: form,
@@ -359,6 +366,18 @@ create=()=>{
                     />
             </View>
 
+            <View style={{marginTop:20,alignSelf:'center'}}>
+        <RadioForm
+          formHorizontal={true}
+          radio_props={radio_props}
+          animation={true}
+          initial={0}
+          labelHorizontal={false}
+          labelStyle={{marginRight:20}}
+          onPress={(value) => {this.setState({is_veg:value})}}
+        />
+      </View>
+      
             <View>
                 <View style={{flexDirection:"row",width:"100%"}}>
 

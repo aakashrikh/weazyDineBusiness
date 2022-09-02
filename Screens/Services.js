@@ -27,29 +27,28 @@ class Services extends Component{
         super(props);
         this.state={
             data:'',
-            category:'',
+        active_cat:'',
             // vendor_category_id:0,
             isloading:true,
             isLoading:false,
             object:{},
             select:{},
             last_select:'',
-            load_data:true,
-            page:0
+            load_data:false,
+            page:0,
+            category:[]
             // prod_id:''
         }
     }
     componentDidMount = ()=>
-    {  
-        console.warn("component",this.props,this.props.route.params)
+    { 
         this.get_category()  ;
-        this.get_vendor_product(0);
+        this.get_vendor_product(0,1);
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
-            this.get_category()  ;
-            console.warn("component2",this.props.route.params);
+           
             if(this.props.route.params!=undefined){
             this.get_category();
-            this.get_vendor_product(0);
+            this.get_vendor_product(0,1);
             }
         })  
     
@@ -57,18 +56,18 @@ class Services extends Component{
 
     // function to load data while scrolling
     load_more=()=>{
+       
         var data_size=this.state.data.length
         if(data_size>9){
             var page=this.state.page+1
             this.setState({page:page})
-            this.get_vendor_product()
+            this.setState({load_data:true});
+            this.get_vendor_product(this.select.active_cat,page)
         }
     }
 
-    get_vendor_product=(category_id)=>{
-        // console.warn(global.token)
-      this.setState({isloading:true})
-      this.setState({load_data:true});
+    get_vendor_product=(category_id,page)=>{
+     
         fetch(global.vendor_api+'vendor_get_vendor_product', { 
             method: 'POST',
               headers: {    
@@ -79,16 +78,19 @@ class Services extends Component{
                     body: JSON.stringify({ 
                         vendor_category_id:category_id ,
                         product_type:'product',
-                        page:this.state.page
+                        page:page
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                console.log(json)
+                             
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    // Toast.show(msg);
-                                    // Toast.show(json.errors[0])
+                                    
+                                    if(page == 1)
+                                    {
+                                        this.setState({data:[]})
+                                    }
                                 }
                                 else{
                                     if(json.data.length>0)
@@ -114,11 +116,11 @@ class Services extends Component{
                                         
                                     }
                                  
-                                   console.warn("get_vendor_product",json.data)
                                 //    this.setState({prod_id:json.data[0].id})
                                 //    alert(this.state.prod_id)
-                                this.setState({isloading:false,load_data:false})
+                               
                                 }
+                                this.setState({isloading:false,load_data:false})
                                return json;    
                            }).catch((error) => {  
                                    console.error(error);   
@@ -135,7 +137,7 @@ class Services extends Component{
         })
         .then((response) => response.json())
         .then((json) => {
-            console.warn("get_category",json)
+
             if(json.status)
             {
                 if(json.data.length>0)
@@ -158,22 +160,10 @@ class Services extends Component{
     }
 
 filter=(id)=>{
+ 
     this.setState({isloading:true})
-    this.get_vendor_product(id);
-    
-    const select = this.state.select;
-    if(this.state.select[id] == true )
-    {
-      select[id] = false;
-    }
-    else
-      {
-        select[id] = true;
-      }
-
-      select[this.state.last_select]=false; 
-    this.setState({ select });
-    this.setState({last_select:id});
+    this.get_vendor_product(id,1);
+    this.setState({active_cat:id})
     }
 
     toggle=(id)=>{
@@ -204,7 +194,7 @@ filter=(id)=>{
                                 })
                             }).then((response) => response.json())
                                 .then((json) => {
-                                    console.warn("toggle",json)
+                                  
                                     if(!json.status)
                                     {
                                         var msg=json.msg;
@@ -239,7 +229,7 @@ filter=(id)=>{
                             navigation={this.props.navigation}
                             category={this.state.category}
                             filter={this.filter}
-                            select={this.state.select}
+                            active_cat={this.state.active_cat}
                             get_vendor_product={this.get_vendor_product}
                             />
       
@@ -279,6 +269,17 @@ filter=(id)=>{
                             <Loaders />
                         </View>
                       }
+
+
+{(this.state.load_data)?
+                     <View style={{alignItems:"center",flex:1,backgroundColor:"white",flex:1, paddingTop:20}}>
+                      <ActivityIndicator animating={true} size="small" color="#326bf3" />
+                      <Text style={styles.p}>Please wait...</Text>
+                    </View>
+                             :
+                     <View></View>
+                }
+
                   </ScrollView>
                  
                {/* fab button */}
@@ -348,7 +349,7 @@ class Categories extends Component{
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 
             <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
-            {!this.props.select[0] ?
+            {(!this.props.active_cat == 0) ?
                  <TouchableOpacity 
                  onPress={()=>this.props.filter(0)}>
                  <View style={style.catButton}>
@@ -371,7 +372,7 @@ class Categories extends Component{
                
                 return(
                 <View>
-                    {!this.props.select[cat.id] ?
+                    {(this.props.active_cat != cat.id) ?
                 <TouchableOpacity 
                 onPress={()=>this.props.filter(cat.id)}>
                 <View style={style.catButton}>
@@ -608,14 +609,7 @@ class Card extends Component{
                 onEndReachedThreshold={0.5}
                 onEndReached={()=>this.props.load_more()}
                 />
-                 {this.props.load_data?
-                     <View style={{alignItems:"center",flex:1,backgroundColor:"white",flex:1, paddingTop:20}}>
-                      <ActivityIndicator animating={true} size="small" color="#326bf3" />
-                      <Text style={styles.p}>Please wait...</Text>
-                    </View>
-                             :
-                     <View></View>
-                }
+                
 
             </View>
         )

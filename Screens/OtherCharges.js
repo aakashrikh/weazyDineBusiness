@@ -97,6 +97,7 @@ class OtherCharges extends Component {
                         {
                             this.setState({sc:false});
                         }
+
                         this.setState({ gstin: value.gstin })
                         this.setState({ scamount: value.service_charge })
                         this.setState({ gstper: value.gst_percentage })
@@ -114,20 +115,32 @@ class OtherCharges extends Component {
     }
 
     update_profile = () => {
-        var gstin="";
-        var gst_percentage=0;
-        var service_charge=0;
+        var gstin=this.state.gstin;
+        var gst_percentage=this.state.gstper;
+        var service_charge=this.state.scamount;
+        if(this.state.gst == false)
+        {
+            gstin='';
+            gst_percentage=0;
+        }
+        if(this.state.sc == false)
+        {
+            service_charge=0;
+        }
         if(this.state.gst && this.state.gstin== "")
         {
+            gstin="";
             Toast.show("GSTIN is required!");
         }
         else if (this.state.gst && this.state.gstper== "")
         {
+            gst_percentage=0;
             Toast.show("GST Percentage is required!");
         }
         else if (this.state.sc && this.state.scamount == "")
         {
             Toast.show("Service Charge is required!");
+            service_charge=0;
         }
         else
         {
@@ -142,7 +155,7 @@ class OtherCharges extends Component {
                 body: JSON.stringify({
                     gstin:gstin,
                     gst_percentage:gst_percentage,
-                    service_charge:service_charge
+                    service_charge:service_charge,
                 })
             }).then((response) => response.json())
                 .then((json) => {
@@ -227,7 +240,7 @@ class OtherCharges extends Component {
                                     <Input
                                         style={style.inputText}
                                         value={this.state.gstin}
-                                        onChangeText={(e) => { this.setState({ name: e }) }}
+                                        onChangeText={(e) => { this.setState({ gstin: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />
@@ -239,7 +252,7 @@ class OtherCharges extends Component {
                                         style={style.inputText}
                                         value={this.state.gstper}
                                         keyboardType="numeric"
-                                        onChangeText={(e) => { this.setState({ name: e }) }}
+                                        onChangeText={(e) => { this.setState({ gstper: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />
@@ -275,7 +288,7 @@ class OtherCharges extends Component {
                                         style={style.inputText}
                                         value={this.state.scamount}
                                         keyboardType="numeric"
-                                        onChangeText={(e) => { this.setState({ name: e }) }}
+                                        onChangeText={(e) => { this.setState({ scamount : e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />

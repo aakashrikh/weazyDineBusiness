@@ -81,7 +81,7 @@ class ProductVariants extends Component {
       }
 
     });
-console.warn(this.state.v_data);
+
     fetch(global.vendor_api  + 'vendor_update_product_options', { 
       method: 'POST',
         headers: {    

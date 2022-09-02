@@ -12,9 +12,16 @@ class TopTab extends Component{
   constructor (props)
   {
     super(props)
-
-    console.warn()
+  
   }
+
+  componentDidMount = ()=>
+    { 
+        this.focusListener=this.props.navigation.addListener('focus', ()=>{
+          console.warn(this.props);
+        })  
+    
+    }
   render(){
     return(
       
@@ -42,9 +49,9 @@ class TopTab extends Component{
       },
     }}
     >
-      <Tabs.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} />
+      <Tabs.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} props={this.props}/>
       <Tabs.Screen name="Service" component={Services} options={{title:"Menu"}} props={this.props}/>
-      <Tabs.Screen name="Package" component={Packages} options={{title:"Combos"}} />
+      <Tabs.Screen name="Package" component={Packages} options={{title:"Combos"}} props={this.props}/>
       
     </Tabs.Navigator>
     

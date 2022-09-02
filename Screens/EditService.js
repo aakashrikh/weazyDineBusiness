@@ -391,9 +391,19 @@ create=()=>{
             </View>
             <View>
                 
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('ProductVariants',{product_id:this.state.prod_id,variants:this.props.data.variants,addons:this.props.data.addons})}}>
+                <View style={{flexDirection:'column'}}>
+                    <View>
+                <TouchableOpacity onPress={()=>{this.props.navigation.navigate('ProductVariants',{product_id:this.state.prod_id,variants:this.props.data.variants,addons:this.props.data.addons})}}>
                     <Text style={{fontSize:18}}> + VARIANTS & ADD-ONS</Text>
+
+                   
                     </TouchableOpacity>
+                    </View>
+                    <View>
+                    <Text>{this.props.data.variants.length} Variants</Text>
+                    </View>
+                </View>
+           
                 <View style={{flexDirection:"row",width:"100%"}}>
 
                
