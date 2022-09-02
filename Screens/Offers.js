@@ -310,7 +310,7 @@ class Offers extends Component {
  style={style.logo}/>
 
 
- <View style={{width:"85%",backgroundColor:"#326bf3",height:30,top:85,justifyContent:"center",  left:15,position:"absolute", alignItems:"center",borderRadius:5}} >
+ <View style={{width:"85%",backgroundColor:"#EDA332",height:30,top:85,justifyContent:"center",  left:15,position:"absolute", alignItems:"center",borderRadius:5}} >
                
                 <Text style={{fontFamily:"Montserrat-Bold",
             fontSize:RFValue(11,580),color:"#fff"}}>
@@ -352,7 +352,7 @@ class Offers extends Component {
                             <View style={{ margin: 5, marginTop: 10, flexDirection: "row" }}>
                                 <View style={{ marginRight: 10 }} >
                                     <Switch
-                                        trackColor={{ false: "#d3d3d3", true: "#326bf3" }}
+                                        trackColor={{ false: "#d3d3d3", true: "#EDA332" }}
                                         thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                         value={this.state.object[item.id]}
                                         onValueChange={() => this.toggle(item.id)}
@@ -486,14 +486,14 @@ class Offers extends Component {
                     }
                     {this.state.load_more ?
                         <View style={style.loader}>
-                            <ActivityIndicator size="small" color="#326bf3" />
+                            <ActivityIndicator size="small" color="#EDA332" />
                         </View>
                         :
                         <View>
                         </View>}
                     {/* {this.state.isloading ? 
                     <View style={{paddingTop:120,alignItems:"center"}}>
-                    <ActivityIndicator size='small' color="#326bf3" />
+                    <ActivityIndicator size='small' color="#EDA332" />
                     <Text style={styles.p}>Please wait</Text>
                     </View>
                         :
@@ -594,7 +594,7 @@ const style = StyleSheet.create({
 
     },
     fab: {
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         borderRadius: 100,
         height: 50,
         width: 50,
@@ -607,7 +607,7 @@ const style = StyleSheet.create({
     },
 
     button: {
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         padding: 4,
         borderRadius: 25,
         width: 80,

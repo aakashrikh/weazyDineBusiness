@@ -161,7 +161,7 @@ const ss=StyleSheet.create({
         marginTop:20,
         shadowRadius:50,
         elevation:5,
-        backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,alignSelf:"flex-end"
+        backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,alignSelf:"center"
     },
   
 })

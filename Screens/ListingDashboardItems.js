@@ -261,7 +261,7 @@ class ListingDashboardItems extends Component {
     </>
     :
     <View style={{marginTop:50}} >
-    <ActivityIndicator color="#326bf3" size="large" />
+    <ActivityIndicator color="#EDA332" size="large" />
     </View>
 }
                 {/* <View style={{ flexDirection: "row", marginLeft: 20, margin: 10 }}>

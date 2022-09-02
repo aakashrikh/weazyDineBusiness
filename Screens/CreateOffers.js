@@ -339,12 +339,12 @@ class CreateOffers extends Component{
                     tagRemoveIconColor="#CCC"
                     tagBorderColor="#CCC"
                     tagTextColor="#CCC"
-                    selectedItemTextColor="#326bf3"
+                    selectedItemTextColor="#EDA332"
                     selectedItemIconColor="#000"
                     itemTextColor="#000"
                     displayKey="name"
                     searchInputStyle={{ color: '#000' }}
-                    submitButtonColor="#326bf3"
+                    submitButtonColor="#EDA332"
                     submitButtonText="Submit"
                     />
                  </View>
@@ -370,12 +370,12 @@ class CreateOffers extends Component{
                     tagRemoveIconColor="#CCC"
                     tagBorderColor="#CCC"
                     tagTextColor="#CCC"
-                    selectedItemTextColor="#326bf3"
+                    selectedItemTextColor="#EDA332"
                     selectedItemIconColor="#000"
                     itemTextColor="#000"
                     displayKey="name"
                     searchInputStyle={{ color: '#000' }}
-                    submitButtonColor="#326bf3"
+                    submitButtonColor="#EDA332"
                     submitButtonText="Submit"
                     />
                  </View>
@@ -451,7 +451,7 @@ class CreateOffers extends Component{
                 onPress={()=>this.create_offer()}
                 style={style.buttonStyles}>
                 <LinearGradient 
-                    colors={['#326BF3', '#0b2564']}
+                    colors={['#EDA332', '#EDA332']}
                     style={styles.signIn}>
 
                     <Text style={[styles.textSignIn, {color:'#fff'}]}>
@@ -461,7 +461,7 @@ class CreateOffers extends Component{
                 </View>
                 :
                 <View style={style.loader}>
-                <ActivityIndicator size={"large"} color="#326bf3" />
+                <ActivityIndicator size={"large"} color="#EDA332" />
             </View>
     }
 
@@ -502,7 +502,7 @@ const style=StyleSheet.create({
         marginBottom:20
       },
       uploadButton:{
-        // backgroundColor:"#326bf3",
+        // backgroundColor:"#EDA332",
         borderColor:"black",
         borderWidth:1,
         width:90,

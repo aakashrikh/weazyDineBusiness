@@ -111,14 +111,14 @@ class CashbackHistory extends Component {
                     <View style={{ flexDirection: "row",marginTop: 5, marginLeft: 15,width:'100%' }}>
 
                         <View style={{width:'65%'}}>
-                        <Text style={[styles.h5,{marginBottom:5}]}>
+                        <Text style={[styles.h5,{marginBottom:5,fontFamily:"Roboto-Bold"}]}>
                             {item.order_code}
                         </Text>
 
-                        <Text style={styles.h4}>
+                        <Text style={[styles.h4,{fontFamily:"Roboto-Bold"}]}>
                             {item.user.name}
                         </Text>
-                        <Text style={[styles.h5,{marginBottom:10}]}>
+                        <Text style={[styles.h5,{marginBottom:10,fontFamily:"Roboto-Medium"}]}>
                             {moment.utc(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
                         </Text>
                         <Text >
@@ -128,21 +128,21 @@ class CashbackHistory extends Component {
 
                     <View style={{width:'30%'}}>
                         {(item.order_status == 'pending')?
-                          <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                          <Text style={[styles.p, { color: 'green',alignSelf:'center' }]}>{item.order_status}</Text>
+                          <Text style={{backgroundColor:'orange',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                          <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
                       </Text>
                         :
                         (item.order_status == 'cancelled')?
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: 'red',alignSelf:'center' }]}>{item.order_status}</Text>
+                        <Text style={{backgroundColor:'red',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
                     </Text>
                         :
                         (item.order_status == 'completed')?
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#222',alignSelf:'center' }]}>{item.order_status}</Text>
+                        <Text style={{backgroundColor:'green',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>{item.order_status}</Text>
                     </Text>
                         :
-                        <Text style={{backgroundColor:'#f2f2f2',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
                         <Text style={[styles.p, { color: 'orange',alignSelf:'center' }]}>{item.order_status}</Text>
                     </Text>
 
@@ -158,7 +158,7 @@ class CashbackHistory extends Component {
 
     render() {
         return (
-            <View style={[styles.container, { backgroundColor: "#f5f5f5" }]}>
+            <View style={[styles.container, { backgroundColor: "#fff" }]}>
                 <Header
                     statusBarProps={{ barStyle: 'light-content' }}
                     centerComponent={this.renderCenterComponent()}

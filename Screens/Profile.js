@@ -336,7 +336,7 @@ class Profile extends Component {
                                             onPress={() => this.save()}
                                             style={[style.buttonStyles,{bottom:10}]}>
                                             <LinearGradient
-                                                colors={['#377ae3', '#0345b7']}
+                                                colors={['#EDA332', '#EDA332']}
                                                 style={styles.signIn}>
 
                                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>

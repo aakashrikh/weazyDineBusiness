@@ -260,7 +260,7 @@ camera =()=>{
                              <View >   
                              <TouchableOpacity style={{ width:80,height:80,marginTop:20}} onPress={()=>this.RBSheet.open()}>
                                 <View style={style.add}>
-                                    <Icon name="add" size={35} color="#326bf3" />
+                                    <Icon name="add" size={35} color="#EDA332" />
                                     </View>
                                     </TouchableOpacity>
                        
@@ -271,7 +271,7 @@ camera =()=>{
                             </View>
                             :
                             <View style={style.loader}>
-                            <ActivityIndicator size="large" color="#326bf3" />
+                            <ActivityIndicator size="large" color="#EDA332" />
                             </View>
         }
                             
@@ -309,14 +309,14 @@ camera =()=>{
                             <View style={{width:"100%",padding:20}}>
                             <TouchableOpacity onPress={this.camera}>
                                         <Text style={style.iconPencil}>
-                                            <Icon name='camera' type="ionicon" color={'#0077c0'} size={25}/>
+                                            <Icon name='camera' type="ionicon" color={'#EDA332'} size={25}/>
                                         </Text>
                                         <Text style={style.Text}>Take a picture</Text>
                                         </TouchableOpacity>
 
                                         <TouchableOpacity onPress={this.gallery} > 
                                         <Text style={style.iconPencil}>
-                                            <Icon name='folder' type="ionicon" color={'#0077c0'} size={25}/>
+                                            <Icon name='folder' type="ionicon" color={'#EDA332'} size={25}/>
                                         </Text>
                                         <Text style={style.Text}>Select from library</Text>
                                         </TouchableOpacity>
@@ -330,7 +330,7 @@ camera =()=>{
                 onPress={()=>this.props.navigation.navigate("Home")}
                 style={style.buttonStyles}>
                 <LinearGradient 
-                    colors={['#326BF3', '#0b2564']}
+                    colors={['#EDA332', '#0b2564']}
                     style={styles.signIn}>
 
                     <Text style={[styles.textSignIn, {color:'#fff'}]}>

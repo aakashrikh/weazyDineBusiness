@@ -229,7 +229,7 @@ renderLeftComponent(){
                                     </View>
                                     <View style={{ width: "10%", marginLeft: 10 }}>
                                         <Switch
-                                            trackColor={{ false: "#d3d3d3", true: "#326bf3" }}
+                                            trackColor={{ false: "#d3d3d3", true: "#EDA332" }}
                                             thumbColor={"white"}
                                             
                                             value={value.status}
@@ -280,7 +280,7 @@ renderLeftComponent(){
                                 onPress={() => this.update_vendor_timing()}
                                 style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, width: "60%", alignSelf: "center" }]}>
                                 <LinearGradient
-                                    colors={['#326bf3', '#0b2654']}
+                                    colors={['#EDA332', '#EDA332']}
                                     style={[styles.signIn]}>
 
                                     <Text style={[styles.textSignIn, {
@@ -294,7 +294,7 @@ renderLeftComponent(){
                         </View>
                         :
                         <View style={style.loader}>
-                            <ActivityIndicator size={"large"} color="#326bf3" />
+                            <ActivityIndicator size={"large"} color="#EDA332" />
                         </View>
                     }
                 </ScrollView>

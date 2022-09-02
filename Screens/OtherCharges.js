@@ -313,7 +313,7 @@ class OtherCharges extends Component {
             style={[styles.buttonStyle,{bottom:10}]}>
                 <LinearGradient 
                     colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
-                    style={[styles.signIn,{borderRadius:10,width:'80%',alignSelf:'center'}]}>
+                    style={[styles.signIn,{borderRadius:25,width:'80%',alignSelf:'center'}]}>
 
                     <Text style={[styles.textSignIn, {
                     color:'#fff'}]}>Save Changes</Text>
@@ -394,7 +394,7 @@ const style = StyleSheet.create({
         fontSize: RFValue(11, 580),
     },
     uploadButton: {
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         width: 105,
         height: 40,
         justifyContent: "center",

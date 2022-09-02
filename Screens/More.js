@@ -128,7 +128,7 @@ constructor(props){
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("MultipleImage")}>
                         <View style={style.questView} >
                             <View style={{flexDirection:"row"}}>
-                                <Image source={require('../img/icons/about.png')} style={style.Icon}/>
+                                <Image source={require('../img/icons/covers.png')} style={style.Icon}/>
                                 <Text style={style.texxt}>Add  Covers Pictures</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}
@@ -139,7 +139,7 @@ constructor(props){
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("OtherCharges")}>
                         <View style={style.questView} >
                             <View style={{flexDirection:"row"}}>
-                                <Image source={require('../img/icons/about.png')} style={style.Icon}/>
+                                <Image source={require('../img/icons/others.png')} style={style.Icon}/>
                                 <Text style={style.texxt}>Other Charges</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}
@@ -150,7 +150,7 @@ constructor(props){
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("ChangeShopTime")}>
                         <View style={style.questView} >
                             <View style={{flexDirection:"row"}}>
-                                <Image source={require('../img/times.png')} style={style.Icon}/>
+                                <Image source={require('../img/icons/timing.png')} style={style.Icon}/>
                                 <Text style={style.texxt}>Update Store Timing</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}
@@ -210,7 +210,7 @@ constructor(props){
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy")}>
                         <View style={style.questView}>
                             <View style={{flexDirection:"row"}}>
-                                <Image source={require('../img/icons/pp.png')} style={style.Icon}/>
+                                <Image source={require('../img/icons/privacy.png')} style={style.Icon}/>
                                 <Text style={style.texxt}>Privacy Policy</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}
@@ -222,7 +222,7 @@ constructor(props){
                     <TouchableOpacity onPress={()=>this.props.navigation.navigate("ContactUs")}>
                         <View style={style.questView}>
                             <View style={{flexDirection:"row"}}>
-                                <Image source={require('../img/icons/phone.png')} style={style.Icon}/>
+                                <Image source={require('../img/icons/support.png')} style={style.Icon}/>
                                 <Text style={style.texxt}>Support</Text>
                             </View>
                             <Image source={require('../img/icons/right-arrow.png')}

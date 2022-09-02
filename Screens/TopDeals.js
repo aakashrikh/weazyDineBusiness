@@ -183,7 +183,7 @@ class TopDeals extends Component {
                                     onPress={() => this.update_deal()}
                                     style={[styles.buttonStyles, { marginTop: 50, alignSelf: "center", width: "60%", height: 45 }]}>
                                     <LinearGradient
-                                        colors={['#326bf3', '#0b2654']}
+                                        colors={['#EDA332', '#EDA332']}
                                         style={[styles.signIn, { height: 45 }]}>
 
                                         <Text style={[styles.textSignIn, {
@@ -193,8 +193,8 @@ class TopDeals extends Component {
                                     </LinearGradient>
                                 </TouchableOpacity>
                                 :
-                                <View style={styles.loader}>
-                                    <ActivityIndicator size="large" color="#326bf3" />
+                                <View style={style.loader}>
+                                    <ActivityIndicator size="large" color="#EDA332" />
                                 </View>
                             }
 
@@ -223,7 +223,7 @@ class TopDeals extends Component {
                                     onPress={() => this.update_deal()}
                                     style={[styles.buttonStyles, { marginTop: 50, alignSelf: "center", width: "60%", height: 45 }]}>
                                     <LinearGradient
-                                        colors={['#326bf3', '#0b2654']}
+                                        colors={['#EDA332', '#EDA332']}
                                         style={[styles.signIn, { height: 45 }]}>
 
                                         <Text style={[styles.textSignIn, {
@@ -233,8 +233,8 @@ class TopDeals extends Component {
                                     </LinearGradient>
                                 </TouchableOpacity>
                                 :
-                                <View style={styles.loader}>
-                                    <ActivityIndicator size="large" color="#326bf3" />
+                                <View style={style.loader}>
+                                    <ActivityIndicator size="large" color="#EDA332" />
                                 </View>
                             }
 
@@ -271,6 +271,13 @@ const style = StyleSheet.create({
         fontFamily: "Montserrat-Regular",
         color: "black",
         // marginLeft:10
+    },
+    loader:{
+        shadowOffset:{width:50,height:50},
+        marginTop:20,
+        shadowRadius:50,
+        elevation:5,
+        backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,alignSelf:"center"
     },
 
 }

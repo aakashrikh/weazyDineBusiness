@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity,Pressable,
+    ScrollView, Dimensions, TouchableOpacity, Pressable,
     Modal
 } from 'react-native';
 import { Icon, Header, Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
- 
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+
 var radio_props = [
-    {label: 'Google Pay/Paytm/UPI', value: 'UPI' },
-    {label: 'Credit/Debit Card', value: 'card' },
-    {label: 'Cash', value: 'cash' }
-  ];
+    { label: 'Google Pay/Paytm/UPI', value: 'UPI' },
+    { label: 'Credit/Debit Card', value: 'card' },
+    { label: 'Cash', value: 'cash' }
+];
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -28,24 +28,24 @@ class GenerateBill extends Component {
         this.state = {
             category: "",
             status: "active",
-            data:[],
-            isloading:true,
-            cart:[],
+            data: [],
+            isloading: true,
+            cart: [],
             modalVisible: false,
-            total_price:0,
-            payment:0
+            total_price: 0,
+            payment: 0
         };
-       
+
     }
 
 
-    componentDidMount(){
+    componentDidMount() {
     }
 
     //for header left component
     renderLeftComponent() {
         return (
-            <View style={{ top:5}}>
+            <View style={{ top: 5 }}>
                 <Icon type="ionicon" name="arrow-back-outline"
                     onPress={() => { this.props.navigation.goBack() }} />
             </View>
@@ -61,8 +61,7 @@ class GenerateBill extends Component {
         )
     }
 
-    mark_complete = ()=>
-    {
+    mark_complete = () => {
         fetch(global.vendor_api + 'update_order_status_by_vendor', {
             method: 'POST',
             headers: {
@@ -71,47 +70,47 @@ class GenerateBill extends Component {
                 'Authorization': global.token
             },
             body: JSON.stringify({
-              order_id: this.props.route.params.bill.id,
-              payment_method:this.state.payment,
-              order_status:'completed'
+                order_id: this.props.route.params.bill.id,
+                payment_method: this.state.payment,
+                order_status: 'completed'
             })
         }).then((response) => response.json())
             .then((json) => {
-           console.warn(json);
+                console.warn(json);
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
-                  //  clearInterval(myInterval);
+                    //  clearInterval(myInterval);
                 }
                 else {
-                   this.props.navigation.navigate('Tables');
+                    this.props.navigation.navigate('Tables');
                     console.warn(json.data);
-                    
+
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
                     //     // this.get_profile();
-        
+
                     // }, 10000);
 
                     // this.setState({interval:myInterval});
                     // Toast.show(json.msg)
-              
-                    
+
+
                 }
-                this.setState({isloading:false})
+                this.setState({ isloading: false })
                 return json;
             }).catch((error) => {
                 console.error(error);
             }).finally(() => {
-                this.setState({ isloading:false })
+                this.setState({ isloading: false })
             });
     }
 
 
-    
+
     render() {
         return (
-            <View style={[styles.container,{backgroundColor:'#fff'}]}>
+            <View style={[styles.container, { backgroundColor: '#fff' }]}>
                 <View>
                     <Header
                         statusBarProps={{ barStyle: 'light-content' }}
@@ -125,38 +124,41 @@ class GenerateBill extends Component {
                         }}
                     />
                 </View>
-                <ScrollView style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3",marginBottom:60 }}>
+                <ScrollView style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3", marginBottom: 60 }}>
                     <View
                         style={{
-                        flexDirection: 'row',
-                        marginTop: 10,
-                        justifyContent: 'space-between',
+                            flexDirection: 'row',
+                            marginTop: 10,
+                            justifyContent: 'space-between',
                         }}>
-                        <View style={{marginTop: 10, paddingLeft: 20}}>
-                        <Text style={style.text}>Total Bill Amount</Text>
+                        <View style={{ marginTop: 10, paddingLeft: 20 }}>
+                            <Text style={style.text}>Total Bill Amount</Text>
                         </View>
 
-                        <View style={{paddingRight: 20, marginTop: 10}}>
-                        <Text style={style.text}>₹{this.props.route.params.bill.total_amount}</Text>
+                        <View style={{ paddingRight: 20, marginTop: 10 }}>
+                            <Text style={[style.text,{fontFamily:"Roboto-Bold"}]}>₹ {this.props.route.params.bill.total_amount}</Text>
                         </View>
                     </View>
 
-                    <View style={{marginTop:20,marginBottom:20}}>
-                  <View style={{backgroundColor:"#EDEDED",padding:10}}>
-                     <Text style={[style.text1,{color:"#5d5d5d",fontSize:RFValue(10,580)}]}>Choose Method</Text>
-                  </View>
-<View style={{padding:20}}>
-                  <RadioForm
-          radio_props={radio_props}
-          initial={0}
-          buttonColor={'#2196f3'}
-          onPress={(value) => {
-            console.warn(value)
-            this.setState({payment:value})}}
-        />
-</View>
+                    <View style={{ marginTop: 20, marginBottom: 20 }}>
+                        <View style={{ backgroundColor: "#FFECB6", padding: 10 }}>
+                            <Text style={[style.text1, { color: "#696969", fontSize: RFValue(12, 580) }]}>Choose Method</Text>
+                        </View>
+                        <View style={{ padding: 20 }}>
+                            <RadioForm
+                                radio_props={radio_props}
+                                initial={0}
+                                buttonColor={'#EDA332'}
+                                selectedButtonColor={'#EDA332'}
+                                onPress={(value) => {
+                                    console.warn(value)
+                                    this.setState({ payment: value })
+                                }}
+                                labelStyle={{ fontSize: RFValue(13, 580), margin:10,marginTop:0,marginBottom:0 }}
+                            />
+                        </View>
 
-                  {/* <Pressable style={{flexDirection:"row",justifyContent:"space-between",width:"100%"}}>
+                        {/* <Pressable style={{flexDirection:"row",justifyContent:"space-between",width:"100%"}}>
                      <View style={{flexDirection:"row",width:"60%",padding:10}}>
                         <Image source={require('../img/bhim.png')} style={{height:40,width:27}}/>
                         <Text style={{alignSelf:"center",marginLeft:12}}>
@@ -193,12 +195,12 @@ class GenerateBill extends Component {
                         <Icon name="chevron-forward-outline" type="ionicon" size={25} style={{alignSelf:"flex-end",marginTop:20}}/>
                      </View>
                   </Pressable > */}
-                
 
-                {/* <View style={{height:1,backgroundColor:"#f2f2f2",marginTop:20}}/> */}
 
-                {/* for discount field */}
-                    {/* <View
+                        {/* <View style={{height:1,backgroundColor:"#f2f2f2",marginTop:20}}/> */}
+
+                        {/* for discount field */}
+                        {/* <View
                     style={{
                         flexDirection: 'row',
                         marginTop: 30,
@@ -208,8 +210,8 @@ class GenerateBill extends Component {
                         <Text style={[style.text,{color:'#222'}]}>Any Discount</Text>
                     </View> */}
 
-                    {/* for input amount */}
-                    {/* <View style={{borderWidth:0.5,marginRight:20,borderRadius:10,}}>
+                        {/* for input amount */}
+                        {/* <View style={{borderWidth:0.5,marginRight:20,borderRadius:10,}}>
                         <Input
                         onChangeText={(e)=>{this.handleChange(e)}}
                         placeholder="Enter Discount Amount"
@@ -232,50 +234,51 @@ class GenerateBill extends Component {
                     </View> */}
 
 
-                    {/* </View> */}
+                        {/* </View> */}
 
-                    
-               </View>
+
+                    </View>
                 </ScrollView>
 
-                <View style={{width:'100%',height:50,backgroundColor:'#fff',position:'absolute',bottom:0}}>
-                <TouchableOpacity
-                onPress={()=>{this.mark_complete()}}
-            style={[styles.buttonStyle,{bottom:10}]}>
-                <LinearGradient 
-                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
-                    style={[styles.signIn,{borderRadius:10,width:'80%',alignSelf:'center'}]}>
+                <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0 }}>
+                    <TouchableOpacity
+                        onPress={() => { this.mark_complete() }}
+                        style={[styles.buttonStyle, { bottom: 10 }]}>
+                        <LinearGradient
+                            colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                            style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>
 
-                    <Text style={[styles.textSignIn, {
-                    color:'#fff'}]}>Complete This Order</Text>
-                    
-                </LinearGradient>
-            </TouchableOpacity>
+                            <Text style={[styles.textSignIn, {
+                                color: '#fff'
+                            }]}>Complete This Order</Text>
+
+                        </LinearGradient>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
     }
-    
+
 }
 
 
 export default GenerateBill
 
 const style = StyleSheet.create({
-    text:{
-        fontFamily:"Raleway-SemiBold",
-        fontSize:RFValue(14.5, 580),
-        margin:5,
-        color:'#000',
+    text: {
+        fontFamily: "Raleway-SemiBold",
+        fontSize: RFValue(14.5, 580),
+        margin: 5,
+        color: '#000',
     },
-    heading:{
-        fontFamily:"Raleway-SemiBold",
-        fontSize:RFValue(14.5, 580),
-        margin:5,
-        color:'#000',
-        marginLeft:10,
+    heading: {
+        fontFamily: "Raleway-SemiBold",
+        fontSize: RFValue(14.5, 580),
+        margin: 5,
+        color: '#000',
+        marginLeft: 10,
     },
-    text1:{
-        fontSize:RFValue(12,580),
-    }  
+    text1: {
+        fontSize: RFValue(12, 580),
+    }
 })

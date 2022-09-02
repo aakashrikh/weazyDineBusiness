@@ -200,7 +200,7 @@ const style=StyleSheet.create({
         
     },
     fab:{
-        backgroundColor:"#326bf3",
+        backgroundColor:"#EDA332",
         borderRadius:100,
         height:50,
         width:50,

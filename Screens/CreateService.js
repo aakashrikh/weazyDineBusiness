@@ -15,7 +15,7 @@ import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -31,9 +31,9 @@ const options = {
 }
 
 var radio_props = [
-    {label: 'Veg', value: 1 },
-    {label: 'Non-Veg', value: 0 }
-  ];
+    { label: 'Veg', value: 1 },
+    { label: 'Non-Veg', value: 0 }
+];
 
 class CreateService extends Component {
     constructor(props) {
@@ -102,8 +102,8 @@ class Fields extends Component {
             image_load: '',
             vendor_category_id: '',
             type: "product",
-            height:0,
-            is_veg:1,
+            height: 0,
+            is_veg: 1,
 
 
         };
@@ -202,9 +202,9 @@ class Fields extends Component {
         else if (this.state.category == "") {
             Toast.show("Add category first !");
         }
-        else if (this.state.market_price<this.state.our_price) {
-            Toast.show("Your price should be less than market price !");
-        }
+        // else if (this.state.market_price<this.state.our_price) {
+        //     Toast.show("Your price should be less than market price !");
+        // }
 
         else if (this.state.c_id == "") {
             Toast.show("Category is required !");
@@ -237,7 +237,7 @@ class Fields extends Component {
             form.append("description", this.state.description);
             form.append("type", this.state.type);
             form.append("product_img", photo);
-            form.append("is_veg",this.state.is_veg);
+            form.append("is_veg", this.state.is_veg);
             fetch(global.vendor_api + 'vendor_add_product', {
                 method: 'POST',
                 body: form,
@@ -257,9 +257,9 @@ class Fields extends Component {
                         this.props.get_cat();
                         this.props.get_product(0);
 
-                        this.props.navigation.navigate('ProductVariants',{product_id:json.data.id,variants:json.data.variants,addons:json.data.addons,refresh:true});
+                        this.props.navigation.navigate('ProductVariants', { product_id: json.data.id, variants: json.data.variants, addons: json.data.addons, refresh: true });
                         // this.props.navigation.navigate(this.props.back,{refresh:true})
-                        
+
                     }
                     return json;
                 }).catch((error) => {
@@ -345,38 +345,40 @@ class Fields extends Component {
                 </View>
 
 
-                <View style={{marginTop:20,alignSelf:'center'}}>
-        <RadioForm
-          formHorizontal={true}
-          radio_props={radio_props}
-          animation={true}
-          initial={0}
-          labelHorizontal={false}
-          labelStyle={{marginRight:20}}
-          onPress={(value) => {this.setState({is_veg:value})}}
-        />
-      </View>
+                <View style={{ marginTop: 20, alignSelf: 'center' }}>
+                    <RadioForm
+                        formHorizontal={true}
+                        radio_props={radio_props}
+                        animation={true}
+                        initial={0}
+                        buttonColor={'#EDA332'}
+                        selectedButtonColor={'#EDA332'}
+                        labelHorizontal={false}
+                        labelStyle={{ marginRight: 10, marginLeft: 10 }}
+                        onPress={(value) => { this.setState({ is_veg: value }) }}
+                    />
+                </View>
 
 
                 <View>
                     <Text style={style.fieldsTitle}>
                         Description <Text style={{ color: "grey" }}>(50words) </Text>
                     </Text>
-                    <TextInput 
-                    multiline={true}
-                    onContentSizeChange={(event) => {
-                        this.setState({ height: event.nativeEvent.contentSize.height })
-                    }}
-                    
-                    value={this.state.description}
-                    onChangeText={(e)=>{this.setState({description:e})}}
-                    // keyboardType="numeric"
-                    style={[style.textInput,{alignItems:"flex-start",height: Math.max(35, this.state.height)}]}
+                    <TextInput
+                        multiline={true}
+                        onContentSizeChange={(event) => {
+                            this.setState({ height: event.nativeEvent.contentSize.height })
+                        }}
+
+                        value={this.state.description}
+                        onChangeText={(e) => { this.setState({ description: e }) }}
+                        // keyboardType="numeric"
+                        style={[style.textInput, { alignItems: "flex-start", height: Math.max(35, this.state.height) }]}
                     />
                 </View>
 
                 <View>
-                  
+
                     <View style={{ flexDirection: "row", width: "100%" }}>
 
 
@@ -390,7 +392,7 @@ class Fields extends Component {
                                     <View style={{ flexDirection: "row", }}>
                                         <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
                                             <View style={style.add}>
-                                                <Icon name="add" size={35} color="#326bf3" />
+                                                <Icon name="add" size={35} color="#EDA332" />
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -444,14 +446,14 @@ class Fields extends Component {
                         <View style={{ width: "100%", padding: 20 }}>
                             <TouchableOpacity onPress={this.camera}>
                                 <Text style={style.iconPencil}>
-                                    <Icon name='camera' type="ionicon" color={'#0077c0'} size={25} />
+                                    <Icon name='camera' type="ionicon" color={'#EDA332'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Take a picture</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={this.gallery} >
                                 <Text style={style.iconPencil}>
-                                    <Icon name='folder' type="ionicon" color={'#0077c0'} size={25} />
+                                    <Icon name='folder' type="ionicon" color={'#EDA332'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Select from library</Text>
                             </TouchableOpacity>
@@ -467,7 +469,7 @@ class Fields extends Component {
                             onPress={() => this.create()}
                             style={style.buttonStyles}>
                             <LinearGradient
-                                colors={['#326BF3', '#0b2564']}
+                                colors={['#EDA332', '#EDA332']}
                                 style={styles.signIn}>
                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>
                                     Create</Text>
@@ -476,7 +478,7 @@ class Fields extends Component {
                     </View>
                     :
                     <View style={style.loader}>
-                        <ActivityIndicator size={"large"} color="#326bf3" />
+                        <ActivityIndicator size={"large"} color="#EDA332" />
                     </View>
                 }
             </View>
@@ -529,7 +531,7 @@ const style = StyleSheet.create({
         marginLeft: 20
     },
     uploadButton: {
-        // backgroundColor:"#326bf3",
+        // backgroundColor:"#EDA332",
         borderColor: "black",
         borderWidth: 1,
         width: 120,

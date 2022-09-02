@@ -84,7 +84,7 @@ class SupportView extends Component{
                  </View>
                  <View style={{width:Dimensions.get("window").width/2}}>
                  <Image source={require("../img/Capture1.png")} 
-                 style={{width:100,height:140,alignSelf:"center"}} />
+                 style={{width:200,height:140,alignSelf:"center"}} />
                  </View>
                 </View>
         )

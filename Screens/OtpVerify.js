@@ -291,7 +291,7 @@ class OtpVerify extends Component
 
             {this.state.isLoading?
             <View style={styles.loader}>
-            <ActivityIndicator size="large" color="#326bf3" />
+            <ActivityIndicator size="large" color="#EDA332" />
             </View>
             :
             <View>

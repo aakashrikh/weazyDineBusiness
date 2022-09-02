@@ -178,7 +178,7 @@ class TabNav extends Component{
       })}
       tabBarOptions={{
         labelPosition: "below-icon",
-        activeTintColor: "#326bf3",
+        activeTintColor: "#EDA332",
         inactiveTintColor:"#c0c0c0",
         style: {
         backgroundColor: "white",

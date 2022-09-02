@@ -241,7 +241,7 @@ class TableView extends Component {
 
 
     addonItem = ({ item }) => (
-        <View style={{ margin: 5, borderWidth: 1, padding: 5, borderRadius: 5 }}>
+        <View style={{ margin: 5, borderWidth: 1, padding: 5, borderRadius: 5,borderColor:"#EDA332" }}>
             <Text>{item.addon_name}</Text>
         </View>
     )
@@ -276,7 +276,7 @@ class TableView extends Component {
                                 (this.state.cart.map((item, index) => {
                                     return (
                                         <View style={{ flexDirection: 'row', width: '100%', padding: 10, borderBottomWidth: 1, borderBottomColor: '#ececec' }}>
-                                            <View style={{ width: '20%', width: 50, height: 50, backgroundColor: 'darkred', borderRadius: 5 }}>
+                                            <View style={{ width: '20%', width: 50, height: 50, backgroundColor: '#EDA332', borderRadius: 5 }}>
                                                 <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
                                             </View>
 

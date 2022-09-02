@@ -149,7 +149,7 @@ class Notifications extends Component{
                 />
                 :
                 <View>
-                   <Image source={require('../img/icons/noti.png')} style={{height:250,width:250,alignSelf:"center",marginTop:100}}/>
+                   <Image source={require('../img/nonotification.png')} style={{height:180,width:180,alignSelf:"center",marginTop:100}}/>
                    <Text style={{alignSelf:"center",
                     fontFamily:"Raleway-SemiBold",fontSize:RFValue(14,580),color:"grey"}}>No Notifications</Text>
                 </View>
@@ -162,7 +162,7 @@ class Notifications extends Component{
 
                 {this.state.load_more?
                 <View style={style.loader}>
-                     <ActivityIndicator color="#326bf3" size="large" />
+                     <ActivityIndicator color="#EDA332" size="large" />
                      </View>
                      :
                      <View></View>

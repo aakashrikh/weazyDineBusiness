@@ -577,7 +577,7 @@ create_addon = () => {
                             onPress={() => this.create_addon()}
                             style={[style.buttonStyles,{marginTop:20,width:'80%',borderRadius:5,alignSelf:'center'}]}>
                             <LinearGradient
-                                colors={['#326BF3', '#0b2564']}
+                                colors={['#EDA332', '#EDA332']}
                                 style={styles.signIn}>
                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>
                                     Create New</Text>
