@@ -252,7 +252,7 @@ class ListingDashboardItems extends Component {
                 />
                 :
                 <View>
-                <Image  source={require("../img/nofeeds.png")} style={{width:"100%",height:250,alignSelf:"center",marginTop:50}} />
+                <Image  source={require("../img/nofeeds.jpg")} style={{width:"100%",height:250,alignSelf:"center",marginTop:50}} />
                  <Text style={[styles.h3,{alignSelf:"center",marginTop:20}]}>
                      No Results Found!
                  </Text>

@@ -189,7 +189,7 @@ class Wallet extends Component {
                             /> :
                             <View>
 
-                                <Image source={require('../img/record.png')} style={{width:'80%',height:200,marginLeft:10,marginTop:150,alignSelf:'center'}} />
+                                <Image source={require('../img/record.jpg')} style={{width:'80%',height:200,marginLeft:10,marginTop:150,alignSelf:'center'}} />
                                 <Text style={[styles.h4, { alignSelf: 'center',marginTop:20 }]} >
                                     No Records Found.
                                 </Text>
