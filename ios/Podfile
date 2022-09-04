@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-target 'MarketPlussVendor' do
+target 'weazydinebusiness' do
 
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera/Permission-Camera.podspec"
@@ -26,7 +26,7 @@ target 'MarketPlussVendor' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
-  target 'MarketPlussVendorTests' do
+  target 'weazydinebusinessTests' do
     inherit! :complete
     # Pods for testing
   end

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* MarketPlussVendorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MarketPlussVendorTests.m */; };
+		00E356F31AD99517003FC87E /* marketplussTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* marketplussTests.m */; };
+		0286BB4C91AEBD47E92EE8F4 /* libPods-weazydinebusiness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8025288F7920A6CBB933AD /* libPods-weazydinebusiness.a */; };
 		070AFCD1285333C200FC6962 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AFCD0285333C200FC6962 /* NotificationService.swift */; };
-		070AFCD5285333C200FC6962 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		076FCD6728424C6D00C94292 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93924F2CC5324B58BDE7CC3D /* Raleway-Light.ttf */; };
 		076FCD6828424D0100C94292 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BE4BEBB7FF149E69D28FD91 /* Raleway-SemiBold.ttf */; };
 		076FCD6928424DA200C94292 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2C7948EF0EA42FB85B3268B /* Roboto-Regular.ttf */; };
@@ -21,14 +21,13 @@
 		076FCD7028424F2600C94292 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25B90F65B9C540FE9D66E53A /* Montserrat-SemiBold.ttf */; };
 		076FCD7128424F6600C94292 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3197B58A79C445388E025AA0 /* Roboto-Medium.ttf */; };
 		076FCD722842506F00C94292 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DEAB58336E54E7C97963DED /* Raleway-Medium.ttf */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2AC2B83D0A023FFBF04B0B14 /* libPods-MarketPlussVendor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D022DB849555082DEE3EAA /* libPods-MarketPlussVendor.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8BDC0A3280AFB289C1FBE496 /* libPods-weazydinebusiness-weazydinebusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D0219BE31F2B50349DAC07 /* libPods-weazydinebusiness-weazydinebusinessTests.a */; };
 		9363DE8F459B3F9649831024 /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3C125D032F32F5A7E4AD311 /* libPods-OneSignalNotificationServiceExtension.a */; };
-		D258C57653B2A89F130A6C03 /* libPods-MarketPlussVendor-MarketPlussVendorTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE3FC8635844DE10B19BB87 /* libPods-MarketPlussVendor-MarketPlussVendorTests.a */; };
-		E9431230285798E3006DF940 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E943122F285798E3006DF940 /* AppCenter-Config.plist */; };
+		E910442428C5014C0059A3E6 /* Roboto-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E910442328C5014C0059A3E6 /* Roboto-SemiBold.ttf */; };
+		E945751828C5375C009C4C0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FAF1A68108700A75B9A /* AppDelegate.m */; };
+		E945751928C53764009C4C0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,58 +38,38 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = MarketPlussVendor;
 		};
-		070AFCD3285333C200FC6962 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 070AFCCD285333C200FC6962;
-			remoteInfo = OneSignalNotificationServiceExtension;
-		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		070AFCD9285333C200FC6962 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				070AFCD5285333C200FC6962 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* MarketPlussVendorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MarketPlussVendorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* weazydinebusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weazydinebusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* MarketPlussVendorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketPlussVendorTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* marketplussTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = marketplussTests.m; sourceTree = "<group>"; };
 		01D3E9D853AF4DB7BA10424E /* AspireSCLightOblique-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AspireSCLightOblique-Regular.ttf"; path = "../assets/fonts/AspireSCLightOblique-Regular.ttf"; sourceTree = "<group>"; };
 		03C4D705D3394319A9A01748 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		070AFCD0285333C200FC6962 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		070AFCD2285333C200FC6962 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0768727AD0F54F6DA6C3EB37 /* Raleway-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-MediumItalic.ttf"; path = "../assets/fonts/Raleway-MediumItalic.ttf"; sourceTree = "<group>"; };
-		076FCC5B2842430400C94292 /* MarketPlussVendor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MarketPlussVendor.entitlements; path = MarketPlussVendor/MarketPlussVendor.entitlements; sourceTree = "<group>"; };
+		076FCC5B2842430400C94292 /* weazydinebusiness.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = weazydinebusiness.entitlements; path = weazydinebusiness/weazydinebusiness.entitlements; sourceTree = "<group>"; };
 		076FCD6A28424E0000C94292 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Raleway-Bold.ttf"; path = "../assets/fonts/Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		07CF3916FA2A4444B9590A22 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		0AEC5C99448ABECD650DF3E1 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		11CEAFA4EE7647A3B9E154E6 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
+		1229E97C235B13A5E484A593 /* Pods-weazydinebusiness-weazydinebusinessTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weazydinebusiness-weazydinebusinessTests.release.xcconfig"; path = "Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests.release.xcconfig"; sourceTree = "<group>"; };
 		124F768DB6EB45F7B3AC1E08 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* MarketPlussVendor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarketPlussVendor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MarketPlussVendor/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MarketPlussVendor/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MarketPlussVendor/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MarketPlussVendor/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MarketPlussVendor/main.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* weazydinebusiness.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weazydinebusiness.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = weazydinebusiness/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = weazydinebusiness/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = weazydinebusiness/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = weazydinebusiness/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = weazydinebusiness/main.m; sourceTree = "<group>"; };
+		14F099C1AF1748C9E5CC7F4C /* Pods-weazydinebusiness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weazydinebusiness.debug.xcconfig"; path = "Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness.debug.xcconfig"; sourceTree = "<group>"; };
 		1625747334054AB9BD8A1C7F /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Medium.ttf"; path = "../assets/fonts/Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		16792D7CCA754DE184285B39 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-BlackItalic.ttf"; path = "../assets/fonts/Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
 		1CAC9DEAFBEB47739CA53C95 /* Poppins-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.ttf"; path = "../assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
 		25B90F65B9C540FE9D66E53A /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-SemiBold.ttf"; path = "../assets/fonts/Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
 		26B161C25CDE4D2B894B34E0 /* Montserrat-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ExtraLight.ttf"; path = "../assets/fonts/Montserrat-ExtraLight.ttf"; sourceTree = "<group>"; };
 		272B0D93AEFB4EC085D933AF /* Raleway-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Black.ttf"; path = "../assets/fonts/Raleway-Black.ttf"; sourceTree = "<group>"; };
-		27D022DB849555082DEE3EAA /* libPods-MarketPlussVendor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MarketPlussVendor.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F1E0903C2FF2914B9F8A6B /* Pods-MarketPlussVendor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlussVendor.debug.xcconfig"; path = "Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor.debug.xcconfig"; sourceTree = "<group>"; };
 		2C2643CCDF9B46E198CB18CB /* Raleway-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-BoldItalic.ttf"; path = "../assets/fonts/Raleway-BoldItalic.ttf"; sourceTree = "<group>"; };
 		2C9180B1C5984EF4A0F366F0 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -125,9 +104,9 @@
 		747121C524A4418D9BA5C013 /* Montserrat-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-BlackItalic.ttf"; path = "../assets/fonts/Montserrat-BlackItalic.ttf"; sourceTree = "<group>"; };
 		796B6DAEF592451DBEA4F57C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		7CBB89B756784FFEB608E3EA /* Raleway-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-LightItalic.ttf"; path = "../assets/fonts/Raleway-LightItalic.ttf"; sourceTree = "<group>"; };
-		7CE3FC8635844DE10B19BB87 /* libPods-MarketPlussVendor-MarketPlussVendorTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MarketPlussVendor-MarketPlussVendorTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DEAB58336E54E7C97963DED /* Raleway-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Medium.ttf"; path = "../assets/fonts/Raleway-Medium.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = MarketPlussVendor/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = weazydinebusiness/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		81E85E57A1A2C2B8578869B9 /* Pods-weazydinebusiness.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weazydinebusiness.release.xcconfig"; path = "Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness.release.xcconfig"; sourceTree = "<group>"; };
 		8414162E70AC43BC83DEB7BA /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		8BE4BEBB7FF149E69D28FD91 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-SemiBold.ttf"; path = "../assets/fonts/Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		904E7FD093B243C19E04DE77 /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -149,6 +128,8 @@
 		A89C2EF56ADD43F985D5D69B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		AACA5F9F293D0540C7E95A2F /* Pods-MarketPlussVendor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarketPlussVendor.release.xcconfig"; path = "Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor.release.xcconfig"; sourceTree = "<group>"; };
 		AB979A2767E14E75BA0E42F3 /* AspireSCLight-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AspireSCLight-Regular.ttf"; path = "../assets/fonts/AspireSCLight-Regular.ttf"; sourceTree = "<group>"; };
+		ABD73A64EAC53CF048129397 /* Pods-weazydinebusiness-weazydinebusinessTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weazydinebusiness-weazydinebusinessTests.debug.xcconfig"; path = "Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B1D0219BE31F2B50349DAC07 /* libPods-weazydinebusiness-weazydinebusinessTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weazydinebusiness-weazydinebusinessTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B96C98EFB4424563A2AD1FF8 /* Raleway-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Thin.ttf"; path = "../assets/fonts/Raleway-Thin.ttf"; sourceTree = "<group>"; };
 		BBEF99E5ECBF43A997535605 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		BEBD16CA274C49759825F018 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
@@ -166,7 +147,9 @@
 		DC2CFEAA7CF24DD2A714BCDC /* Montserrat-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-ThinItalic.ttf"; path = "../assets/fonts/Montserrat-ThinItalic.ttf"; sourceTree = "<group>"; };
 		DC349873B0BB4B598377DAFC /* AspireSCOblique-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AspireSCOblique-Regular.ttf"; path = "../assets/fonts/AspireSCOblique-Regular.ttf"; sourceTree = "<group>"; };
 		E451B11FEF3C45C39282943D /* Raleway-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Regular.ttf"; path = "../assets/fonts/Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		E910442328C5014C0059A3E6 /* Roboto-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-SemiBold.ttf"; path = "../assets/fonts/Roboto-SemiBold.ttf"; sourceTree = "<group>"; };
 		E943122F285798E3006DF940 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../../AppCenter-Config.plist"; sourceTree = "<group>"; };
+		EC8025288F7920A6CBB933AD /* libPods-weazydinebusiness.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-weazydinebusiness.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC806C83791F481394AE5D14 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Italic.ttf"; path = "../assets/fonts/Raleway-Italic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE29CFB0171441D997A9EB0A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -184,7 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D258C57653B2A89F130A6C03 /* libPods-MarketPlussVendor-MarketPlussVendorTests.a in Frameworks */,
+				8BDC0A3280AFB289C1FBE496 /* libPods-weazydinebusiness-weazydinebusinessTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,20 +183,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2AC2B83D0A023FFBF04B0B14 /* libPods-MarketPlussVendor.a in Frameworks */,
+				0286BB4C91AEBD47E92EE8F4 /* libPods-weazydinebusiness.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* MarketPlussVendorTests */ = {
+		00E356EF1AD99517003FC87E /* weazydinebusinessTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* MarketPlussVendorTests.m */,
+				00E356F21AD99517003FC87E /* marketplussTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = MarketPlussVendorTests;
+			path = weazydinebusinessTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -233,27 +216,27 @@
 			path = OneSignalNotificationServiceExtension;
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* MarketPlussVendor */ = {
+		13B07FAE1A68108700A75B9A /* weazydinebusiness */ = {
 			isa = PBXGroup;
 			children = (
-				076FCC5B2842430400C94292 /* MarketPlussVendor.entitlements */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				076FCC5B2842430400C94292 /* weazydinebusiness.entitlements */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.m */,
+				13B07FB01A68108700A75B9A /* AppDelegate.h */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = MarketPlussVendor;
-			sourceTree = "<group>";
+			name = weazydinebusiness;
+			sourceTree = SOURCE_ROOT;
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				27D022DB849555082DEE3EAA /* libPods-MarketPlussVendor.a */,
-				7CE3FC8635844DE10B19BB87 /* libPods-MarketPlussVendor-MarketPlussVendorTests.a */,
 				C3C125D032F32F5A7E4AD311 /* libPods-OneSignalNotificationServiceExtension.a */,
+				EC8025288F7920A6CBB933AD /* libPods-weazydinebusiness.a */,
+				B1D0219BE31F2B50349DAC07 /* libPods-weazydinebusiness-weazydinebusinessTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -267,6 +250,10 @@
 				A21BFF1F393571D4792669C5 /* Pods-MarketPlussVendor-MarketPlussVendorTests.release.xcconfig */,
 				4D3749F11AFDC4A3587ADFD9 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
 				0AEC5C99448ABECD650DF3E1 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+				14F099C1AF1748C9E5CC7F4C /* Pods-weazydinebusiness.debug.xcconfig */,
+				81E85E57A1A2C2B8578869B9 /* Pods-weazydinebusiness.release.xcconfig */,
+				ABD73A64EAC53CF048129397 /* Pods-weazydinebusiness-weazydinebusinessTests.debug.xcconfig */,
+				1229E97C235B13A5E484A593 /* Pods-weazydinebusiness-weazydinebusinessTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -283,9 +270,9 @@
 			children = (
 				E943122F285798E3006DF940 /* AppCenter-Config.plist */,
 				076FCD6A28424E0000C94292 /* Raleway-Bold.ttf */,
-				13B07FAE1A68108700A75B9A /* MarketPlussVendor */,
+				13B07FAE1A68108700A75B9A /* weazydinebusiness */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* MarketPlussVendorTests */,
+				00E356EF1AD99517003FC87E /* weazydinebusinessTests */,
 				070AFCCF285333C200FC6962 /* OneSignalNotificationServiceExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
@@ -300,8 +287,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* MarketPlussVendor.app */,
-				00E356EE1AD99517003FC87E /* MarketPlussVendorTests.xctest */,
+				13B07F961A680F5B00A75B9A /* weazydinebusiness.app */,
+				00E356EE1AD99517003FC87E /* weazydinebusinessTests.xctest */,
 				070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */,
 			);
 			name = Products;
@@ -311,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				5E32326548E6491C826007CB /* AntDesign.ttf */,
+				E910442328C5014C0059A3E6 /* Roboto-SemiBold.ttf */,
 				07CF3916FA2A4444B9590A22 /* Entypo.ttf */,
 				124F768DB6EB45F7B3AC1E08 /* EvilIcons.ttf */,
 				A89C2EF56ADD43F985D5D69B /* Feather.ttf */,
@@ -405,9 +393,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* MarketPlussVendorTests */ = {
+		00E356ED1AD99517003FC87E /* weazydinebusinessTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MarketPlussVendorTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "weazydinebusinessTests" */;
 			buildPhases = (
 				FFCB7E35931670B5D92907E5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -421,9 +409,9 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = MarketPlussVendorTests;
+			name = weazydinebusinessTests;
 			productName = MarketPlussVendorTests;
-			productReference = 00E356EE1AD99517003FC87E /* MarketPlussVendorTests.xctest */;
+			productReference = 00E356EE1AD99517003FC87E /* weazydinebusinessTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		070AFCCD285333C200FC6962 /* OneSignalNotificationServiceExtension */ = {
@@ -444,9 +432,9 @@
 			productReference = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		13B07F861A680F5B00A75B9A /* MarketPlussVendor */ = {
+		13B07F861A680F5B00A75B9A /* weazydinebusiness */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MarketPlussVendor" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "weazydinebusiness" */;
 			buildPhases = (
 				FCC00C4FAA30CA4CA57DCAE0 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -454,18 +442,16 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				070AFCD9285333C200FC6962 /* Embed App Extensions */,
 				59900900E352D20F4FE4A0A1 /* [CP] Embed Pods Frameworks */,
 				C2E8268767463325F4E80C36 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				070AFCD4285333C200FC6962 /* PBXTargetDependency */,
 			);
-			name = MarketPlussVendor;
+			name = weazydinebusiness;
 			productName = MarketPlussVendor;
-			productReference = 13B07F961A680F5B00A75B9A /* MarketPlussVendor.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* weazydinebusiness.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -489,7 +475,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MarketPlussVendor" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "weazydinebusiness" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -502,8 +488,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* MarketPlussVendor */,
-				00E356ED1AD99517003FC87E /* MarketPlussVendorTests */,
+				13B07F861A680F5B00A75B9A /* weazydinebusiness */,
+				00E356ED1AD99517003FC87E /* weazydinebusinessTests */,
 				070AFCCD285333C200FC6962 /* OneSignalNotificationServiceExtension */,
 			);
 		};
@@ -531,12 +517,12 @@
 				076FCD722842506F00C94292 /* Raleway-Medium.ttf in Resources */,
 				076FCD7128424F6600C94292 /* Roboto-Medium.ttf in Resources */,
 				076FCD7028424F2600C94292 /* Montserrat-SemiBold.ttf in Resources */,
-				E9431230285798E3006DF940 /* AppCenter-Config.plist in Resources */,
 				076FCD6F28424EF200C94292 /* Montserrat-Bold.ttf in Resources */,
 				076FCD6E28424EA800C94292 /* Montserrat-Regular.ttf in Resources */,
 				076FCD6D28424E6B00C94292 /* Roboto-Bold.ttf in Resources */,
 				076FCD6C28424E3300C94292 /* Raleway-Regular.ttf in Resources */,
 				076FCD6B28424E0100C94292 /* Raleway-Bold.ttf in Resources */,
+				E910442428C5014C0059A3E6 /* Roboto-SemiBold.ttf in Resources */,
 				076FCD6928424DA200C94292 /* Roboto-Regular.ttf in Resources */,
 				076FCD6828424D0100C94292 /* Raleway-SemiBold.ttf in Resources */,
 				076FCD6728424C6D00C94292 /* Raleway-Light.ttf in Resources */,
@@ -590,15 +576,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6B6024AE1BA63F4D1E053508 /* [CP] Embed Pods Frameworks */ = {
@@ -607,15 +593,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B280AB1F33ADA9FF054E4EBF /* [CP] Copy Pods Resources */ = {
@@ -624,15 +610,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor-MarketPlussVendorTests/Pods-MarketPlussVendor-MarketPlussVendorTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness-weazydinebusinessTests/Pods-weazydinebusiness-weazydinebusinessTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C2E8268767463325F4E80C36 /* [CP] Copy Pods Resources */ = {
@@ -641,15 +627,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MarketPlussVendor/Pods-MarketPlussVendor-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FCC00C4FAA30CA4CA57DCAE0 /* [CP] Check Pods Manifest.lock */ = {
@@ -667,7 +653,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MarketPlussVendor-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-weazydinebusiness-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -708,7 +694,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MarketPlussVendor-MarketPlussVendorTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-weazydinebusiness-weazydinebusinessTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -722,7 +708,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* MarketPlussVendorTests.m in Sources */,
+				00E356F31AD99517003FC87E /* marketplussTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,8 +724,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				E945751928C53764009C4C0F /* main.m in Sources */,
+				E945751828C5375C009C4C0F /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,20 +734,15 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* MarketPlussVendor */;
+			target = 13B07F861A680F5B00A75B9A /* weazydinebusiness */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
-		};
-		070AFCD4285333C200FC6962 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 070AFCCD285333C200FC6962 /* OneSignalNotificationServiceExtension */;
-			targetProxy = 070AFCD3285333C200FC6962 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AADD1C9D4670A8DCAFB082D /* Pods-MarketPlussVendor-MarketPlussVendorTests.debug.xcconfig */;
+			baseConfigurationReference = ABD73A64EAC53CF048129397 /* Pods-weazydinebusiness-weazydinebusinessTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -790,7 +771,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A21BFF1F393571D4792669C5 /* Pods-MarketPlussVendor-MarketPlussVendorTests.release.xcconfig */;
+			baseConfigurationReference = 1229E97C235B13A5E484A593 /* Pods-weazydinebusiness-weazydinebusinessTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -842,7 +823,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.MarketPlussVendor;
+				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -881,7 +862,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.MarketPlussVendor;
+				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -894,17 +875,16 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 29F1E0903C2FF2914B9F8A6B /* Pods-MarketPlussVendor.debug.xcconfig */;
+			baseConfigurationReference = 14F099C1AF1748C9E5CC7F4C /* Pods-weazydinebusiness.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MarketPlussVendor/MarketPlussVendor.entitlements;
+				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
-				INFOPLIST_FILE = MarketPlussVendor/Info.plist;
+				INFOPLIST_FILE = weazydinebusiness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -917,24 +897,24 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
-				PRODUCT_NAME = MarketPlussVendor;
+				PRODUCT_NAME = weazydinebusiness;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AACA5F9F293D0540C7E95A2F /* Pods-MarketPlussVendor.release.xcconfig */;
+			baseConfigurationReference = 81E85E57A1A2C2B8578869B9 /* Pods-weazydinebusiness.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = MarketPlussVendor/MarketPlussVendor.entitlements;
+				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
-				INFOPLIST_FILE = MarketPlussVendor/Info.plist;
+				INFOPLIST_FILE = weazydinebusiness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -947,8 +927,9 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
-				PRODUCT_NAME = MarketPlussVendor;
+				PRODUCT_NAME = weazydinebusiness;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -1082,7 +1063,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MarketPlussVendorTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "weazydinebusinessTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -1100,7 +1081,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MarketPlussVendor" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "weazydinebusiness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1109,7 +1090,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "MarketPlussVendor" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "weazydinebusiness" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

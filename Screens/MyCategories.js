@@ -45,13 +45,13 @@ class MyCategories extends Component{
             console.warn(json)
             if(json.status)
             {
-                if(json.data.length>=0)
+                if(json.data.length >0)
                 {
                     this.setState({category:json.data }); 
                 }   
             }
             else{
-                this.setState({category:"" }); 
+                this.setState({category:[] }); 
             }         
             return json;
         })

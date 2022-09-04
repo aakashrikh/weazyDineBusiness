@@ -6071,10 +6071,10 @@
   dependencies:
     "prop-types" "^15.5.7"
 
-"react-native-code-push@^7.0.4":
-  "integrity" "sha512-zBCj1vUnyLCG6tt2x5rXzoyYjvgFVEpTnwJUFbs24C5TUKjRw6BJVq1bWsOQklEUWpFYoqhAaZXz/iq3pbqa7g=="
-  "resolved" "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-7.0.4.tgz"
-  "version" "7.0.4"
+"react-native-code-push@^7.0.5":
+  "integrity" "sha512-0+xqxHS7onpvE/pFvKB0rN/ijLzXgNGAnmC4THxiSPvlLY7EABzeOQh1XHCSNhIBiecnTjHG36Yb15luSuqBtQ=="
+  "resolved" "https://registry.npmjs.org/react-native-code-push/-/react-native-code-push-7.0.5.tgz"
+  "version" "7.0.5"
   dependencies:
     "code-push" "^4.0.5"
     "glob" "^7.1.7"

@@ -49,7 +49,7 @@ renderLeftComponent(){
             
                 <View >
                 {/* <Image source={require("../img/logo/logo.png")} style={{width:188,height:80,margin:17,alignSelf:"center"}}/> */}
-                    <Text style={{textAlign:"justify",fontFamily:"Roboto-SemiBold",
+                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
                     fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
                         We're Your Partner in Success
                     </Text>
@@ -59,7 +59,7 @@ renderLeftComponent(){
                     Being powerful and effective yet user-friendly, Market Pluss is suitable for examining the market in the best possible way with amazing discounts and offers, and we assure to provide consistent updates in the future.{"\n"}
                     </Text>
 
-                    <Text style={{textAlign:"justify",fontFamily:"Roboto-SemiBold",
+                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
                     fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
                         Our Story
                     </Text>
@@ -74,7 +74,7 @@ renderLeftComponent(){
                     We’ll let you know the places around you where users can get the best-in-class deals and get the chance to look for more choices rather than being forced to buy the same old deals.{'\n'}
                     </Text>
 
-                    <Text style={{textAlign:"justify",fontFamily:"Roboto-SemiBold",
+                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
                     fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
                         Mission & Vision
                     </Text>

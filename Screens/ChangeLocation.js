@@ -512,7 +512,7 @@ const style = StyleSheet.create({
     color: "#1F449B",
     padding: 3.5,
     fontSize: 13,
-    fontFamily: "Roboto-SemiBold",
+    fontFamily: "Raleway-SemiBold",
   },
   loader:{
     shadowOffset:{width:50,height:50},

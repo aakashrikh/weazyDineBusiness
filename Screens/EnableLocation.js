@@ -367,7 +367,7 @@ const style=StyleSheet.create({
       },
       notNowButtonText:{
         fontSize:RFValue(14,580),
-        fontFamily:"Roboto-SemiBold",
+        fontFamily:"Raleway-SemiBold",
         color:"#1F449B",
       },
       activestep:{

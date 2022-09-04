@@ -33,7 +33,7 @@
     "react-native-android-location-enabler": "^1.2.2",
     "react-native-chart-kit": "^6.11.0",
     "react-native-check-box": "^2.1.7",
-    "react-native-code-push": "^7.0.4",
+    "react-native-code-push": "^7.0.5",
     "react-native-collapsible": "^1.6.0",
     "react-native-countdown-component": "^2.7.1",
     "react-native-device-info": "^8.5.0",

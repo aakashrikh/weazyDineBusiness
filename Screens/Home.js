@@ -271,9 +271,9 @@ class Home extends Component {
                     elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
                 }}>
                     <Text style={[styles.h3]}>Share More to Earn More </Text>
-                    <Text style={[styles.p,{fontFamily:"Roboto-SemiBold"}]}>Your customer can visit your online store and place the orders from this link</Text>
+                    <Text style={[styles.p,{fontFamily:"Raleway-SemiBold"}]}>Your customer can visit your online store and place the orders from this link</Text>
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.p, { marginTop: 15, fontFamily:"Roboto-SemiBold" }]}>{this.state.link}</Text>
+                        <Text style={[styles.p, { marginTop: 15, fontFamily:"Raleway-SemiBold" }]}>{this.state.link}</Text>
                         <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
                             <View style={{ flexDirection: "row", alignSelf: "center" }}>
                                 <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />

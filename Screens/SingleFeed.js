@@ -433,7 +433,7 @@ const style=StyleSheet.create({
       // left:5
     },
     followButtonText:{
-      fontFamily:"Roboto-SemiBold",
+      fontFamily:"Raleway-SemiBold",
       // fontSize:13,
       fontSize:RFValue(9, 580),
       // alignSelf:"center",
@@ -445,7 +445,7 @@ const style=StyleSheet.create({
     
     unFollowButtonText:{
       color:"#000",
-      fontFamily:"Roboto-SemiBold",
+      fontFamily:"Raleway-SemiBold",
       // fontSize:13,
       fontSize:RFValue(9, 580),
       // alignSelf:"center",
