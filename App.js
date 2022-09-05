@@ -246,16 +246,16 @@ componentDidMount(){
 }
 
 
-handleConnectivityChange = isConnected => {
-  if (isConnected) {
-    this.setState({ netconnected:true });
-  } else {
-   // alert("Oops!! No Internet Connection Available");
-    this.setState({ netconnected:false });
-  }
-};
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ netconnected:true });
+    } else {
+    // alert("Oops!! No Internet Connection Available");
+      this.setState({ netconnected:false });
+    }
+  };
 
-login = (step) => 
+  login = (step) => 
   {
     this.setState({islogin:true,step:step});
   }

@@ -45,7 +45,8 @@ class Home extends Component {
             cover_load: true,
             cover_step: true,
             image_loade: true,
-            link: ""
+            link: "",
+            gstin: "",
         };
     }
 
@@ -96,6 +97,7 @@ class Home extends Component {
             this.get_cover()
         })
     }
+
     get_profile = () => {
         fetch(global.vendor_api + 'get_vendor_profile', {
             method: 'POST',
@@ -109,7 +111,7 @@ class Home extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-
+                console.warn(json)
                 if (!json.status) {
 
                 }
@@ -137,7 +139,7 @@ class Home extends Component {
                             this.setState({ image_loade: false })
                         }
                         this.setState({ id: value.id })
-                        this.setState({ name: value.name })
+                        this.setState({ name: value.name, gstin: value.gstin })
                         // alert(value.category_type)
                         global.category_type = value.category_type
                     })
@@ -231,6 +233,7 @@ class Home extends Component {
     share_whatsapp = (link) => {
         Linking.openURL('whatsapp://send?text=Hey there! Sign-up on the MarketPluss app using my referral code and get ₹' + this.state.earner + ' \n\nDownload the app: ' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
     }
+
     render() {
 
         return (
@@ -257,6 +260,22 @@ class Home extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                <View style={style.viewBox}>
+                    <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580)}}>Hi, 
+                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                        {this.state.name}
+                    </Text> </Text>
+                   {this.state.gstin == "" || this.state.gstin == null ? 
+                    <></>
+                     : 
+                     <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580),marginTop:10}}>GSTIN :
+                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>{this.state.gstin}</Text>
+                    </Text>
+                    }
+                </View>
+
+
                 {/* View for Banner Image */}
                 <Demo navigation={this.props.navigation} />
 
@@ -383,4 +402,20 @@ const style = StyleSheet.create({
         elevation: 5,
         backgroundColor: "#fbf9f9", width: 30, height: 30, borderRadius: 50, padding: 5, alignSelf: "center"
     },
+    viewBox:{
+        width: Dimensions.get('window').width/1.05,
+        backgroundColor: '#fff', 
+        alignSelf: 'center', 
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 50,
+            height: 50
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        marginTop: 20,
+        borderRadius: 10,
+        padding: 10,
+    }
 })

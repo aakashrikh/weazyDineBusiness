@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import {
-    Text, View, ScrollView,
-    StyleSheet, Image, Pressable, ActivityIndicator,
-    TouchableOpacity, ImageBackground, FlatList, Dimensions, TextInput
+    Text, View,
+    StyleSheet,  ActivityIndicator,
+    TouchableOpacity, Dimensions, TextInput
 } from 'react-native';
-import { Icon, Header, Input, ThemeConsumer } from 'react-native-elements';
+import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import Demo from './Demo.js';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Swiper from 'react-native-swiper';
-import SwiperFlatList from 'react-native-swiper-flatlist'
-import moment from 'moment';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -122,7 +114,7 @@ class TopDeals extends Component {
                     console.warn(json)
                     if (!json.status) {
 
-                        Toast.show(json.errors[0])
+                        // Toast.show(json.errors[0])
                     }
                     else {
                         Toast.show("Deal Upated Successfully")

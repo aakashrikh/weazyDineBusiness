@@ -101,7 +101,7 @@ class ProductVariants extends Component {
                              Toast.show(json.msg);
                           }
                           else{
-                              this.props.navigation.navigate("Products",{refresh:true});
+                              this.props.navigation.goBack({refresh:true});
                           }
   
                           this.setState({isLoading2:false});

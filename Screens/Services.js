@@ -45,7 +45,7 @@ class Services extends Component{
         this.get_category()  ;
         this.get_vendor_product(0,1);
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
-           
+            this.get_category();
             if(this.props.route.params!=undefined){
             this.get_category();
             this.get_vendor_product(0,1);
@@ -198,7 +198,7 @@ filter=(id)=>{
                                     if(!json.status)
                                     {
                                         var msg=json.msg;
-                                        Toast.show(msg);
+                                        // Toast.show(msg);
                                         
                                     }
                                     else{
@@ -454,7 +454,7 @@ class Card extends Component{
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    Toast.show(msg);
+                                    // Toast.show(msg);
                                     
                                 }
                                 else{

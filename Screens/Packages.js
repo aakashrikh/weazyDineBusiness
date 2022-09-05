@@ -81,7 +81,7 @@ class Packages extends Component{
                                 {
                                     
                                     var msg=json.msg;
-                                    Toast.show(msg);
+                                    // Toast.show(msg);
                                     this.setState({isloading:false,load_data:false})
                                     // Toast.show(json.errors[0])
                                 }
@@ -202,7 +202,7 @@ toggle=(id)=>{
                             if(!json.status)
                             {
                                 var msg=json.msg;
-                                Toast.show(msg);
+                                // Toast.show(msg);
                                 
                             }
                             else{
@@ -455,7 +455,7 @@ class Card extends Component{
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    Toast.show(msg);
+                                    // Toast.show(msg);
                                     
                                 }
                                 else{

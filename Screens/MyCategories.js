@@ -64,8 +64,8 @@ class MyCategories extends Component{
     alertFunc=(id,name)=>{
        console.warn(id, name)
         Alert.alert(
-          "Are you sure?",
-          "Delete this Category",
+          "",
+          "Are you sure you want to delete this category?",
           [
             {
               text: "Cancel",
@@ -97,7 +97,7 @@ class MyCategories extends Component{
                                     if(!json.status)
                                     {
                                         var msg=json.msg;
-                                        Toast.show(msg);  
+                                        // Toast.show(msg);  
                                     }
                                     else{
                                       Toast.show("Category deleted"),

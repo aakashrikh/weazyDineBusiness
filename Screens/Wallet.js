@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Text, View, ScrollView,
-    StyleSheet, Image, Pressable, ActivityIndicator,
-    TouchableOpacity, ImageBackground, FlatList, Dimensions, TextInput
+    Text, View,
+    StyleSheet, Image,
+    TouchableOpacity, FlatList, Dimensions,
 } from 'react-native';
-import { Icon, Header, Input, ThemeConsumer } from 'react-native-elements';
+import { Icon, Header,} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import Demo from './Demo.js';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
-import Toast from "react-native-simple-toast";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Swiper from 'react-native-swiper';
-import SwiperFlatList from 'react-native-swiper-flatlist'
 import moment from 'moment';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
@@ -30,7 +22,7 @@ class Wallet extends Component {
             isLoading: true,
             data: [],
             page: 1,
-            wallet:0
+            wallet: 0
         }
 
     }
@@ -77,17 +69,17 @@ class Wallet extends Component {
                 console.warn(json)
                 if (!json.status) {
 
-                   
+
                 }
                 else {
-                    var obj=json.data.data;
-                   // this.setState({ data: json.data.data });
+                    var obj = json.data.data;
+                    // this.setState({ data: json.data.data });
                     // if(page_id==1)
                     // {
                     //   this.setState({data:[] , isLoading:false})
                     // }
-                  this.setState({data:this.state.data.concat(obj)});
-                  this.setState({wallet:json.wallet});
+                    this.setState({ data: this.state.data.concat(obj) });
+                    this.setState({ wallet: json.wallet });
                     // this.props.navigation.navigate("More")
 
                 }
@@ -116,33 +108,33 @@ class Wallet extends Component {
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate("VoucherDetails", { code: item.order_code }) }}>
                 <View style={{ flexDirection: "row", marginTop: 10, borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 7 }}>
-                    
-                    <View style={{ flexDirection: "row",marginTop: 5, marginLeft: 15,width:'100%' }}>
 
-                        <View style={{width:'65%'}}>
-                       
+                    <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
 
-                        <Text style={styles.h4}>
-                            {item.txn_comment}
-                        </Text>
-                        <Text style={[styles.h5,{marginTop:5}]}>
-                            {moment.utc(item.updated_at).format('ddd, MMMM Do YYYY, h:mm a')}
-                        </Text>
-                        <Text >
-                         
-                        </Text>
+                        <View style={{ width: '65%' }}>
+
+
+                            <Text style={styles.h4}>
+                                {item.txn_comment}
+                            </Text>
+                            <Text style={[styles.h5, { marginTop: 5 }]}>
+                                {moment.utc(item.updated_at).format('ddd, MMMM Do YYYY, h:mm a')}
+                            </Text>
+                            <Text >
+
+                            </Text>
+                        </View>
+
+                        <View style={{ width: '30%' }}>
+                            {
+                                item.txn_type == "credit" ?
+                                    <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'green', alignSelf: 'flex-end' }]}>+ ₹{item.txn_amount}/-</Text>
+                                    :
+                                    <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'red', alignSelf: 'flex-end' }]}>- ₹{item.txn_amount}/-</Text>
+                            }
+
+                        </View>
                     </View>
-
-                    <View style={{width:'30%'}}>
-                        {
-                            item.txn_type == "credit" ?
-                            <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20,color:'green',alignSelf:'flex-end' }]}>+ ₹{item.txn_amount}/-</Text>
-                      :
-                        <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20,color:'red',alignSelf:'flex-end' }]}>- ₹{item.txn_amount}/-</Text>
-                        }
-                    
-                    </View>
-                </View>
                 </View>
             </TouchableOpacity>
 
@@ -151,7 +143,7 @@ class Wallet extends Component {
 
     render() {
         return (
-            <View style={[styles.container, { backgroundColor: "#f5f5f5" }]}>
+            <View style={styles.container}>
                 <Header
                     statusBarProps={{ barStyle: 'light-content' }}
                     centerComponent={this.renderCenterComponent()}
@@ -164,20 +156,20 @@ class Wallet extends Component {
 
                     }}
                 />
-{(!this.state.isLoading) ?
+                {(!this.state.isLoading) ?
                     [
-                        <View style={{backgroundColor:'#fff',padding:20}}>
+                        <View style={{ backgroundColor: '#fff', padding: 20 }}>
                             <Text style={styles.h4}>WeazyDine Balance</Text>
-                            <Text style={{fontSize:30}}>₹ {this.state.wallet}</Text>
-                            </View>
-                    ]:
+                            <Text style={{ fontSize: 30 }}>₹ {this.state.wallet}</Text>
+                        </View>
+                    ] :
                     <></>
 
-}
+                }
 
                 {(!this.state.isLoading) ?
                     [
-                       
+
                         (this.state.data.length > 0) ?
                             <FlatList
                                 data={this.state.data}
@@ -189,8 +181,8 @@ class Wallet extends Component {
                             /> :
                             <View>
 
-                                <Image source={require('../img/record.jpg')} style={{width:'80%',height:200,marginLeft:10,marginTop:150,alignSelf:'center'}} />
-                                <Text style={[styles.h4, { alignSelf: 'center',marginTop:20 }]} >
+                                <Image source={require('../img/record.jpg')} style={{ width: '80%', height: 200, marginLeft: 10, marginTop: 150, alignSelf: 'center' }} />
+                                <Text style={[styles.h4, { alignSelf: 'center', marginTop: 20 }]} >
                                     No Records Found.
                                 </Text>
 

@@ -159,16 +159,14 @@ const style=StyleSheet.create({
         fontSize:RFValue(11,580),
     },
     uploadButton:{
-        backgroundColor:"#326bf3",
-        width:105,
-        height:40,
-        justifyContent:"center",
-        padding:5,
+        width:Dimensions.get("window").width/2.5,
+        backgroundColor:"#EDA332",
+        alignItems:"center",
+        padding:10,
         borderRadius:5,
         alignSelf:"center",
-        alignItems:"center",
-        // marginLeft:20,
-        marginTop:20
+        marginTop:20,
+        paddingTop:1
     },
     buttonText:{
         fontFamily:"Raleway-SemiBold",

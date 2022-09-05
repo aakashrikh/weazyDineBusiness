@@ -104,7 +104,7 @@ class Tables extends Component {
                 // console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
                   //  clearInterval(myInterval);
                 }
                 else {
@@ -153,7 +153,7 @@ class Tables extends Component {
                     console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
-                        Toast.show(msg);
+                        // Toast.show(msg);
                     }
                     else {
                         Toast.show(json.msg)
@@ -217,6 +217,7 @@ class Tables extends Component {
             <View style={{marginLeft:20}}>
             <Text style={[styles.h3,{color:'#eee'}]}>{item.table_name}</Text>
             <Text style={[styles.p,{color:'#eee',fontSize:RFValue(12,580)}]}>{item.table_status}</Text>
+            
             </View>
             </View>
         </TouchableOpacity>

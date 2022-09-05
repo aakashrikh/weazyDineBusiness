@@ -3,7 +3,7 @@ import {
     Text, View,
     StyleSheet, Image, TextInput,
     ScrollView, Dimensions, TouchableOpacity, FlatList,
-    Modal,
+    Modal, Alert,
     Linking
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
@@ -64,7 +64,7 @@ class TableView extends Component {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
@@ -144,7 +144,7 @@ class TableView extends Component {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
                 }
                 else {
                     Toast.show(json.msg)
@@ -180,7 +180,7 @@ class TableView extends Component {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
@@ -218,7 +218,7 @@ class TableView extends Component {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
@@ -246,6 +246,21 @@ class TableView extends Component {
         </View>
     )
 
+    deleteAlert = () => {
+        Alert.alert(
+            "",
+            "Are you sure you want to delete this table?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.delete_table() }
+            ],
+            { cancelable: false }
+        );
+    }
 
     render() {
         const { modalVisible } = this.state;
@@ -420,7 +435,7 @@ class TableView extends Component {
                                 <Text style={[styles.h4, { marginLeft: 20, marginTop: 4 }]}>View Table QR</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => { this.delete_table() }} style={{ flexDirection: 'row', marginTop: 10 }}>
+                            <TouchableOpacity onPress={() => { this.deleteAlert() }} style={{ flexDirection: 'row', marginTop: 10 }}>
                                 <Text style={style.iconPencil}>
                                     <Icon name='trash-outline' type="ionicon" color={'#EDA332'} size={30} />
                                 </Text>

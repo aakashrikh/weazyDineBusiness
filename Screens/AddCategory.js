@@ -167,7 +167,7 @@ const style = StyleSheet.create({
         fontSize: RFValue(11, 580),
     },
     uploadButton: {
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         width: 105,
         height: 40,
         justifyContent: "center",
