@@ -351,7 +351,8 @@ get_package=()=>{
             var selectedPackage=this.state.selectedPackage;
             var startDate=this.state.startDate;
             var endDate=this.state.endDate;
-            var description=this.state.offer_description
+            var description=this.state.offer_description;
+      
             fetch(global.vendor_api+'edit_vendor_offer', { 
                  method: 'POST',
                    headers: {    
@@ -363,11 +364,10 @@ get_package=()=>{
                             offer_name: title, 
                             offer: offer_percentage,
                             offer_id:this.state.offer_id,
-                            products: this.state.selectedProduct ,
-                            packages:this.state.selectedPackage,
+                            // products: this.state.selectedProduct ,
+                            // packages:this.state.selectedPackage,
                             start_date:startDate,
                             end_date:endDate,
-                            vendor_id:global.vendor,
                             offer_description:this.state.offer_description
 
                                  })}).then((response) => response.json())

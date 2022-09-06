@@ -314,7 +314,7 @@ class OtpVerify extends Component
             <CountDown
             style={{marginTop:10}}
           // size={30}
-          until={312340}
+          until={30}
           onFinish={() => this.setState({resend:true})}
           digitStyle={{backgroundColor: '#FFF',}}
           digitTxtStyle={{color: '#326bf3',fontFamily:"Raleway-Regular"}}

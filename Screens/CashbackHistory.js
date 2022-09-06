@@ -44,7 +44,7 @@ class CashbackHistory extends Component {
     renderCenterComponent() {
         return (
             <View>
-                <Text style={style.text}>Total Customers</Text>
+                <Text style={style.text}>Total Orders</Text>
             </View>
 
         )
@@ -135,7 +135,7 @@ class CashbackHistory extends Component {
                     </Text>
                         :
                         <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: 'orange',alignSelf:'center' }]}>{item.order_status}</Text>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
                     </Text>
 
                         }

@@ -263,7 +263,7 @@ class Home extends Component {
 
                 <View style={style.viewBox}>
                     <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580)}}>Hi, 
-                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10,marginLeft:20 }}>
                         {this.state.name}
                     </Text> </Text>
                    {this.state.gstin == "" || this.state.gstin == null ? 

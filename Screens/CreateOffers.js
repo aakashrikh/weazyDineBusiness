@@ -253,11 +253,8 @@ class CreateOffers extends Component{
                          body: JSON.stringify({   
                             offer_name: title, 
                             offer: offer_percentage,
-                            products: this.state.selectedProduct ,
-                            packages:this.state.selectedPackage,
                             start_date:startDate,
                             end_date:endDate,
-                            vendor_id:global.vendor,
                             offer_description:this.state.offer_description
 
                                  })}).then((response) => response.json())
