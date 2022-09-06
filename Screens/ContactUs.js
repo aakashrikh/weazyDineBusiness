@@ -75,7 +75,7 @@ class SupportView extends Component{
         return(
             <View style={{backgroundColor:"#fff",flexDirection:"row",borderTopWidth:2,borderColor:"#f5f5f5", padding:10}}>
                     <View style={style.leftView}>
-                <Text style={[style.heading,{color:"#ffbf0b"}]}>Welcome to</Text>
+                <Text style={[style.heading,{color:"#EDA332"}]}>Welcome to</Text>
                 <Text style={[style.heading,{color:"#1F449B"}]}>
                  Customer Support</Text>
                  <Text style={styles.p}>
@@ -159,19 +159,19 @@ class Mail extends Component{
         return(
             <View>
             <View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
-                    <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0}]}>
+                    <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#EDA332"}]}>
                         Mail us
                     </Text>
-                    <Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@marketpluss.com') }>
+                    <Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@weazy.in') }>
                         support@weazy.in
                     </Text>
                 </View>
 
 <View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
-<Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0}]}>
+<Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#EDA332"}]}>
     Call US
 </Text>
-<Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@marketpluss.com') }>
+<Text style={styles.h4} onPress={() => Linking.openURL(`tel:$7060222517`) }>
     7060222517
 </Text>
 </View>

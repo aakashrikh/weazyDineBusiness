@@ -118,6 +118,9 @@ class OtherCharges extends Component {
         var gstin=this.state.gstin;
         var gst_percentage=this.state.gstper;
         var service_charge=this.state.scamount;
+
+        let rjx= /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([0-9]){1}?$/;
+        let isValid = rjx.test(gstin);
         if(this.state.gst == false)
         {
             gstin='';
@@ -141,6 +144,10 @@ class OtherCharges extends Component {
         {
             Toast.show("Service Charge is required!");
             service_charge=0;
+        }
+        else if(!isValid)
+        {
+            Toast.show("GST format is not valid!");
         }
         else
         {
@@ -207,7 +214,7 @@ class OtherCharges extends Component {
     render() {
 
         return (
-            <View style={[styles.container,{backgroundColor:'#f2f2f2'}]}>
+            <View style={styles.container}>
                 <View>
                     <Header
                         statusBarProps={{ barStyle: 'light-content' }}
@@ -222,7 +229,9 @@ class OtherCharges extends Component {
                     />
                 </View>
                 <View style={{marginBottom:10,marginTop:10,borderRadius:20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10}}>
+                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10,
+                    shadowColor: "#000",backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",borderRadius:5,
+                    shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}>
                         <View style={{flexDirection:'row',width:'100%'}}>
                             <Text style={[styles.h3,{width:'80%'}]}>GST</Text>
 
@@ -269,7 +278,9 @@ class OtherCharges extends Component {
                     </View>
 
                     <View style={{ flex: 1, borderRadius:10, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10}}>
+                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10,
+                    shadowColor: "#000",backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",borderRadius:5,
+                    shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,marginTop:20}}>
                         <View style={{flexDirection:'row',width:'100%'}}>
                             <Text style={[styles.h3,{width:'80%'}]}>Service Charge</Text>
 

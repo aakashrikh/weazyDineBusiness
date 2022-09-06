@@ -175,7 +175,7 @@ class Tables extends Component {
         <>
         {(item.table_status == 'active')?
         <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_url:item.qr_link,table_name:item.table_name})}} style={[style.viewBox,
-            {marginTop:10,padding:10,backgroundColor:'#fff',width:Dimensions.get('window').width/1.05,alignSelf:'center',borderRadius:5,flexDirection:"row"}]}>
+            {marginTop:10,padding:10,backgroundColor:'#fff',width:Dimensions.get('window').width/1.05,marginBottom:2,alignSelf:'center',borderRadius:5,flexDirection:"row"}]}>
                    {/* <View style={{flexDirection:'row'}}>
                         <View style={{width:60,height:60,backgroundColor:'#EDA332',borderRadius:5}}>
                             <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
@@ -209,7 +209,7 @@ class Tables extends Component {
                 </TouchableOpacity>
                 :
             <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_name:item.table_name})}} style={[style.viewBox,
-                {width:'100%',marginTop:10,padding:10,backgroundColor:'#EDA332',width:'90%',alignSelf:'center',borderRadius:5}]}>
+                {width:'100%',marginTop:10,padding:10,backgroundColor:'#EDA332',width:'90%',alignSelf:'center',borderRadius:5,marginBottom:2}]}>
             <View style={{flexDirection:'row'}}>
             <View style={{width:60,height:60,backgroundColor:'#E47635',borderRadius:5}}>
                 <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>

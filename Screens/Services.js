@@ -422,8 +422,8 @@ class Card extends Component{
     alertFunc=()=>{
         this.RBSheet.close()
         Alert.alert(
-          "Are you sure?",
-          "Delete this Menu",
+          "",
+          "Are you sure you want to delete this Menu?",
           [
             {
               text: "Cancel",
@@ -459,6 +459,7 @@ class Card extends Component{
                                 }
                                 else{
                                   Toast.show("Product deleted")
+                                  this.props.get_vendor_product(0)  
                                }                                 
                            }).catch((error) => {  
                                    console.error(error);   

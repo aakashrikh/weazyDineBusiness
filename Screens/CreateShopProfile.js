@@ -319,7 +319,7 @@ class CreateShopProfile extends Component {
                         </View>
                         :
                         <View style={style.loader}>
-                            <ActivityIndicator size={"large"} color="#326bf3" />
+                            <ActivityIndicator size={"large"} color="#EDA332" />
                         </View>
                     }
 
@@ -394,7 +394,7 @@ const style = StyleSheet.create({
         marginBottom: 10
     },
     container1: {
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         width: "100%",
         height: 230
     },
@@ -407,8 +407,8 @@ const style = StyleSheet.create({
     activestep: {
         width: 25,
         height: 25,
-        // backgroundColor:"#326bf3",
-        borderColor: "#326bf3",
+        // backgroundColor:"#EDA332",
+        borderColor: "#EDA332",
         borderWidth: 1,
         borderRadius: 50
     },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {
     Text, View, ScrollView,
-    StyleSheet, Image, Pressable, ActivityIndicator,
-    TouchableOpacity, ImageBackground, Linking, Dimensions
+    StyleSheet, Image, Pressable, ActivityIndicator, 
+    TouchableOpacity, ImageBackground, Linking, Dimensions, SafeAreaView
 } from 'react-native';
 import { Icon, LinearProgress } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,6 +16,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swiper from 'react-native-swiper';
 import SwiperFlatList from 'react-native-swiper-flatlist'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Accordion } from 'react-native-paper/lib/typescript/components/List/List.js';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -209,13 +211,16 @@ class Home extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
+                console.warn(json)
                 if (!json.status) {
-
                 }
                 else {
+                    console.warn(json.covers.length)
                     if (json.covers.length == 0) {
                         this.setState({ cover_step: false })
+                    }
+                    else {
+                        this.setState({ cover_step: true })
                     }
                     this.setState({ covers: json.covers })
 
@@ -237,73 +242,125 @@ class Home extends Component {
     render() {
 
         return (
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+                <View style={[styles.container, { backgroundColor: "#fff" }]}>
 
-            <View style={[styles.container, { backgroundColor: "#fff" }]}>
-                {/* <View style={{width:Dimensions.get('window').width,backgroundColor:"#EDA332",flexDirection:"row",height:70,borderBottomEndRadius:15,borderBottomStartRadius:15}}>
-                    <View style={{ width: '80%',  }}>
-                        <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18,580), fontWeight: 'bold', marginTop:15,left:10 }]}>Welcome to Weazy Dine</Text>
+
+                    <View style={style.header}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%"}}>
+                            <Text style={ { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold'}}>Welcome to Weazy Dine</Text>
+                                <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center",  }} 
+                                onPress={() => this.props.navigation.navigate('Notifications')}>
+                                    <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
+                                </TouchableOpacity>
+                        </View>
                     </View>
 
-                    <View style={{ width: '20%', padding: 17,}}>
-                        <TouchableOpacity style={{backgroundColor:"#fff",height:30,width:30,borderRadius:50,justifyContent:"center"}}>
-                            <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)'/>
-                        </TouchableOpacity>
-                    </View>
-                </View> */}
-                <View style={{ width: '100%', height: 100, backgroundColor: 'rgba(233,149,6,1)', flexDirection:"row",borderBottomEndRadius:15,borderBottomStartRadius:15}}>
-                    <View style={{ width: '80%', paddingTop:20 }}>
-                        <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18,580), fontWeight: 'bold', marginTop:25,left:20 }]}>Welcome to Weazy Dine</Text>
-                    </View>
-                    <View style={{ width: '20%', padding: 20, paddingTop: 30, }}>
-                        <TouchableOpacity style={{backgroundColor:"#fff",height:30,width:30,borderRadius:50,justifyContent:"center",marginLeft:5,marginTop:17}}>
-                            <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)'/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
 
-                <View style={style.viewBox}>
-                    <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580)}}>Hi, 
-                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10,marginLeft:20 }}>
-                        {this.state.name}
-                    </Text> </Text>
-                   {this.state.gstin == "" || this.state.gstin == null ? 
-                    <></>
-                     : 
-                     <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580),marginTop:10}}>GSTIN :
-                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>{this.state.gstin}</Text>
-                    </Text>
+
+                    {/* <View style={{ width: '100%', height: 100, backgroundColor: 'rgba(233,149,6,1)', flexDirection: "row", borderBottomEndRadius: 15, borderBottomStartRadius: 15 }}>
+                        <View style={{ width: '80%', paddingTop: 20 }}>
+                            <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold', marginTop: 25, left: 20 }]}>Welcome to Weazy Dine</Text>
+                        </View>
+                        <View style={{ width: '20%', padding: 20, paddingTop: 30, }}>
+                            <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, marginTop: 17 }}>
+                                <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
+                            </TouchableOpacity>
+                        </View>
+                    </View> */}
+                    <ScrollView>
+
+                    {this.state.isloading ?
+                        <SkeletonPlaceholder>
+                            <View style={[style.viewBox, { height: 80 }]} />
+                        </SkeletonPlaceholder>
+                        :
+                        <>
+                            {(!this.state.cover_step) ?
+                                <TouchableOpacity style={[style.viewBox, { flexDirection: "row", justifyContent: "space-between" }]} onPress={() => { this.props.navigation.navigate("MultipleImage") }} >
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <View style={{ width: '20%', paddingTop: 5, }}>
+                                            <Image source={require('../img/photo.png')} style={{ width: 50, height: 50, marginLeft: 10, marginTop: 10 }} />
+                                        </View>
+                                        <View style={{ width: '80%', paddingTop: 10, paddingBottom: 10 }}>
+                                            <Text style={{ fontSize: RFValue(12, 580), fontFamily: "Roboto-Bold" }}>Upload Your First Cover Picture</Text>
+                                            <Text style={{ fontSize: RFValue(10, 580), fontFamily: "Roboto-Regular", marginTop: 2 }}>Upload your cover picture to showcase your profile good to your customers</Text>
+
+                                        </View>
+
+                                    </View>
+
+                                </TouchableOpacity>
+                                :
+                                <></>
+                            }
+                        </>
                     }
-                </View>
 
 
-                {/* View for Banner Image */}
-                <Demo navigation={this.props.navigation} />
+                    {this.state.isloading ?
+                        <SkeletonPlaceholder>
+                            <View style={[style.viewBox, { height: 80 }]} />
+                        </SkeletonPlaceholder>
+                        :
+                        <View style={style.viewBox}>
+                            <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580) }}>Hi,
+                                <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10, marginLeft: 20 }}>
+                                    {this.state.name}
+                                </Text> </Text>
+                            {this.state.gstin == "" || this.state.gstin == null ?
+                                <></>
+                                :
+                                <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginTop: 10 }}>GSTIN :
+                                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>{this.state.gstin}</Text>
+                                </Text>
+                            }
+                        </View>}
 
-                <View style={{
-                    width: '90%', height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
-                    shadowOffset: {
-                        width: 0,
-                        height: 2
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 4,
-                    elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
-                }}>
-                    <Text style={[styles.h3]}>Share More to Earn More </Text>
-                    <Text style={[styles.p,{fontFamily:"Raleway-SemiBold"}]}>Your customer can visit your online store and place the orders from this link</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text style={[styles.p, { marginTop: 15, fontFamily:"Raleway-SemiBold" }]}>{this.state.link}</Text>
-                        <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
-                            <View style={{ flexDirection: "row", alignSelf: "center" }}>
-                                <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
-                                <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
-                            </View>
-                        </TouchableOpacity>
+
+                    {/* Component for business and flat discounts */}
+                    <Demo navigation={this.props.navigation} />
+                    
+                    {/* share more to earn */}
+                    <View style={{
+                        width: Dimensions.get('window').width / 1.05, height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 4,
+                        elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
+                    }}>
+                        <Text style={[styles.h3]}>Share More to Earn More </Text>
+                        <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
+                            <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
+                                <View style={{ flexDirection: "row", alignSelf: "center" }}>
+                                    <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
+                                    <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
+
+                    {/* payment and payout */}
+                    <View style={{
+                        width: Dimensions.get('window').width / 1.05, height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 4,
+                        elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
+                    }}>
+                        
+                    </View>
+                    </ScrollView>
                 </View>
-
-            </View>
-
+            </SafeAreaView>
 
 
         )
@@ -402,10 +459,10 @@ const style = StyleSheet.create({
         elevation: 5,
         backgroundColor: "#fbf9f9", width: 30, height: 30, borderRadius: 50, padding: 5, alignSelf: "center"
     },
-    viewBox:{
-        width: Dimensions.get('window').width/1.05,
-        backgroundColor: '#fff', 
-        alignSelf: 'center', 
+    viewBox: {
+        width: Dimensions.get('window').width / 1.05,
+        backgroundColor: '#fff',
+        alignSelf: 'center',
         shadowColor: "#000",
         shadowOffset: {
             width: 50,
@@ -417,5 +474,13 @@ const style = StyleSheet.create({
         marginTop: 20,
         borderRadius: 10,
         padding: 10,
-    }
+    },
+    header: {
+        backgroundColor: "#EDA332",
+        flexDirection: "row",
+        padding: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+      },
+    
 })

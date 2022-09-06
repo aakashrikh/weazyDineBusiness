@@ -190,7 +190,7 @@ class Offers extends Component {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    Toast.show(msg);
+                    // Toast.show(msg);
 
                 }
 
@@ -206,8 +206,8 @@ class Offers extends Component {
     // Alert to delete 
     alertFunc = () => {
         Alert.alert(
-            "Are you sure?",
-            "Delete this Offer",
+            "",
+            "Are you sure you want to delete this Offer?",
             [
                 {
                     text: "Cancel",
@@ -219,6 +219,7 @@ class Offers extends Component {
         )
         this.RBSheet.close()
     }
+    
     //   Delete product function
     delete_product = () => {
         //   alert(this.state.prod_id)

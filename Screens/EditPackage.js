@@ -375,7 +375,7 @@ create=()=>{
                                 style={style.serviceImg}/> */}
                                 <TouchableOpacity style={{ width:80,height:80}} onPress={()=>this.RBSheet.open()}>
                                 <View style={style.add}>
-                                    <Icon name="add" size={35} color="#326bf3" />
+                                    <Icon name="add" size={35} color="#EDA332" />
                                     </View>
                                     </TouchableOpacity>
                                 </View>
@@ -452,7 +452,7 @@ create=()=>{
                 onPress={()=>this.create()}
                 style={style.buttonStyles}>
                 <LinearGradient 
-                    colors={['#326BF3', '#0b2564']}
+                    colors={['#EDA332', '#EDA332']}
                     style={styles.signIn}>
 
                     <Text style={[styles.textSignIn, {color:'#fff'}]}>
@@ -462,7 +462,7 @@ create=()=>{
                 </View>
                 :
                 <View style={style.loader}>
-                <ActivityIndicator size={"large"} color="#326bf3"  />
+                <ActivityIndicator size={"large"} color="#EDA332"  />
                 </View>
                         }
             </View>
@@ -514,7 +514,7 @@ const style=StyleSheet.create({
         borderRadius:10
     },
     uploadButton:{
-        // backgroundColor:"#326bf3",
+        // backgroundColor:"#EDA332",
         borderColor:"black",
         borderWidth:1,
         width:90,

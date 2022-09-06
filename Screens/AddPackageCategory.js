@@ -137,7 +137,7 @@ class AddPackageCategory extends Component{
                         itemTextColor="#000"
                         displayKey="name"
                         searchInputStyle={{ color: '#CCC' }}
-                        submitButtonColor="#326bf3"
+                        submitButtonColor="#EDA332"
                         // submitButtonStyle={{width:50}}
                         submitButtonText="Submit"
                         />
@@ -185,7 +185,7 @@ const style=StyleSheet.create({
         fontSize:RFValue(11,580),
     },
     uploadButton:{
-        backgroundColor:"#326bf3",
+        backgroundColor:"#EDA332",
         width:105,
         height:40,
         justifyContent:"center",

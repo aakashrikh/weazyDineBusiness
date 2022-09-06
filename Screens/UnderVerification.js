@@ -54,7 +54,7 @@ class UnderVerification  extends Component{
                 onPress={()=>this.props.navigation.navigate("VerificationDone")}
                 style={style.buttonStyles}>
                 <LinearGradient 
-                    colors={['#326bf3', '#0b2654']}
+                    colors={['#EDA332', '#EDA332']}
                     style={styles.signIn}>
 
                     <Text style={[styles.textSignIn, {color:'#fff'}]}>

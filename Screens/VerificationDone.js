@@ -45,8 +45,8 @@ static contextType =AuthContext
                 {/* <Image source={require("../img/icons/check.png")} style={style.image}/> */}
 
                 <Image source={require('../img/tick.gif')} style={style.image}/>
-                <Text style={[styles.h4,{color:"#326bf3",marginTop:80,alignSelf:"center"}]}>Congratulations You Have </Text>
-                <Text style={[styles.h4,{color:"#326bf3",alignSelf:"center"}]}
+                <Text style={[styles.h4,{color:"#EDA332",marginTop:80,alignSelf:"center"}]}>Congratulations You Have </Text>
+                <Text style={[styles.h4,{color:"#EDA332",alignSelf:"center"}]}
                 >Completed Your Profile.</Text>
                 </View>
             

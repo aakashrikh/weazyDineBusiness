@@ -161,7 +161,7 @@ verify=()=>{
                     onPress={() => this.verify()}
                     style={[styles.buttonStyles, { marginTop: 30, alignSelf: "center", width: "80%",height:45 }]}>
  <LinearGradient
-     colors={['#326bf3', '#0b2654']}
+     colors={['#EDA332', '#EDA332']}
      style={[styles.signIn,{height:45}]}>
 
      <Text style={[styles.textSignIn, {
@@ -172,7 +172,7 @@ verify=()=>{
 </TouchableOpacity>
 :
 <View style={styles.loader}>
-            <ActivityIndicator size="large" color="#326bf3" />
+            <ActivityIndicator size="large" color="#EDA332" />
             </View>
                     }
                    

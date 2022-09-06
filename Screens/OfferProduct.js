@@ -49,8 +49,10 @@ class OfferProduct extends Component{
     renderRightComponent(){
         return(
             <View >
-            <Pressable onPress={()=>this.props.navigation.navigate("EditOffer",{data:this.state.data})} >
-            <Text style={[styles.h4,{paddingLeft:15}]}>Edit</Text> 
+            <Pressable onPress={()=>this.props.navigation.navigate("EditOffer",{data:this.state.data})} style={{
+                backgroundColor:"#EDA332",justifyContent:"center",alignItems:"center",borderRadius:10,padding:5,width:50,paddingTop:2
+            }}>
+            <Text style={[styles.h4,{color:"#fff"}]}>Edit</Text> 
             </Pressable>
         </View>
         )
@@ -59,7 +61,7 @@ class OfferProduct extends Component{
     //for header left component
     render(){
         return(
-            <View style={[styles.container,{backgroundColor:"#f5f5f5"}]}>
+            <View style={styles.container}>
                 <View>
                 <Header 
                     statusBarProps={{ barStyle: 'light-content' }}
@@ -267,7 +269,8 @@ const style=StyleSheet.create({
         shadowRadius: 50,
         shadowOffset: {width: 1, height: 1},
         elevation: 4,
-        marginTop:10
+        marginTop:10,
+        marginBottom:10
       },
       button: {
         flexDirection: 'row',

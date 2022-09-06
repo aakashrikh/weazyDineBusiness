@@ -80,6 +80,7 @@ import TableView from './Screens/TableView';
 import ProductVariants from './Screens/ProductVariants';
 import GenerateBill from './Screens/GenerateBill';
 import Wallet from './Screens/Wallet';
+import OnlinePayment from './Screens/OnlinePayment';
 
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0);
@@ -118,10 +119,11 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api="https://weazydine.healthyrabbit.in/api/";
+// global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo
+global.vendor_api="https://weazydine.healthyrabbit.in/api/";
 // global.vendor_api="http://172.20.10.3:8000/api/";
 // global.vendor_api="https://beta-api.marketpluss.com/api/";
 // global.image_url="https://beta-api.marketpluss.com/";
@@ -425,7 +427,8 @@ render(){
           <Stacks.Screen name="ProductVariants" component={ProductVariants} options={{headerShown:false}}/> 
           <Stacks.Screen name="AddCover" component={AddCover} options={{headerShown:false}}/> 
           <Stacks.Screen name="Wallet" component={Wallet} options={{headerShown:false}}/> 
-   </>
+          <Stacks.Screen name="OnlinePayment" component={OnlinePayment} options={{headerShown:false}}/>
+    </>
       ) 
       }  
 

@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
 import {
-    Text, View, ScrollView, Dimensions,
-    StyleSheet, Image, Pressable,
-    TouchableOpacity, ImageBackground
+    Text, View, Dimensions,
+    StyleSheet, TouchableOpacity,
 } from 'react-native';
-import { Icon, AirbnbRating, Rating, LinearProgress } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import Toast from "react-native-simple-toast";
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-} from "react-native-chart-kit";
 import { RFValue } from 'react-native-responsive-fontsize';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
-const screenWidth = Dimensions.get("window").width;
 
 class Demo extends Component {
     constructor(props) {
@@ -283,88 +272,6 @@ class Demo extends Component {
                     </TouchableOpacity>
 
                 </View>
-
-
-               
-
-
-
-
-                {/* Graphs */}
-
-                <View style={{ marginTop: 15, }}>
-                    <View style={{ backgroundColor: "#d3d3d3", width: "100%", height: 1 }}></View>
-                    {/* <View style={{marginTop:10,alignItems:"center",marginBottom:10, marginLeft:-40}} width={Dimensions.get('window').width}>
-                    <Text style={[styles.h3,{color:"#326bf3",fontSize:RFValue(16,580),alignSelf:"center", marginLeft:90,fontFamily:"Roboto-Bold",marginBottom:20,marginTop:5}]}>
-                        Power Zone Analysis
-                        </Text>
-                    <BarChart
-                        data={{
-                            labels:["10","20","30","40","50","60","70"],
-                            datasets: [
-                            {
-                                data: [20, 25, 35, 30, 25, 20,24],
-                                colors:[
-                                    (opacity = 1) => `#3a5898`,
-                                    (opacity = 1) => `#3a5898`,
-                                    (opacity = 1) =>`#3a5898`,
-                                    (opacity = 1) => `#3a5898`,
-                                    (opacity = 1) => `#3a5898`,
-                                    (opacity = 1) => `#3a5898`,
-                                    (opacity = 1) => `#3a5898`,
-                                    // (opacity = 1) => `#ffff1f`,
-                                ]
-                            },
-                            ],
-                        }}
-                        width={Dimensions.get('window').width}
-                        height={190}
-                        // showValuesOnTopOfBars={true}
-                        withInnerLines={true}
-                        segments={1}
-                        chartConfig={{
-                            backgroundGradientFrom: 'white',
-                            backgroundGradientTo: 'white',
-                            backgroundColor: 'white',
-                            backgroundGradientFromOpacity:0,
-                            backgroundGradientToOpacity:0,
-                            // labelColor: (opacity = 1) => `rgba(0, 0, 0, 1)`,
-                            color: (opacity = 1) => "#326bf3",
-                            propsForBackgroundLines: {
-                                strokeWidth: 1,
-                                stroke: 'white',
-                                strokeDasharray: '5',
-                            },
-
-                        }}
-                        flatColor={true}
-                        withCustomBarColorFromData={true}
-                        showValuesOnTopOfBars={true}
-                        fromZero={true}
-                        showBarTops={false}
-                        withHorizontalLabels={false}
-                        />
-                    </View>
-                    <View style={{backgroundColor:"#d3d3d3",width:"100%",height:1}}></View>
-                    <View style= {{width:Dimensions.get('window').width,alignItems:"center", paddingLeft:10}}> */}
-
-
-                    {/* <PieChart
-                    data={data}
-                    width={screenWidth}
-                    height={230}
-                    chartConfig={chartConfig}
-                    accessor={"population"}
-                    backgroundColor={"transparent"}
-                    paddingLeft={"5"}
-                    paddingBottom={"15"}
-                    paddingTop={"15"}
-                    // center={[10, 50]}
-                    absolute
-                    /> */}
-                </View>
-                {/* <View style={{backgroundColor:"#d3d3d3",width:"100%",height:1}}></View>
-                    </View> */}
 
             </View>
         )

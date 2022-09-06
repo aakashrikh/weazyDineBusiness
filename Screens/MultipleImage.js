@@ -141,7 +141,7 @@ camera =()=>{
             }
             var form = new FormData();    
             form.append("cover_picture", photo);
-            
+            console.warn(photo)
             fetch(global.vendor_api+'update_cover_vendor', { 
                 method: 'POST',
                 body: form,
@@ -169,8 +169,8 @@ camera =()=>{
     alertFunc=(id)=>{
         
         Alert.alert(
-          "Are you sure?",
-          "Delete this Cover Image",
+          "",
+          "Are you sure you want to delete this cover image?",
           [
             {
               text: "Cancel",
@@ -227,7 +227,7 @@ camera =()=>{
             resizeMode="cover"
             style={{ width:"100%", height: 250,marginBottom:10 }}
             source={{
-                uri: global.image_url+covers.image
+                uri: covers.image
             }}
             />
            <Pressable 

@@ -44,7 +44,7 @@ class Packages extends Component{
         this.get_category();
         this.get_vendor_product(0)
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
-            // this.get_category();
+            this.get_category();
 
         })
     }

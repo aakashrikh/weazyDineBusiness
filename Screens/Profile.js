@@ -347,7 +347,7 @@ class Profile extends Component {
                                     </View>
                                     :
                                     <View style={style.loader}>
-                                        <ActivityIndicator size={"large"} color="#326bf3" />
+                                        <ActivityIndicator size={"large"} color="#EDA332" />
                                     </View>
                                 }
                                 </>
@@ -408,7 +408,7 @@ class Loader extends Component {
 const style = StyleSheet.create({
     container1: {
         flex:1,
-        backgroundColor: "#326bf3",
+        backgroundColor: "#EDA332",
         width: "100%",
         
     },

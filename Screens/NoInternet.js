@@ -42,7 +42,7 @@ class NoInternet extends Component{
                         onPress={()=> {}}
                         style={style.buttonStyles}>
                         {/* <LinearGradient 
-                            colors={['#326BF3', '#0b2564']}
+                            colors={['#EDA332', '#0b2564']}
                             style={styles.signIn}>
 
                             <Text style={[styles.textSignIn, {color:'#fff'}]}>
