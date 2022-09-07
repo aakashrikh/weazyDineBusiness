@@ -250,7 +250,7 @@ class Home extends Component {
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%"}}>
                             <Text style={ { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold'}}>Welcome to Weazy Dine</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center",  }} 
-                                onPress={() => this.props.navigation.navigate('Notifications')}>
+                                onPress={() => this.props.navigation.navigate('Notification')}>
                                     <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
                                 </TouchableOpacity>
                         </View>
@@ -277,7 +277,14 @@ class Home extends Component {
                         :
                         <>
                             {(!this.state.cover_step) ?
-                                <TouchableOpacity style={[style.viewBox, { flexDirection: "row", justifyContent: "space-between" }]} onPress={() => { this.props.navigation.navigate("MultipleImage") }} >
+                                <TouchableOpacity style={{width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 2
+                                },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5, marginTop: 20, borderRadius: 10, padding: 10}} onPress={() => { this.props.navigation.navigate("MultipleImage") }} >
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                         <View style={{ width: '20%', paddingTop: 5, }}>
                                             <Image source={require('../img/photo.png')} style={{ width: 50, height: 50, marginLeft: 10, marginTop: 10 }} />
@@ -303,7 +310,14 @@ class Home extends Component {
                             <View style={[style.viewBox, { height: 80 }]} />
                         </SkeletonPlaceholder>
                         :
-                        <View style={style.viewBox}>
+                        <View style={{width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: 2
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 4,
+                        elevation: 5, marginTop: 20, borderRadius: 10, padding: 10}}>
                             <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580) }}>Hi,
                                 <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10, marginLeft: 20 }}>
                                     {this.state.name}
