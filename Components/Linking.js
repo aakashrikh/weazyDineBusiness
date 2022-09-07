@@ -4,12 +4,14 @@ const config={
         SingleFeed:'feedView/:id',
         Home:'home/',
         Comments:'feedComment/:id',
-        VoucherDetails:'voucher/:code'
+        VoucherDetails:'voucher/:code',
+        Wallet:'ViewTransaction',
+        TableView:'ViewTableOrder/:table_id',
     }
 }
 
 const linking={
-    prefixes:["marketplussv://","mppartner://",'http://vendor.marketpluss.com', 'https://vendor.marketpluss.com'],
+    prefixes:["weazydine://",'http://myweazy.com', 'https://myweazy.com'],
     config,
 };
 

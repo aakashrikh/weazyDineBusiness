@@ -82,34 +82,6 @@ import GenerateBill from './Screens/GenerateBill';
 import Wallet from './Screens/Wallet';
 import OnlinePayment from './Screens/OnlinePayment';
 
-//OneSignal Init Code
-OneSignal.setLogLevel(6, 0);
-OneSignal.setAppId("797f6c8e-274b-4455-a7b8-41300ca5d882");
-
-//END OneSignal Init Code
-
-//Prompt for push on iOS
-OneSignal.promptForPushNotificationsWithUserResponse(response => {
-  console.log("Prompt response:", response);
-});
-
-//Method for handling notifications received while app in foreground
-OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
-  console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
-  let notification = notificationReceivedEvent.getNotification();
-  console.log("notification: ", notification);
-  const data = notification.additionalData
-  console.warn("additionalData: ", data);
-  // Complete with null means don't show a notification.
-  notificationReceivedEvent.complete(notification);
-});
-
-//Method for handling notifications opened
-OneSignal.setNotificationOpenedHandler(notification => {
-  console.warn("OneSignal: notification opened:", notification.additionalData);
-});
-
-
 
 //Navigators
 const Tab = createBottomTabNavigator();
@@ -119,11 +91,11 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
-// global.vendor_api = "https://dine-api.weazy.in/api/";
+ global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo
-global.vendor_api="https://weazydine.healthyrabbit.in/api/";
+//global.vendor_api="https://weazydine.healthyrabbit.in/api/";
 // global.vendor_api="http://172.20.10.3:8000/api/";
 // global.vendor_api="https://beta-api.marketpluss.com/api/";
 // global.image_url="https://beta-api.marketpluss.com/";
@@ -132,7 +104,7 @@ global.image_url=""
 global.login_data=true
 global.msg="Welcome"
 
-global.shareLink="https://marketpluss.com";
+global.shareLink="https://myweazy.com";
 
 
 class TabNav extends Component{

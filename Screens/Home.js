@@ -235,8 +235,8 @@ class Home extends Component {
             });
     }
 
-    share_whatsapp = (link) => {
-        Linking.openURL('whatsapp://send?text=Hey there! Sign-up on the MarketPluss app using my referral code and get ₹' + this.state.earner + ' \n\nDownload the app: ' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
+    share_whatsapp = (link,name) => {
+        Linking.openURL('whatsapp://send?text=Hey there!\n\n Now you can order online from '+name+' using this link: \n' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
     }
 
     render() {
@@ -336,7 +336,7 @@ class Home extends Component {
                         <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
-                            <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
+                            <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link,this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
                                 <View style={{ flexDirection: "row", alignSelf: "center" }}>
                                     <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
                                     <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
