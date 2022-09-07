@@ -198,7 +198,7 @@ class Fields extends Component{
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    Toast.show(msg);
+                                    // Toast.show(msg);
                                 }
                                 else{
                                    this.setState({data:json.data})
@@ -244,7 +244,7 @@ get_package=()=>{
                             if(!json.status)
                             {
                                 var msg=json.msg;
-                                Toast.show(msg);
+                                // Toast.show(msg);
                             }
                             else{
                                this.setState({data:json.data})
@@ -347,8 +347,8 @@ get_package=()=>{
             this.setState({isloading:true});
             var title=this.state.title;
             var offer_percentage=this.state.offer;
-            var selectedProduct=this.state.selectedProduct;
-            var selectedPackage=this.state.selectedPackage;
+            // var selectedProduct=this.state.selectedProduct;
+            // var selectedPackage=this.state.selectedPackage;
             var startDate=this.state.startDate;
             var endDate=this.state.endDate;
             var description=this.state.offer_description;
@@ -376,7 +376,7 @@ get_package=()=>{
                                      if(!json.status)
                                      {
                                          var msg=json.msg;
-                                         Toast.show(msg);
+                                        //  Toast.show(msg);
                                      }
                                      else{
                                          Toast.show(json.msg)
@@ -421,7 +421,7 @@ get_package=()=>{
 
                 {/* Category View */}
 
-                <View>
+                {/* <View>
                 <Text style={style.fieldsTitle}>Menu</Text>
                     <View style={{marginLeft:20,marginRight:20,}}>
                     <MultiSelect
@@ -482,7 +482,7 @@ get_package=()=>{
                                     Add new
                                 </Text>
                             </TouchableOpacity>
-                </View>
+                </View> */}
 
                 <View>
                     <Text style={style.fieldsTitle}>

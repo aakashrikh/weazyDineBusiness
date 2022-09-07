@@ -275,7 +275,7 @@ class Offers extends Component {
         try {
             const ShareResponse = await Share.open(shareOptions);
             const { isInstalled } = await Share.isPackageInstalled(
-                "com.marketpluss_user"
+                "com.weazydinebusiness"
             );
 
             if (isInstalled) {
@@ -375,7 +375,7 @@ class Offers extends Component {
 
                             <View style={{ right: 10 }}>
                                 <Icon name="share-social-outline"
-                                    onPress={() => this.myShare("Checkout this crazy deal on Market Pluss |\n", item.offer_name + "- ", "\n" + global.shareLink + '/offerView/' + item.id)}
+                                    onPress={() => this.myShare("Checkout this offer |\n", item.offer_name + "- ", "\n" + global.shareLink + '/offerView/' + item.id)}
                                     type="ionicon" size={20} />
                             </View>
                         </View>

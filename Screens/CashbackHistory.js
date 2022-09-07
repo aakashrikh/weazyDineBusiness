@@ -44,7 +44,7 @@ class CashbackHistory extends Component {
     renderCenterComponent() {
         return (
             <View>
-                <Text style={style.text}>Total Orders</Text>
+                <Text style={style.text}>Total Customer</Text>
             </View>
 
         )

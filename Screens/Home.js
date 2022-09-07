@@ -345,19 +345,6 @@ class Home extends Component {
                         </View>
                     </View>
 
-                    {/* payment and payout */}
-                    <View style={{
-                        width: Dimensions.get('window').width / 1.05, height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
-                        shadowOffset: {
-                            width: 0,
-                            height: 2
-                        },
-                        shadowOpacity: 0.25,
-                        shadowRadius: 4,
-                        elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
-                    }}>
-                        
-                    </View>
                     </ScrollView>
                 </View>
             </SafeAreaView>

@@ -90,7 +90,7 @@ class CreateOffers extends Component{
                                     if(!json.status)
                                     {
                                         var msg=json.msg;
-                                        Toast.show(msg);
+                                        // Toast.show(msg);
                                     }
                                     else{
                                        this.setState({products:json.data})
@@ -136,7 +136,7 @@ class CreateOffers extends Component{
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    Toast.show(msg);
+                                    // Toast.show(msg);
                                 }
                                 else{
                                    this.setState({packages:json.data})
@@ -458,7 +458,7 @@ class CreateOffers extends Component{
                 </View>
                 :
                 <View style={style.loader}>
-                <ActivityIndicator size={"large"} color="#EDA332" />
+                <ActivityIndicator size={"small"} color="#EDA332" />
             </View>
     }
 
@@ -523,6 +523,7 @@ const style=StyleSheet.create({
         marginBottom: 5,
         shadowRadius: 50,
         elevation: 5,
+        justifyContent:"center",
         backgroundColor: "#fff", width: 40, height: 40, borderRadius: 50, padding: 5, alignSelf: "center"
     },
 })
