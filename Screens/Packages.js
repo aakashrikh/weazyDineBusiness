@@ -34,18 +34,18 @@ class Packages extends Component{
             isLoading:false,
             select:{},
             last_select:'',
-            page:0,
-            load_data:true
+            page:1,
+            load_data:true,
+            active_cat :0
             // prod_id:''
         }
     }
     componentDidMount = async()=>
     {  
         this.get_category();
-        this.get_vendor_product(0)
+        this.get_vendor_product(0,1)
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
             this.get_category();
-
         })
     }
 
@@ -55,11 +55,11 @@ class Packages extends Component{
         if(data_size>9){
             var page=this.state.page+1
             this.setState({page:page})
-            this.get_vendor_product()
+            this.get_vendor_product(this.state.last_select,page)
         }
     }
 
-    get_vendor_product=(category_id)=>{
+    get_vendor_product=(category_id,page)=>{
         // console.warn(global.token)
         this.setState({load_data:true,isloading:true});
         fetch(global.vendor_api+'vendor_get_vendor_product', { 
@@ -72,7 +72,7 @@ class Packages extends Component{
                     body: JSON.stringify({ 
                         vendor_category_id:category_id ,
                         product_type:'package',
-                        page:this.state.page
+                        page:page
                             })
                         }).then((response) => response.json())
                             .then((json) => {
@@ -134,7 +134,7 @@ class Packages extends Component{
             {
                 if(json.data.length>0)
                 {
-                    this.get_vendor_product(0);
+                    this.get_vendor_product(0,1);
                     this.setState({category:json.data,isloading:false });
                     
                 }
@@ -153,21 +153,9 @@ class Packages extends Component{
 }  
 filter=(id)=>{
     this.setState({isloading:true})
-    this.get_vendor_product(id);
+    this.get_vendor_product(id,1);
     
-    const select = this.state.select;
-    if(this.state.select[id] == true )
-    {
-      select[id] = false;
-    }
-    else
-      {
-        select[id] = true;
-      }
-
-      select[this.state.last_select]=false; 
-    this.setState({ select });
-    this.setState({last_select:id});
+    this.setState({active_cat:id});
     }
 
 toggle=(id)=>{
@@ -235,7 +223,7 @@ toggle=(id)=>{
                             navigation={this.props.navigation}
                             category={this.state.category}
                             filter={this.filter}
-                            select={this.state.select}
+                            active_cat={this.state.active_cat}
                             get_vendor_product={this.get_vendor_product}
                             />
       
@@ -349,7 +337,7 @@ class Categories extends Component{
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 
             <View style={{flexDirection:'row',justifyContent:"space-evenly"}}>
-            {!this.props.select[0] ?
+            {(!this.props.active_cat == 0) ?
                  <TouchableOpacity 
                  onPress={()=>this.props.filter(0)}>
                  <View style={style.catButton}>
@@ -372,7 +360,7 @@ class Categories extends Component{
                
                 return(
                 <View>
-                    {!this.props.select[cat.id] ?
+                    {(this.props.active_cat != cat.id) ?
                 <TouchableOpacity onLongPress={()=>this.delete_cat(cat.id)}
                 onPress={()=>this.props.filter(cat.id)}>
                 <View style={style.catButton}>
@@ -460,7 +448,7 @@ class Card extends Component{
                                 }
                                 else{
                                   Toast.show("Product deleted")
-                                  this.props.get_vendor_product(0)
+                                  this.props.get_vendor_product(0,1)
                                }                                 
                            }).catch((error) => {  
                                    console.error(error);   

@@ -74,7 +74,6 @@ class CreateService extends Component {
                         get_cat={this.props.route.params.get_cat}
                         get_product={this.props.route.params.get_vendor_product} />
                 </ScrollView>
-
             </View>
 
         )
@@ -255,7 +254,7 @@ class Fields extends Component {
                     else {
                         Toast.show(json.msg)
                         this.props.get_cat();
-                        this.props.get_product(0);
+                        this.props.get_product(0,1);
 
                         this.props.navigation.navigate('ProductVariants', { product_id: json.data.id, variants: json.data.variants, addons: json.data.addons, refresh: true });
                         // this.props.navigation.navigate(this.props.back,{refresh:true})

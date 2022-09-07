@@ -390,13 +390,13 @@ class Fields extends Component {
 
                     <View style={{ flexDirection: 'column' }}>
                         <View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons }) }}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons,refresh:false }) }}>
                                 <Text style={style.fieldsTitle}> + VARIANTS & ADD-ONS</Text>
 
 
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={{justifyContent:"center"}} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons }) }}>
+                        <TouchableOpacity style={{justifyContent:"center"}} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons,refresh:false }) }}>
                             <Text style={[style.textInput,{justifyContent:"center",paddingTop:8}]}>
                                 {this.props.data.variants.length} Variants
                             </Text>

@@ -27,7 +27,7 @@ class Services extends Component{
         super(props);
         this.state={
             data:'',
-        active_cat:'',
+        active_cat:0,
             // vendor_category_id:0,
             isloading:true,
             isLoading:false,
@@ -35,7 +35,7 @@ class Services extends Component{
             select:{},
             last_select:'',
             load_data:false,
-            page:0,
+            page:1,
             category:[]
             // prod_id:''
         }
@@ -48,7 +48,7 @@ class Services extends Component{
             this.get_category();
             if(this.props.route.params!=undefined){
             this.get_category();
-            this.get_vendor_product(0,1);
+           // this.get_vendor_product(0,1);
             }
         })  
     
@@ -56,18 +56,17 @@ class Services extends Component{
 
     // function to load data while scrolling
     load_more=()=>{
-       
         var data_size=this.state.data.length
         if(data_size>9){
             var page=this.state.page+1
             this.setState({page:page})
             this.setState({load_data:true});
-            this.get_vendor_product(this.select.active_cat,page)
+            this.get_vendor_product(this.state.active_cat,page)
         }
     }
 
     get_vendor_product=(category_id,page)=>{
-     
+
         fetch(global.vendor_api+'vendor_get_vendor_product', { 
             method: 'POST',
               headers: {    
@@ -82,11 +81,10 @@ class Services extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                             
+                             console.warn(json);
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
-                                    
                                     if(page == 1)
                                     {
                                         this.setState({data:[]})
@@ -111,7 +109,7 @@ class Services extends Component{
                                         this.setState({data:json.data})
                                     }
                                     else{
-                                        this.setState({data:''})
+                                       // this.setState({data:''})
                                         // Toast.show("Please Add Services First");
                                         
                                     }
@@ -459,14 +457,14 @@ class Card extends Component{
                                 }
                                 else{
                                   Toast.show("Product deleted")
-                                  this.props.get_vendor_product(0)  
+                                  this.props.get_vendor_product(0,1)  
                                }                                 
                            }).catch((error) => {  
                                    console.error(error);   
                                 }).finally(() => {
                                    this.setState({isloading:false})
                                 });
-                                this.props.get_vendor_product(0)  
+                                this.props.get_vendor_product(0,1)  
                                 this.props.get_category()                     
       }
       
