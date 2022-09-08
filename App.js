@@ -117,11 +117,11 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+ global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo
-global.vendor_api="https://weazydine.healthyrabbit.in/api/";
+//global.vendor_api="https://weazydine.healthyrabbit.in/api/";
 // global.vendor_api="http://172.20.10.3:8000/api/";
 // global.vendor_api="https://beta-api.marketpluss.com/api/";
 // global.image_url="https://beta-api.marketpluss.com/";
