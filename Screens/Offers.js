@@ -79,11 +79,8 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                console.warn("jhkj",json)
                 if (!json.status) {
-                    var msg = json.msg;
-                    Toast.show(msg);
-                    // Toast.show(json.errors[0])
                 }
                 else {
                     if (json.data.length >= 0) {
@@ -100,7 +97,7 @@ class Offers extends Component {
                             this.setState({ object });
                         })
                         this.setState({ data: json.data })
-                        console.warn(json.data)
+                        console.warn('aaa',json.data)
                     }
                 }
                 return json;
@@ -126,11 +123,8 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                console.warn('sds',json)
                 if (!json.status) {
-                    var msg = json.msg;
-                    Toast.show(msg);
-                    // Toast.show(json.errors[0])
                 }
                 else {
                     if (json.data.length > 0) {
@@ -149,7 +143,7 @@ class Offers extends Component {
                         var obj = json.data;
                         var joined = this.state.data.concat(obj);
                         this.setState({ data: joined })
-                        console.warn(json.data)
+                        console.warn('sss',json.data)
                     }
                 }
                 return json;
@@ -187,10 +181,8 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                console.warn('qqq',json)
                 if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
 
                 }
 
@@ -237,11 +229,8 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                console.warn('aaaaaaa',json)
                 if (!json.status) {
-                    var msg = json.msg;
-                    Toast.show(msg);
-                    // Toast.show(json.errors[0])
                 }
                 else {
                     Toast.show("Offer deleted")

@@ -247,7 +247,7 @@ class Home extends Component {
 
 
                     <View style={style.header}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%"}}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%",paddingTop:20}}>
                             <Text style={ { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold'}}>Welcome to Weazy Dine</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center",  }} 
                                 onPress={() => this.props.navigation.navigate('Notification')}>
