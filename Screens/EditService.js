@@ -214,9 +214,9 @@ class Fields extends Component {
         else if (this.state.c_id == "") {
             Toast.show("Category is required !");
         }
-        else if (this.state.our_price < this.state.market_price  ) {
-            Toast.show("Your price should be less than market price !");
-        }
+        // else if (this.state.our_price < this.state.market_price  ) {
+        //     Toast.show("Your price should be less than market price !");
+        // }
         else if (!isnumValid) {
             Toast.show("Price contains digits only!");
         }
