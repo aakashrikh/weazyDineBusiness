@@ -81,6 +81,7 @@ import ProductVariants from './Screens/ProductVariants';
 import GenerateBill from './Screens/GenerateBill';
 import Wallet from './Screens/Wallet';
 import OnlinePayment from './Screens/OnlinePayment';
+import PasswordLogin from './Screens/PasswordLogin';
 
 
 //OneSignal Init Code
@@ -117,11 +118,11 @@ const LogIn = createStackNavigator();
 
 global.google_key="AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.image_url="https://api.marketpluss.com/";
 
 //for demo
-// global.vendor_api="https://weazydine.healthyrabbit.in/api/";
+global.vendor_api="https://weazydine.healthyrabbit.in/api/";
 // global.vendor_api="http://172.20.10.3:8000/api/";
 // global.vendor_api="https://beta-api.marketpluss.com/api/";
 // global.image_url="https://beta-api.marketpluss.com/";
@@ -346,9 +347,10 @@ render(){
           <Stacks.Navigator >
         {!this.state.islogin ? (
           <>
-          <Stacks.Screen options={{headerShown: false}} name="MobileLogin" component={MobileLogin}/>
-          <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{headerShown: false}}/>
-        
+          {/* <Stacks.Screen options={{headerShown: false}} name="MobileLogin" component={MobileLogin}/> */}
+          <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/>
+          {/* <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{headerShown: false}}/> */}
+          
           </>
            )
       : 
