@@ -35,6 +35,10 @@ const options = {
     quality: 0.5
 }
 
+
+const data = ["Veg", "Non-Veg"]
+
+
 class EditService extends Component {
     constructor(props) {
         super(props);
@@ -146,8 +150,8 @@ class Fields extends Component {
     //function to launch gallery
     gallery = () => {
         ImagePicker.openPicker({
-            width: 300,
-            height: 400,
+            width: 600,
+            height: 500,
             cropping: true,
         }).then(image => {
             console.log(image);
@@ -288,7 +292,7 @@ class Fields extends Component {
     render() {
 
         return (
-            <View style={{ flex: 1, marginBottom: 15, }}>
+            <View>
                 <View>
                     <Text style={style.fieldsTitle}>
                         Name
@@ -298,11 +302,12 @@ class Fields extends Component {
                         onChangeText={(e) => { this.setState({ name: e }) }}
                         style={style.textInput} />
                 </View>
+
                 <View>
                     <Text style={style.fieldsTitle}>Category</Text>
                     <View style={{ marginLeft: 20, marginRight: 20, }}>
                         <SelectDropdown
-                            buttonStyle={{ width: "100%" }}
+                            buttonStyle={style.textInput}
                             data={this.state.cat_name}
                             onSelect={(selectedCategories, index) => {
                                 this.set_value(index);
@@ -322,6 +327,8 @@ class Fields extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
+
+
                 <View style={{ marginTop: 10 }}>
                     <Text style={style.fieldsTitle}>
                         Market Price
@@ -338,6 +345,7 @@ class Fields extends Component {
 
                 </View>
 
+
                 <View>
                     <Text style={style.fieldsTitle}>
                         Our Price
@@ -352,7 +360,20 @@ class Fields extends Component {
                     </Text>
                 </View>
 
-                <View style={{ marginTop: 20, alignSelf: 'center' }}>
+                <RadioForm 
+                formHorizontal={true}
+                radio_props={radio_props}
+                animation={false}
+                initial={0}
+                selectedButtonColor="#EDA332"
+                buttonColor="#EDA332"
+                buttonSize={12}
+                buttonOuterSize={25}
+                labelStyle={{fontSize: RFValue(12,580),marginRight:30,fontWeight:'bold'}}
+                style={{marginTop:20,alignSelf:"center"}}
+                />            
+                
+                {/* <View style={{ marginTop: 20, alignSelf: 'center' }}>
                     <RadioForm
                         formHorizontal={true}
                         radio_props={radio_props}
@@ -364,7 +385,9 @@ class Fields extends Component {
                         buttonColor={"#EDA332"}
                         onPress={(value) => { this.setState({ is_veg: value }) }}
                     />
-                </View>
+                </View> */}
+                
+
 
                 <View>
                     <Text style={style.fieldsTitle}>
@@ -383,9 +406,7 @@ class Fields extends Component {
                     />
                 </View>
 
-                <View>
 
-                </View>
                 <View>
 
                     <View style={{ flexDirection: 'column' }}>
@@ -442,6 +463,8 @@ class Fields extends Component {
                         </View>
                     </View>
                 </View>
+
+
                 {/* Bottom Sheet fot FAB */}
                 <RBSheet
                     ref={ref => {
@@ -489,6 +512,8 @@ class Fields extends Component {
 
                     </View>
                 </RBSheet>
+
+
                 {!this.state.isLoading ?
                     <View>
                         <TouchableOpacity
@@ -558,7 +583,8 @@ const style = StyleSheet.create({
     },
     uploadButton: {
         // backgroundColor:"#EDA332",
-        borderColor: "black",
+        borderColor: "#EDA332",
+        paddingTop:2,
         borderWidth: 1,
         width: 90,
         height: 30,

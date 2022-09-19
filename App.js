@@ -347,9 +347,9 @@ render(){
           <Stacks.Navigator >
         {!this.state.islogin ? (
           <>
-          {/* <Stacks.Screen options={{headerShown: false}} name="MobileLogin" component={MobileLogin}/> */}
-          <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/>
-          {/* <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{headerShown: false}}/> */}
+          <Stacks.Screen options={{headerShown: false}} name="MobileLogin" component={MobileLogin}/>
+          {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
+          <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{headerShown: false}}/>
           
           </>
            )

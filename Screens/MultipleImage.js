@@ -112,8 +112,8 @@ camera =()=>{
     //function to launch gallery
     gallery =()=>{
     ImagePicker.openPicker({
-        width:400,
-        height:600,
+        width:600,
+        height:500,
         cropping:true,
     }).then(image=>{
         
@@ -225,7 +225,7 @@ camera =()=>{
                 
             <Image
             resizeMode="cover"
-            style={{ width:"100%", height: 250,marginBottom:10 }}
+            style={{ width:"100%", height: 300,marginBottom:10 }}
             source={{
                 uri: covers.image
             }}

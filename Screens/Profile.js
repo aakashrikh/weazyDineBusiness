@@ -368,31 +368,31 @@ class Loader extends Component {
                     <View style={style.questView} >
                         <View style={{ flexDirection: "row" }}>
                             <View style={style.Icon} />
-                            <View style={{ width: 350, marginTop: 12, marginLeft: 20, height: 70 }} />
+                            <View style={{ width: 372, marginTop: 12, marginLeft: 20, height: 70 }} />
                         </View>
                     </View>
                     <View style={style.questView} >
                         <View style={{ flexDirection: "row" }}>
                             <View style={style.Icon} />
-                            <View style={{ width: 350, marginTop: 12, marginLeft: 20, height: 70 }} />
+                            <View style={{ width: 372, marginTop: 12, marginLeft: 20, height: 70 }} />
                         </View>
                     </View>
                     <View style={style.questView} >
                         <View style={{ flexDirection: "row" }}>
                             <View style={style.Icon} />
-                            <View style={{ width: 350, marginTop: 12, marginLeft: 20, height: 70 }} />
+                            <View style={{ width: 372, marginTop: 12, marginLeft: 20, height: 70 }} />
                         </View>
                     </View>
                     <View style={style.questView} >
                         <View style={{ flexDirection: "row" }}>
                             <View style={style.Icon} />
-                            <View style={{ width: 350, marginTop: 12, marginLeft: 20, height: 70 }} />
+                            <View style={{ width: 372, marginTop: 12, marginLeft: 20, height: 70 }} />
                         </View>
                     </View>
                     <View style={style.questView} >
                         <View style={{ flexDirection: "row" }}>
                             <View style={style.Icon} />
-                            <View style={{ width: 350, marginTop: 12, marginLeft: 20, height: 70 }} />
+                            <View style={{ width: 372, marginTop: 12, marginLeft: 20, height: 70 }} />
                         </View>
                     </View>
                     

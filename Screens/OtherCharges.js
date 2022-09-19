@@ -119,7 +119,7 @@ class OtherCharges extends Component {
         var gst_percentage=this.state.gstper;
         var service_charge=this.state.scamount;
 
-        let rjx= /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([0-9]){1}?$/;
+        let rjx= /^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/;
         let isValid = rjx.test(gstin);
         if(this.state.gst == false)
         {
@@ -249,6 +249,7 @@ class OtherCharges extends Component {
                                     <Input
                                         style={style.inputText}
                                         value={this.state.gstin}
+                                        autoCapitalize={true}
                                         onChangeText={(e) => { this.setState({ gstin: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,

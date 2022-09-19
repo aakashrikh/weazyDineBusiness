@@ -5,14 +5,13 @@ import {
     StyleSheet,Pressable,Switch,
     Image,Text,Dimensions,TouchableHighlight,
 } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import {Header,Icon} from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
-import Loading from './Loading.js';
+import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 // import Categories from './Categories.js';
 
@@ -22,46 +21,52 @@ const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
 
 
-class Packages extends Component{
+class Orders extends Component{
     constructor(props){
         super(props);
         this.state={
             data:'',
-            category:'',
-            object:{},
+            active_cat:0,
             // vendor_category_id:0,
             isloading:true,
             isLoading:false,
+            object:{},
             select:{},
             last_select:'',
+            load_data:false,
             page:1,
-            load_data:true,
-            active_cat :0
+            category:[]
             // prod_id:''
         }
     }
-    componentDidMount = async()=>
-    {  
-        this.get_category();
-        this.get_vendor_product(0,1)
+
+    componentDidMount = ()=>
+    { 
+        this.get_category()  ;
+        this.get_vendor_product(0,1);
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
             this.get_category();
-        })
+            if(this.props.route.params!=undefined){
+            this.get_category();
+           // this.get_vendor_product(0,1);
+            }
+        })  
+    
     }
 
-    // Function to load data while scrolling
+    // function to load data while scrolling
     load_more=()=>{
         var data_size=this.state.data.length
         if(data_size>9){
             var page=this.state.page+1
             this.setState({page:page})
-            this.get_vendor_product(this.state.last_select,page)
+            this.setState({load_data:true});
+            this.get_vendor_product(this.state.active_cat,page)
         }
     }
 
     get_vendor_product=(category_id,page)=>{
-        // console.warn(global.token)
-        this.setState({load_data:true,isloading:true});
+
         fetch(global.vendor_api+'vendor_get_vendor_product', { 
             method: 'POST',
               headers: {    
@@ -71,19 +76,19 @@ class Packages extends Component{
                    }, 
                     body: JSON.stringify({ 
                         vendor_category_id:category_id ,
-                        product_type:'package',
+                        product_type:'product',
                         page:page
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                
+                             console.warn(json);
                                 if(!json.status)
                                 {
-                                    
                                     var msg=json.msg;
-                                    // Toast.show(msg);
-                                    this.setState({isloading:false,load_data:false})
-                                    // Toast.show(json.errors[0])
+                                    if(page == 1)
+                                    {
+                                        this.setState({data:[]})
+                                    }
                                 }
                                 else{
                                     if(json.data.length>0)
@@ -104,113 +109,127 @@ class Packages extends Component{
                                         this.setState({data:json.data})
                                     }
                                     else{
-                                        this.setState({data:''})
+                                       // this.setState({data:''})
+                                        // Toast.show("Please Add Services First");
                                         
                                     }
                                  
-                                   
                                 //    this.setState({prod_id:json.data[0].id})
                                 //    alert(this.state.prod_id)
-                                this.setState({isloading:false,load_data:false})
+                               
                                 }
+                                this.setState({isloading:false,load_data:false})
                                return json;    
                            }).catch((error) => {  
                                    console.error(error);   
                                 }).finally(() => {
-                                   
+                                    this.setState({isloading:false})
                                 });
     }
     
-
     get_category=()=>{
-        // this.setState({isLoading:true})
+        // this.setState({isloading:true})
         fetch(global.vendor_api+'get_category_vendor?vendor_id='+global.vendor
          ,{
         method: 'GET',
         })
         .then((response) => response.json())
         .then((json) => {
+
             if(json.status)
             {
                 if(json.data.length>0)
                 {
-                    this.get_vendor_product(0,1);
-                    this.setState({category:json.data,isloading:false });
-                    
+                  
+                    this.setState({category:json.data });
+                  
                 }
                 
             } 
             else{
-                this.setState({isloading:false,category:""}) 
+                this.setState({isloading:false,category:""})  
             }         
             return json;
         })
         .catch((error) => console.error(error))
         .finally(() => {
-            
-            
+            // this.get_vendor_product()
         });
-}  
-filter=(id)=>{
+    }
+
+    filter=(id)=>{
+ 
     this.setState({isloading:true})
     this.get_vendor_product(id,1);
-    
-    this.setState({active_cat:id});
+    this.setState({active_cat:id})
     }
 
-toggle=(id)=>{
-    // alert(id)
-    const object=this.state.object;
-    if(object[id]==true)
-    {
-        object[id]=false;
-        var status="inactive"
+    toggle=(id)=>{
+            // alert(id)
+            const object=this.state.object;
+            if(object[id]==true)
+            {
+                object[id]=false;
+                var status="inactive"
+            }
+            else
+            {
+                object[id]=true; 
+                var status="active"
+            }
+            this.setState({object});
+            fetch(global.vendor_api+'update_status_product_offer', { 
+                method: 'POST',
+                headers: {    
+                    Accept: 'application/json',  
+                        'Content-Type': 'application/json',
+                        'Authorization': global.token
+                    }, 
+                        body: JSON.stringify({ 
+                            action_id:id,
+                            type:'product' ,
+                            status:status
+                                })
+                            }).then((response) => response.json())
+                                .then((json) => {
+                                  
+                                    if(!json.status)
+                                    {
+                                        var msg=json.msg;
+                                        // Toast.show(msg);
+                                        
+                                    }
+                                    else{
+                                    //   Toast.show("jhsd")
+                                }                                 
+                            }).catch((error) => {  
+                                    console.error(error);   
+                                    }).finally(() => {
+                                    this.setState({isloading:false})
+                                    });
     }
-    else
-    {
-        object[id]=true; 
-        var status="active"
+
+
+renderLeftComponent() {
+        return (
+            <View style={{ width: win.width }} >
+                <Text style={[styles.h3]}>Orders</Text>
+            </View>
+        )
     }
-    this.setState({object});
-    fetch(global.vendor_api+'update_status_product_offer', { 
-        method: 'POST',
-          headers: {    
-              Accept: 'application/json',  
-                'Content-Type': 'application/json',
-                'Authorization': global.token
-               }, 
-                body: JSON.stringify({ 
-                    action_id:id,
-                    type:'package' ,
-                    status:status
-                        })
-                    }).then((response) => response.json())
-                        .then((json) => {
-                            // console.warn(json)
-                            if(!json.status)
-                            {
-                                var msg=json.msg;
-                                // Toast.show(msg);
-                                
-                            }
-                            else{
-                            //   Toast.show(json.msg)
-                           }                                 
-                       }).catch((error) => {  
-                               console.error(error);   
-                            }).finally(() => {
-                               this.setState({isloading:false})
-                            });
-}
-
-
-
     render(){
 
         return(
             <View style={[styles.container,]}>
-                            
-                 
+
+            <Header
+                        statusBarProps={{ barStyle: 'light-content' }}
+                        leftComponent={this.renderLeftComponent()}
+                        ViewComponent={LinearGradient} // Don't forget this!
+                        linearGradientProps={{
+                            colors: ['#fff', '#fff'],
+                        }}
+                    />
                       {/* Component for  Filter Services */}
                     
                           <View style={{borderBottomWidth:1,borderColor:"#dedede",paddingVertical:0}}>
@@ -219,7 +238,7 @@ toggle=(id)=>{
                           {/* <TouchableOpacity style={style.button} onPress={()=>this.props.navigation.navigate("AddCategory")}>
                               <Text style={style.buttonText}>Add Category</Text>
                           </TouchableOpacity>   */}
-                            <Categories  
+                          <Categories  
                             navigation={this.props.navigation}
                             category={this.state.category}
                             filter={this.filter}
@@ -230,60 +249,58 @@ toggle=(id)=>{
                           </View>
                           </View>
                      
-                    <ScrollView style={{flex:1}}>
+                        <ScrollView style={{flex:1}}>
                       {/* Particular Card Component */}
                       {!this.state.isloading ? 
-                      (this.state.data !="") ?
-                        <Card navigation={this.props.navigation}
-                        data={this.state.data}
-                        category={this.state.category}
-                        load_more={this.load_more}
-                        load_data={this.state.load_data}
-                        get_category={this.get_category}
-                        get_vendor_product={this.get_vendor_product}
-                        toggle={this.toggle}
-                        object={this.state.object}
-                         />
-                        :
-                        <View style={{paddingTop:120,alignItems:"center"}}>
-                        <View style={{alignSelf:"center"}}>
-                        <Image source={require("../img/no-product.png")}
-                        style={{width:300,height:300}} />
-                         <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+                      <>
+                        {(this.state.data !="") ?
+                            <Card navigation={this.props.navigation}
+                            data={this.state.data}
+                            category={this.state.category}
+                            load_more={this.load_more}
+                            load_data={this.state.load_data}
+                            toggle={this.toggle}
+                            get_category={this.get_category}
+                            get_vendor_product={this.get_vendor_product}
+                            object={this.state.object}
+                            />
+                            
+                            :
+                            <View style={{paddingTop:120,alignItems:"center"}}>
+                                <View style={{alignSelf:"center"}}>
+                                <Image source={require("../img/no-product.png")}
+                                style={{width:300,height:300}} />
+                                <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
                         No Products Found!
-                        </Text>
-                    </View>  
-                    </View>
-                        
+                    </Text>
+                            </View>  
+                            </View>
+                        }
+                        </>
                         :
                         <View >
-                        <Loaders />
+                            <Loaders />
                         </View>
                       }
-                  </ScrollView>
-                 
-               {/* fab button */}
-                <View>
-                {this.state.category=="" ?
-                <TouchableOpacity style={style.fab}
-                onPress={()=>this.props.navigation.navigate("AddCategory",{get_cat:this.get_category})}>
-                        <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{alignSelf:"center"}}/>
-                </TouchableOpacity>
-                :
-                <TouchableOpacity style={style.fab}
-                onPress={()=>this.props.navigation.navigate("CreatePackages",{back:"Package",get_cat:this.get_category,get_vendor_product:this.get_vendor_product})}>
-                        <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{alignSelf:"center"}}/>
-                </TouchableOpacity>
+
+
+{(this.state.load_data)?
+                     <View style={{alignItems:"center",flex:1,backgroundColor:"white",flex:1, paddingTop:20}}>
+                      <ActivityIndicator animating={true} size="small" color="#EDA332" />
+                      <Text style={styles.p}>Please wait...</Text>
+                    </View>
+                             :
+                     <View></View>
                 }
-                </View>
-               
+
+                  </ScrollView>
             </View>
 
     )
 }
 }
 
-export default Packages;
+export default Orders;
 
 class Loaders extends Component {
     render() {
@@ -323,15 +340,7 @@ class Loaders extends Component {
  }
 
 class Categories extends Component{   
-    state={
-        object:{},
-        last_select:""
-    }
-    componentDidMount(){
-        // console.warn(this.props.category)
-        this.setState({data:this.props.category})
-    }
-   
+    
     render(){
         return(
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -361,7 +370,7 @@ class Categories extends Component{
                 return(
                 <View>
                     {(this.props.active_cat != cat.id) ?
-                <TouchableOpacity onLongPress={()=>this.delete_cat(cat.id)}
+                <TouchableOpacity 
                 onPress={()=>this.props.filter(cat.id)}>
                 <View style={style.catButton}>
                 <Text style={style.catButtonText}>
@@ -402,17 +411,16 @@ class Card extends Component{
             isOff:true,
             object:{},
             id:[],
-            prod_id:'',
-            
+            prod_id:'',   
         }
     }
-    
-   
+        
+
     alertFunc=()=>{
         this.RBSheet.close()
         Alert.alert(
-          "Are you sure?",
-          "Delete this Combo",
+          "",
+          "Are you sure you want to delete this Menu?",
           [
             {
               text: "Cancel",
@@ -439,7 +447,7 @@ class Card extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                // console.warn(json)
+                                console.warn("delete_product",json)
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
@@ -448,21 +456,21 @@ class Card extends Component{
                                 }
                                 else{
                                   Toast.show("Product deleted")
-                                  this.props.get_vendor_product(0,1)
+                                  this.props.get_vendor_product(0,1)  
                                }                                 
                            }).catch((error) => {  
                                    console.error(error);   
                                 }).finally(() => {
                                    this.setState({isloading:false})
                                 });
-                                
-                                
+                                this.props.get_vendor_product(0,1)  
+                                this.props.get_category()                     
       }
       
       editNavigation =()=>{
         // alert(this.state.id)
-        // console.warn(this.props.category)
-        this.props.navigation.navigate("EditPackage",
+        console.warn("props",this.props.category)
+        this.props.navigation.navigate("EditService",
         {data:this.state.id,
         category:this.props.category,
         get_cat:this.props.get_category,
@@ -477,120 +485,77 @@ class Card extends Component{
           this.setState({prod_id:id.id})
             
       }
-     
+
       productCard = ({item}) => (
         <View style={style.card}>
-        <View style={{flexDirection:"row",width:"100%" }}>
+          <View style={{flexDirection:"row",width:"100%",padding:5,justifyContent:"space-between" }}>
+            <View>
+              <Text>Order #12345</Text>
+            </View>
+            <View>
+              <Text>Today, 05:40 PM</Text>
+            </View>
+          </View>
+            <View style={{flexDirection:"row",width:"100%" }}>
               {/* View for Image */}
-               <View style={{width:"27%"}}>
+               <View style={{width:"20%"}}>
                 <Image source={{uri:global.image_url+item.product_img}}
                 style={style.logo}/>
                 </View>
                 {/* View for Content */}
-                
                 <View style={style.contentView}>
                     {/* View for name and heart */}
                     <View style={{flexDirection:"row",justifyContent:"space-between"}}>
                          {/* Text View */}
-                        <View style={{width:170,}}>
+                        <View style={{width:200,}}>
                 <Text style={[styles.smallHeading,{top:10,}]}>
-                    {item.product_name}
+                    item
                     </Text>
-                <Text numberOfLines={3} style={[styles.p,{top:5,fontSize:RFValue(9.5,580), }]}> 
-                {item.description} 
+                <Text numberOfLines={3} style={{marginTop:10,fontSize:RFValue(11,580),color:"#EDA332",fontWeight:"bold" }}> 
+                    ₹ 20
                  </Text>
                 </View>
-                {/* View for toggle icon  */}
-                <View style={{margin:5,marginTop:10,marginLeft:-5, flexDirection:"row"}}>
-                    <View style={{marginRight:10}} >
-                    <Switch 
-                    trackColor={{false: "#d3d3d3", true : "#EDA332"}}
-                    thumbColor={this.state.isOn[item.id] ? "white" : "white"}
-                    value={this.props.object[item.id]}
-                    onValueChange={()=>this.props.toggle(item.id)}
-                    />
-                    </View>
+                {/* View for payment mode  */}
+                <View style={{margin:5,marginTop:20,marginLeft:-5, }}>
+                <View style={{marginRight:10,backgroundColor:"#F4C430",padding:5,borderRadius:5}} >
+                  <Text style={{fontSize:RFValue(9.5,580),color:"#fff",fontWeight:"bold"}}>Online Payment</Text>    
+                </View>
                     
-                    <Icon type="ionicon" name="ellipsis-vertical"  onPress={()=>this.sheet(item)}  size={22} />
+                   
                 </View>
                 </View>
-
-                  {/* Bottom Sheet for edit or delete options */}
-
-                <RBSheet
-                    ref={ref=>{this.RBSheet = ref;}}
-                    closeOnDragDown={true}
-                    closeOnPressMask={true}
-                    height={170}
-                    customStyles={{
-                        container: {
-                            borderTopRightRadius: 20,
-                            borderTopLeftRadius: 20,
-                          },
-                    draggableIcon: {
-                        backgroundColor: ""
-                    }
-                    }}
-                >
-                    {/* bottom sheet elements */}
-                <View >
-                    {/* new container search view */}
-                        <View>
-                            {/* to share */}
-                            <View style={{flexDirection:"row",padding:10}}>
-                            <TouchableOpacity style={{flexDirection:"row"}} 
-                            onPress={()=>this.editNavigation()}>
-                                <View style={{backgroundColor:"#f5f5f5",
-                                height:40,width:40,alignItems:"center",justifyContent:"center", borderRadius:50}}>
-                                <Icon type="ionicon" name="create-outline"/>
-                                </View>
-                                <Text style={[styles.h4,{alignSelf:"center",marginLeft:20}]}>
-                                Edit </Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* to report */}
-                            <View style={{flexDirection:"row",padding:10}}>
-                             
-
-                                <TouchableOpacity style={{flexDirection:"row"}} onPress={()=>this.alertFunc()
-                                  }>
-                                <View style={{backgroundColor:"#f5f5f5",
-                                height:40,width:40,justifyContent:"center",borderRadius:50}} >
-                                <Icon type="ionicon" name="trash-bin"/>
-                                </View>
-                                <Text style={[styles.h4,{alignSelf:"center",marginLeft:20}]}
-                                >Delete</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-
-
-   
-                </View>
-                </RBSheet>
-                {/* View for Price and offer */}
-                <View style={{flexDirection:"row",justifyContent:"space-between",alignSelf:"flex-end", marginTop:8 }}>
-                    <View style={{flexDirection:"row"}}>
-                <Text style={[styles.p,{fontFamily:"Roboto-Regular",color:"grey" ,textDecorationLine: 'line-through',
-                textDecorationStyle: 'solid'}]}>
-                    {item.market_price}/-
-                    </Text>
-                    <Text style={[styles.p,{marginLeft:10, fontFamily:"Roboto-Bold"}]}>
-                    {item.our_price}/-
-                    </Text>
-                    </View>
-                    </View>
-
                 </View>
                 
-           </View>
+                
+            </View>
+
+            <View style={{height:1,backgroundColor:"#F2F2F2",width:"95%",alignSelf:"center",}}/>
+
+            <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+              {/* for order status */}
+              <View style={{flexDirection:"row",paddingTop:5}}>
+                <Icon name="ellipse" type="ionicon" size={15} color="#EDA332" style={{margin:5}}/>
+                <Text style={styles.smallHeading}>Pending</Text>
+              </View>
+
+              {/* details button */}
+              <View style={{paddingTop:5,paddingVertical:5}}>
+                <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate("OrderDetails")}
+                style={{marginRight:10,padding:5,borderRadius:5,flexDirection:"row",borderWidth:1}}>
+                  <Text style={{fontSize:RFValue(10,580),color:"#000"}}>Details</Text>
+                  <Icon name="chevron-forward" type='ionicon' size={15} color="#000" style={{marginTop:2}}/>
+                </TouchableOpacity>
+              </View>
+            </View>
            </View>
       );
+     
 
       render(){
         return(
             <View>
+                {/* {details} */}
                 <FlatList
                 navigation={this.props.navigation}
                 showsVerticalScrollIndicator={false}
@@ -600,13 +565,8 @@ class Card extends Component{
                 onEndReachedThreshold={0.5}
                 onEndReached={()=>this.props.load_more()}
                 />
-                {this.props.load_data?
-                     <View style={{alignItems:"center",flex:1,backgroundColor:"white",flex:1, paddingTop:20}}>
-                      <ActivityIndicator animating={true} size="small" color="#EDA332" />
-                    </View>
-                             :
-                     <View></View>
-                }
+                
+
             </View>
         )
     }
@@ -640,8 +600,8 @@ const style=StyleSheet.create({
         padding:6
     },
     logo:{
-        height:90,
-        width:"95%",
+        height:50,
+        width:50,
         // borderWidth:0.2,
         // borderRadius:10,
         borderColor:"black",
@@ -686,12 +646,12 @@ const style=StyleSheet.create({
 
     contentView:{
         flexDirection:"column",
-        width:"68%",
+        width:"70%",
         marginRight:10,
         // paddingBottom:10, 
         // borderBottomWidth:0.5,
         // borderColor:"#d3d3d3",
-         marginLeft:10,
+        //  marginLeft:10,
         //  marginTop:10,
         
        },

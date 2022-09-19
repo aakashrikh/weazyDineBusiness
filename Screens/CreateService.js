@@ -62,8 +62,6 @@ class CreateService extends Component {
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
                             colors: ['#fff', '#fff'],
-
-
                         }}
                     />
                 </View>
@@ -135,8 +133,8 @@ class Fields extends Component {
     //function to launch gallery
     gallery = () => {
         ImagePicker.openPicker({
-            width: 300,
-            height: 400,
+            width: 600,
+            height: 500,
             cropping: true,
         }).then(image => {
             console.log(image);
@@ -293,7 +291,7 @@ class Fields extends Component {
                         </View> :
                         <View style={{ marginLeft: 20, marginRight: 20, }}>
                             <SelectDropdown
-                                buttonStyle={{ width: "100%" }}
+                                buttonStyle={style.textInput}
                                 data={this.state.cat_name}
                                 onSelect={(selectedCategories, index) => {
                                     this.set_value(index);
@@ -531,7 +529,8 @@ const style = StyleSheet.create({
     },
     uploadButton: {
         // backgroundColor:"#EDA332",
-        borderColor: "black",
+        borderColor: "#EDA332",
+        paddingTop:2,
         borderWidth: 1,
         width: 120,
         height: 30,

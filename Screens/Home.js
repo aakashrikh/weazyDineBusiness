@@ -4,7 +4,7 @@ import {
     StyleSheet, Image, Pressable, ActivityIndicator, 
     TouchableOpacity, ImageBackground, Linking, Dimensions, SafeAreaView
 } from 'react-native';
-import { Icon, LinearProgress } from 'react-native-elements';
+import { Header, Icon, LinearProgress } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Demo from './Demo.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -49,6 +49,8 @@ class Home extends Component {
             image_loade: true,
             link: "",
             gstin: "",
+            image_loade:true,
+            status:true
         };
     }
 
@@ -92,14 +94,41 @@ class Home extends Component {
 
     componentDidMount = async () => {
         // alert(global.vendor)
-        this.get_profile()
-        this.get_cover()
+        this.get_profile();
+        this.get_cover();
+        this.checkBankDetails();
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            this.get_profile()
-            this.get_cover()
+            this.get_profile();
+            this.get_cover();
+            this.checkBankDetails();
         })
     }
 
+    checkBankDetails = () => {
+        fetch(global.vendor_api + "fetch_bank_account_vendor", {
+           method: 'POST',
+           headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': global.token
+           },
+        }).then((response) => response.json())
+           .then((json) => {
+              this.setState({ buttonLoading : true });
+              if (json != null && json != '') {
+                this.setState({ status: false })
+              }
+              else {
+                this.setState({ status: true })
+              }
+           })
+           .catch((error) => console.error(error))
+           .finally(() => {
+              this.setState({ isLoading: false});
+           });
+     }
+
+    
     get_profile = () => {
         fetch(global.vendor_api + 'get_vendor_profile', {
             method: 'POST',
@@ -113,13 +142,11 @@ class Home extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                // console.warn(json)
                 if (!json.status) {
 
                 }
                 else {
-
-
                     this.setState({ data: json.data })
                     this.setState({ id: json.data.id })
                     this.setState({ link: json.link })
@@ -184,7 +211,7 @@ class Home extends Component {
             },
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                // console.warn(json)
                 if (json.status) {
                     this.setState({ photo: global.image_url + json.profile_pic })
                     this.get_profile();
@@ -211,11 +238,11 @@ class Home extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                // console.warn(json)
                 if (!json.status) {
                 }
                 else {
-                    console.warn(json.covers.length)
+                    // console.warn(json.covers.length)
                     if (json.covers.length == 0) {
                         this.setState({ cover_step: false })
                     }
@@ -239,14 +266,50 @@ class Home extends Component {
         Linking.openURL('whatsapp://send?text=Hey there!\n\n Now you can order online from '+name+' using this link: \n' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
     }
 
+    //for header center component
+   renderCenterComponent() {
+    return (
+       <View style={{width:Dimensions.get('window').width/1.02,padding:5,right:10}}>
+          <Text style={{color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold',alignSelf:"center"}}>Welcome To Weazy Dine</Text>
+       </View>
+
+    )
+    }
+
+    //for right component
+    renderRightComponent() {
+        return (
+            <View style={{padding:5,right:5}}>
+                <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}>
+                    <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     render() {
 
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
                 <View style={[styles.container, { backgroundColor: "#fff" }]}>
 
+                <Header
+                statusBarProps={{ barStyle: 'light-content' }}
+                centerComponent={this.renderCenterComponent()}
+                rightComponent={this.renderRightComponent()}
+                ViewComponent={LinearGradient} // Don't forget this!
+                linearGradientProps={{
+                    colors: ['#EDA332', '#EDA332'],
+                    start: { x: 0, y: 0.5 },
+                    end: { x: 1, y: 0.5 },
+                }}
+                containerStyle={{
+                    borderBottomLeftRadius:10,
+                    borderBottomRightRadius:10,
+                   }} 
+                />
 
-                    <View style={style.header}>
+                    {/* <View style={style.header}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%",paddingTop:20}}>
                             <Text style={ { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold'}}>Welcome to Weazy Dine</Text>
                                 <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center",  }} 
@@ -254,9 +317,7 @@ class Home extends Component {
                                     <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
                                 </TouchableOpacity>
                         </View>
-                    </View>
-
-
+                    </View> */}
 
                     {/* <View style={{ width: '100%', height: 100, backgroundColor: 'rgba(233,149,6,1)', flexDirection: "row", borderBottomEndRadius: 15, borderBottomStartRadius: 15 }}>
                         <View style={{ width: '80%', paddingTop: 20 }}>
@@ -268,8 +329,72 @@ class Home extends Component {
                             </TouchableOpacity>
                         </View>
                     </View> */}
+
                     <ScrollView>
 
+                    {/* for account details */}
+                    {this.state.isloading ?
+                    <SkeletonPlaceholder>
+                        <View style={[style.viewBox, { height: 80 }]} />
+                    </SkeletonPlaceholder>
+                    :
+                    <>
+                    {this.state.status ?
+                        <>
+                        <TouchableOpacity style={{width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 2
+                                },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                                elevation: 5, marginTop: 20, borderRadius: 10, padding: 10}} onPress={() => { this.props.navigation.navigate("OnlinePayment") }} >
+                                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                        <View style={{ width: '20%', paddingTop: 5, }}>
+                                            <Image source={require('../img/bank.png')} style={{ width: 50, height: 50, marginLeft: 10, marginTop: 10 }} />
+                                        </View>
+                                        <View style={{ width: '80%', paddingTop: 10, paddingBottom: 10 }}>
+                                            <Text style={{ fontSize: RFValue(12, 580), fontFamily: "Roboto-Bold" }}>Add Your Bank Account Details</Text>
+                                            <Text style={{ fontSize: RFValue(10, 580), fontFamily: "Roboto-Regular", marginTop: 2 }}>Add your bank account details to receive online payments.</Text>
+
+                                        </View>
+
+                                    </View>
+
+                        </TouchableOpacity>
+                        </>
+                    :
+                        <></>
+                    }
+                    </>
+                }
+
+                    {/* for profile photo */}
+                    {/* {this.state.isloading ?
+                        <SkeletonPlaceholder>
+                            <View style={[style.viewBox,{height:80}]} />
+                        </SkeletonPlaceholder>
+                        :
+                        <>
+                        {(!this.state.image_loade )?
+                        <TouchableOpacity onPress={()=>this.RBSheet.open()} style={[style.cardView,{marginTop:15, borderWidth:1,borderRadius:10,borderColor:'#ececec', flexDirection:"row",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingRight:0,marginLeft:20,marginRight:20}]}>
+                            <View style={{width:'20%',paddingTop:5,}}>
+                                <Image source={require('../img/user-2.png')} style={{width:50,height:50,marginLeft:10,marginTop:10}} />
+                            </View>
+                            <View style={{width:'80%',paddingTop:10,paddingBottom:10}}>
+                              <Text style={{fontSize:RFValue(12,580),fontFamily:"Roboto-Bold"}}>Upload Your Profile Picture</Text>
+                              <Text style={{fontSize:RFValue(10,580),fontFamily:"Roboto-Regular",marginTop:2}}>Upload your profile picture to showcase your profile good to your customers</Text>
+                          
+                            </View>
+                            
+                        </TouchableOpacity>
+                          :
+                          <></>
+                        }
+                        </>} */}
+
+
+                    {/* for cover photo */}
                     {this.state.isloading ?
                         <SkeletonPlaceholder>
                             <View style={[style.viewBox, { height: 80 }]} />

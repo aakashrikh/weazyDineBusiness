@@ -93,7 +93,7 @@ class Fields extends Component{
             cat_name:{},
             cat_id:'',
             c_id:'',
-            selectedCategories:'',
+            selectedCategories:[],
             market_price:"",
             our_price:"",
             description:"",
@@ -135,8 +135,8 @@ camera =()=>{
 //function to launch gallery
 gallery =()=>{
     ImagePicker.openPicker({
-        width:300,
-        height:400,
+        width:600,
+        height:500,
         cropping:true,
     }).then(image=>{
         console.log(image);
@@ -192,8 +192,9 @@ componentDidMount = async()=>
         this.setState({c_id:vv})
         console.warn(this.state.c_id)
     }
-//Create service button
-create=()=>{
+
+    //Create service button
+    create=()=>{
         
         let numberValidation=/^[0-9]+$/;
         let isnumValid=numberValidation.test(this.state.market_price + this.state.our_price);
@@ -298,8 +299,32 @@ create=()=>{
                 <View>
                     </View>:
                     <View style={{marginLeft:20,marginRight:20,}}>
+                    
+                    {/* <MultiSelect
+                        // hideTags
+                        items={this.state.cat_name}
+                        uniqueKey="id"
+                        ref={(cat) => { this.multiSelect = cat}}
+                        onSelectedItemsChange={this.onSelectedCategoryChange}
+                        selectedItems={selectedCategories}
+                        selectText="Select"
+                        searchInputPlaceholderText="Search Items..."
+                        onChangeInput={ (text)=> console.log(text)}
+                        // altFontFamily="ProximaNova-Light"
+                        tagRemoveIconColor="#CCC"
+                        tagBorderColor="#CCC"
+                        tagTextColor="#CCC"
+                        selectedItemTextColor="green"
+                        selectedItemIconColor="green"
+                        itemTextColor="#000"
+                        displayKey="name"
+                        searchInputStyle={{ color: '#CCC' }}
+                        submitButtonColor="#EDA332"
+                        // submitButtonStyle={{width:50}}
+                        submitButtonText="Submit"
+                        /> */}
                     <SelectDropdown 
-                    buttonStyle={{width:"100%"}}
+                    buttonStyle={style.textInput}
                     data={this.state.cat_name}
                     onSelect={(selectedCategories, index) => {
                         this.set_value(index);
@@ -311,6 +336,8 @@ create=()=>{
                         return item
                     }}
                      />
+
+                    
                  </View>
                 }
                  <TouchableOpacity style={style.uploadButton} onPress={()=>this.props.navigation.navigate("AddCategory")} >
@@ -528,10 +555,12 @@ const style=StyleSheet.create({
         height:80,
         width:80,
         marginLeft:20,
+        borderRadius:5
     },
     uploadButton:{
         // backgroundColor:"#EDA332",
-        borderColor:"black",
+        borderColor:"#EDA332",
+        paddingTop:2,
         borderWidth:1,
         width:120,
         height:30,

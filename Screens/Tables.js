@@ -108,7 +108,7 @@ class Tables extends Component {
                   //  clearInterval(myInterval);
                 }
                 else {
-                   // console.warn(json.data);
+                   console.warn(json.data);
                     if(json.data.length>0)
                     {
                        // console.warn(json.data)
@@ -174,7 +174,7 @@ class Tables extends Component {
     (
         <>
         {(item.table_status == 'active')?
-        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_url:item.qr_link,table_name:item.table_name})}} style={[style.viewBox,
+        <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_uu_id:item.table_uu_id,table_name:item.table_name,table_url:item.qr_link})}} style={[style.viewBox,
             {marginTop:10,padding:10,backgroundColor:'#fff',width:Dimensions.get('window').width/1.05,marginBottom:2,alignSelf:'center',borderRadius:5,flexDirection:"row"}]}>
                    {/* <View style={{flexDirection:'row'}}>
                         <View style={{width:60,height:60,backgroundColor:'#EDA332',borderRadius:5}}>
@@ -208,7 +208,7 @@ class Tables extends Component {
                     </View>
                 </TouchableOpacity>
                 :
-            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_id:item.id,table_name:item.table_name})}} style={[style.viewBox,
+            <TouchableOpacity onPress={()=>{this.props.navigation.navigate('TableView',{table_uu_id:item.table_uu_id,table_name:item.table_name,table_url:item.qr_link})}} style={[style.viewBox,
                 {width:Dimensions.get('window').width/1.05,marginTop:10,padding:10,backgroundColor:'#EDA332',alignSelf:'center',borderRadius:5,marginBottom:2}]}>
             <View style={{flexDirection:'row'}}>
             <View style={{width:60,height:60,backgroundColor:'#E47635',borderRadius:5}}>
@@ -361,11 +361,13 @@ const style = StyleSheet.create({
         fontSize: RFValue(14, 580)
     },
     text:{
+
         fontFamily:"Raleway-SemiBold",
         fontSize:RFValue(14.5, 580),
         margin:5
     },
     loader:{
+
         shadowOffset:{width:50,height:50},
         // marginTop:20,
         shadowRadius:50,
@@ -375,6 +377,7 @@ const style = StyleSheet.create({
         backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,
     },
     viewBox:{
+
         shadowColor: "#000",
         shadowOffset: {
           width: 0,

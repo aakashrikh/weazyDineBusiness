@@ -57,7 +57,7 @@ class TableView extends Component {
                 'Authorization': global.token
             },
             body: JSON.stringify({
-                table_id: this.props.route.params.table_id,
+                table_id: this.props.route.params.table_uu_id,
             })
         }).then((response) => response.json())
             .then((json) => {
@@ -137,14 +137,14 @@ class TableView extends Component {
                 'Authorization': global.token
             },
             body: JSON.stringify({
-                table_id: this.props.route.params.table_id
+                table_id: this.props.route.params.table_uu_id
             })
         }).then((response) => response.json())
             .then((json) => {
                 console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
-                    // Toast.show(msg);
+                    console.warn(msg);
                 }
                 else {
                     Toast.show(json.msg)
@@ -210,7 +210,7 @@ class TableView extends Component {
                 'Authorization': global.token
             },
             body: JSON.stringify({
-                table_id: this.props.route.params.table_id,
+                table_id: this.props.route.params.table_uu_id,
                 order_id: this.state.data.order_code,
             })
         }).then((response) => response.json())
@@ -261,6 +261,22 @@ class TableView extends Component {
             { cancelable: false }
         );
     }
+
+    noDeleteAlert = () => {
+        Alert.alert(
+            "",
+            "You can not delete this table because it has an active order.",
+            [
+                {
+                    text: "OK",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+            ],
+            { cancelable: false }
+        );
+    }
+
 
     render() {
         const { modalVisible } = this.state;
@@ -435,8 +451,8 @@ class TableView extends Component {
                                 <Text style={[styles.h4, { marginLeft: 20, marginTop: 4 }]}>View Table QR</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={() => { this.deleteAlert() }} style={{ flexDirection: 'row', marginTop: 10 }}>
-                                <Text style={style.iconPencil}>
+                            <TouchableOpacity onPress={() => {this.state.cart.length > 0 ? this.noDeleteAlert() : this.deleteAlert() }} style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <Text style={style.iconPencil}> 
                                     <Icon name='trash-outline' type="ionicon" color={'#EDA332'} size={30} />
                                 </Text>
                                 <Text style={[styles.h4, { marginLeft: 20, marginTop: 4 }]}>Delete Table</Text>

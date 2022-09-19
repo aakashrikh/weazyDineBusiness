@@ -464,7 +464,7 @@ class Offers extends Component {
                                 <View style={{ alignSelf: "center", flex: 1, marginTop: 150 }}>
                                     <Image source={require("../img/nooffers.png")}
                                         style={{ width: 300, height: 300 }} />
-                                    <Text style={[styles.h3, { top: -20, alignSelf: "center" }]}>
+                                    <Text style={[styles.h3, { top: 20, alignSelf: "center" }]}>
                                         No offers found
                                     </Text>
                                 </View>
