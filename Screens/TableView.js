@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity, FlatList,
-    Modal, Alert,
-    Linking
+    ScrollView, Dimensions, TouchableOpacity, FlatList, Alert, Linking
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,12 +14,20 @@ import Toast from "react-native-simple-toast";
 import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import Modal from "react-native-modal";
+import RadioForm from 'react-native-simple-radio-button';
+
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 const win = Dimensions.get('window');
 
-var categ = []
+var radio_props = [
+    { label: 'Google Pay/Paytm/UPI', value: 'UPI' },
+    { label: 'Credit/Debit Card', value: 'card' },
+    { label: 'Cash', value: 'cash' }
+];
 
 class TableView extends Component {
 
@@ -277,6 +283,51 @@ class TableView extends Component {
         );
     }
 
+    mark_complete = () => {
+        fetch(global.vendor_api + 'update_order_status_by_vendor', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': global.token
+            },
+            body: JSON.stringify({
+                order_id: this.state.bill.id,
+                payment_method: this.state.payment,
+                order_status: 'completed'
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                console.warn(json);
+                if (!json.status) {
+                    var msg = json.msg;
+                    Toast.show(msg);
+                    //  clearInterval(myInterval);
+                }
+                else {
+                    this.setState({ modalVisible: false });
+                    this.props.navigation.navigate('Tables');
+                    console.warn(json.data);
+
+                    // let myInterval = setInterval(() => {
+                    //     this.fetch_table_vendors();
+                    //     // this.get_profile();
+
+                    // }, 10000);
+
+                    // this.setState({interval:myInterval});
+                    // Toast.show(json.msg)
+
+
+                }
+                this.setState({ isloading: false })
+                return json;
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.setState({ isloading: false })
+            });
+    }
 
     render() {
         const { modalVisible } = this.state;
@@ -343,7 +394,11 @@ class TableView extends Component {
                                                     }
                                                 </View>
 
-                                                <Text style={styles.p}>{item.product_quantity} * {item.product_price / item.product_quantity} </Text>
+                                                <View style={{flexDirection:"row"}}>
+                                                    <Text style={styles.p}>{item.product_quantity} </Text>
+                                                    <Icon name="close-outline" type='ionicon' style={{marginTop:10}} size={15}/> 
+                                                    <Text style={styles.p}> {item.product_price / item.product_quantity} </Text>
+                                                </View>
                                             </View>
 
                                             <View style={{ marginLeft: 20, width: '20%' }}>
@@ -467,27 +522,42 @@ class TableView extends Component {
                         animationType="slide"
                         transparent={true}
                         visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert("Modal has been closed.");
-                            this.setModalVisible(!modalVisible);
+                        onBackdropPress={() => {
+                            this.setState({ modalVisible: false })
                         }}
                     >
                         <View style={style.centeredView}>
                             <View style={style.modalView}>
                                 <Text style={[styles.h4, { alignSelf: 'center' }]}>Generating your Bill!</Text>
 
-                                <Text style={[styles.h3, { marginTop: 5 }]}>Total -  ₹{this.state.bill.total_amount}</Text>
+                                <Text style={[styles.h4, { marginTop: 5 }]}>Total Bill Amount-  ₹{this.state.bill.total_amount}</Text>
+                                <View style={{ backgroundColor: "#FFECB6", padding: 5,width:"100%", marginTop:20,borderRadius:5 }}>
+                                    <Text style={[style.text1, { color: "#696969", fontSize: RFValue(10, 580),alignSelf:"center" }]}>Choose Selected Payment Method </Text>
+                                </View>
+                                <View style={{ padding: 20 }}>
+                                    <RadioForm
+                                        radio_props={radio_props}
+                                        initial={0}
+                                        buttonSize={10}
+                                        buttonColor={'#EDA332'}
+                                        selectedButtonColor={'#EDA332'}
+                                        onPress={(value) => {
+                                            console.warn(value)
+                                            this.setState({ payment: value })
+                                        }}
+                                        labelStyle={{ fontSize: RFValue(13, 580), margin:10,marginTop:0,marginBottom:0 }}
+                                    />
+                                </View>
+
+
                                 <TouchableOpacity
-                                    // onPress={this.send_otp}
-                                    // onPress={()=>this.complete_order()}
-                                    onPress={() => this.props.navigation.navigate("GenerateBill", { bill: this.state.bill })}
-                                >
+                                    onPress={()=>this.mark_complete()}>
                                     <LinearGradient
                                         colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
-                                        style={[{ borderRadius: 10, width: '80%', alignSelf: 'center', backgroundColor: 'red', padding: 5, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20 }]}>
+                                        style={[{ borderRadius: 10, alignSelf: 'center', backgroundColor: 'red', padding: 5, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20 }]}>
                                         <Text style={[styles.textSignIn, {
-                                            color: '#fff'
-                                        }]}>Mark Complete</Text>
+                                            color: '#fff',fontSize:RFValue(12,580)
+                                        }]}>Complete Order & Generate Bill</Text>
 
                                     </LinearGradient>
                                 </TouchableOpacity>
@@ -607,5 +677,8 @@ const style = StyleSheet.create({
         fontSize: RFValue(14.5, 580),
         margin: 5
     },
+    text1: {
+        fontSize: RFValue(12, 580),
+    }
 
 })

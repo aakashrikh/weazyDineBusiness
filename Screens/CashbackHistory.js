@@ -44,7 +44,7 @@ class CashbackHistory extends Component {
     renderCenterComponent() {
         return (
             <View>
-                <Text style={style.text}>Total Customer</Text>
+                <Text style={style.text}>Total Orders</Text>
             </View>
 
         )
@@ -111,7 +111,7 @@ class CashbackHistory extends Component {
                             {item.user.name}
                         </Text>
                         <Text style={[styles.h5,{marginBottom:10,fontFamily:"Roboto-Medium"}]}>
-                            {moment.utc(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
+                            {moment(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
                         </Text>
                         <Text >
                          <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20 }]}>Rs {item.total_amount}/-</Text>
@@ -121,18 +121,24 @@ class CashbackHistory extends Component {
                     <View style={{width:'30%'}}>
                         {(item.order_status == 'pending')?
                           <Text style={{backgroundColor:'orange',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                          <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
+                          <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>Pending</Text>
                       </Text>
                         :
                         (item.order_status == 'cancelled')?
                         <Text style={{backgroundColor:'red',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>Cancelled</Text>
                     </Text>
                         :
                         (item.order_status == 'completed')?
                         <Text style={{backgroundColor:'green',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>{item.order_status}</Text>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>Completed</Text>
                     </Text>
+
+                        :
+                        (item.order_status == 'ongoing') ?
+                        <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
+                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>Ongoing</Text>
+                     </Text>
                         :
                         <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
                         <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>

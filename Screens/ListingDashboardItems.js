@@ -16,7 +16,6 @@ class ListingDashboardItems extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: this.props.route.params.screen,
             item: [],
             save: true,
             isloading:true,
@@ -184,7 +183,7 @@ class ListingDashboardItems extends Component {
             <View>
 
                 <Text style={style.text}>
-                    {this.state.title}
+                    Store Visit
                 </Text>
             </View>
 
