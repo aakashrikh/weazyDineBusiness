@@ -189,7 +189,7 @@ class VoucherDetails extends Component {
                             </View>
 
                             
-                            <View style={{width:"100%",flexDirection:"row",marginTop:20,alignSelf:"center",
+                            <View style={{width:"95%",flexDirection:"row",marginTop:20,alignSelf:"center",
                             marginBottom:10,borderBottomWidth:1,borderBottomColor:"#f1f1f1"}}>
                                 {/* quantity */}
                                 <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
@@ -197,17 +197,17 @@ class VoucherDetails extends Component {
                                 </View>
                                 
                                 {/* name */}
-                                <View style={{width:"50%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                <View style={{width:"40%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
                                     <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Item</Text>
                                 </View>
 
                                 {/* price */}
-                                <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                <View style={{width:"20%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
                                     <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Price</Text>
                                 </View>
 
                                 {/* quantity */}
-                                <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
                                     <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Qty.</Text>
                                 </View>
 
@@ -224,7 +224,7 @@ class VoucherDetails extends Component {
 
                                         (this.state.cart.map((item, index) => {
                                             return (
-                                                <View style={{width:"100%",flexDirection:"row",alignSelf:"center",
+                                                <View style={{width:"95%",flexDirection:"row",alignSelf:"center",
                                                     marginBottom:10,borderBottomWidth:1,borderBottomColor:"#f1f1f1"}}>
                                                         {/* quantity */}
                                                         <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
@@ -232,23 +232,23 @@ class VoucherDetails extends Component {
                                                         </View>
                                                         
                                                         {/* name */}
-                                                        <View style={{width:"50%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                                        <View style={{width:"40%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
                                                             <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product.product_name}</Text>
                                                         </View>
 
                                                         {/* price */}
-                                                        <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_price}</Text>
+                                                        <View style={{width:"20%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_price/item.product_quantity}</Text>
                                                         </View>
 
                                                         {/* quantity */}
-                                                        <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
+                                                        <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
                                                             <Text style={[style.text,{fontSize:RFValue(12,580)}]}>x {item.product_quantity}</Text>
                                                         </View>
 
                                                         {/* amount */}
                                                         <View style={{width:"15%"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_quantity*item.product_price}</Text>
+                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_price}</Text>
                                                         </View>
                                                     </View>
                                             )
@@ -282,7 +282,7 @@ class VoucherDetails extends Component {
                                             Item Total
                                         </Text>
                                         <Text style={{ fontFamily: "Poppins-SemiBold",fontSize:RFValue(12,580) }}>
-                                             ₹ {this.state.data.order_amount}
+                                             ₹ {this.state.data.order_amount.toFixed(2)}
                                         </Text>
                                     </View>
 
@@ -315,7 +315,7 @@ class VoucherDetails extends Component {
                                             Grand Total
                                         </Text>
                                         <Text style={{fontFamily:"Poppins-SemiBold",color:"#EDA332",fontSize:RFValue(12,580)}}>
-                                            Rs. {this.state.data.total_amount.toFixed(2)}
+                                            ₹ {this.state.data.total_amount.toFixed(2)}
                                         </Text>
                                     </View>
 

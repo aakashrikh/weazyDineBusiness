@@ -6,7 +6,7 @@ const config={
         Comments:'feedComment/:id',
         VoucherDetails:'voucher/:code',
         Wallet:'ViewTransaction',
-        TableView:'ViewTableOrder/:table_id',
+        TableView:'ViewTableOrder/:table_uu_id',
     }
 }
 

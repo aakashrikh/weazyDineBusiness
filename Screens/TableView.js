@@ -79,7 +79,7 @@ class TableView extends Component {
                         // console.warn(json.data)
                         this.setState({ data: json.data[0] })
                         this.setState({ cart: json.data[0].cart })
-                        console.warn("cart", cart)
+                        console.warn("cart", this.state.cart)
                     }
 
                     // let myInterval = setInterval(() => {
@@ -166,45 +166,6 @@ class TableView extends Component {
 
     save_qr = () => {
         alert("Sss");
-    }
-
-
-    complete_order = (status) => {
-        fetch(global.vendor_api + 'update_order_status_by_vendor', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': global.token
-            },
-            body: JSON.stringify({
-                order_status: status,
-                order_id: this.state.data.order_code,
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                console.warn(json)
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
-                    //  clearInterval(myInterval);
-                }
-                else {
-                    console.warn(json.data);
-                    if (json.data.length > 0) {
-                        // console.warn(json.data)
-                        this.setState({ data: json.data[0] })
-                        this.setState({ cart: json.data[0].cart })
-                    }
-                    this.setState({ modalVisible: true })
-                }
-                // this.setState({isloading:false})
-                return json;
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                // this.setState({ isloading:false })
-            });
     }
 
     genrate_bill = () => {
@@ -357,9 +318,10 @@ class TableView extends Component {
 
                                 (this.state.cart.map((item, index) => {
                                     return (
-                                        <View style={{ flexDirection: 'row', width: '100%', padding: 10, borderBottomWidth: 1, borderBottomColor: '#ececec' }}>
-                                            <View style={{ width: '20%', width: 50, height: 50, backgroundColor: '#EDA332', borderRadius: 5 }}>
-                                                <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
+                                        <View style={{ flexDirection: 'row', width: '98%', padding: 10,backgroundColor:"#fff",shadowColor: "#000",marginTop:10,
+                                        shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,borderRadius:10,alignSelf:"center" }}>
+                                            <View style={{ width: '20%', width: 45, height: 45, backgroundColor: '#EDA332', borderRadius: 5 }}>
+                                                <Text style={{ fontSize: 42, alignSelf: 'center', color: '#eee' }}>T</Text>
                                             </View>
 
                                             <View style={{ marginLeft: 20, width: '60%' }}>
@@ -367,16 +329,15 @@ class TableView extends Component {
                                                     (item.product == null) ?
                                                         <></>
                                                         :
-                                                        <Text style={{ fontSize: 20, color: '#000' }}>{item.product.product_name}
-                                                            {(item.variant != null) ? <Text>- {item.variant.variant_name}</Text>
+                                                        <Text style={{ fontSize: RFValue(12,580), color: '#000' }}>{item.product.product_name}
+                                                            {(item.variant != null) ? <Text> - {item.variant.variants_name}</Text>
                                                                 :
                                                                 ('')
                                                             }
                                                         </Text>
                                                 }
                                                 {/* <Text style={styles.h4}>{item.product.product_name} 
-                    {(item.variant != null)?<Text>- {item.variant.variant_name}</Text>:('')} */}
-
+                                                        {(item.variant != null)?<Text>- {item.variant.variant_name}</Text>:('')} */}
                                                 {/* </Text> */}
 
                                                 <View style={{ flexDirection: 'column' }}>
@@ -395,14 +356,14 @@ class TableView extends Component {
                                                 </View>
 
                                                 <View style={{flexDirection:"row"}}>
-                                                    <Text style={styles.p}>{item.product_quantity} </Text>
-                                                    <Icon name="close-outline" type='ionicon' style={{marginTop:10}} size={15}/> 
-                                                    <Text style={styles.p}> {item.product_price / item.product_quantity} </Text>
+                                                    <Text style={[styles.p,{fontFamily:"Poppins-Medium"}]}>{item.product_quantity} </Text>
+                                                    <Icon name="close-outline" type='ionicon' style={{marginTop:6}} size={20}/> 
+                                                    <Text style={[styles.p,{fontFamily:"Poppins-Medium"}]}> {item.product_price / item.product_quantity} </Text>
                                                 </View>
                                             </View>
 
                                             <View style={{ marginLeft: 20, width: '20%' }}>
-                                                <Text style={styles.h3}>₹{item.product_price}</Text>
+                                                <Text style={[styles.h4,{fontFamily:"Poppins-Medium"}]}>₹{item.product_price}</Text>
                                             </View>
 
                                         </View>
@@ -429,10 +390,11 @@ class TableView extends Component {
                         (!this.state.isloading) ? (
 
                             (this.state.cart.length > 0) ?
-                                <View style={{ marginBottom: 100 }}>
-                                    <View style={{ flexDirection: 'row', width: '100%', paddingLeft: 20, marginTop: 10, marginBottom: 5 }}>
-                                        <Text style={[styles.h4, { width: '80%' }]}>Item Total</Text>
-                                        <Text style={[styles.h4, { width: '20%', alignSelf: 'flex-end' }]}>₹{this.state.data.order_amount}</Text>
+                                <View style={{ marginBottom: 100, }}>
+                                    <View style={{ flexDirection: 'row', width: Dimensions.get('window').width/1.05, alignSelf:"center", marginTop: 10, marginBottom: 5,padding:10, backgroundColor: '#fff',
+                                     shadowColor: "#000",shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,alignItems:"center",shadowRadius: 4,elevation: 5,borderRadius:10}}>
+                                        <Text style={[styles.h4, { width: '80%',marginLeft:20}]}>Item Total</Text>
+                                        <Text style={[styles.h4, { width: '20%', alignSelf: 'flex-end',fontFamily:"Poppins-Medium" }]}>₹{this.state.data.order_amount}</Text>
                                     </View>
 
                                     {/* <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:5,marginBottom:5}}>
