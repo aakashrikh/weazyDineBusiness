@@ -252,7 +252,7 @@ class ProductVariants extends Component {
                         value={item.variants_price}
                         onChangeText={(e) => { this.price(index,e) }}
                         style={style.textInput2} 
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         />
                         
                 </View>
@@ -264,7 +264,7 @@ class ProductVariants extends Component {
                     <TextInput
                             value={item.variants_discounted_price}
                             onChangeText={(e) => { this.offer_price(index,e) }}
-                            keyboardType='numeric'
+                            keyboardType='number-pad'
                         style={style.textInput2} />
                 </View>
 
@@ -574,7 +574,8 @@ create_addon = () => {
                     <TextInput
                              value={this.state.addon_price}
                             onChangeText={(e) => { this.setState({addon_price:e}) }}
-                        style={style.textInput2} />
+                        style={style.textInput2} 
+                        keyboardType='number-pad'/>
                 </View>
 
                
@@ -592,7 +593,7 @@ create_addon = () => {
                                     Create New</Text>
                             </LinearGradient>
                         </TouchableOpacity>:
-                        <ActivityIndicator size="large" color="#0000ff" />
+                        <ActivityIndicator size="large" color="#EDA332" />
         }
                 
       </View>
