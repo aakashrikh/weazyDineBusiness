@@ -369,6 +369,7 @@ class Fields extends Component {
                 buttonColor="#EDA332"
                 buttonSize={12}
                 buttonOuterSize={25}
+                onPress={(value) => { this.setState({ is_veg: value }) }}
                 labelStyle={{fontSize: RFValue(12,580),marginRight:30,fontWeight:'bold'}}
                 style={{marginTop:20,alignSelf:"center"}}
                 />            
