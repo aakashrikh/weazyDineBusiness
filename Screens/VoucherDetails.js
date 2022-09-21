@@ -22,7 +22,8 @@ var radio_props = [
 ];
 
 class VoucherDetails extends Component {
-    constructor(props) {
+    constructor(props){
+        console.warn("props", props)
         super(props);
         this.state = {
             code: "",

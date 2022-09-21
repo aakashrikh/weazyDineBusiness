@@ -209,7 +209,7 @@ class Buttons extends Component {
 
 
                     {/* About us */}
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate("AboutUs")}>
+                    {/* <TouchableOpacity onPress={() => this.props.navigation.navigate("AboutUs")}>
                         <View style={style.questView}>
                             <View style={{ flexDirection: "row" }}>
                                 <Image source={require('../img/icons/about.png')} style={style.Icon} />
@@ -218,7 +218,7 @@ class Buttons extends Component {
                             <Image source={require('../img/icons/right-arrow.png')}
                                 style={{ height: 20, width: 20, alignSelf: "center" }} />
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* privacy policy */}
                     <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy")}>

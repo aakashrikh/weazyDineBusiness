@@ -106,7 +106,7 @@ class Wallet extends Component {
 
     renderItem = ({ item, id }) => {
         return (
-            <TouchableOpacity onPress={() => { this.props.navigation.navigate("VoucherDetails", { code: item.order_code }) }}>
+            <TouchableOpacity onPress={() => { this.props.navigation.navigate("VoucherDetails", { code: item.txn_id }) }}>
                 <View style={{ flexDirection: "row", marginTop: 10,  borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 5 }}>
 
                     <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
