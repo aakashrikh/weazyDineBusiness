@@ -362,11 +362,11 @@ class Offers extends Component {
                             }}>
                                 {item.offer}% Off</Text>
 
-                            <View style={{ right: 10 }}>
+                            {/* <View style={{ right: 10 }}>
                                 <Icon name="share-social-outline"
                                     onPress={() => this.myShare("Checkout this offer |\n", item.offer_name + "- ", "\n" + global.shareLink + '/offerView/' + item.id)}
                                     type="ionicon" size={20} />
-                            </View>
+                            </View> */}
                         </View>
 
                         {/* Bottom Sheet for edit or delete options */}

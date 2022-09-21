@@ -488,10 +488,15 @@ class Card extends Component{
       }
 
       productCard = ({item}) => (
-        <View style={style.card}>
-        <View style={{flexDirection:"row",width:"100%" }}>
+        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate("ProductDetails",{data:item})}>
+            <View style={{flexDirection:"row",width:"100%" }}>
               {/* View for Image */}
                <View style={{width:"27%"}}>
+                {item.is_veg ? 
+                <Image source={require('../img/veg.png')} style={{width:15,height:15}}/>
+                :
+                <Image source={require('../img/non_veg.png')} style={{width:15,height:15}}/>
+                }
                 <Image source={{uri:global.image_url+item.product_img}}
                 style={style.logo}/>
                 </View>
@@ -591,7 +596,7 @@ class Card extends Component{
                 </View>
                 
            </View>
-           </View>
+        </TouchableOpacity>
       );
      
 
@@ -644,11 +649,12 @@ const style=StyleSheet.create({
     },
     logo:{
         height:90,
-        width:"95%",
+        width:90,
         // borderWidth:0.2,
         // borderRadius:10,
         borderColor:"black",
         margin:10,
+        marginTop:2,
         marginLeft:10
     },
     viewDetailsButton:{

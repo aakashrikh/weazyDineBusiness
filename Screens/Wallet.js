@@ -107,18 +107,18 @@ class Wallet extends Component {
     renderItem = ({ item, id }) => {
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate("VoucherDetails", { code: item.order_code }) }}>
-                <View style={{ flexDirection: "row", marginTop: 10, borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 7 }}>
+                <View style={{ flexDirection: "row", marginTop: 10,  borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 5 }}>
 
                     <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
 
                         <View style={{ width: '65%' }}>
 
 
-                            <Text style={styles.h4}>
+                            <Text style={[styles.h4,{fontFamily:"Poppins-Medium",fontSize:RFValue(10,580)}]}>
                                 {item.txn_comment}
                             </Text>
-                            <Text style={[styles.h5, { marginTop: 5 }]}>
-                                {moment.utc(item.updated_at).format('ddd, MMMM Do YYYY, h:mm a')}
+                            <Text style={{ marginTop: 5, fontSize:RFValue(10,580), fontFamily:"Poppins-Medium" }}>
+                                {moment(item.updated_at).format('llll')}
                             </Text>
                             <Text >
 
@@ -128,9 +128,9 @@ class Wallet extends Component {
                         <View style={{ width: '30%' }}>
                             {
                                 item.txn_type == "credit" ?
-                                    <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'green', alignSelf: 'flex-end' }]}>+ ₹{item.txn_amount}/-</Text>
+                                    <Text style={ { color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'green', fontFamily:"Poppins-Medium", alignSelf: 'flex-end' }}>+ ₹{item.txn_amount}/-</Text>
                                     :
-                                    <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'red', alignSelf: 'flex-end' }]}>- ₹{item.txn_amount}/-</Text>
+                                    <Text style={{ color: '#000', fontWeight: 'bold', paddingTop: 20, color: 'red', fontFamily:"Poppins-Medium", alignSelf: 'flex-end' }}>- ₹{item.txn_amount}/-</Text>
                             }
 
                         </View>

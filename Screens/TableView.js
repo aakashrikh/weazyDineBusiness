@@ -492,7 +492,7 @@ class TableView extends Component {
                             <View style={style.modalView}>
                                 <Text style={[styles.h4, { alignSelf: 'center' }]}>Generating your Bill!</Text>
 
-                                <Text style={[styles.h4, { marginTop: 5 }]}>Total Bill Amount-  ₹{this.state.bill.total_amount}</Text>
+                                <Text style={[styles.h4, { marginTop: 5 }]}>Total Bill Amount-  ₹ {this.state.bill.total_amount}</Text>
                                 <View style={{ backgroundColor: "#FFECB6", padding: 5,width:"100%", marginTop:20,borderRadius:5 }}>
                                     <Text style={[style.text1, { color: "#696969", fontSize: RFValue(10, 580),alignSelf:"center" }]}>Choose Selected Payment Method </Text>
                                 </View>

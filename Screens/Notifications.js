@@ -98,17 +98,17 @@ class Notifications extends Component{
     <View style={{flexDirection:"row",width:"100%",padding:10,borderBottomWidth:1,borderColor:"#d3d3d3"}}>
         {/* {/ For profile Image/ user image /} */}
         <View style={{width:"15%"}}>
-        <Image source={{uri:global.image_url+item.profile_pic}} style={style.Image}/>
+        <Image source={require('../img/logo/logoBlack.png')} style={style.Image}/>
         </View>
         
         <View style={{justifyContent:"space-between",width:"85%"}}>
         {/* {/ View for Notification Text content and time /} */}
         <TouchableOpacity onPress={()=>{Linking.openURL(item.notification_url)}}>
         <View style={{flexDirection:"column",marginLeft:15,marginTop:0}}>
-            <Text style={[styles.h5,{fontFamily:"Raleway-Bold"}]} > {item.notification_title}
+            <Text style={[styles.h5,{fontFamily:"Poppins-Medium"}]} >{item.notification_title}
               
             </Text>
-            <Text style={[styles.p,{fontFamily:"Raleway-Regular",fontSize:12}]}>{item.notification_description}</Text>
+            <Text style={[styles.p,{fontFamily:"Poppins-Medium",fontSize:12,}]}>{item.notification_description}</Text>
             <Text style={[styles.h6,{color:"grey",marginTop:-13}]}>
             {moment.utc(item.created_at).local().startOf('seconds').fromNow()}
             </Text>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity,FlatList,ActivityIndicator, Switch
+    ScrollView, Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Switch
 } from 'react-native';
 import { Input, Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,14 +29,14 @@ class OtherCharges extends Component {
         this.state = {
             category: "",
             status: "active",
-            isloading:true,
-            data:[],
-            table_load:false,
-            gst:true,
-            sc:true,
-            gstin:'',
-            gstper:'',
-            scamount:''
+            isloading: true,
+            data: [],
+            table_load: false,
+            gst: true,
+            sc: true,
+            gstin: '',
+            gstper: '',
+            scamount: ''
         };
 
     }
@@ -60,8 +60,7 @@ class OtherCharges extends Component {
         )
     }
 
-    componentDidMount () 
-    {
+    componentDidMount() {
         this.get_profile();
     }
 
@@ -84,25 +83,23 @@ class OtherCharges extends Component {
                     Toast.show(msg);
                 }
                 else {
-                   const value=json.data[0];
-                   
-                        // alert(value.website)
-                
-                        if(value.gstin == null)
-                        {
-                            this.setState({gst:false});
-                        }
+                    const value = json.data[0];
 
-                        if(value.service_charge == '')
-                        {
-                            this.setState({sc:false});
-                        }
+                    // alert(value.website)
 
-                        this.setState({ gstin: value.gstin })
-                        this.setState({ scamount: value.service_charge })
-                        this.setState({ gstper: value.gst_percentage })
-                       
-                  
+                    if (value.gstin == null) {
+                        this.setState({ gst: false });
+                    }
+
+                    if (value.service_charge == '') {
+                        this.setState({ sc: false });
+                    }
+
+                    this.setState({ gstin: value.gstin })
+                    this.setState({ scamount: value.service_charge })
+                    this.setState({ gstper: value.gst_percentage })
+
+
 
                 }
                 return json;
@@ -115,43 +112,36 @@ class OtherCharges extends Component {
     }
 
     update_profile = () => {
-        var gstin=this.state.gstin;
-        var gst_percentage=this.state.gstper;
-        var service_charge=this.state.scamount;
+        var gstin = this.state.gstin;
+        var gst_percentage = this.state.gstper;
+        var service_charge = this.state.scamount;
 
-        let rjx= /^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/;
+        let rjx = /^([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})+$/;
         let isValid = rjx.test(gstin);
-        if(this.state.gst == false)
-        {
-            gstin='';
-            gst_percentage=0;
+        if (this.state.gst == false) {
+            gstin = '';
+            gst_percentage = 0;
         }
-        if(this.state.sc == false)
-        {
-            service_charge=0;
+        if (this.state.sc == false) {
+            service_charge = 0;
         }
-        if(this.state.gst && this.state.gstin== "")
-        {
-            gstin="";
+        if (this.state.gst && this.state.gstin == "") {
+            gstin = "";
             Toast.show("GSTIN is required!");
         }
-        else if (this.state.gst && this.state.gstper== "")
-        {
-            gst_percentage=0;
+        else if (this.state.gst && this.state.gstper == "") {
+            gst_percentage = 0;
             Toast.show("GST Percentage is required!");
         }
-        else if (this.state.sc && this.state.scamount == "")
-        {
+        else if (this.state.sc && this.state.scamount == "") {
             Toast.show("Service Charge is required!");
-            service_charge=0;
+            service_charge = 0;
         }
-        else if(!isValid)
-        {
+        else if (!isValid) {
             Toast.show("GST format is not valid!");
         }
-        else
-        {
-            this.setState({table_load:true});
+        else {
+            this.setState({ table_load: true });
             fetch(global.vendor_api + 'update_other_charges_vendor', {
                 method: 'POST',
                 headers: {
@@ -160,9 +150,9 @@ class OtherCharges extends Component {
                     'Authorization': global.token
                 },
                 body: JSON.stringify({
-                    gstin:gstin,
-                    gst_percentage:gst_percentage,
-                    service_charge:service_charge,
+                    gstin: gstin,
+                    gst_percentage: gst_percentage,
+                    service_charge: service_charge,
                 })
             }).then((response) => response.json())
                 .then((json) => {
@@ -178,35 +168,31 @@ class OtherCharges extends Component {
                 }).catch((error) => {
                     console.error(error);
                 }).finally(() => {
-                    this.setState({table_load:false});
+                    this.setState({ table_load: false });
                 });
 
-           
-            }
-        
+
+        }
+
     }
 
-    
 
-    update_toggle = ()=>
-    {
-        if(this.state.gst)
-        {
-            this.setState({gst:false})
+
+    update_toggle = () => {
+        if (this.state.gst) {
+            this.setState({ gst: false })
         }
-        else{
-            this.setState({gst:true})
+        else {
+            this.setState({ gst: true })
         }
     }
 
-    update_toggle2 = ()=>
-    {
-        if(this.state.sc)
-        {
-            this.setState({sc:false})
+    update_toggle2 = () => {
+        if (this.state.sc) {
+            this.setState({ sc: false })
         }
-        else{
-            this.setState({sc:true})
+        else {
+            this.setState({ sc: true })
         }
     }
 
@@ -228,25 +214,28 @@ class OtherCharges extends Component {
                         }}
                     />
                 </View>
-                <View style={{marginBottom:10,marginTop:10,borderRadius:20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10,
-                    shadowColor: "#000",backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",borderRadius:5,
-                    shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5}}>
-                        <View style={{flexDirection:'row',width:'100%'}}>
-                            <Text style={[styles.h3,{width:'80%'}]}>GST</Text>
+                <View style={{ marginBottom: 10, marginTop: 10, borderRadius: 20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
+                    <View style={{
+                        width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
+                        shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
+                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5
+                    }}>
+                        <View style={{ flexDirection: 'row', width: '100%' }}>
+                            <Text style={[styles.h3, { width: '80%' }]}>GST</Text>
 
-                                <Switch
-                                            trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
-                                            thumbColor={"white"}
-                                            value={this.state.gst}
-                                            onValueChange={() => this.update_toggle()}
-                                        />
+                            <Switch
+                                trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
+                                thumbColor={"white"}
+                                value={this.state.gst}
+                                onValueChange={() => this.update_toggle()}
+                            />
                         </View>
-                       { (this.state.gst)?
-                        <View>
-                        <View style={{ paddingLeft: 10, marginTop: 20 }}>
+                        {(this.state.gst) ?
+                            <View>
+                                <View style={{ paddingLeft: 10, marginTop: 20 }}>
                                     <Text style={style.fieldsText}>GSTIN </Text>
                                     <Input
+                                        placeholder='GSTIN / GST Number'
                                         style={style.inputText}
                                         value={this.state.gstin}
                                         autoCapitalize={true}
@@ -259,6 +248,7 @@ class OtherCharges extends Component {
                                 <View style={{ paddingLeft: 10, marginTop: 10 }}>
                                     <Text style={style.fieldsText}>GST Percentage </Text>
                                     <Input
+                                        placeholder='GST %'
                                         style={style.inputText}
                                         value={this.state.gstper}
                                         keyboardType="numeric"
@@ -267,119 +257,86 @@ class OtherCharges extends Component {
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />
                                 </View>
-                                </View>
-                       :
-<></>
-                       }
-                      
-                    </View>
-             
-
+                            </View>
+                            :
+                            <></>
+                        }
 
                     </View>
 
-                    <View style={{ flex: 1, borderRadius:10, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{width:'95%',backgroundColor:'#fff',alignSelf:'center',padding:10,
-                    shadowColor: "#000",backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",borderRadius:5,
-                    shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,marginTop:20}}>
-                        <View style={{flexDirection:'row',width:'100%'}}>
-                            <Text style={[styles.h3,{width:'80%'}]}>Service Charge</Text>
 
-                                <Switch
-                                            trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
-                                            thumbColor={"white"}
-                                            value={this.state.sc}
-                                            onValueChange={() => this.update_toggle2()}
-                                        />
+
+                </View>
+
+                <View style={{ flex: 1, borderRadius: 10, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
+                    <View style={{
+                        width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
+                        shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
+                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, marginTop: 20
+                    }}>
+                        <View style={{ flexDirection: 'row', width: '100%' }}>
+                            <Text style={[styles.h3, { width: '80%' }]}>Service Charge</Text>
+
+                            <Switch
+                                trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
+                                thumbColor={"white"}
+                                value={this.state.sc}
+                                onValueChange={() => this.update_toggle2()}
+                            />
                         </View>
-                       { (this.state.sc)?
-                        <View>
-                      <View style={{ paddingLeft: 10, marginTop: 10 }}>
+                        {(this.state.sc) ?
+                            <View>
+                                <View style={{ paddingLeft: 10, marginTop: 10 }}>
                                     <Text style={style.fieldsText}>Server Charge Percentage </Text>
                                     <Input
+                                        placeholder='Service Charge %'
                                         style={style.inputText}
                                         value={this.state.scamount}
                                         keyboardType="numeric"
-                                        onChangeText={(e) => { this.setState({ scamount : e }) }}
+                                        onChangeText={(e) => { this.setState({ scamount: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />
                                 </View>
-                                </View>
-                       :
-<></>
-                       }
-                      
+                            </View>
+                            :
+                            <></>
+                        }
+
                     </View>
-             
 
 
-                    </View> 
-                    
-                      
-{(!this.state.table_load)?
-<View style={{width:'100%',height:50,backgroundColor:'#fff',position:'absolute',bottom:0}}>
-                <TouchableOpacity
-            // onPress={this.send_otp}
-            onPress={()=>{this.update_profile()}}
-            style={[styles.buttonStyle,{bottom:10}]}>
-                <LinearGradient 
-                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
-                    style={[styles.signIn,{borderRadius:25,width:'80%',alignSelf:'center'}]}>
 
-                    <Text style={[styles.textSignIn, {
-                    color:'#fff'}]}>Save Changes</Text>
-                    
-                </LinearGradient>
-            </TouchableOpacity>
                 </View>
-                :
-                <View style={style.loader}>
-           <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
-           </View>
-    }
+
+
+                {(!this.state.table_load) ?
+                    <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0 }}>
+                        <TouchableOpacity
+                            // onPress={this.send_otp}
+                            onPress={() => { this.update_profile() }}
+                            style={[styles.buttonStyle, { bottom: 10 }]}>
+                            <LinearGradient
+                                colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                style={[styles.signIn, { borderRadius: 25, width: '80%', alignSelf: 'center' }]}>
+
+                                <Text style={[styles.textSignIn, {
+                                    color: '#fff'
+                                }]}>Save Changes</Text>
+
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={style.loader}>
+                        <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
+                    </View>
+                }
             </View>
         )
     }
 }
 
-
-class Loaders extends Component {
-    render() {
-       return (
-          <View>
-             <SkeletonPlaceholder >
-                <View style={{ flexDirection: "row", marginTop: 20 }}>
-                   <View style={{ marginLeft: 5 }}>
-                      <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
-                   </View>
-        
-                   <View>
-                      <View style={{ flexDirection: "row", }}>
-                         <View>
-                            <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
-                            <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
-                         </View>
-                         <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
-                         <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
-                      </View>
-                      <View style={{flexDirection:"row",alignSelf:"flex-end",left:-35,marginRight:20,marginTop:15}}>
-                      <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                      <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                      </View>
-                   </View>
- 
- 
-                   
-                </View>
- 
-               
-             </SkeletonPlaceholder>
- 
-          </View>
-       )
-    }
- }
 
 export default OtherCharges;
 
@@ -422,29 +379,28 @@ const style = StyleSheet.create({
         color: "#fff",
         fontSize: RFValue(14, 580)
     },
-    text:{
-        fontFamily:"Raleway-SemiBold",
-        fontSize:RFValue(14.5, 580),
-        margin:5
+    text: {
+        fontFamily: "Raleway-SemiBold",
+        fontSize: RFValue(14.5, 580),
+        margin: 5
     },
     inputText: {
         fontSize: RFValue(12, 580),
-        fontFamily: "Montserrat-Regular",
+        fontFamily: "Poppins-Regular",
         color: "black",
-        marginTop:-7
         // marginLeft:10
     },
-    loader:{
-        shadowOffset:{width:50,height:50},
-        marginTop:20,
-        shadowRadius:50,
-        elevation:5,
-        alignSelf:'center',
-        backgroundColor:"#fff",
-        width:40,
-        height:40,
-        borderRadius:50,
-        padding:5,
-        marginBottom:10
+    loader: {
+        shadowOffset: { width: 50, height: 50 },
+        marginTop: 20,
+        shadowRadius: 50,
+        elevation: 5,
+        alignSelf: 'center',
+        backgroundColor: "#fff",
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+        padding: 5,
+        marginBottom: 10
     },
 })

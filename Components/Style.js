@@ -123,5 +123,5 @@ module.exports =  StyleSheet.create({
     fontSize:12,
     fontFamily:"Raleway-Medium",
     color:"#000"
-  }
+  },
   });

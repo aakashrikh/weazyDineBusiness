@@ -11,7 +11,7 @@ import MultiSelect from 'react-native-multiple-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
@@ -35,10 +35,6 @@ const options = {
     quality: 0.5
 }
 
-
-const data = ["Veg", "Non-Veg"]
-
-
 class EditService extends Component {
     constructor(props) {
         super(props);
@@ -47,7 +43,7 @@ class EditService extends Component {
             id: '',
             data: this.props.route.params.data,
             category: this.props.route.params.category,
-            image_upload:"",
+            image_upload: "",
         }
     }
 
@@ -58,7 +54,7 @@ class EditService extends Component {
     //for header left component
     renderLeftComponent() {
         return (
-            <View style={{ width: win.width, flexDirection: "row", paddingBottom: 10,  }} >
+            <View style={{ width: win.width, flexDirection: "row", paddingBottom: 10, }} >
                 <Icon name="arrow-back-outline" type="ionicon"
                     onPress={() => this.props.navigation.goBack()} style={{ top: 2.5 }} />
                 <Text style={[styles.h3, { paddingLeft: 15, bottom: 1 }]}>Edit Menu</Text>
@@ -118,8 +114,8 @@ class Fields extends Component {
             type: 'product',
             prod_id: "",
             height: 0,
-            is_veg: 1,
-            image_upload:"",
+            is_veg: this.props.data.is_veg,
+            image_upload: "",
         };
     }
 
@@ -163,7 +159,7 @@ class Fields extends Component {
     }
 
     componentDidMount = async () => {
-        
+
         this.get_category()
         this.get_vendor_product()
         this.focusListener = this.props.navigation.addListener('focus', () => {
@@ -189,6 +185,7 @@ class Fields extends Component {
 
     // Fetching vendor products
     get_vendor_product = () => {
+
         this.setState({ prod_id: this.props.data.id })
         this.setState({ name: this.props.data.product_name })
         this.setState({ market_price: this.props.data.market_price })
@@ -196,7 +193,7 @@ class Fields extends Component {
         this.setState({ description: this.props.data.description })
         this.setState({ image: global.image_url + this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
-        this.setState({ is_veg: this.props.data.is_veg });
+        this.setState({ is_veg: this.props.data.is_veg }); console.warn("isdyhdhjdyd", this.state.is_veg)
     }
 
     set_value = (index) => {
@@ -241,8 +238,8 @@ class Fields extends Component {
                 };
                 form.append("product_img", photo);
             }
-            console.warn(this.state.name,this.state.c_id, this.state.market_price, this.state.our_price, this.state.description, photo, this.state.prod_id, this.state.is_veg)
-          
+            console.warn(this.state.name, this.state.c_id, this.state.market_price, this.state.our_price, this.state.description, photo, this.state.prod_id, this.state.is_veg)
+
             form.append("product_name", this.state.name);
             // form.append("token",global.token);
             form.append("vendor_category_id", this.state.c_id);
@@ -250,7 +247,7 @@ class Fields extends Component {
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
-            
+
             form.append("product_id", this.state.prod_id);
             form.append("is_veg", this.state.is_veg);
             console.warn(form)
@@ -295,7 +292,7 @@ class Fields extends Component {
             <View>
                 <View>
                     <Text style={style.fieldsTitle}>
-                        Name
+                        Name{this.state.is_veg}
                     </Text>
                     <TextInput
                         value={this.state.name}
@@ -360,20 +357,20 @@ class Fields extends Component {
                     </Text>
                 </View>
 
-                <RadioForm 
-                formHorizontal={true}
-                radio_props={radio_props}
-                animation={false}
-                initial={0}
-                selectedButtonColor="#EDA332"
-                buttonColor="#EDA332"
-                buttonSize={12}
-                buttonOuterSize={25}
-                onPress={(value) => { this.setState({ is_veg: value }) }}
-                labelStyle={{fontSize: RFValue(12,580),marginRight:30,fontWeight:'bold'}}
-                style={{marginTop:20,alignSelf:"center"}}
-                />            
-                
+                <RadioForm
+                    formHorizontal={true}
+                    radio_props={radio_props}
+                    animation={false}
+                    selectedButtonColor="#EDA332"
+                    buttonColor="#EDA332"
+                    buttonSize={12}
+                    buttonOuterSize={25}
+                    initial={this.state.is_veg == 1 ? 0 : 1}
+                    onPress={(value) => { this.setState({ is_veg: value }) }}
+                    labelStyle={{ fontSize: RFValue(12, 580), marginRight: 30, fontWeight: 'bold' }}
+                    style={{ marginTop: 20, alignSelf: "center" }}
+                />
+
                 {/* <View style={{ marginTop: 20, alignSelf: 'center' }}>
                     <RadioForm
                         formHorizontal={true}
@@ -387,7 +384,7 @@ class Fields extends Component {
                         onPress={(value) => { this.setState({ is_veg: value }) }}
                     />
                 </View> */}
-                
+
 
 
                 <View>
@@ -412,14 +409,14 @@ class Fields extends Component {
 
                     <View style={{ flexDirection: 'column' }}>
                         <View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons,refresh:false }) }}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>
                                 <Text style={style.fieldsTitle}> + VARIANTS & ADD-ONS</Text>
 
 
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={{justifyContent:"center"}} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons,refresh:false }) }}>
-                            <Text style={[style.textInput,{justifyContent:"center",paddingTop:8}]}>
+                        <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>
+                            <Text style={[style.textInput, { justifyContent: "center", paddingTop: 8 }]}>
                                 {this.props.data.variants.length} Variants
                             </Text>
                         </TouchableOpacity>
@@ -563,7 +560,8 @@ const style = StyleSheet.create({
         width: "35%",
         alignSelf: "center",
         marginTop: 50,
-        marginRight: 5
+        marginRight: 5,
+        marginBottom: 20
     },
     iconPencil: {
         marginLeft: 20,
@@ -585,7 +583,7 @@ const style = StyleSheet.create({
     uploadButton: {
         // backgroundColor:"#EDA332",
         borderColor: "#EDA332",
-        paddingTop:2,
+        paddingTop: 2,
         borderWidth: 1,
         width: 90,
         height: 30,
