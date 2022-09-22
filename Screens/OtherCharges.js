@@ -235,6 +235,7 @@ class OtherCharges extends Component {
                                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
                                     <Text style={style.fieldsText}>GSTIN </Text>
                                     <Input
+                                    
                                         placeholder='GSTIN / GST Number'
                                         style={style.inputText}
                                         value={this.state.gstin}
@@ -246,11 +247,11 @@ class OtherCharges extends Component {
                                 </View>
 
                                 <View style={{ paddingLeft: 10, marginTop: 10 }}>
-                                    <Text style={style.fieldsText}>GST Percentage </Text>
+                                    <Text style={style.fieldsText}>GST Percentage</Text>
                                     <Input
                                         placeholder='GST %'
                                         style={style.inputText}
-                                        value={this.state.gstper}
+                                        value={this.state.gstper.toString()}
                                         keyboardType="numeric"
                                         onChangeText={(e) => { this.setState({ gstper: e }) }}
                                         inputContainerStyle={{
@@ -287,11 +288,11 @@ class OtherCharges extends Component {
                         {(this.state.sc) ?
                             <View>
                                 <View style={{ paddingLeft: 10, marginTop: 10 }}>
-                                    <Text style={style.fieldsText}>Server Charge Percentage </Text>
+                                    <Text style={style.fieldsText}>Server Charge Percentage</Text>
                                     <Input
                                         placeholder='Service Charge %'
                                         style={style.inputText}
-                                        value={this.state.scamount}
+                                        value={this.state.scamount.toString()}
                                         keyboardType="numeric"
                                         onChangeText={(e) => { this.setState({ scamount: e }) }}
                                         inputContainerStyle={{

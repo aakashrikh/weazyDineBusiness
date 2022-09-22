@@ -45,6 +45,9 @@ class Packages extends Component {
     this.get_vendor_product(0, 1)
     this.focusListener = this.props.navigation.addListener('focus', () => {
       this.get_category();
+      if(this.props.route.params != undefined){
+        this.setState({active_cat:this.props.route.params.active_cat})
+      }
     })
   }
 
@@ -400,8 +403,8 @@ class Card extends Component {
   alertFunc = () => {
     this.RBSheet.close()
     Alert.alert(
-      "Are you sure?",
-      "Delete this Combo",
+      "",
+      "Are you sure you want to delete this Combo?",
       [
         {
           text: "Cancel",

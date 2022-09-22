@@ -49,40 +49,72 @@ renderLeftComponent(){
             
                 <View >
                 {/* <Image source={require("../img/logo/logo.png")} style={{width:188,height:80,margin:17,alignSelf:"center"}}/> */}
-                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
-                    fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
-                        We're Your Partner in Success
-                    </Text>
+                   
                     <Text style={{fontSize:RFValue(12, 580),fontFamily:"Roboto-Regular", color:"grey", lineHeight:23, marginTop:5,textAlign:"justify", paddingLeft:20,paddingRight:20}}>
-                    After analyzing the current market situation, and realizing the problems of both vendors and users, which they face in their daily lives. We with our intensive effort tried to come up with a platform that would surely help in resolving problems of both within the minimum time.{"\n"}{"\n"}
-                    Market Pluss is an application with an appealing interface that allows the customers in keeping track of the best offers and deals available and offering rich varieties of options to choose from distinct categories to customers and allowing vendors to focus more on their business growth.{"\n"}{"\n"}
-                    Being powerful and effective yet user-friendly, Market Pluss is suitable for examining the market in the best possible way with amazing discounts and offers, and we assure to provide consistent updates in the future.{"\n"}
+                        Webixun Infoways Private Limited started working on this idea in 2022. 
+                        The company is an IT firm with a Dehradun base that has built over 200 applications
+                         for different niches so far. One of our hallmarks is our high rate of customer satisfaction and repeat business.{"\n"}
                     </Text>
 
-                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
-                    fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
-                        Our Story
+                    <Text style={{textAlign:"justify",fontFamily:"Poppins-SemiBold",
+                    fontSize:RFValue(13, 580),alignSelf:"center",color:"grey",paddingHorizontal:10}}>
+                       Let us discuss the USP’s & Features of Weazy-Dine App and our innovation in detail because 
+                       catering your requirement and converting it into a final product is our main goal.
                     </Text>
 
-                    <Text style={{fontSize:RFValue(12, 580),fontFamily:"Roboto-Regular", color:"grey", lineHeight:23, marginTop:5,textAlign:"justify", paddingLeft:20,paddingRight:20}}>
-                    The story of the Market Pluss started in 2017 with the goal to help in connecting local vendors to consumers and to make the availability of more options within less time.
-                    There are so many people out there who face problems while selecting various products from several places but due to high prices and lack of options, 
-                    they fail to make the fair choice for choosing the exact goods with their exact needs.{"\n"}{"\n"}
-                    We’ve come up with a platform that abolishes all such problems which one has to face while making choices for purchasing products and giving the asset of choosing from 
-                    different categories without any hustle. We wish that everyone should be able to make better choices and get the results they are looking for.{"\n"}{"\n"}
-                    Market Pluss eliminates your stress and stops you to endeavor in search of the modest prices that you can get for the product you are looking for. 
-                    We’ll let you know the places around you where users can get the best-in-class deals and get the chance to look for more choices rather than being forced to buy the same old deals.{'\n'}
+                    <Text style={{textAlign:"justify",fontFamily:"Poppins-SemiBold",
+                    fontSize:RFValue(13, 580),marginTop:10, color:"grey",paddingLeft:15}}>
+                      USP of Application: 
                     </Text>
 
-                    <Text style={{textAlign:"justify",fontFamily:"Raleway-SemiBold",
-                    fontSize:RFValue(14.5, 580),alignSelf:"center",color:"grey"}}>
-                        Mission & Vision
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}Through WeazyDine, it is possible for restaurant and hotel owners to share food menus electronically with customers. {"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}Using the app, hotels & restaurants can share promotions, discounts, coupons, cash-back, and other offers via app.  {"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}There will be QR Codes available at every hotel, restaurant, cafe, and open-dining.Simply scan the barcode & the food menu for that specific restaurant or hotel will appear on the phone. {"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}It is compatible with Android and IOS. {"\n"}</Text>
+
+                    <Text style={{textAlign:"justify",fontFamily:"Poppins-SemiBold",
+                    fontSize:RFValue(13, 580),marginTop:10, color:"grey",paddingLeft:18}}>
+                     Benefits of Digital Food Menu For Vendors: : 
                     </Text>
 
-                    <Text style={{fontSize:RFValue(12, 580),fontFamily:"Roboto-Regular", color:"grey", lineHeight:23, marginTop:5,textAlign:"justify", paddingLeft:20,paddingRight:20}}>
-                    We Endeavour to create, secure and enhance businesses on a digital platform, and also help Entrepreneurs in this process.{"\n"}{"\n"}
-                    To create the most trust worthy Platform through best services & customer experience while helping businesses to explore their potential and increase their skills.{"\n"}
-                    </Text>
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}Menus do not have to be printed.{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}This app increases your sales by 40% with zero commission or zero charges as you can create your 
+                    audience on the app itself. {"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}Food images and videos can be featured on a QR menu to upsell your products.  
+                    Your guests are hooked by your food and will definitely get tempted to order more!{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}By creating QR codes by table number or room number, our platform creates unique QR codes 
+                    for hotels and poolside/beachside activities. In this case, the system already knows where the 
+                    order is coming from when the guest scans the QR code.{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}It is more efficient because orders and reorders can be  placed without the staff approaching the guest.{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}You can create marketing campaigns that display popup images and videos at a 
+                    certain time or when an item is selected, giving you the chance to upsell or promote upcoming or ongoing items.{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}You can reserve an event and other party in advance after viewing the property's 
+                    photos and menu of foods. Using the app, you can make payments online{"\n"}</Text>
+
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    {" "}Each open-dining establishment, such as hotels, restaurants, cafes, & buffets, 
+                    will have its own profile on the app.{"\n"}</Text>
+
                 </View>
                      
             </ScrollView>
@@ -97,7 +129,7 @@ export default AboutUs;
       //Styling
 const style = StyleSheet.create({
     text:{
-        fontFamily:"Raleway-SemiBold",
+        fontFamily:"Poppins-SemiBold",
         fontSize:RFValue(14.5, 580),
         margin:5
     },

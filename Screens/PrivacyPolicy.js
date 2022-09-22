@@ -68,12 +68,12 @@ class PrivacyPolicy extends Component {
                             Weazy Dine  will not be liable, in contract, tort (including, without limitation, negligence), under statute or otherwise, as a result of or in connection with the App, for any: {"\n"}
 
                             <Text style={{ fontFamily: "Roboto-Bold" }}>
-                                <Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> economic loss (including, without limitation, loss of revenues, profits, contracts, business or anticipated savings); or{"\n"}</Text>
+                                <Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> economic loss (including, without limitation, loss of revenues, profits, contracts, business or anticipated savings); or{"\n"}</Text>
 
-                            <Text style={{ fontFamily: "Roboto-Bold" }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> loss of goodwill or reputation; or{"\n"}</Text>
+                            <Text style={{ fontFamily: "Roboto-Bold" }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> loss of goodwill or reputation; or{"\n"}</Text>
 
 
-                            <Text style={{ fontFamily: "Roboto-Bold" }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> special or indirect or consequential loss.{"\n"}{"\n"}</Text>
+                            <Text style={{ fontFamily: "Roboto-Bold" }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> special or indirect or consequential loss.{"\n"}{"\n"}</Text>
 
 
                             <Text style={{ fontFamily: "Roboto-Bold" }}>IF WEAZY DINE IS LIABLE TO YOU DIRECTLY OR INDIRECTLY IN RELATION TO THE APP, THAT LIABILITY (HOWSOEVER ARISING) SHALL BE LIMITED TO THE SUMS PAID BY YOU UPON PURCHASING THE APP, OR ANY IN-APP SPEND, INCLUDING SUBSCRIPTIONS.{"\n"}{"\n"}</Text>
@@ -95,26 +95,26 @@ class PrivacyPolicy extends Component {
 
                             <Text style={{ fontFamily: "Roboto-Bold" }}>General{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> These Terms (as amended from time to time) constitute the entire agreement between
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> These Terms (as amended from time to time) constitute the entire agreement between
                                 you and Weazy Dine concerning your use of the App.{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> Weazy Dine reserves the right to update these Terms from time to time. If it does so,
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> Weazy Dine reserves the right to update these Terms from time to time. If it does so,
                                 the updated version will be effective immediately, and the current Terms are available through a link in the
                                 App to this page. You are responsible for regularly reviewing these Terms so that you are aware of any changes
                                 to them and you will be bound by the new policy upon your continued use of the App. No other variation to these
                                 Terms shall be effective unless in writing and signed by an authorized representative on behalf of Weazy Dine{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> We will send you information relating to your account (e.g. payment authorizations, invoices, changes in password or Payment Method,
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> We will send you information relating to your account (e.g. payment authorizations, invoices, changes in password or Payment Method,
                                 confirmation messages, notices) in electronic form only.{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> These Terms shall be governed by and construed in accordance with Indian laws and you agree to
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> These Terms shall be governed by and construed in accordance with Indian laws and you agree to
                                 submit to the exclusive jurisdiction of the Ahmedabad, Gujarat, India.{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> If any provision(s) of these Terms is held by a court of competent jurisdiction to be invalid or unenforceable,
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> If any provision(s) of these Terms is held by a court of competent jurisdiction to be invalid or unenforceable,
                                 then such provision(s) shall be construed, as nearly as possible, to reflect the intentions of the
                                 parties (as reflected in the provision(s)) and all other provisions shall remain in full force and effect.{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" /> Weazy Dine failure to exercise or enforce any right or provision of these Terms shall not constitute a waiver
+                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> Weazy Dine failure to exercise or enforce any right or provision of these Terms shall not constitute a waiver
                                 of such right or provision unless acknowledged and agreed to by Weazy Dine in writing.{"\n"}</Text>
                         </Text>
                     </View>

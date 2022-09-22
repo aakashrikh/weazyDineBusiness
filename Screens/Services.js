@@ -27,7 +27,7 @@ class Services extends Component{
         super(props);
         this.state={
             data:'',
-        active_cat:0,
+            active_cat:0,
             // vendor_category_id:0,
             isloading:true,
             isLoading:false,
@@ -49,6 +49,7 @@ class Services extends Component{
             if(this.props.route.params!=undefined){
             this.get_category();
            // this.get_vendor_product(0,1);
+                this.setState({active_cat:this.props.route.params.active_cat})
             }
         })  
     
@@ -239,7 +240,7 @@ filter=(id)=>{
                       {!this.state.isloading ? 
                       <>
                         {(this.state.data !="") ?
-                            <Card navigation={this.props.navigation}
+                            <Card navigation={this.props.navigation} 
                             data={this.state.data}
                             category={this.state.category}
                             load_more={this.load_more}
@@ -256,8 +257,8 @@ filter=(id)=>{
                                 <Image source={require("../img/no-product.png")}
                                 style={{width:300,height:300}} />
                                 <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
-                        No Products Found!
-                    </Text>
+                                    No Products Found!
+                                </Text>
                             </View>  
                             </View>
                         }

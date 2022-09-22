@@ -410,9 +410,7 @@ class Fields extends Component {
                     <View style={{ flexDirection: 'column' }}>
                         <View>
                             <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>
-                                <Text style={style.fieldsTitle}> + VARIANTS & ADD-ONS</Text>
-
-
+                                <Text style={[style.fieldsTitle,{fontFamily:"Raleway-Bold"}]}> + Variants & Add-Ons</Text>
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>

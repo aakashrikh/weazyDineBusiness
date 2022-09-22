@@ -254,7 +254,7 @@ class Fields extends Component {
                         this.props.get_cat();
                         this.props.get_product(0,1);
 
-                        this.props.navigation.navigate('ProductVariants', { product_id: json.data.id, variants: json.data.variants, addons: json.data.addons, refresh: true });
+                        this.props.navigation.navigate('ProductVariants', { product_id: json.data.id, variants: json.data.variants, addons: json.data.addons, refresh: true, });
                         // this.props.navigation.navigate(this.props.back,{refresh:true})
 
                     }

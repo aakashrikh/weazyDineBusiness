@@ -69,7 +69,6 @@ class ProductVariants extends Component {
 
 
   update_product_variant = () => {
-
     const add = [];
     this.state.object.map((item, index) => {
       if (item) {
@@ -98,7 +97,7 @@ class ProductVariants extends Component {
         }
         else {
           if (this.props.route.params.refresh) {
-            this.props.navigation.navigate("Products", { refresh: true })
+            this.props.navigation.navigate("Products", { refresh: true, active_cat:0})
 
           }
           else {
@@ -112,7 +111,8 @@ class ProductVariants extends Component {
       }).catch((error) => {
         console.error(error);
       });
-  }
+   }
+  
 
   //for header left component
   renderLeftComponent() {
@@ -224,23 +224,23 @@ class ProductVariants extends Component {
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
         <View style={{ width: '48%' }}>
           <Text style={style.fieldsTitle}>
-            Price{item.variants_price}
+            Price
           </Text>
           <TextInput
             onChangeText={(e) => { this.price(index, e) }}
             style={style.textInput2}
             keyboardType='number-pad'
-            value={item.variants_price}
+            value={item.variants_price.toString()}
           />
 
         </View>
 
         <View style={{ width: '48%' }}>
           <Text style={style.fieldsTitle}>
-            Offer price{item.variants_discounted_price}
+            Offer price
           </Text>
           <TextInput
-            value={item.variants_discounted_price}
+            value={item.variants_discounted_price.toString()}
             onChangeText={(e) => { this.offer_price(index, e) }}
             keyboardType='number-pad'
             style={style.textInput2} />
