@@ -38,6 +38,7 @@ const options = {
 class EditService extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             // id:this.props.route.params.prod_id,
             id: '',
@@ -96,7 +97,7 @@ export default EditService;
 class Fields extends Component {
     constructor(props) {
         super(props);
-
+console.warn(';;',this.props.data.addon_map);
         this.state = {
             name: "",
             cat_name: {},
@@ -409,13 +410,13 @@ class Fields extends Component {
 
                     <View style={{ flexDirection: 'column' }}>
                         <View>
-                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addon_map, refresh: false }) }}>
                                 <Text style={[style.fieldsTitle,{fontFamily:"Raleway-Bold"}]}> + Variants & Add-Ons</Text>
                             </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addons, refresh: false }) }}>
+                        <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addon_map, refresh: false }) }}>
                             <Text style={[style.textInput, { justifyContent: "center", paddingTop: 8 }]}>
-                                {this.props.data.variants.length} Variants
+                                {this.props.data.variants.length} Variants & {this.props.data.addon_map.length} Add-Ons
                             </Text>
                         </TouchableOpacity>
                     </View>

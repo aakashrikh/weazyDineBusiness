@@ -25,6 +25,7 @@ const win = Dimensions.get('window');
 class Services extends Component{
     constructor(props){
         super(props);
+        console.warn("back",props)
         this.state={
             data:'',
             active_cat:0,
@@ -46,10 +47,11 @@ class Services extends Component{
         this.get_vendor_product(0,1);
         this.focusListener=this.props.navigation.addListener('focus', ()=>{
             this.get_category();
-            if(this.props.route.params!=undefined){
+            this.get_vendor_product(0,1);
+            if(this.props.route.params!=undefined ){
             this.get_category();
-           // this.get_vendor_product(0,1);
-                this.setState({active_cat:this.props.route.params.active_cat})
+            // this.get_vendor_product(0,1);
+            this.setState({active_cat:this.props.route.params.active_cat})
             }
         })  
     
@@ -158,7 +160,7 @@ class Services extends Component{
         });
     }
 
-filter=(id)=>{
+    filter=(id)=>{
  
     this.setState({isloading:true})
     this.get_vendor_product(id,1);
@@ -208,7 +210,7 @@ filter=(id)=>{
                                     }).finally(() => {
                                     this.setState({isloading:false})
                                     });
-        }
+    }
 
 
 
@@ -376,7 +378,7 @@ class Categories extends Component{
                 onPress={()=>this.props.filter(cat.id)}>
                 <View style={style.catButton}>
                 <Text style={style.catButtonText}>
-                    {cat.name}
+                    {cat.name}{cat.id}
                 </Text>
                 </View>
             </TouchableOpacity>
@@ -471,7 +473,7 @@ class Card extends Component{
       
       editNavigation =()=>{
         // alert(this.state.id)
-        console.warn("props",this.props.category)
+        // console.warn("props",this.props.category)
         this.props.navigation.navigate("EditService",
         {data:this.state.id,
         category:this.props.category,
