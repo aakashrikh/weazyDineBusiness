@@ -125,10 +125,10 @@ class Fields extends Component {
         launchCamera(options, (response) => {
 
             if (response.didCancel) {
-                console.warn(response)
-                console.warn("User cancelled image picker");
+                // console.warn(response)
+                // console.warn("User cancelled image picker");
             } else if (response.error) {
-                console.warn('ImagePicker Error: ', response.error);
+                // console.warn('ImagePicker Error: ', response.error);
             } else {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
@@ -171,7 +171,7 @@ class Fields extends Component {
 
     // Fetching vendor categories
     get_category = () => {
-        console.warn(this.props.category)
+        // console.warn(this.props.category)
         var nn = [];
         var pp = [];
         this.props.category.map((value, key) => {
@@ -193,13 +193,13 @@ class Fields extends Component {
         this.setState({ description: this.props.data.description })
         this.setState({ image: global.image_url + this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
-        this.setState({ is_veg: this.props.data.is_veg }); console.warn("isdyhdhjdyd", this.state.is_veg)
+        this.setState({ is_veg: this.props.data.is_veg }); 
     }
 
     set_value = (index) => {
         var vv = this.state.cat_id[index];
         this.setState({ c_id: vv })
-        console.warn(this.state.c_id)
+        // console.warn(this.state.c_id)
     }
 
     //Create service button
@@ -230,7 +230,7 @@ class Fields extends Component {
         else {
             this.setState({ isLoading: true });
             if (this.state.image_upload != '') {
-                console.warn("jkkj")
+                // console.warn("jkkj")
                 var photo = {
                     uri: this.state.image_upload,
                     type: 'image/jpg',
@@ -238,7 +238,7 @@ class Fields extends Component {
                 };
                 form.append("product_img", photo);
             }
-            console.warn(this.state.name, this.state.c_id, this.state.market_price, this.state.our_price, this.state.description, photo, this.state.prod_id, this.state.is_veg)
+            // console.warn(this.state.name, this.state.c_id, this.state.market_price, this.state.our_price, this.state.description, photo, this.state.prod_id, this.state.is_veg)
 
             form.append("product_name", this.state.name);
             // form.append("token",global.token);
@@ -250,7 +250,7 @@ class Fields extends Component {
 
             form.append("product_id", this.state.prod_id);
             form.append("is_veg", this.state.is_veg);
-            console.warn(form)
+            // console.warn(form)
             fetch(global.vendor_api + 'vendor_update_product', {
                 method: 'POST',
                 body: form,
@@ -259,7 +259,7 @@ class Fields extends Component {
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
+                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

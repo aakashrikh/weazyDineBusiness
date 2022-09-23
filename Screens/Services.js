@@ -82,7 +82,7 @@ class Services extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                             console.warn(json);
+                            //  console.warn(json);
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
@@ -449,7 +449,7 @@ class Card extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                console.warn("delete_product",json)
+                                // console.warn("delete_product",json)
                                 if(!json.status)
                                 {
                                     var msg=json.msg;

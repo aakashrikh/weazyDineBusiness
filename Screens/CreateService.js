@@ -112,10 +112,10 @@ class Fields extends Component {
         launchCamera(options, (response) => {
 
             if (response.didCancel) {
-                console.warn(response)
-                console.warn("User cancelled image picker");
+                // console.warn(response)
+                // console.warn("User cancelled image picker");
             } else if (response.error) {
-                console.warn('ImagePicker Error: ', response.error);
+                // console.warn('ImagePicker Error: ', response.error);
             } else {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
@@ -185,7 +185,7 @@ class Fields extends Component {
     set_value = (index) => {
         var vv = this.state.cat_id[index];
         this.setState({ c_id: vv })
-        console.warn(this.state.c_id)
+        // console.warn(this.state.c_id)
     }
     //Create service button
     create = () => {
@@ -244,7 +244,7 @@ class Fields extends Component {
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
+                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
