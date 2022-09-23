@@ -240,7 +240,7 @@ class Fields extends Component {
                 body: form,
                 headers: {
 
-                    'Authorization': global.token
+                    'Authorization': global.token 
                 },
             }).then((response) => response.json())
                 .then((json) => {

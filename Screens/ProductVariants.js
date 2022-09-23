@@ -45,18 +45,16 @@ class ProductVariants extends Component {
         Varients: true,
       });
     }
-    console.warn("aa",this.props.route.params.variants);
 
     if (this.props.route.params.addons != undefined && this.props.route.params.addons.length > 0) {
-
-
       this.props.route.params.addons.map((item, index) => {
-        this.cat_update(item.addon_id);
+        this.cat_update(item.pivot.addon_id);
       });
 
     }
 
   }
+
   //for header center component
   renderCenterComponent() {
     return (
@@ -97,8 +95,7 @@ class ProductVariants extends Component {
         }
         else {
           if (this.props.route.params.refresh) {
-            this.props.navigation.navigate("Products", { refresh: true, active_cat:0})
-
+            this.props.navigation.navigate("Products", { refresh: true, active_cat:0});
           }
           else {
             this.props.navigation.goBack({ refresh: true });
@@ -317,14 +314,11 @@ class ProductVariants extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json);
         if (!json.status) {
           Toast.show(json.msg);
         }
         else {
-
           this.setState({ add_data: json.data });
-          console.warn("aaa",this.state.add_data);
         }
 
         this.setState({ isLoading: false });
