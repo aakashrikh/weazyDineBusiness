@@ -165,6 +165,7 @@ class VoucherDetails extends Component {
                                 </View>
 
                                 <View style={{width:"80%"}}>
+                                    <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Table No. : {this.state.data.table_no}</Text>
                                     <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Order ID : {this.state.data.order_code}</Text>
                                     <Text style={[style.textWhite,{fontSize:RFValue(12,580)}]}>Status : 
                                     <Text>

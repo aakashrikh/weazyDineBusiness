@@ -163,6 +163,7 @@ class OtherCharges extends Component {
                     }
                     else {
                         Toast.show(json.msg);
+                        this.props.navigation.goBack();
                     }
                     return json;
                 }).catch((error) => {

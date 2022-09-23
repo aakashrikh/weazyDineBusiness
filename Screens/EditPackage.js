@@ -444,14 +444,14 @@ class Fields extends Component {
                         <View style={{ width: "100%", padding: 20 }}>
                             <TouchableOpacity onPress={this.camera}>
                                 <Text style={style.iconPencil}>
-                                    <Icon name='camera' type="ionicon" color={'#0077c0'} size={25} />
+                                    <Icon name='camera' type="ionicon" color={'#EDA332'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Take a picture</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={this.gallery} >
                                 <Text style={style.iconPencil}>
-                                    <Icon name='folder' type="ionicon" color={'#0077c0'} size={25} />
+                                    <Icon name='folder' type="ionicon" color={'#EDA332'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Select from library</Text>
                             </TouchableOpacity>

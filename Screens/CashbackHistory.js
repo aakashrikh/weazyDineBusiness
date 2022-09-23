@@ -104,6 +104,9 @@ class CashbackHistory extends Component {
 
                         <View style={{width:'65%'}}>
                         <Text style={[styles.h5,{marginBottom:5,fontFamily:"Roboto-Bold"}]}>
+                            Table No : {item.table_no}
+                        </Text>
+                        <Text style={[styles.h5,{marginBottom:5,fontFamily:"Roboto-Bold"}]}>
                             {item.order_code}
                         </Text>
 

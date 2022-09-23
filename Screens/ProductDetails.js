@@ -37,15 +37,16 @@ class ProductDetails extends Component {
    }
 
    addonItem = ({ item }) => (
-      <View style={{ margin: 5, borderWidth: 1, padding: 5, borderRadius: 5,borderColor:"#EDA332" }}>
-          <Text>{item.addon_name}</Text>
+      <View style={{ margin: 5, justifyContent: "space-between", flexDirection: "row", width: Dimensions.get('window').width / 1.2 }}>
+         <Text>{item.addon_name}</Text>
+         <Text>{item.addon_price}</Text>
       </View>
-  )
+   )
 
-  variantsItem = ({ item }) => (
-      <View style={{ margin: 5, justifyContent:"space-between", flexDirection:"row",width:Dimensions.get('window').width/1.2 }}>
-            <Text>{item.variants_name}</Text>
-            <Text>{item.variants_price}</Text>
+   variantsItem = ({ item }) => (
+      <View style={{ margin: 5, justifyContent: "space-between", flexDirection: "row", width: Dimensions.get('window').width / 1.2 }}>
+         <Text>{item.variants_name}</Text>
+         <Text>{item.variants_price}</Text>
       </View>
    )
 
@@ -68,23 +69,25 @@ class ProductDetails extends Component {
                      <Image source={{ uri: global.image_url + this.props.route.params.data.product_img }} style={style.productImg} />
                   </View>
 
-                  <View style={{width:"70%",justifyContent:"center",paddingLeft:40}}>
-                        <Text style={style.text}>{this.props.route.params.data.product_name}</Text>
-                        <Text style={[style.text,{fontSize:RFValue(10,580)}]} numberOfLines={2}>{this.props.route.params.data.description}</Text>
-                        <View style={{flexDirection:"row"}}>
-                           <Text style={[style.text,{fontSize:RFValue(12,580),
-                           textDecorationLine: 'line-through',textDecorationStyle: 'solid'}]}>
-                              ₹ {this.props.route.params.data.market_price}</Text>
-                           <Text style={[style.text,{fontSize:RFValue(12,580),paddingLeft:20}]}>₹ {this.props.route.params.data.our_price}</Text>
-                        </View>
+                  <View style={{ width: "70%", justifyContent: "center", paddingLeft: 40 }}>
+                     <Text style={style.text}>{this.props.route.params.data.product_name}</Text>
+                     <Text style={[style.text, { fontSize: RFValue(10, 580) }]} numberOfLines={2}>{this.props.route.params.data.description}</Text>
+                     <View style={{ flexDirection: "row" }}>
+                        <Text style={[style.text, {
+                           fontSize: RFValue(12, 580),
+                           textDecorationLine: 'line-through', textDecorationStyle: 'solid'
+                        }]}>
+                           ₹ {this.props.route.params.data.market_price}</Text>
+                        <Text style={[style.text, { fontSize: RFValue(12, 580), paddingLeft: 20 }]}>₹ {this.props.route.params.data.our_price}</Text>
+                     </View>
                   </View>
 
-                  <View style={{width:"10%"}}>
+                  <View style={{ width: "10%" }}>
                      {
                         this.props.route.params.data.is_veg ?
-                           <Image source={require('../img/veg.png')} style={{height:15,width:15,alignSelf:"flex-end"}} />
+                           <Image source={require('../img/veg.png')} style={{ height: 15, width: 15, alignSelf: "flex-end" }} />
                            :
-                           <Image source={require('../img/non_veg.png')} style={{height:15,width:15,alignSelf:"flex-end"}} />
+                           <Image source={require('../img/non_veg.png')} style={{ height: 15, width: 15, alignSelf: "flex-end" }} />
                      }
                   </View>
 
@@ -93,37 +96,48 @@ class ProductDetails extends Component {
 
                {
                   this.props.route.params.data.variants.length > 0 ?
-                  <View style={[style.viewBox,{flexDirection:"column"}]}>
-                  <Text style={style.text}>Variant</Text>
+                     <View style={[style.viewBox, { flexDirection: "column" }]}>
+                        <Text style={style.text}>Variant</Text>
 
-                  <FlatList
-                     data={this.props.route.params.data.variants}
-                     renderItem={this.variantsItem}
-                     keyExtractor={item => item.id}
-                  />
-               </View>
-               :
-               <></>
+                        <FlatList
+                           data={this.props.route.params.data.variants}
+                           renderItem={this.variantsItem}
+                           keyExtractor={item => item.id}
+                        />
+                     </View>
+                     :
+                     <></>
                }
 
                {
                   this.props.route.params.data.addon_map.length > 0 ?
-                  <View style={[style.viewBox,{flexDirection:"column"}]}>
-                  <Text style={style.text}>Add-Ons</Text>
+                     <View style={[style.viewBox, { flexDirection: "column" }]}>
+                        <Text style={style.text}>Add-Ons</Text>
 
-                  <FlatList
-                     numColumns={4}
-                     data={this.props.route.params.data.addon_map}
-                     renderItem={this.addonItem}
-                     keyExtractor={item => item.id}
-                  />
-               </View>
-               :
-               <></>
+                        <FlatList
+                           data={this.props.route.params.data.addon_map}
+                           renderItem={this.addonItem}
+                           keyExtractor={item => item.id}
+                        />
+                     </View>
+                     :
+                     <></>
                }
 
 
             </ScrollView>
+
+            {/* <TouchableOpacity
+               onPress={() => this.create()}
+               style={style.buttonStyles}>
+               <LinearGradient
+                  colors={['#EDA332', '#EDA332']}
+                  style={styles.signIn}>
+                  <Text style={[styles.textSignIn, { color: '#fff' }]}>
+                     Edit</Text>
+               </LinearGradient>
+            </TouchableOpacity> */}
+
          </View>
       )
    }
@@ -156,12 +170,17 @@ const style = StyleSheet.create({
       shadowRadius: 3.84,
       elevation: 5,
       marginBottom: 10,
-      flexDirection:"row"
+      flexDirection: "row"
    },
-   text:{
+   text: {
       fontFamily: "Poppins-Medium",
       fontSize: RFValue(14, 580),
 
+   },
+   buttonStyles: {
+      width: "50%",
+      alignSelf: "center",
+      marginBottom: 20,
    }
 
 })

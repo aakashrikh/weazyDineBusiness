@@ -378,7 +378,7 @@ class Categories extends Component{
                 onPress={()=>this.props.filter(cat.id)}>
                 <View style={style.catButton}>
                 <Text style={style.catButtonText}>
-                    {cat.name}{cat.id}
+                    {cat.name}
                 </Text>
                 </View>
             </TouchableOpacity>
@@ -491,7 +491,7 @@ class Card extends Component{
       }
 
       productCard = ({item}) => (
-        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate("ProductDetails",{data:item})}>
+        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate("ProductDetails",{data:item, edit:this.editNavigation()})}>
             <View style={{flexDirection:"row",width:"100%" }}>
               {/* View for Image */}
                <View style={{width:"27%"}}>
