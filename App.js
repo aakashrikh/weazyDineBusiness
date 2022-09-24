@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {
-  Image, View, Text, Platform
+  Image, Platform
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createStackNavigator } from '@react-navigation/stack';
 import linking from './Components/Linking';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from "@react-native-community/netinfo";
+
+
 //Import screens 
 import MobileLogin from './Screens/MobileLogin';
 import OtpVerify from './Screens/OtpVerify';
@@ -34,7 +35,6 @@ import ContactUs from './Screens/ContactUs';
 import AboutUs from './Screens/AboutUs';
 import Answers from './Screens/Answers';
 import CreateOffers from './Screens/CreateOffers';
-import Demo from './Screens/Demo';
 import CreatePackages from './Screens/CreatePackages';
 import CreateService from './Screens/CreateService';
 import AddCategory from './Screens/AddCategory';
@@ -46,7 +46,6 @@ import EditService from './Screens/EditService';
 import AddPackageCategory from './Screens/AddPackageCategory';
 import NewPost from './Components/NewPost';
 import ChangeLocation from './Screens/ChangeLocation';
-
 import OneSignal from 'react-native-onesignal';
 import EditComment from './Screens/EditComment';
 import OfferProduct from './Screens/OfferProduct';
@@ -84,6 +83,10 @@ import Wallet from './Screens/Wallet';
 import OnlinePayment from './Screens/OnlinePayment';
 import PasswordLogin from './Screens/PasswordLogin';
 import ProductDetails from './Screens/ProductDetails';
+import Subscription from './Screens/Subscription';
+import ChoosePaymentType from './Screens/ChoosePaymentType';
+import PaymentSuccessful from './Screens/PaymentSuccessful';
+import PaymentFailed from './Screens/PaymentFailed';
 
 
 //OneSignal Init Code
@@ -114,16 +117,14 @@ OneSignal.setNotificationOpenedHandler(notification => {
 
 //Navigators
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 const Stacks = createStackNavigator();
-const LogIn = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 
 //for demo
-// global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
+global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
 global.image_url = ""
 
 global.login_data = true
@@ -342,9 +343,9 @@ class App extends Component {
             <Stacks.Navigator >
               {!this.state.islogin ? (
                 <>
-                  {/* <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} /> */}
-                  <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/>
-                  {/* <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} /> */}
+                  <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
+                  {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
+                  <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
 
                 </>
               )
@@ -416,6 +417,10 @@ class App extends Component {
                       <Stacks.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
                       <Stacks.Screen name="OnlinePayment" component={OnlinePayment} options={{ headerShown: false }} />
                       <Stacks.Screen name="ProductDetails" component={ProductDetails} options={{ headerShown: false }} />
+                      <Stacks.Screen name="Subscription" component={Subscription} options={{ headerShown: false }} />
+                      <Stacks.Screen name="ChoosePaymentType" component={ChoosePaymentType} options={{ headerShown: false }} />
+                      <Stacks.Screen name="PaymentSuccessful" component={PaymentSuccessful} options={{ headerShown: false }} />
+                      <Stacks.Screen name="PaymentFailed" component={PaymentFailed} options={{ headerShown: false }} />
                     </>
                 )
               }

@@ -50,7 +50,20 @@ class More extends Component {
                     />
                 </View>
 
-                <Buttons navigation={this.props.navigation} />
+                <ScrollView>
+                    <Buttons navigation={this.props.navigation} />
+
+                    <Text
+                        style={{
+                            alignSelf: 'center',
+                            marginTop: 10,
+                            color: '#d3d3d3',
+                            marginBottom:10
+
+                        }}>
+                        App Version: {DeviceInfo.getVersion()}
+                    </Text>
+                </ScrollView>
 
             </View>
         )
@@ -111,7 +124,6 @@ class Buttons extends Component {
     }
 
     render() {
-        console.log(this.state.empty)
         return (
             <View style={{ borderTopWidth: 0.2, borderColor: "#d3d3d3" }}>
                 <ScrollView>
@@ -244,6 +256,19 @@ class Buttons extends Component {
                         </View>
                     </TouchableOpacity>
 
+                    {/* Subscription */}
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Subscription")}>
+                        <View style={style.questView}>
+                            <View style={{ flexDirection: "row" }}>
+                                <Image source={require('../img/icons/subscription.png')} style={style.Icon} />
+                                <Text style={style.texxt}>Subscription</Text>
+                            </View>
+                            <Image source={require('../img/icons/right-arrow.png')}
+                                style={{ height: 20, width: 20, alignSelf: "center" }} />
+                        </View>
+                    </TouchableOpacity>
+
+
                     {/* How to use */}
                     {/* <TouchableOpacity onPress={()=>Linking.openURL('https://www.youtube.com/channel/UCQ85cK-wQljpJN56ERsbWCA')}>    
                         <View style={style.questView}>
@@ -267,15 +292,7 @@ class Buttons extends Component {
                                 style={{ height: 20, width: 20, alignSelf: "center" }} />
                         </View>
                     </TouchableOpacity>
-                    <Text
-                        style={{
-                            alignSelf: 'center',
-                            marginTop: 10,
-                            color: '#d3d3d3',
-
-                        }}>
-                        App Version: {DeviceInfo.getVersion()}
-                    </Text>
+                    
                 </ScrollView>
             </View>
         )
