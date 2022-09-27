@@ -25,7 +25,7 @@ const win = Dimensions.get('window');
 class Services extends Component{
     constructor(props){
         super(props);
-        console.warn("back",props)
+        // console.warn("back",props)
         this.state={
             data:'',
             active_cat:0,
@@ -500,8 +500,14 @@ class Card extends Component{
                 :
                 <Image source={require('../img/non_veg.png')} style={{width:15,height:15}}/>
                 }
+               {
+                item.product_img == "" ?
+                <Image source={require('../img/logo/mp.png')} style={{width:80,height:80,marginTop:10}}/>
+                :
                 <Image source={{uri:global.image_url+item.product_img}}
                 style={style.logo}/>
+               }
+                {/* <Image source={require('../img/logo/mp.png')} style={{width:80,height:80,marginTop:10}}/> */}
                 </View>
                 {/* View for Content */}
                 
