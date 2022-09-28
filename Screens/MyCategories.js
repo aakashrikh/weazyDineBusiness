@@ -75,7 +75,7 @@ class MyCategories extends Component{
             { text: "OK", onPress: () => this.delete(id,name) }
           ]
         )
-      }
+    }
 
     delete=(id,name)=>{
         console.warn(id)
@@ -118,8 +118,10 @@ class MyCategories extends Component{
 
     productCard=({item})=>(
         <View style={{paddingHorizontal:20,paddingVertical:12,flexDirection:"row",justifyContent:"space-between",borderWidth:1,marginTop:5,borderColor:"#d3d3d3",width:"97%",alignSelf:"center",borderRadius:10,alignItems:"center"}}>
-            <Text style={styles.h3}>{item.name}</Text>
-            <View style={{flexDirection:"row"}} >
+            <View style={{width:"70%"}}>
+                <Text style={styles.h4} numberOfLines={2}>{item.name}</Text>
+            </View>
+            <View style={{flexDirection:"row",width:"27%"}} >
             <Pressable style={[style.uploadButton,{marginRight:15,backgroundColor:"#f2f2f2"}]} onPress={()=>this.edit(item.id,item.name)} >
                 <Icon type="ionicon" name="create-outline"  />
             </Pressable>
@@ -129,6 +131,7 @@ class MyCategories extends Component{
             </View>
         </View>
     );
+    
     render(){
         return(
             <View style={styles.container}>

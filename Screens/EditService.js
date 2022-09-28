@@ -98,7 +98,7 @@ export default EditService;
 class Fields extends Component {
     constructor(props) {
         super(props);
-console.warn(';;',this.props.data.addon_map);
+// console.warn(';;',this.props.data.addon_map);
         this.state = {
             name: "",
             cat_name: {},

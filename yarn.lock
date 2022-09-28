@@ -749,6 +749,13 @@
     "minimatch" "^3.0.4"
     "strip-json-comments" "^3.1.1"
 
+"@freakycoder/react-native-progressive-fast-image@^0.2.5":
+  "integrity" "sha512-UEJfY1JS70og5XqFd7P24ZhOdrWqvW22iJ1UMfqNllJpb/of/CWbDS/8zVfZMEG9pNGffN8FsSYApLoYMIfZpA=="
+  "resolved" "https://registry.npmjs.org/@freakycoder/react-native-progressive-fast-image/-/react-native-progressive-fast-image-0.2.5.tgz"
+  "version" "0.2.5"
+  dependencies:
+    "react-native-fast-image" ">= 8.3.2"
+
 "@hapi/hoek@^9.0.0":
   "integrity" "sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug=="
   "resolved" "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.2.0.tgz"
@@ -6144,6 +6151,11 @@
     "opencollective-postinstall" "^2.0.3"
     "react-native-ratings" "8.0.4"
     "react-native-size-matters" "^0.3.1"
+
+"react-native-fast-image@^8.6.1", "react-native-fast-image@>= 8.3.2":
+  "integrity" "sha512-ILuP7EuakqHNzTr8ZbumhuxG4tE/wGQ66z4nEEuzc0FlqY6rYaPsnq/UD2ahoyFj6QP1WvA2RIK3odib+VcqWg=="
+  "resolved" "https://registry.npmjs.org/react-native-fast-image/-/react-native-fast-image-8.6.1.tgz"
+  "version" "8.6.1"
 
 "react-native-geocoding@^0.5.0":
   "integrity" "sha512-peTXRpRxPLiZpbTW43AOvoXXAEoS+eLnSo4KRY0hcL9F2hulWE5r7o5KiaLx8AWj35c6EJP3fdGHe754q2Gd2Q=="

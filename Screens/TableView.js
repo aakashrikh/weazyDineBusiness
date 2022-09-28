@@ -34,7 +34,7 @@ class TableView extends Component {
     constructor(props) {
 
         super(props);
-        console.warn(props)
+        // console.warn(props)
         this.state = {
             category: "",
             status: "active",
@@ -67,7 +67,7 @@ class TableView extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                console.warn("hh",json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
@@ -79,7 +79,7 @@ class TableView extends Component {
                         // console.warn(json.data)
                         this.setState({ data: json.data[0] })
                         this.setState({ cart: json.data[0].cart })
-                        console.warn("cart", this.state.cart)
+                        // console.warn("cart", this.state.cart)
                     }
 
                     // let myInterval = setInterval(() => {

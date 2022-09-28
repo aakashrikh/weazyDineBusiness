@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@freakycoder/react-native-progressive-fast-image": "^0.2.5",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-community/datetimepicker": "^3.5.2",
@@ -40,6 +41,7 @@
     "react-native-dropdown-menu": "^2.0.0",
     "react-native-dropdown-picker": "^5.1.23",
     "react-native-elements": "^3.4.2",
+    "react-native-fast-image": "^8.6.1",
     "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-places-autocomplete": "^2.4.1",

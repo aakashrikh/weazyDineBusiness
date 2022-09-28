@@ -45,7 +45,7 @@ class Packages extends Component {
     this.get_vendor_product(0, 1)
     this.focusListener = this.props.navigation.addListener('focus', () => {
       this.get_category();
-      if(this.props.route.params != undefined){
+      if(this.props.route.params != undefined && this.props.route.params.active_cat != undefined){
         this.setState({active_cat:this.props.route.params.active_cat})
       }
     })

@@ -26,6 +26,8 @@ target 'weazydinebusiness' do
 
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
   target 'weazydinebusinessTests' do
     inherit! :complete
     # Pods for testing

@@ -188,7 +188,7 @@ class Fields extends Component {
     set_value = (index) => {
         var vv = this.state.cat_id[index];
         this.setState({ c_id: vv })
-        console.warn(this.state.c_id)
+        // console.warn(this.state.c_id)
     }
 
     //Create service button
@@ -247,7 +247,7 @@ class Fields extends Component {
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
+                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

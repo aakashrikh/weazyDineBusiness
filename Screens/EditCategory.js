@@ -62,7 +62,7 @@ class EditCategory extends Component{
                                 status: this.state.status
                                     })}).then((response) => response.json())
                                     .then((json) => {
-                                        console.warn(json)
+                                        // console.warn(json)
                                         if(!json.status)
                                         {
                                             var msg=json.msg;
