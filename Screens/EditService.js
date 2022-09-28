@@ -45,6 +45,7 @@ class EditService extends Component {
             data: this.props.route.params.data,
             category: this.props.route.params.category,
             image_upload: "",
+            image:""
         }
     }
 
@@ -117,6 +118,7 @@ console.warn(';;',this.props.data.addon_map);
             height: 0,
             is_veg: this.props.data.is_veg,
             image_upload: "",
+            image:''
         };
     }
 
@@ -135,7 +137,8 @@ console.warn(';;',this.props.data.addon_map);
                 let path = response.assets.map((path) => {
                     return (
                         //  console.warn(path.uri) 
-                        this.setState({ image_upload: path.uri })
+                        // this.setState({ image_upload: path.uri })
+                        this.setState({ image: path.uri })
                     )
                 });
                 this.RBSheet.close()
@@ -153,7 +156,8 @@ console.warn(';;',this.props.data.addon_map);
         }).then(image => {
             console.log(image);
             // this.setState({image:"Image Uploaded"})
-            this.setState({ image_upload: image.path });
+            // this.setState({ image_upload: image.path });
+            this.setState({ image: image.path })
             this.RBSheet.close()
             // this.upload_image();      
         })
@@ -230,10 +234,10 @@ console.warn(';;',this.props.data.addon_map);
         }
         else {
             this.setState({ isLoading: true });
-            if (this.state.image_upload != '') {
+            if (this.state.image != '') {
                 // console.warn("jkkj")
                 var photo = {
-                    uri: this.state.image_upload,
+                    uri: this.state.image,
                     type: 'image/jpg',
                     name: 'akash.jpg'
                 };

@@ -151,7 +151,7 @@ class Demo extends Component {
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     
                     {/* Total Feed Views */}
-                    <TouchableOpacity style={{ width: "90%" }} onPress={() => this.props.navigation.navigate("Wallet")}>
+                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("Wallet")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -170,7 +170,23 @@ class Demo extends Component {
                     </TouchableOpacity>
 
                     
-
+                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                        <LinearGradient
+                            start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+                            colors={['#ffffff', '#ffffff']}
+                            style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
+                            <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
+                                <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
+                                <Text style={{ color: '#222', fontSize: RFValue(12,580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
+                                    ORDERS
+                                </Text>
+                            </View>
+                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                                {item.orders}
+                            </Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
                     {/* Total Feed Views */}
                     {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
@@ -195,7 +211,7 @@ class Demo extends Component {
 
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     {/* Shop Visits View  */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>
+                    {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -211,10 +227,10 @@ class Demo extends Component {
                                 {item.shop_visit}
                             </Text>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                     {/* Shop Visits View  */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                    {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -230,7 +246,7 @@ class Demo extends Component {
                                 {item.orders}
                             </Text>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
 

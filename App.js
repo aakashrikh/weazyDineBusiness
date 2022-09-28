@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Platform
+  Image, Linking, Platform
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -121,10 +121,10 @@ const Stacks = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 
 //for demo
-// global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
+global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
 global.image_url = ""
 
 global.login_data = true
@@ -226,6 +226,13 @@ class App extends Component {
     NetInfo.addEventListener(state => {
       this.handleConnectivityChange(state.isConnected);
     });
+
+    Linking.getInitialURL().then((url) => {
+      console.log('Initial url is: ' + url);
+      if(url != null && url != undefined && url != ""){
+        Linking.openURL(url);
+      }
+  }).catch(err => console.error('An error occurred', err));
 
     AsyncStorage.getItem('@auth_login', (err, result) => {
       console.warn(result)
@@ -343,9 +350,9 @@ class App extends Component {
             <Stacks.Navigator >
               {!this.state.islogin ? (
                 <>
-                  {/* <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} /> */}
-                  <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/>
-                  {/* <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} /> */}
+                  <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
+                  {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
+                  <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
 
                 </>
               )
