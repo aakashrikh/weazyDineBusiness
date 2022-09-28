@@ -25,7 +25,7 @@ const win = Dimensions.get('window');
 class Services extends Component{
     constructor(props){
         super(props);
-        // console.warn("back",props)
+        console.warn("back",props)
         this.state={
             data:'',
             active_cat:0,
@@ -491,7 +491,7 @@ class Card extends Component{
       }
 
       productCard = ({item}) => (
-        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate("ProductDetails",{data:item, edit:this.editNavigation()})}>
+        <TouchableOpacity style={style.card} onPress={()=>this.props.navigation.navigate("ProductDetails",{data:item})}>
             <View style={{flexDirection:"row",width:"100%" }}>
               {/* View for Image */}
                <View style={{width:"27%"}}>

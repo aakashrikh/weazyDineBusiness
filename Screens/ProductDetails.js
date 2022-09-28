@@ -66,7 +66,11 @@ class ProductDetails extends Component {
             <ScrollView>
                <View style={style.viewBox}>
                   <View style={{ width: "20%" }}>
-                     <Image source={{ uri: global.image_url + this.props.route.params.data.product_img }} style={style.productImg} />
+                     {this.props.route.params.product_image == "" ?
+                         <Image source={require('../img/logo/mp.png')} style={style.productImg} />
+                        :
+                        <Image source={{ uri: global.image_url + this.props.route.params.data.product_img }} style={style.productImg} />
+                  }  
                   </View>
 
                   <View style={{ width: "70%", justifyContent: "center", paddingLeft: 40 }}>

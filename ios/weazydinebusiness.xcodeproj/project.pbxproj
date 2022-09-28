@@ -21,6 +21,7 @@
 		076FCD7028424F2600C94292 /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25B90F65B9C540FE9D66E53A /* Montserrat-SemiBold.ttf */; };
 		076FCD7128424F6600C94292 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3197B58A79C445388E025AA0 /* Roboto-Medium.ttf */; };
 		076FCD722842506F00C94292 /* Raleway-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7DEAB58336E54E7C97963DED /* Raleway-Medium.ttf */; };
+		07F3729328E433CF000385AB /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8BDC0A3280AFB289C1FBE496 /* libPods-weazydinebusiness-weazydinebusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D0219BE31F2B50349DAC07 /* libPods-weazydinebusiness-weazydinebusinessTests.a */; };
@@ -38,7 +39,28 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = MarketPlussVendor;
 		};
+		07F3729428E433CF000385AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 070AFCCD285333C200FC6962;
+			remoteInfo = OneSignalNotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		07F3729628E433CF000385AB /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				07F3729328E433CF000385AB /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* weazydinebusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weazydinebusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -446,10 +468,12 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				59900900E352D20F4FE4A0A1 /* [CP] Embed Pods Frameworks */,
 				C2E8268767463325F4E80C36 /* [CP] Copy Pods Resources */,
+				07F3729628E433CF000385AB /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				07F3729528E433CF000385AB /* PBXTargetDependency */,
 			);
 			name = weazydinebusiness;
 			productName = MarketPlussVendor;
@@ -738,6 +762,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* weazydinebusiness */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		07F3729528E433CF000385AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 070AFCCD285333C200FC6962 /* OneSignalNotificationServiceExtension */;
+			targetProxy = 07F3729428E433CF000385AB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

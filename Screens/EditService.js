@@ -274,7 +274,7 @@ console.warn(';;',this.props.data.addon_map);
                         this.props.get_cat();
                         this.props.get_product(0);
 
-                        this.props.navigation.navigate("Products", { refresh: true })
+                        this.props.navigation.navigate("Products", { refresh: true,active_cat:0 })
                     }
                     return json;
                 }).catch((error) => {
@@ -418,7 +418,7 @@ console.warn(';;',this.props.data.addon_map);
                                 <Text style={[style.fieldsTitle,{fontFamily:"Raleway-Bold"}]}> + Variants & Add-Ons</Text>
                             </TouchableOpacity>
                         </View>
-                        {this.props.data.variants.length > 0 && this.props.data.addon_map.length > 0 ?
+                        {/* {this.props.data.variants.length > 0 && this.props.data.addon_map.length > 0 ?
                             <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addon_map, refresh: false }) }}>
                                 <Text style={[style.textInput, { justifyContent: "center", paddingTop: 8 }]}>
                                     {this.props.data.variants.length} Variants & {this.props.data.addon_map.length} Add-Ons
@@ -426,7 +426,7 @@ console.warn(';;',this.props.data.addon_map);
                             </TouchableOpacity>
                             :
                             <></>
-                        }
+                        } */}
                     </View>
 
                     <View style={{ flexDirection: "row", width: "100%" }}>
