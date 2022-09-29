@@ -50,7 +50,8 @@ class Home extends Component {
       link: "",
       gstin: "",
       image_loade: true,
-      status: true
+      status: true,
+      // subscription:true
     };
   }
 
@@ -94,6 +95,7 @@ class Home extends Component {
 
   componentDidMount = async () => {
     // alert(global.vendor)
+    // this.setState({subscription:false});
     this.get_profile();
     this.get_cover();
     this.checkBankDetails();
@@ -142,7 +144,7 @@ class Home extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        // console.warn(json)
+        console.warn(json)
         if (!json.status) {
 
         }
@@ -493,6 +495,27 @@ class Home extends Component {
             </View>
 
           </ScrollView>
+
+          {/* {this.state.subscription ?
+          <></>
+        :
+        <View style={{position:"absolute",bottom:0,backgroundColor:"#EDA332",
+        width:Dimensions.get('window').width,height:50,flexDirection:"row",justifyContent:"space-evenly"
+        }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Subscription")}
+           style={{width:"80%",justifyContent:"center",alignItems:"center"}}>
+            <Text style={{color:"white",fontSize:RFValue(12,580),fontFamily:"Poppins-SemiBold"}}>
+              Your trial will end in 12 Days!
+            </Text>
+          </TouchableOpacity>
+          <View style={{width:"20%",justifyContent:"center",alignItems:"center"}}>
+            <TouchableOpacity style={{backgroundColor:"#fff",borderRadius:100,
+              width:30, height:30,justifyContent:"center"}} onPress={()=>{this.setState({subscription:true})}}>
+              <Icon size={18} type="ionicon" name="close" />
+            </TouchableOpacity>
+          </View>
+
+        </View>} */}
         </View>
       </SafeAreaView>
 
@@ -616,5 +639,27 @@ const style = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+},
+modalView: {
+    margin: 20,
+    width: 300,
+    backgroundColor: "white",
+    borderRadius: 5,
+    padding: 15,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+}
 
 })

@@ -297,7 +297,7 @@ class Fields extends Component {
             <View>
                 <View>
                     <Text style={style.fieldsTitle}>
-                        Name{this.state.is_veg}
+                        Name
                     </Text>
                     <TextInput
                         value={this.state.name}
@@ -418,7 +418,7 @@ class Fields extends Component {
                                 <Text style={[style.fieldsTitle,{fontFamily:"Raleway-Bold"}]}> + Variants & Add-Ons</Text>
                             </TouchableOpacity>
                         </View>
-                        {/* {this.props.data.variants.length > 0 && this.props.data.addon_map.length > 0 ?
+                        {this.props.data.variants.length > 0 || this.props.data.addon_map.length > 0 ?
                             <TouchableOpacity style={{ justifyContent: "center" }} onPress={() => { this.props.navigation.navigate('ProductVariants', { product_id: this.state.prod_id, variants: this.props.data.variants, addons: this.props.data.addon_map, refresh: false }) }}>
                                 <Text style={[style.textInput, { justifyContent: "center", paddingTop: 8 }]}>
                                     {this.props.data.variants.length} Variants & {this.props.data.addon_map.length} Add-Ons
@@ -426,7 +426,7 @@ class Fields extends Component {
                             </TouchableOpacity>
                             :
                             <></>
-                        } */}
+                        }
                     </View>
 
                     <View style={{ flexDirection: "row", width: "100%" }}>
