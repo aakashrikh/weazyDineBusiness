@@ -265,7 +265,7 @@ class Home extends Component {
   }
 
   share_whatsapp = (link, name) => {
-    console.warn('a',link,name)
+    console.warn('a', link, name)
     Linking.openURL('whatsapp://send?text=Hey there!\n\n Now you can order online from ' + name + ' using this link: \n' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
   }
 
@@ -284,7 +284,7 @@ class Home extends Component {
     return (
       <View style={{ padding: 5, right: 5 }}>
         <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
-        onPress={()=>this.props.navigation.navigate("Notification")}>
+          onPress={() => this.props.navigation.navigate("Notification")}>
           <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
         </TouchableOpacity>
       </View>
@@ -483,14 +483,18 @@ class Home extends Component {
             }}>
               <Text style={[styles.h3]}>Share More to Earn More </Text>
               <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
-                <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link, this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
-                  <View style={{ flexDirection: "row", alignSelf: "center" }}>
-                    <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
-                    <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
-                  </View>
-                </TouchableOpacity>
+              <View style={{ flexDirection: 'row',width: Dimensions.get('window').width / 1.05}}>
+                <View style={{width:"50%"}}>
+                  <Text numberOfLines={2} style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
+                </View>
+                <View style={{width:"40%"}}>
+                  <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link, this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
+                    <View style={{ flexDirection: "row", alignSelf: "center" }}>
+                      <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
+                      <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
@@ -644,8 +648,8 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 22
-},
-modalView: {
+  },
+  modalView: {
     margin: 20,
     width: 300,
     backgroundColor: "white",
@@ -654,12 +658,12 @@ modalView: {
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
-        width: 0,
-        height: 2
+      width: 0,
+      height: 2
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
-}
+  }
 
 })

@@ -121,10 +121,10 @@ const Stacks = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 
 //for demo
-// global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
+global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
 global.image_url = ""
 
 global.login_data = true
@@ -350,9 +350,9 @@ class App extends Component {
             <Stacks.Navigator >
               {!this.state.islogin ? (
                 <>
-                  {/* <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} /> */}
-                  <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/>
-                  {/* <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} /> */}
+                  <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
+                  <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
+                  {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
 
                 </>
               )

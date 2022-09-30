@@ -4,11 +4,12 @@ import {
     StyleSheet, Image,
     TouchableOpacity, FlatList, Dimensions,
 } from 'react-native';
-import { Icon, Header} from 'react-native-elements';
+import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import moment from 'moment';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import * as Animatable from 'react-native-animatable';
 
 const win = Dimensions.get('window');
 //Global StyleSheet Import
@@ -28,9 +29,11 @@ class CashbackHistory extends Component {
 
     componentDidMount() {
         this.fetch_order(1);
+        this.focusListener = this.props.navigation.addListener('focus', () => {
+            this.fetch_order(1);
+        });
     }
 
-    //for header left component
     //for header left component
     renderLeftComponent() {
         return (
@@ -40,6 +43,7 @@ class CashbackHistory extends Component {
             </View>
         )
     }
+
     //for header center component
     renderCenterComponent() {
         return (
@@ -67,10 +71,16 @@ class CashbackHistory extends Component {
             .then((json) => {
                 if (!json.status) {
 
-                   
+
                 }
                 else {
+                    var refresh = setInterval(() => {
+                        this.fetch_order(1);
+                    }, 20000);
                     this.setState({ data: json.data.data });
+                    if (json.data.data.length >= 0) {
+                        clearInterval(refresh);
+                    }
                     // this.props.navigation.navigate("More")
 
                 }
@@ -98,59 +108,73 @@ class CashbackHistory extends Component {
     renderItem = ({ item, id }) => {
         return (
             <TouchableOpacity onPress={() => { this.props.navigation.navigate("VoucherDetails", { code: item.order_code }) }}>
-                <View style={{ flexDirection: "row", marginTop: 10, borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 7 }}>
-                    
-                    <View style={{ flexDirection: "row",marginTop: 5, marginLeft: 15,width:'100%' }}>
 
-                        <View style={{width:'65%'}}>
-                        <Text style={[styles.h5,{marginBottom:5,fontFamily:"Roboto-Bold"}]}>
-                            Table No : {item.table_no}
-                        </Text>
-                        <Text style={[styles.h5,{marginBottom:5,fontFamily:"Roboto-Bold"}]}>
-                            {item.order_code}
-                        </Text>
+                <View style={{ marginTop: 10, borderWidth: 1, width: "95%", alignSelf: "center", borderRadius: 10, backgroundColor: "white", borderColor: "#d3d3d3", padding: 7 }}>
 
-                        <Text style={[styles.h4,{fontFamily:"Roboto-Bold"}]}>
-                            {item.user.name}
-                        </Text>
-                        <Text style={[styles.h5,{marginBottom:10,fontFamily:"Roboto-Medium"}]}>
-                            {moment(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
-                        </Text>
-                        <Text >
-                         <Text style={[styles.h4, { color: '#000',fontWeight:'bold',paddingTop:20 }]}>Rs {item.total_amount}/-</Text>
-                        </Text>
+                    <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
+
+                        <View style={{ width: '65%' }}>
+                            <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
+                                Table No : {item.table_no}
+                            </Text>
+                            <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
+                                {item.order_code}
+                            </Text>
+
+                            <Text style={[styles.h4, { fontFamily: "Roboto-Bold" }]}>
+                                {item.user.name}
+                            </Text>
+                            <Text style={[styles.h5, { marginBottom: 10, fontFamily: "Roboto-Medium" }]}>
+                                {moment(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
+                            </Text>
+                            <Text >
+                                <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20 }]}>Rs {item.total_amount}/-</Text>
+                            </Text>
+                        </View>
+
+                        <View style={{ width: '30%', justifyContent: "space-between" }}>
+                            <>
+                                {
+                                    (item.order_status == 'pending') ?
+                                        <Text style={{ backgroundColor: 'orange', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                            <Text style={[styles.p, { color: '#fff', alignSelf: 'center' }]}>Pending</Text>
+                                        </Text>
+                                        :
+                                        (item.order_status == 'cancelled') ?
+                                            <Text style={{ backgroundColor: 'red', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                <Text style={[styles.p, { color: '#fff', alignSelf: 'center' }]}>Cancelled</Text>
+                                            </Text>
+                                            :
+                                            (item.order_status == 'completed') ?
+                                                <Text style={{ backgroundColor: 'green', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                    <Text style={[styles.p, { color: '#fff', alignSelf: 'center', fontFamily: "Roboto-Bold" }]}>Completed</Text>
+                                                </Text>
+
+                                                :
+                                                (item.order_status == 'ongoing') ?
+                                                    <Text style={{ backgroundColor: '#EDA332', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                        <Text style={[styles.p, { color: '#fff', alignSelf: 'center', fontFamily: "Roboto-Bold" }]}>Ongoing</Text>
+                                                    </Text>
+                                                    :
+                                                    <Text style={{ backgroundColor: '#EDA332', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                        <Text style={[styles.p, { color: '#fff', alignSelf: 'center' }]}>{item.order_status}</Text>
+                                                    </Text>
+
+                                }
+                            </>
+
+                            {item.order_status == "ongoing" ?
+                                <Animatable.View style={{ flexDirection: "row", marginLeft: 10 }}
+                                    animation="pulse"
+                                    duraton="1500" iterationCount="infinite">
+                                    <Icon type="ionicon" name="time-outline" size={20} color="green" />
+                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold", paddingLeft: 5 }}>20 Mins</Text>
+                                </Animatable.View>
+                                :
+                                <></>
+                            }
+                        </View>
                     </View>
-
-                    <View style={{width:'30%'}}>
-                        {(item.order_status == 'pending')?
-                          <Text style={{backgroundColor:'orange',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                          <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>Pending</Text>
-                      </Text>
-                        :
-                        (item.order_status == 'cancelled')?
-                        <Text style={{backgroundColor:'red',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>Cancelled</Text>
-                    </Text>
-                        :
-                        (item.order_status == 'completed')?
-                        <Text style={{backgroundColor:'green',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>Completed</Text>
-                    </Text>
-
-                        :
-                        (item.order_status == 'ongoing') ?
-                        <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center',fontFamily:"Roboto-Bold" }]}>Ongoing</Text>
-                     </Text>
-                        :
-                        <Text style={{backgroundColor:'#EDA332',paddingLeft:10,alignSelf:'center', paddingRight:10,borderRadius:5,paddingTop:5,paddingBottom:5}}>
-                        <Text style={[styles.p, { color: '#fff',alignSelf:'center' }]}>{item.order_status}</Text>
-                    </Text>
-
-                        }
-                      
-                    </View>
-                </View>
                 </View>
             </TouchableOpacity>
 
@@ -187,8 +211,8 @@ class CashbackHistory extends Component {
                             /> :
                             <View>
 
-                                <Image source={require('../img/record.jpg')} style={{width:'80%',height:200,marginLeft:10,marginTop:150,alignSelf:'center'}} />
-                                <Text style={[styles.h4, { alignSelf: 'center',marginTop:20 }]} >
+                                <Image source={require('../img/record.jpg')} style={{ width: '80%', height: 200, marginLeft: 10, marginTop: 150, alignSelf: 'center' }} />
+                                <Text style={[styles.h4, { alignSelf: 'center', marginTop: 20 }]} >
                                     No Records Found.
                                 </Text>
 

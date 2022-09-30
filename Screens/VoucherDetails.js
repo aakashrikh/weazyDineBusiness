@@ -6,14 +6,13 @@ import {
 } from 'react-native';
 import { Icon, Header, Input, ThemeConsumer } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import Demo from './Demo.js';
-
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-
 import RBSheet from 'react-native-raw-bottom-sheet';
 import moment from 'moment';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button'
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import * as Animatable from 'react-native-animatable';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 var radio_props = [
@@ -160,6 +159,20 @@ class VoucherDetails extends Component {
 
                             <>
                             <View style={style.viewBox}>
+
+                                <View >
+                                    {this.state.data.order_status == "ongoing" ?
+                                    <Animatable.View style={{ flexDirection: "row", marginRight: 10, alignSelf:"flex-end" }}
+                                        animation="pulse"
+                                        duraton="1500" iterationCount="infinite">
+                                        <Icon type="ionicon" name="time-outline" size={20} color="#fff" />
+                                        <Text style={{ fontSize: RFValue(11, 580), color: "#fff", fontWeight: "bold", paddingLeft: 5 }}>20 Mins</Text>
+                                    </Animatable.View>
+                                    :
+                                    <></>}
+                                </View>
+
+                                <View style={{flexDirection:"row"}}>
                                 <View style={{width:"20%"}}>
                                     <Image source={require('../img/order.png')} style={{height:60,width:60}}/>
                                 </View>
@@ -187,6 +200,7 @@ class VoucherDetails extends Component {
                                         </Text>
                                     </Text>
                                     <Text style={[style.textWhite,{fontSize:RFValue(12,580)}]}>{moment(this.state.data.created_at).format('ddd, MMMM Do YYYY, h:mm a')}</Text>
+                                </View>
                                 </View>
                             </View>
 
@@ -433,7 +447,7 @@ const style = StyleSheet.create({
         // marginLeft:10
     },
     viewBox:{
-        flexDirection: "row",
+        // flexDirection: "row",
         width:Dimensions.get("window").width/1.05,
         backgroundColor:"#EDA332",
         alignSelf:"center",
