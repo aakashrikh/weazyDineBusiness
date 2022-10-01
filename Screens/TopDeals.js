@@ -153,12 +153,14 @@ class TopDeals extends Component {
                 />
                 <View style={{ flex: 1, backgroundColor: "#fafafa", paddingHorizontal: 10, height: Dimensions.get("window").height, }} >
                     {this.state.title == "New Customer" ?
-                        <View style={{ backgroundColor: 'white', paddingLeft: 10, marginTop: 20, paddingVertical: 10, width: "93%", alignSelf: "center", shadowRadius: 10, borderRadius: 5, paddingVertical: 30, elevation: 5 }}>
+                        <View style={{ backgroundColor: 'white', paddingLeft: 10, marginTop: 20, paddingVertical: 10, width: "93%", alignSelf: "center", paddingVertical: 30,borderRadius:5,
+                        shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,shadowColor: "#000", }}>
                             <Text style={style.fieldsText}>Deals(%) for new customer</Text>
                             <TextInput
                                 value={this.state.first_deal}
                                 maxLength={2}
                                 keyboardType="number-pad"
+                                returnKeyType='done'
                                 onChangeText={(e) => { this.setState({ first_deal: e }) }}
                                 style={{
                                     width: "90%", color: '#5d5d5d',
@@ -193,13 +195,15 @@ class TopDeals extends Component {
                         </View>
                         :
 
-                        <View style={{ backgroundColor: 'white', paddingLeft: 10, marginTop: 20, paddingVertical: 10, width: "93%", alignSelf: "center", shadowRadius: 10, borderRadius: 5, paddingVertical: 30, elevation: 5 }}>
+                        <View style={{ backgroundColor: 'white', paddingLeft: 10, marginTop: 20, paddingVertical: 10, width: "93%", alignSelf: "center", borderRadius: 5, paddingVertical: 30, 
+                        shadowOffset: {width: 0,height: 2},shadowOpacity: 0.25,shadowRadius: 4,elevation: 5,shadowColor: "#000", }}>
                             <Text style={style.fieldsText}>Deals(%) for all customer</Text>
                             <TextInput
                                 value={this.state.all_deal}
                                 maxLength={2}
                                 onChangeText={(e) => { this.setState({ all_deal: e }) }}
                                 keyboardType="number-pad"
+                                returnKeyType='done'
                                 style={{
                                     width: "90%", color: '#5d5d5d',
                                     height: 40,

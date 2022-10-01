@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     View, Text, ScrollView, Image,
-    TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground
+    TextInput, Button, StyleSheet, TouchableOpacity, ImageBackground, Platform
 } from 'react-native';
 import { Header, Icon } from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
@@ -65,10 +65,10 @@ class PrivacyPolicy extends Component {
                                 FOREGOING, WE ACCEPT NO RESPONSIBILITY FOR ANY TECHNICAL FAILURE OF THE INTERNET AND/OR THE APP; OR ANY DAMAGE OR INJURY
                                 TO USERS OR THEIR EQUIPMENT AS A RESULT OF OR RELATING TO THEIR USE OF THE APP. YOUR STATUTORY RIGHTS ARE NOT AFFECTED.{"\n"}{"\n"}</Text>
 
-                            Weazy Dine  will not be liable, in contract, tort (including, without limitation, negligence), under statute or otherwise, as a result of or in connection with the App, for any: {"\n"}
+                            Weazy Dine will not be liable, in contract, tort (including, without limitation, negligence), under statute or otherwise, as a result of or in connection with the App, for any: {"\n"}
 
-                            <Text style={{ fontFamily: "Roboto-Bold" }}>
-                                <Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> economic loss (including, without limitation, loss of revenues, profits, contracts, business or anticipated savings); or{"\n"}</Text>
+                            <Text style={{ fontFamily: "Roboto-Bold", marginLeft : Platform.OS == "ios" ? 10 : 0, }}>
+                                <Icon name='ellipse' style={{ marginTop: Platform.OS == "android" ? 2 : 5 }} size={8} type="ionicon" color="#696969" /> economic loss (including, without limitation, loss of revenues, profits, contracts, business or anticipated savings); or{"\n"}</Text>
 
                             <Text style={{ fontFamily: "Roboto-Bold" }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> loss of goodwill or reputation; or{"\n"}</Text>
 
@@ -95,7 +95,7 @@ class PrivacyPolicy extends Component {
 
                             <Text style={{ fontFamily: "Roboto-Bold" }}>General{"\n"}</Text>
 
-                            <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> These Terms (as amended from time to time) constitute the entire agreement between
+                            <Text>These Terms (as amended from time to time) constitute the entire agreement between
                                 you and Weazy Dine concerning your use of the App.{"\n"}</Text>
 
                             <Text><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> Weazy Dine reserves the right to update these Terms from time to time. If it does so,

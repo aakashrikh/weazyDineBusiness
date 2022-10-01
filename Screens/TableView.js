@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity, FlatList, Alert, Linking
+    ScrollView, Dimensions, TouchableOpacity, FlatList, Alert, Linking, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -413,13 +413,13 @@ class TableView extends Component {
 
                 </ScrollView>
 
-                <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0 }}>
+                <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
 
                     {(this.state.cart.length > 0) ?
                         <TouchableOpacity
-                            // onPress={this.send_otp}
                             onPress={() => this.genrate_bill()}
-                            style={[styles.buttonStyle, { bottom: 10 }]}>
+                            // onPressIn={() => alert("hi")}
+                            style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10}]}>
                             <LinearGradient
                                 colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
                                 style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>

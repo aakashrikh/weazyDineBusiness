@@ -149,41 +149,41 @@ class ChangeShopTime extends Component {
 
   handleOpenPicker = (time) => {
 
-    // const object = this.state.timing;
+    const object = this.state.timing;
 
-    // if (this.state.current_time == 'open') {
-    //   object[this.state.current_day].open = moment(time).format('hh:mm A');
-    // }
-    // else {
-    //   object[this.state.current_day].close = moment(time).format('hh:mm A');
-    // }
-
-
-    // if (this.state.current_day == 0 && this.state.current_time == 'open') {
-    //   object[1].open = moment(time).format('hh:mm A');
-    //   object[2].open = moment(time).format('hh:mm A');
-    //   object[3].open = moment(time).format('hh:mm A');
-    //   object[4].open = moment(time).format('hh:mm A');
-    //   object[5].open = moment(time).format('hh:mm A');
-    //   object[6].open = moment(time).format('hh:mm A');
-
-    // }
-    // else {
-    //   if (this.state.current_day == 0) {
-    //     object[1].close = moment(time).format('hh:mm A');
-    //     object[2].close = moment(time).format('hh:mm A');
-    //     object[3].close = moment(time).format('hh:mm A');
-    //     object[4].close = moment(time).format('hh:mm A');
-    //     object[5].close = moment(time).format('hh:mm A');
-    //     object[6].close = moment(time).format('hh:mm A');
-    //   }
-    // }
+    if (this.state.current_time == 'open') {
+      object[this.state.current_day].open = moment(time).format('hh:mm A');
+    }
+    else {
+      object[this.state.current_day].close = moment(time).format('hh:mm A');
+    }
 
 
-    // this.setState({ timing: object })
-    // this.setState({
-    //   isOpenVisible: false
-    // })
+    if (this.state.current_day == 0 && this.state.current_time == 'open') {
+      object[1].open = moment(time).format('hh:mm A');
+      object[2].open = moment(time).format('hh:mm A');
+      object[3].open = moment(time).format('hh:mm A');
+      object[4].open = moment(time).format('hh:mm A');
+      object[5].open = moment(time).format('hh:mm A');
+      object[6].open = moment(time).format('hh:mm A');
+
+    }
+    else {
+      if (this.state.current_day == 0) {
+        object[1].close = moment(time).format('hh:mm A');
+        object[2].close = moment(time).format('hh:mm A');
+        object[3].close = moment(time).format('hh:mm A');
+        object[4].close = moment(time).format('hh:mm A');
+        object[5].close = moment(time).format('hh:mm A');
+        object[6].close = moment(time).format('hh:mm A');
+      }
+    }
+
+
+    this.setState({ timing: object })
+    this.setState({
+      isOpenVisible: false
+    })
   }
 
   update_time = (timing) => {

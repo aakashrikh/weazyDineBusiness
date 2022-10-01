@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput, Pressable,
-    ScrollView, Dimensions, TouchableOpacity, Alert, ActivityIndicator
+    ScrollView, Dimensions, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import MultiSelect from 'react-native-multiple-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera} from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
-import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import RadioForm from 'react-native-simple-radio-button';
 import SelectDropdown from 'react-native-select-dropdown';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -286,6 +285,7 @@ class Fields extends Component {
                     </Text>
                     <TextInput
                         value={this.state.name}
+                        returnKeyType="done"
                         onChangeText={(e) => { this.setState({ name: e }) }}
                         style={style.textInput} />
                 </View>
@@ -321,6 +321,7 @@ class Fields extends Component {
 
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.market_price}
                         onChangeText={(e) => { this.setState({ market_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -336,6 +337,7 @@ class Fields extends Component {
                     </Text>
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.our_price}
                         onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -364,6 +366,7 @@ class Fields extends Component {
                         Description <Text style={{ color: "grey" }}>(50words) </Text>
                     </Text>
                     <TextInput
+                        returnKeyType='done'
                         multiline={true}
                         onContentSizeChange={(event) => {
                             this.setState({ height: event.nativeEvent.contentSize.height })
@@ -509,7 +512,8 @@ const style = StyleSheet.create({
         width: "35%",
         alignSelf: "center",
         marginTop: 50,
-        marginRight: 5
+        marginRight: 5,
+        marginBottom: Platform.OS === 'ios' ? 20 : 10,
     },
     iconPencil: {
         marginLeft: 20,

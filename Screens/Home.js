@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import {
   Text, View, ScrollView,
-  StyleSheet, Image, Pressable, ActivityIndicator,
-  TouchableOpacity, ImageBackground, Linking, Dimensions, SafeAreaView
+  StyleSheet, Image, StatusBar,
+  TouchableOpacity, Linking, Dimensions, SafeAreaView, Platform
 } from 'react-native';
-import { Header, Icon, LinearProgress } from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Demo from './Demo.js';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
@@ -16,8 +15,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swiper from 'react-native-swiper';
 import SwiperFlatList from 'react-native-swiper-flatlist'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Accordion } from 'react-native-paper/lib/typescript/components/List/List.js';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -297,21 +297,39 @@ class Home extends Component {
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={[styles.container, { backgroundColor: "#fff" }]}>
 
-          <Header
-            statusBarProps={{ barStyle: 'light-content' }}
-            centerComponent={this.renderCenterComponent()}
-            rightComponent={this.renderRightComponent()}
-            ViewComponent={LinearGradient} // Don't forget this!
-            linearGradientProps={{
-              colors: ['#EDA332', '#EDA332'],
-              start: { x: 0, y: 0.5 },
-              end: { x: 1, y: 0.5 },
-            }}
-            containerStyle={{
-              borderBottomLeftRadius: 10,
-              borderBottomRightRadius: 10,
-            }}
-          />
+          {Platform.OS == 'ios' ?
+            <>
+              <StatusBar backgroundColor="#fff" barStyle="dark-content" />
+              <View style={style.header}>
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", width: "100%", paddingTop: 20 }}>
+                  <Text style={{ color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold' }}>Welcome to Weazy Dine</Text>
+                  <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", }}
+                    onPress={() => this.props.navigation.navigate('Notification')}>
+                    <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </>
+            :
+            <>
+
+              <Header
+                statusBarProps={{ barStyle: 'light-content' }}
+                centerComponent={this.renderCenterComponent()}
+                rightComponent={this.renderRightComponent()}
+                ViewComponent={LinearGradient} // Don't forget this!
+                linearGradientProps={{
+                  colors: ['#EDA332', '#EDA332'],
+                  start: { x: 0, y: 0.5 },
+                  end: { x: 1, y: 0.5 },
+                }}
+                containerStyle={{
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+              />
+            </>
+          }
 
           {/* <View style={style.header}>
                         <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%",paddingTop:20}}>
@@ -483,11 +501,11 @@ class Home extends Component {
             }}>
               <Text style={[styles.h3]}>Share More to Earn More </Text>
               <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>
-              <View style={{ flexDirection: 'row',width: Dimensions.get('window').width / 1.05}}>
-                <View style={{width:"50%"}}>
+              <View style={{ flexDirection: 'row', width: Dimensions.get('window').width / 1.05 }}>
+                <View style={{ width: "50%" }}>
                   <Text numberOfLines={2} style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
                 </View>
-                <View style={{width:"40%"}}>
+                <View style={{ width: "40%" }}>
                   <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link, this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
                     <View style={{ flexDirection: "row", alignSelf: "center" }}>
                       <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />

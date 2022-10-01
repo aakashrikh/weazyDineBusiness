@@ -280,6 +280,7 @@ class Fields extends Component {
                         Name
                     </Text>
                     <TextInput
+                        returnKeyType='done'
                         value={this.state.name}
                         onChangeText={(e) => { this.setState({ name: e }) }}
                         style={style.textInput} />
@@ -318,6 +319,7 @@ class Fields extends Component {
 
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.market_price}
                         onChangeText={(e) => { this.setState({ market_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -333,6 +335,7 @@ class Fields extends Component {
                     </Text>
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.our_price}
                         onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -363,6 +366,7 @@ class Fields extends Component {
                     </Text>
                     <TextInput
                         multiline={true}
+                        returnKeyType='done'
                         onContentSizeChange={(event) => {
                             this.setState({ height: event.nativeEvent.contentSize.height })
                         }}
@@ -507,7 +511,8 @@ const style = StyleSheet.create({
         width: "35%",
         alignSelf: "center",
         marginTop: 30,
-        marginRight: 5
+        marginRight: 5,
+        marginBottom: Platform.OS === 'ios' ? 30 : 20,
     },
     iconPencil: {
         marginLeft: 20,

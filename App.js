@@ -233,7 +233,7 @@ class App extends Component {
         Linking.openURL(url);
       }
   }).catch(err => console.error('An error occurred', err));
-
+ 
     AsyncStorage.getItem('@auth_login', (err, result) => {
       console.warn(result)
       if (JSON.parse(result) != null) {

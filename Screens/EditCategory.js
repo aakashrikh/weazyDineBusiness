@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text,View,
     StyleSheet,Image,TextInput,
-    ScrollView,Dimensions,TouchableOpacity
+    ScrollView,Dimensions,TouchableOpacity, Platform
 } from 'react-native';
 import {Icon,Header} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -110,6 +110,7 @@ class EditCategory extends Component{
                       Category Name
                     </Text>
                     <TextInput 
+                    returnKeyType='done'
                     value={this.state.category}
                     onChangeText={(e)=>{this.setState({category:e})}}
                     style={style.textInput}
@@ -171,7 +172,8 @@ const style=StyleSheet.create({
     buttonText:{
         fontFamily:"Raleway-SemiBold",
         color:"#fff",
-        fontSize:RFValue(14,580)
+        fontSize:RFValue(14,580),
+        marginTop:Platform.OS == "ios" ? 6 : 0
     }
 
 })

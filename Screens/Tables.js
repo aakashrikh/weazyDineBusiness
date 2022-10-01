@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput,Linking,
-    ScrollView, Dimensions, TouchableOpacity,FlatList,ActivityIndicator
+    ScrollView, Dimensions, TouchableOpacity,FlatList,ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -202,7 +202,7 @@ class Tables extends Component {
                     <View style={{width:"30%",alignItems:"center",justifyContent:"center"}}>
                         <TouchableOpacity onPress={()=>{Linking.openURL(item.qr_link)}}
                         style={{backgroundColor:"#EDA332",padding:5,paddingTop:2,paddingHorizontal:10,flexDirection:"row",borderRadius:5}}>
-                            <Text style={{color:"#fff",fontSize:RFValue(12,580),fontFamily:"Raleway-Bold"}}>View QR</Text>
+                            <Text style={{color:"#fff",fontSize:RFValue(12,580),fontFamily:"Raleway-Bold", marginTop:Platform.OS == "ios" ? 3 : 0}}>View QR</Text>
                             <Icon type="ionicon" name="qr-code-outline" size={20} color="#fff" style={{marginLeft:5,marginTop:2}} />
                         </TouchableOpacity>
                     </View>

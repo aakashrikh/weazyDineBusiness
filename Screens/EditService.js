@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput, Pressable,
-    ScrollView, Dimensions, TouchableOpacity, Alert, ActivityIndicator
+    ScrollView, Dimensions, TouchableOpacity, Alert, ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -300,6 +300,7 @@ class Fields extends Component {
                         Name
                     </Text>
                     <TextInput
+                        returnKeyType='next'
                         value={this.state.name}
                         onChangeText={(e) => { this.setState({ name: e }) }}
                         style={style.textInput} />
@@ -338,6 +339,7 @@ class Fields extends Component {
 
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.market_price}
                         onChangeText={(e) => { this.setState({ market_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -354,6 +356,7 @@ class Fields extends Component {
                     </Text>
                     <TextInput
                         keyboardType="numeric"
+                        returnKeyType='done'
                         value={this.state.our_price}
                         onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
@@ -568,7 +571,7 @@ const style = StyleSheet.create({
         alignSelf: "center",
         marginTop: 50,
         marginRight: 5,
-        marginBottom: 20
+        marginBottom: Platform.OS === 'ios' ? 30 : 20,
     },
     iconPencil: {
         marginLeft: 20,

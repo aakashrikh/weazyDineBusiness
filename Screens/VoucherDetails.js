@@ -160,17 +160,17 @@ class VoucherDetails extends Component {
                             <>
                             <View style={style.viewBox}>
 
-                                <View >
+                                {/* <View >
                                     {this.state.data.order_status == "ongoing" ?
                                     <Animatable.View style={{ flexDirection: "row", marginRight: 10, alignSelf:"flex-end" }}
                                         animation="pulse"
                                         duraton="1500" iterationCount="infinite">
                                         <Icon type="ionicon" name="time-outline" size={20} color="#fff" />
-                                        <Text style={{ fontSize: RFValue(11, 580), color: "#fff", fontWeight: "bold", paddingLeft: 5 }}>20 Mins</Text>
+                                        <Text style={{ fontSize: RFValue(11, 580), color: "#fff", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
                                     </Animatable.View>
                                     :
                                     <></>}
-                                </View>
+                                </View> */}
 
                                 <View style={{flexDirection:"row"}}>
                                 <View style={{width:"20%"}}>
@@ -178,7 +178,7 @@ class VoucherDetails extends Component {
                                 </View>
 
                                 <View style={{width:"80%"}}>
-                                    <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Table No. : {this.state.data.table_no}</Text>
+                                    {/* <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Table No. : {this.state.data.table_no}</Text> */}
                                     <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Order ID : {this.state.data.order_code}</Text>
                                     <Text style={[style.textWhite,{fontSize:RFValue(12,580)}]}>Status : 
                                     <Text>

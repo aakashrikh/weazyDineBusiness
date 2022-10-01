@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image,
-    TouchableOpacity, FlatList, Dimensions,
+    TouchableOpacity, FlatList, Dimensions, Platform,
 } from 'react-native';
 import { Icon, Header,} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -31,7 +31,6 @@ class Wallet extends Component {
         this.fetch_order(1);
     }
 
-    //for header left component
     //for header left component
     renderLeftComponent() {
         return (
@@ -175,7 +174,7 @@ class Wallet extends Component {
                                 data={this.state.data}
                                 renderItem={this.renderItem}
                                 keyExtractor={item => item.id}
-                                style={{ flex: 1 }}
+                                style={{ marginBottom:Platform.OS == "ios" ? 20 : 10 }}
                                 onEndReached={() => { this.load_more() }}
                                 onEndReachedThreshold={0.5}
                             /> :

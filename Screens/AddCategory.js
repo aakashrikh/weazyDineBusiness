@@ -118,6 +118,7 @@ class AddCategory extends Component {
                             Category Name
                         </Text>
                         <TextInput
+                        returnKeyType='done'
                             value={this.state.category}
                             onChangeText={(e) => { this.setState({ category: e }) }}
                             style={style.textInput}

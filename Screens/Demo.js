@@ -18,7 +18,7 @@ class Demo extends Component {
             recurring_deal: "",
         }
     }
-    
+
     componentDidMount = async () => {
         this.get_vendor_data();
         this.get_profile();
@@ -90,56 +90,6 @@ class Demo extends Component {
     }
 
     render() {
-        const chartConfig = {
-            backgroundColor: "grey",
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-            strokeWidth: 3, // optional, default 3
-            barPercentage: 3,
-            useShadowColorFromDataset: false, // optional
-            backgroundGradientFrom: "#1E2923",
-            backgroundGradientFromOpacity: 0,
-            backgroundGradientTo: "#08130D",
-            backgroundGradientToOpacity: 0.5,
-        };
-
-        const data = [
-            {
-                name: "5 Star",
-                population: 9150000,
-                color: "green",
-                legendFontColor: "#7F7F7F",
-                legendFontSize: 15
-            },
-            {
-                name: "4 Star",
-                population: 11920000,
-                color: "#01A7E5",
-                legendFontColor: "#7F7F7F",
-                legendFontSize: 15
-            },
-            {
-                name: "3 Star",
-                population: 8538000,
-                color: "#FFE234",
-                legendFontColor: "#7F7F7F",
-                legendFontSize: 15
-            },
-            {
-                name: "2 Star",
-                population: 7800000,
-                color: "#FFA534",
-                legendFontColor: "#7F7F7F",
-                legendFontSize: 15
-            },
-            {
-                name: "1 Star",
-                population: 3527612,
-                color: "#F21616",
-                legendFontColor: "#7F7F7F",
-                legendFontSize: 15
-            }
-        ];
-
         let { item } = this.state;
 
         return (
@@ -149,16 +99,16 @@ class Demo extends Component {
                 {/* Business */}
                 <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Business</Text>
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
-                    
+
                     {/* Total Feed Views */}
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("Wallet")}>
+                    <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("Wallet")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
                                 <Icon type="ionicon" name="cash-outline" color='rgba(233,149,6,1)'
-                                    style={{ marginRight: 10, fontSize: RFValue(12,580), top: 2 }} size={25} />
+                                    style={{ marginRight: 10, fontSize: RFValue(12, 580), top: 2 }} size={25} />
                                 <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     TOTAL SALES
                                 </Text>
@@ -169,8 +119,8 @@ class Demo extends Component {
                         </LinearGradient>
                     </TouchableOpacity>
 
-                    
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+
+                    <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -178,7 +128,7 @@ class Demo extends Component {
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
                                 <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
                                     style={{ marginRight: 10, top: 2 }} size={25} />
-                                <Text style={{ color: '#222', fontSize: RFValue(12,580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
+                                <Text style={{ color: '#222', fontSize: RFValue(12, 580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
                                     ORDERS
                                 </Text>
                             </View>
@@ -188,7 +138,7 @@ class Demo extends Component {
                         </LinearGradient>
                     </TouchableOpacity>
                     {/* Total Feed Views */}
-                    {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                    {/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -211,7 +161,7 @@ class Demo extends Component {
 
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     {/* Shop Visits View  */}
-                    {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>
+                    {/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -230,7 +180,7 @@ class Demo extends Component {
                     </TouchableOpacity> */}
 
                     {/* Shop Visits View  */}
-                    {/* <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                    {/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -251,10 +201,10 @@ class Demo extends Component {
                 </View>
 
                 {/* Deals */}
-                <Text style={[styles.h3, { color: "#000", paddingTop: 10, fontWeight: 'bold', marginLeft: 15,marginTop:10 }]}>Flat Discounts Deals</Text>
+                <Text style={[styles.h3, { color: "#000", paddingTop: 10, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }]}>Flat Discounts Deals</Text>
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
-                    
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("TopDeals", { screen: "New Customer", first_deal: this.state.first_deal, all_deal: this.state.recurring_deal })}>
+
+                    <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("TopDeals", { screen: "New Customer", first_deal: this.state.first_deal, all_deal: this.state.recurring_deal })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -272,7 +222,7 @@ class Demo extends Component {
                         </LinearGradient>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={{ width: "45%" }} onPress={() => this.props.navigation.navigate("TopDeals", { screen: "All Customer", all_deal: this.state.recurring_deal, first_deal: this.state.first_deal })}>
+                    <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("TopDeals", { screen: "All Customer", all_deal: this.state.recurring_deal, first_deal: this.state.first_deal })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#ffffff', '#ffffff']}
@@ -314,16 +264,16 @@ const style = StyleSheet.create({
         borderRadius: 10,
         flexDirection: "row",
         // justifyContent:"space-evenly",
-        marginLeft: 15,
+        // marginLeft: 15,
         flexDirection: "column",
         justifyContent: "space-around",
-        shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 2
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        shadowColor: "#000",
     }
 })

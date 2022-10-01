@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     StyleSheet, Text,
     View, Dimensions, Image, Pressable,
-    ScrollView, TouchableOpacity, TextInput, ActivityIndicator
+    ScrollView, TouchableOpacity, TextInput, ActivityIndicator, Platform
 } from 'react-native';
 import { Input, Header, Icon } from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
@@ -334,7 +334,7 @@ class Profile extends Component {
                                     <View>
                                         <TouchableOpacity
                                             onPress={() => this.save()}
-                                            style={[style.buttonStyles,{bottom:10}]}>
+                                            style={[style.buttonStyles,{bottom:Platform.OS == "ios" ? 25 : 15}]}>
                                             <LinearGradient
                                                 colors={['#EDA332', '#EDA332']}
                                                 style={styles.signIn}>

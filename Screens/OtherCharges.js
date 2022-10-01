@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Switch
+    StyleSheet, Platform, Dimensions, TouchableOpacity,
+    ActivityIndicator, Switch
 } from 'react-native';
 import { Input, Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 // import DropDownPicker from 'react-native-dropdown-picker';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import MultiSelect from 'react-native-multiple-select';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Toast from "react-native-simple-toast";
-import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
-import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
-
-const win = Dimensions.get('window');
-
-var categ = []
-
 class OtherCharges extends Component {
 
     constructor(props) {
@@ -236,11 +227,12 @@ class OtherCharges extends Component {
                                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
                                     <Text style={style.fieldsText}>GSTIN </Text>
                                     <Input
-                                    
+
                                         placeholder='GSTIN / GST Number'
                                         style={style.inputText}
                                         value={this.state.gstin}
                                         autoCapitalize={true}
+                                        returnKeyType='done'
                                         onChangeText={(e) => { this.setState({ gstin: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
@@ -254,6 +246,7 @@ class OtherCharges extends Component {
                                         style={style.inputText}
                                         value={this.state.gstper.toString()}
                                         keyboardType="numeric"
+                                        returnKeyType='done'
                                         onChangeText={(e) => { this.setState({ gstper: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
@@ -295,6 +288,7 @@ class OtherCharges extends Component {
                                         style={style.inputText}
                                         value={this.state.scamount.toString()}
                                         keyboardType="numeric"
+                                        returnKeyType='done'
                                         onChangeText={(e) => { this.setState({ scamount: e }) }}
                                         inputContainerStyle={{
                                             width: Dimensions.get("window").width / 1.3,
@@ -317,7 +311,7 @@ class OtherCharges extends Component {
                         <TouchableOpacity
                             // onPress={this.send_otp}
                             onPress={() => { this.update_profile() }}
-                            style={[styles.buttonStyle, { bottom: 10 }]}>
+                            style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 25 : 15 }]}>
                             <LinearGradient
                                 colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
                                 style={[styles.signIn, { borderRadius: 25, width: '80%', alignSelf: 'center' }]}>

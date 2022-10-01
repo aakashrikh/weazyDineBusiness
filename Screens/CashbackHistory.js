@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image,
-    TouchableOpacity, FlatList, Dimensions,
+    TouchableOpacity, FlatList, Dimensions, Platform,
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -114,9 +114,9 @@ class CashbackHistory extends Component {
                     <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
 
                         <View style={{ width: '65%' }}>
-                            <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
+                            {/* <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
                                 Table No : {item.table_no}
-                            </Text>
+                            </Text> */}
                             <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
                                 {item.order_code}
                             </Text>
@@ -128,7 +128,7 @@ class CashbackHistory extends Component {
                                 {moment(item.created_at).format('ddd, MMMM Do YYYY, h:mm a')}
                             </Text>
                             <Text >
-                                <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20 }]}>Rs {item.total_amount}/-</Text>
+                                <Text style={[styles.h4, { color: '#000', fontWeight: 'bold', paddingTop: 20,fontFamily:"Poppins-Bold" }]}>Rs {item.total_amount}/-</Text>
                             </Text>
                         </View>
 
@@ -163,16 +163,16 @@ class CashbackHistory extends Component {
                                 }
                             </>
 
-                            {item.order_status == "ongoing" ?
+                            {/* {item.order_status == "ongoing" ?
                                 <Animatable.View style={{ flexDirection: "row", marginLeft: 10 }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
                                     <Icon type="ionicon" name="time-outline" size={20} color="green" />
-                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold", paddingLeft: 5 }}>20 Mins</Text>
+                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
                                 </Animatable.View>
                                 :
                                 <></>
-                            }
+                            } */}
                         </View>
                     </View>
                 </View>

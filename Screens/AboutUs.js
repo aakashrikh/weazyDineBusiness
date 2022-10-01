@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { View, Text , ScrollView, Image,
-    TextInput, Button, StyleSheet,TouchableOpacity, ImageBackground} from 'react-native';
+    TextInput, Button, StyleSheet,TouchableOpacity, ImageBackground, Platform} from 'react-native';
 import {Header,Icon} from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
 //Global Style Import
@@ -67,16 +67,16 @@ renderLeftComponent(){
                       USP of Application: 
                     </Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold", marginLeft : Platform.OS == "ios" ? 10 : 0,fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: Platform.OS == "ios" ? 10 : 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}Through WeazyDine, it is possible for restaurant and hotel owners to share food menus electronically with customers. {"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}Using the app, hotels & restaurants can share promotions, discounts, coupons, cash-back, and other offers via app.  {"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}There will be QR Codes available at every hotel, restaurant, cafe, and open-dining.Simply scan the barcode & the food menu for that specific restaurant or hotel will appear on the phone. {"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0,fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}It is compatible with Android and IOS. {"\n"}</Text>
 
                     <Text style={{textAlign:"justify",fontFamily:"Poppins-SemiBold",
@@ -84,34 +84,34 @@ renderLeftComponent(){
                      Benefits of Digital Food Menu For Vendors: : 
                     </Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}Menus do not have to be printed.{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}This app increases your sales by 40% with zero commission or zero charges as you can create your 
                     audience on the app itself. {"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}Food images and videos can be featured on a QR menu to upsell your products.  
                     Your guests are hooked by your food and will definitely get tempted to order more!{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0,fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify",paddingHorizontal: 15}}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}By creating QR codes by table number or room number, our platform creates unique QR codes 
                     for hotels and poolside/beachside activities. In this case, the system already knows where the 
                     order is coming from when the guest scans the QR code.{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}It is more efficient because orders and reorders can be  placed without the staff approaching the guest.{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}You can create marketing campaigns that display popup images and videos at a 
                     certain time or when an item is selected, giving you the chance to upsell or promote upcoming or ongoing items.{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580),marginLeft : Platform.OS == "ios" ? 10 : 0, lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}You can reserve an event and other party in advance after viewing the property's 
                     photos and menu of foods. Using the app, you can make payments online{"\n"}</Text>
 
-                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
+                    <Text style={{ fontFamily: "Roboto-Bold",fontSize: RFValue(12, 580), marginLeft : Platform.OS == "ios" ? 10 : 0,lineHeight: 23, fontFamily: "Roboto-Regular", color: "grey", textAlign: "justify", paddingHorizontal: 15,marginTop:10 }}><Icon name='ellipse' style={{ marginTop: 2 }} size={8} type="ionicon" color="#696969" /> 
                     {" "}Each open-dining establishment, such as hotels, restaurants, cafes, & buffets, 
                     will have its own profile on the app.{"\n"}</Text>
 
