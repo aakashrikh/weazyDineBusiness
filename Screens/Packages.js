@@ -530,6 +530,7 @@ class Card extends Component {
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
+                                    style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
                                 />
                             </View>
 
@@ -655,9 +656,14 @@ const style = StyleSheet.create({
         width: Dimensions.get("window").width / 1.05,
         top: 7,
         marginBottom: 10,
-        shadowRadius: 50,
-        shadowOffset: { width: 50, height: 50 },
-        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
         borderRadius: 15,
         padding: 6
     },

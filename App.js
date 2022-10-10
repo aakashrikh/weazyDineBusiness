@@ -87,6 +87,8 @@ import Subscription from './Screens/Subscription';
 import ChoosePaymentType from './Screens/ChoosePaymentType';
 import PaymentSuccessful from './Screens/PaymentSuccessful';
 import PaymentFailed from './Screens/PaymentFailed';
+import Orders from './Screens/Orders';
+import OrderDetails from './Screens/OrderDetails';
 
 
 //OneSignal Init Code
@@ -160,9 +162,15 @@ class TabNav extends Component {
                   style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
-            else if (route.name == "Offers") {
+            // else if (route.name == "Offers") {
+            //   return (
+            //     <Image source={require('./img/icons/offers.png')}
+            //       style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+            //   )
+            // }
+            else if (route.name == "Orders") {
               return (
-                <Image source={require('./img/icons/offers.png')}
+                <Image source={require('./img/icons/orders.png')}
                   style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
@@ -196,13 +204,9 @@ class TabNav extends Component {
 
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Tables" component={Tables} />
-
         <Tab.Screen name="Products" component={TopTab} />
-
-
-
-        <Tab.Screen name="Offers" component={Offers} />
-
+        <Tab.Screen name="Orders" component={Orders} />
+        {/* <Tab.Screen name="Offers" component={Offers} /> */}
         <Tab.Screen name="More" component={More} />
 
       </Tab.Navigator>
@@ -428,6 +432,7 @@ class App extends Component {
                       <Stacks.Screen name="ChoosePaymentType" component={ChoosePaymentType} options={{ headerShown: false }} />
                       <Stacks.Screen name="PaymentSuccessful" component={PaymentSuccessful} options={{ headerShown: false }} />
                       <Stacks.Screen name="PaymentFailed" component={PaymentFailed} options={{ headerShown: false }} />
+                      <Stacks.Screen name="OrderDetails" component={OrderDetails} options={{ headerShown: false }} />
                     </>
                 )
               }

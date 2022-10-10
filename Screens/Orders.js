@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { FlatList, Platform, TouchableOpacity } from 'react-native';
 import {
     View, ImageBackground, Alert,
     StyleSheet, Pressable, Switch,
@@ -13,6 +13,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import moment from 'moment/moment.js';
 // import Categories from './Categories.js';
 
 //Global Style Import
@@ -25,180 +26,88 @@ class Orders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
-            active_cat: 0,
-            // vendor_category_id:0,
+            data: [],
             isloading: true,
-            isLoading: false,
-            object: {},
-            select: {},
-            last_select: '',
             load_data: false,
             page: 1,
-            category: []
-            // prod_id:''
+            active_cat: "",
+
         }
     }
 
     componentDidMount = () => {
-        this.get_category();
-        this.get_vendor_product(0, 1);
+        this.fetch_order(1, "");
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            this.get_category();
+            this.fetch_order(1, "");
             if (this.props.route.params != undefined) {
-                this.get_category();
-                // this.get_vendor_product(0,1);
+                this.fetch_order(1, "");
+                this.setState({ active_cat: this.props.route.params.active_cat })
             }
         })
-
     }
 
     // function to load data while scrolling
+    // load_more = () => {
+    //     var data_size = this.state.data.length
+    //     if (data_size > 9) {
+    //         var page = this.state.page + 1
+    //         this.setState({ page: page })
+    //         this.setState({ load_data: true });
+    //         this.fetch_order(page, "")
+    //     }
+    // }
+
     load_more = () => {
         var data_size = this.state.data.length
         if (data_size > 9) {
             var page = this.state.page + 1
             this.setState({ page: page })
             this.setState({ load_data: true });
-            this.get_vendor_product(this.state.active_cat, page)
+            this.fetch_order(page, "");
         }
     }
 
-    get_vendor_product = (category_id, page) => {
-
-        fetch(global.vendor_api + 'vendor_get_vendor_product', {
-            method: 'POST',
+    fetch_order = (page_id, status) => {
+        fetch(global.vendor_api + "get_orders_vendor", {
+            method: "POST",
             headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': global.token
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: global.token,
             },
             body: JSON.stringify({
-                vendor_category_id: category_id,
-                product_type: 'product',
-                page: page
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                console.warn(json);
-                if (!json.status) {
-                    var msg = json.msg;
-                    if (page == 1) {
-                        this.setState({ data: [] })
-                    }
-                }
-                else {
-                    if (json.data.length > 0) {
-                        json.data.map((value, key) => {
-                            const object = this.state.object;
-
-                            if (value.status == 'active') {
-                                object[value.id] = true;
-                            }
-                            else {
-                                object[value.id] = false;
-                            }
-
-                            this.setState({ object });
-                        })
-                        this.setState({ data: json.data })
-                    }
-                    else {
-                        // this.setState({data:''})
-                        // Toast.show("Please Add Services First");
-
-                    }
-
-                    //    this.setState({prod_id:json.data[0].id})
-                    //    alert(this.state.prod_id)
-
-                }
-                this.setState({ isloading: false, load_data: false })
-                return json;
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-    }
-
-    get_category = () => {
-        // this.setState({isloading:true})
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + global.vendor
-            , {
-                method: 'GET',
-            })
+                page: page_id,
+                status: status,
+            }),
+        })
             .then((response) => response.json())
             .then((json) => {
-
-                if (json.status) {
-                    if (json.data.length > 0) {
-
-                        this.setState({ category: json.data });
-
+                if (!json.status) {
+                    if (page_id == 1) {
+                        this.setState({ data: [] });
                     }
-
                 }
                 else {
-                    this.setState({ isloading: false, category: "" })
+                    if (json.data.data.length > 0) {
+                        var obj = json.data.data;
+                        if (page_id == 1) {
+                            this.setState({ data: obj });
+                        }
+                        else {
+                            this.setState({ data: [...this.state.data, ...obj] });
+                        }
+                    }
                 }
+
                 return json;
             })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                // this.get_vendor_product()
-            });
-    }
-
-    filter = (id) => {
-
-        this.setState({ isloading: true })
-        this.get_vendor_product(id, 1);
-        this.setState({ active_cat: id })
-    }
-
-    toggle = (id) => {
-        // alert(id)
-        const object = this.state.object;
-        if (object[id] == true) {
-            object[id] = false;
-            var status = "inactive"
-        }
-        else {
-            object[id] = true;
-            var status = "active"
-        }
-        this.setState({ object });
-        fetch(global.vendor_api + 'update_status_product_offer', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': global.token
-            },
-            body: JSON.stringify({
-                action_id: id,
-                type: 'product',
-                status: status
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
-
-                }
-                else {
-                    //   Toast.show("jhsd")
-                }
-            }).catch((error) => {
+            .catch((error) => {
                 console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
+            })
+            .finally(() => {
+                this.setState({ isloading: false, load_data: false });
             });
-    }
-
+    };
 
     renderLeftComponent() {
         return (
@@ -207,6 +116,13 @@ class Orders extends Component {
             </View>
         )
     }
+
+    filter = (status) => {
+        this.setState({ isloading: true })
+        this.fetch_order(1, status);
+        this.setState({ active_cat: status })
+    }
+
     render() {
 
         return (
@@ -220,39 +136,26 @@ class Orders extends Component {
                         colors: ['#fff', '#fff'],
                     }}
                 />
-                {/* Component for  Filter Services */}
-
                 <View style={{ borderBottomWidth: 1, borderColor: "#dedede", paddingVertical: 0 }}>
 
                     <View style={{ flexDirection: 'row', padding: 10 }}>
-                        {/* <TouchableOpacity style={style.button} onPress={()=>this.props.navigation.navigate("AddCategory")}>
-                              <Text style={style.buttonText}>Add Category</Text>
-                          </TouchableOpacity>   */}
-                        <Categories
+                        <OrderType
                             navigation={this.props.navigation}
-                            category={this.state.category}
                             filter={this.filter}
                             active_cat={this.state.active_cat}
-                            get_vendor_product={this.get_vendor_product}
+                            fetch_order={this.fetch_order}
                         />
-
                     </View>
                 </View>
-
-                <ScrollView style={{ flex: 1 }}>
+                <ScrollView style={{ marginTop: 10 }}>
                     {/* Particular Card Component */}
                     {!this.state.isloading ?
                         <>
-                            {(this.state.data != "") ?
+                            {(this.state.data.length > 0) ?
                                 <Card navigation={this.props.navigation}
                                     data={this.state.data}
-                                    category={this.state.category}
                                     load_more={this.load_more}
                                     load_data={this.state.load_data}
-                                    toggle={this.toggle}
-                                    get_category={this.get_category}
-                                    get_vendor_product={this.get_vendor_product}
-                                    object={this.state.object}
                                 />
 
                                 :
@@ -272,7 +175,6 @@ class Orders extends Component {
                             <Loaders />
                         </View>
                     }
-
 
                     {(this.state.load_data) ?
                         <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
@@ -295,100 +197,34 @@ export default Orders;
 class Loaders extends Component {
     render() {
         return (
-            <View>
-                <SkeletonPlaceholder >
-                    <View style={{ flexDirection: "row", marginTop: 20 }}>
-                        <View style={{ marginLeft: 5 }}>
-                            <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
-                        </View>
+            <SkeletonPlaceholder >
+                <View style={{ flexDirection: "row", marginTop: 20 }}>
+                    <View style={{ marginLeft: 5 }}>
+                        <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
+                    </View>
 
-                        <View>
-                            <View style={{ flexDirection: "row", }}>
-                                <View>
-                                    <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
-                                    <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
-                                </View>
-                                <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
-                                <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
+                    <View>
+                        <View style={{ flexDirection: "row", }}>
+                            <View>
+                                <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
+                                <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
                             </View>
-                            <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
-                                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                            </View>
+                            <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
+                            <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
                         </View>
-
-
-
+                        <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
+                            <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+                            <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+                        </View>
                     </View>
 
 
-                </SkeletonPlaceholder>
 
-            </View>
-        )
-    }
-}
-
-class Categories extends Component {
-
-    render() {
-        return (
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-
-                <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
-                    {(!this.props.active_cat == 0) ?
-                        <TouchableOpacity
-                            onPress={() => this.props.filter(0)}>
-                            <View style={style.catButton}>
-                                <Text style={style.catButtonText}>
-                                    All
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity
-                            onPress={() => this.props.filter(0)}>
-                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
-                                <Text style={[style.catButtonText, { color: "#fff" }]}>
-                                    All
-                                </Text>
-                            </View>
-                        </TouchableOpacity>}
-                    {(this.props.category != '') ?
-                        this.props.category.map((cat, id) => {
-
-                            return (
-                                <View>
-                                    {(this.props.active_cat != cat.id) ?
-                                        <TouchableOpacity
-                                            onPress={() => this.props.filter(cat.id)}>
-                                            <View style={style.catButton}>
-                                                <Text style={style.catButtonText}>
-                                                    {cat.name}
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                        :
-                                        <TouchableOpacity
-                                            onPress={() => this.props.filter(cat.id)}>
-                                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
-                                                <Text style={[style.catButtonText, { color: "#fff" }]}>
-                                                    {cat.name}
-                                                </Text>
-                                            </View>
-                                        </TouchableOpacity>
-                                    }
-                                </View>
-
-                            )
-
-                        })
-                        :
-                        <View></View>
-                    }
                 </View>
 
-            </ScrollView>
+
+            </SkeletonPlaceholder>
+
         )
     }
 }
@@ -396,6 +232,7 @@ class Categories extends Component {
 class Card extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             isOn: false,
             isOff: true,
@@ -405,114 +242,46 @@ class Card extends Component {
         }
     }
 
-
-    alertFunc = () => {
-        this.RBSheet.close()
-        Alert.alert(
-            "",
-            "Are you sure you want to delete this Menu?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.delete_product() }
-            ]
-        )
-    }
-
-    delete_product = () => {
-        fetch(global.vendor_api + 'update_status_product_offer', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': global.token
-            },
-            body: JSON.stringify({
-                action_id: this.state.prod_id,
-                type: 'product',
-                status: "delete"
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                console.warn("delete_product", json)
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
-
-                }
-                else {
-                    Toast.show("Product deleted")
-                    this.props.get_vendor_product(0, 1)
-                }
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-        this.props.get_vendor_product(0, 1)
-        this.props.get_category()
-    }
-
-    editNavigation = () => {
-        // alert(this.state.id)
-        console.warn("props", this.props.category)
-        this.props.navigation.navigate("EditService",
-            {
-                data: this.state.id,
-                category: this.props.category,
-                get_cat: this.props.get_category,
-                get_vendor_product: this.props.get_vendor_product
-            })
-        this.RBSheet.close()
-    }
-
-    sheet = (id) => {
-        this.setState({ id: id })
-        this.RBSheet.open();
-        this.setState({ prod_id: id.id })
-
-    }
-
     productCard = ({ item }) => (
         <View style={style.card}>
-            <View style={{ flexDirection: "row", width: "100%", padding: 5, justifyContent: "space-between" }}>
-                <View>
-                    <Text>Order #12345</Text>
+            <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-evenly" }}>
+                <View style={{ width: "50%" }}>
+                    <Text>O.Id- {item.order_code}</Text>
                 </View>
-                <View>
-                    <Text>Today, 05:40 PM</Text>
+                <View style={{ width: "50%" }}>
+                    <Text>{moment(item.created_at).format("llll")}</Text>
                 </View>
             </View>
             <View style={{ flexDirection: "row", width: "100%" }}>
-                {/* View for Image */}
-                <View style={{ width: "20%" }}>
-                    <Image source={{ uri: global.image_url + item.product_img }}
-                        style={style.logo} />
-                </View>
                 {/* View for Content */}
                 <View style={style.contentView}>
                     {/* View for name and heart */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         {/* Text View */}
-                        <View style={{ width: 200, }}>
+                        <View style={{ width: 200, marginLeft: 10 }}>
                             <Text style={[styles.smallHeading, { top: 10, }]}>
-                                item
+                                {item.user.name}
                             </Text>
                             <Text numberOfLines={3} style={{ marginTop: 10, fontSize: RFValue(11, 580), color: "#EDA332", fontWeight: "bold" }}>
-                                ₹ 20
+                                ₹ {item.total_amount}
                             </Text>
                         </View>
                         {/* View for payment mode  */}
-                        <View style={{ margin: 5, marginTop: 20, marginLeft: -5, }}>
-                            <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5 }} >
-                                <Text style={{ fontSize: RFValue(9.5, 580), color: "#fff", fontWeight: "bold" }}>Online Payment</Text>
+                        {item.order_type != "TakeAway" &&
+                            item.order_type != "delivery" ? (
+                            <View style={{ margin: 5, marginTop: 20, marginLeft: Platform.OS == "ios" ? -30 : -20, }}>
+                                <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5 }} >
+                                    <Text style={{ fontSize: RFValue(9.5, 580), color: "#fff", fontWeight: "bold" }}>Dine-In</Text>
+                                </View>
                             </View>
+                        ) : (
+                            <View style={{ margin: 5, marginTop: 20, marginLeft: Platform.OS == "ios" ? -30 : -20, }}>
+                                <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5 }} >
+                                    <Text style={{ fontSize: RFValue(9.5, 580), color: "#fff", fontWeight: "bold" }}>{item.order_type}</Text>
+                                </View>
+                            </View>
+                        )}
 
-
-                        </View>
                     </View>
                 </View>
 
@@ -523,17 +292,42 @@ class Card extends Component {
 
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 {/* for order status */}
-                <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                    <Icon name="ellipse" type="ionicon" size={15} color="#EDA332" style={{ margin: 5 }} />
-                    <Text style={styles.smallHeading}>Pending</Text>
-                </View>
+                {(item.order_status == "placed") ?
+                    <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                        <Icon name="ellipse" type="ionicon" size={15} color="#EDA332" style={{ margin: 5 }} />
+                        <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ff9933" }]}>Pending</Text>
+                    </View>
+                    :
+                    (item.order_status == "confirmed") ?
+                        <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                            <Icon name="ellipse" type="ionicon" size={15} color="#EDA332" style={{ margin: 5 }} />
+                            <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#EDA332" }]}>Confirmed</Text>
+                        </View>
+                        :
+                        (item.order_status == "proccessed") ?
+                            <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                                <Icon name="ellipse" type="ionicon" size={15} color="yellow" style={{ margin: 5 }} />
+                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "yellow" }]}>OnGoing</Text>
+                            </View>
+                            :
+                            (item.order_status == "cancelled") ?
+                                <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                                    <Icon name="ellipse" type="ionicon" size={15} color="red" style={{ margin: 5 }} />
+                                    <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "red" }]}>Cancelled</Text>
+                                </View>
+                                :
+                                <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                                    <Icon name="ellipse" type="ionicon" size={15} color="green" style={{ margin: 5 }} />
+                                    <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "green" }]}>{item.order_status}</Text>
+                                </View>
+                }
 
                 {/* details button */}
                 <View style={{ paddingTop: 5, paddingVertical: 5 }}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate("OrderDetails")}
+                        onPress={() => this.props.navigation.navigate("OrderDetails", { id: item.order_code })}
                         style={{ marginRight: 10, padding: 5, borderRadius: 5, flexDirection: "row", borderWidth: 1 }}>
-                        <Text style={{ fontSize: RFValue(10, 580), color: "#000" }}>Details</Text>
+                        <Text style={{ fontSize: RFValue(10, 580), color: "#000", marginTop: Platform.OS == "ios" ? 1 : 0 }}>Details</Text>
                         <Icon name="chevron-forward" type='ionicon' size={15} color="#000" style={{ marginTop: 2 }} />
                     </TouchableOpacity>
                 </View>
@@ -562,6 +356,139 @@ class Card extends Component {
     }
 }
 
+class OrderType extends Component {
+    render() {
+        return (
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} >
+
+                <View style={{ flexDirection: 'row', justifyContent: "space-evenly" }}>
+                    {this.props.active_cat != "" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    All
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    All
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {this.props.active_cat != "placed" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("placed")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    Pending
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("placed")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    Pending
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {this.props.active_cat != "confirmed" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("confirmed")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    Confirmed
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("confirmed")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    Confirmed
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {this.props.active_cat != "processed" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("processed")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    OnGoing
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("processed")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    OnGoing
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {this.props.active_cat != "completed" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("completed")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    Completed
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("completed")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    Completed
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {this.props.active_cat != "cancelled" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("cancelled")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    Cancelled
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("cancelled")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                    Cancelled
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                </View>
+            </ScrollView>
+        )
+    }
+}
+
+
 const style = StyleSheet.create({
     header: {
         width: Dimensions.get("window").width / 2 - 40,
@@ -583,11 +510,17 @@ const style = StyleSheet.create({
         width: Dimensions.get("window").width / 1.05,
         top: 7,
         marginBottom: 10,
-        shadowRadius: 50,
-        shadowOffset: { width: 50, height: 50 },
-        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
         borderRadius: 15,
-        padding: 6
+        padding: 6,
+
     },
     logo: {
         height: 50,
@@ -636,7 +569,7 @@ const style = StyleSheet.create({
 
     contentView: {
         flexDirection: "column",
-        width: "70%",
+        width: "100%",
         marginRight: 10,
         // paddingBottom:10, 
         // borderBottomWidth:0.5,

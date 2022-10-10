@@ -369,7 +369,7 @@ class Categories extends Component {
                                             onPress={() => this.props.filter(cat.id)}>
                                             <View style={style.catButton}>
                                                 <Text style={style.catButtonText}>
-                                                    {cat.name}
+                                                    {cat.name}{cat.id}
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>
@@ -378,7 +378,7 @@ class Categories extends Component {
                                             onPress={() => this.props.filter(cat.id)}>
                                             <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
                                                 <Text style={[style.catButtonText, { color: "#fff" }]}>
-                                                    {cat.name}
+                                                {cat.name}{cat.id}
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>
@@ -530,6 +530,7 @@ class Card extends Component {
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
+                                    
                                 />
                             </View>
 
@@ -655,9 +656,14 @@ const style = StyleSheet.create({
         width: Dimensions.get("window").width / 1.05,
         top: 7,
         marginBottom: 10,
-        shadowRadius: 50,
-        shadowOffset: { width: 50, height: 50 },
-        elevation: 2,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
         borderRadius: 15,
         padding: 6
     },

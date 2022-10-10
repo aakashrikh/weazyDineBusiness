@@ -10,6 +10,7 @@
 		00E356F31AD99517003FC87E /* marketplussTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* marketplussTests.m */; };
 		0286BB4C91AEBD47E92EE8F4 /* libPods-weazydinebusiness.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8025288F7920A6CBB933AD /* libPods-weazydinebusiness.a */; };
 		070AFCD1285333C200FC6962 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070AFCD0285333C200FC6962 /* NotificationService.swift */; };
+		071C671C28F4029400A4D87F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1625747334054AB9BD8A1C7F /* Montserrat-Medium.ttf */; };
 		076FCD6728424C6D00C94292 /* Raleway-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 93924F2CC5324B58BDE7CC3D /* Raleway-Light.ttf */; };
 		076FCD6828424D0100C94292 /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BE4BEBB7FF149E69D28FD91 /* Raleway-SemiBold.ttf */; };
 		076FCD6928424DA200C94292 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2C7948EF0EA42FB85B3268B /* Roboto-Regular.ttf */; };
@@ -537,6 +538,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				071C671C28F4029400A4D87F /* Montserrat-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
