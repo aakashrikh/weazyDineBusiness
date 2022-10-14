@@ -101,10 +101,8 @@ class OtpVerify extends Component {
         })
           .then((response) => response.json())
           .then((json) => {
-            console.warn("otp", json)
             if (json.msg == 'ok') {
-              OneSignal.sendTag("id", '' + json.usr);
-              OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
+          
               global.vendor = json.usr;
               global.token = json.token;
               global.msg = "Welcome"
@@ -113,14 +111,14 @@ class OtpVerify extends Component {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "done" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("done");
+                this.context.login("done",json.data,json.token);
                 global.msg = "Welcome Back"
               }
               else {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "steps" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("steps");
+                this.context.login("steps",json.data,json.token);
                 global.msg = "Welcome"
               }
             }

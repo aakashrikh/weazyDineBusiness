@@ -28,6 +28,8 @@
     "appcenter": "4.4.4",
     "appcenter-analytics": "4.4.4",
     "appcenter-crashes": "4.4.4",
+    "axios": "^1.1.2",
+    "caniuse-lite": "^1.0.30001419",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-native": "^0.64.2",
@@ -91,7 +93,9 @@
     "eslint": "7.14.0",
     "jest": "^26.6.3",
     "jetifier": "^2.0.0",
+    "laravel-echo": "^1.14.0",
     "metro-react-native-babel-preset": "^0.64.0",
+    "pusher-js": "^7.4.0",
     "react-test-renderer": "17.0.1"
   },
   "jest": {

@@ -11,13 +11,11 @@ import { launchCamera } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Swiper from 'react-native-swiper';
-import SwiperFlatList from 'react-native-swiper-flatlist'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-
-
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+    
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -53,57 +51,30 @@ class Home extends Component {
       status: true,
       // subscription:true
     };
+
+    
   }
 
+  componentDidMount= ()=> {
 
-  //function to launch camera
-  camera = () => {
-
-    launchCamera(options, (response) => {
-
-      if (response.didCancel) {
-        // console.warn(response)
-        console.warn("User cancelled image picker");
-      } else if (response.error) {
-        console.warn('ImagePicker Error: ', response.error);
-      } else {
-        console.warn(response)
-        const source = { uri: response.assets.uri };
-        let path = response.assets.map((path) => {
-          return (
-            this.setState({ image: path.uri })
-          )
-        });
-        this.upload_image();
-      }
-    })
-  }
+    window.Echo.private(`checkTableStatus.1`).listen('.server.created', (e) => {
+      alert(e.id);
+  });
 
 
-  //function to launch gallery
-  gallery = () => {
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-      compressImageQuality: 0.5
-    }).then(image => {
-      this.setState({ image: image.path });
-      this.upload_image();
-    })
-  }
+  //   // alert(global.vendor)
+  //   // this.setState({subscription:false});
 
-  componentDidMount = async () => {
-    // alert(global.vendor)
-    // this.setState({subscription:false});
     this.get_profile();
     this.get_cover();
     this.checkBankDetails();
-    this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.get_profile();
-      this.get_cover();
-      this.checkBankDetails();
-    })
+  //   this.focusListener = this.props.navigation.addListener('focus', () => {
+  //     this.get_profile();
+  //     this.get_cover();
+  //     this.checkBankDetails();
+  //   })
+
+  
   }
 
   checkBankDetails = () => {
@@ -138,13 +109,9 @@ class Home extends Component {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'Authorization': global.token
-      },
-      body: JSON.stringify({
-
-      })
+      }
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json)
         if (!json.status) {
 
         }
@@ -187,47 +154,6 @@ class Home extends Component {
       });
   }
 
-  //function to upload image
-  upload_image = () => {
-    this.RBSheet.close()
-    this.setState({ image_load: true });
-    var form = new FormData();
-    if (this.state.image != '') {
-      var photo = {
-        uri: this.state.image,
-        type: 'image/jpeg',
-        name: 'aakash.jpg',
-      };
-      form.append("update_profile_picture", photo);
-    }
-    form._parts.map(value => {
-      console.warn(value)
-    })
-
-    fetch(global.vendor_api + 'update_profile_picture_vendor', {
-      method: 'POST',
-      body: form,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': global.token
-      },
-    }).then((response) => response.json())
-      .then((json) => {
-        // console.warn(json)
-        if (json.status) {
-          this.setState({ photo: global.image_url + json.profile_pic })
-          this.get_profile();
-        }
-
-        return json
-      }).catch((error) => {
-        console.error(error);
-
-      }).finally(() => {
-        this.setState({ image_load: false });
-      });
-  }
-
   get_cover = () => {
     fetch(global.vendor_api + 'get_cover_vendor', {
       method: 'POST',
@@ -240,11 +166,9 @@ class Home extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        // console.warn(json)
         if (!json.status) {
         }
         else {
-          // console.warn(json.covers.length)
           if (json.covers.length == 0) {
             this.setState({ cover_step: false })
           }
@@ -265,7 +189,6 @@ class Home extends Component {
   }
 
   share_whatsapp = (link, name) => {
-    console.warn('a', link, name)
     Linking.openURL('whatsapp://send?text=Hey there!\n\n Now you can order online from ' + name + ' using this link: \n' + link).catch(e => Toast.show("WhatsApp is not installed in your device"));
   }
 
@@ -294,6 +217,7 @@ class Home extends Component {
   render() {
 
     return (
+  
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={[styles.container, { backgroundColor: "#fff" }]}>
 

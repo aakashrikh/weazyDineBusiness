@@ -11,24 +11,15 @@ import linking from './Components/Linking';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from "@react-native-community/netinfo";
 
-
 //Import screens 
 import MobileLogin from './Screens/MobileLogin';
 import OtpVerify from './Screens/OtpVerify';
 import CreateShopProfile from './Screens/CreateShopProfile';
-import EnableLocation from './Screens/EnableLocation';
-import LocationAccess from './Screens/LocationAccess';
-import LocationDetails from './Screens/LocationDetails';
-import ChooseCategories from './Screens/ChooseCategory';
 import AddCover from './Screens/AddCover';
-import UnderVerification from './Screens/UnderVerification';
 import VerificationDone from './Screens/VerificationDone';
 import Home from './Screens/Home';
 import TopTab from './Components/TopTab';
-import Feeds from './Screens/Feeds';
 import More from './Screens/More';
-import Offers from './Screens/Offers'
-import Shops from './Screens/Services';
 import Profile from './Screens/Profile';
 import PrivacyPolicy from './Screens/PrivacyPolicy';
 import ContactUs from './Screens/ContactUs';
@@ -52,18 +43,15 @@ import OfferProduct from './Screens/OfferProduct';
 import CategoryChange from './Screens/CategoryChange';
 import SingleFeed from './Screens/SingleFeed';
 import Notifications from './Screens/Notifications';
-import UploadLogo from './Screens/UploadLogo';
-import UploadCovers from './Screens/UploadCovers';
 import Answer1 from './Screens/Answer1';
 import Answer2 from './Screens/Answer2';
 import Answer3 from './Screens/Answer3';
 import Answer4 from './Screens/Answer4';
 import Answer5 from './Screens/Answer5';
 import Loading from './Screens/Loading';
-import ChooseSubCategory from './Screens/ChooseSubCategory';
 import ChangeSubCategory from './Screens/ChangeSubCategory';
 import ShopTiming from './Screens/ShopTiming';
-import { AuthContext } from './AuthContextProvider';
+import {AuthContext } from './AuthContextProvider';
 import ChangeShopTime from './Screens/ChangeShopTime';
 import SplashScreen from 'react-native-splash-screen';
 import NoInternet from './Screens/NoInternet';
@@ -81,7 +69,6 @@ import ProductVariants from './Screens/ProductVariants';
 import GenerateBill from './Screens/GenerateBill';
 import Wallet from './Screens/Wallet';
 import OnlinePayment from './Screens/OnlinePayment';
-import PasswordLogin from './Screens/PasswordLogin';
 import ProductDetails from './Screens/ProductDetails';
 import Subscription from './Screens/Subscription';
 import ChoosePaymentType from './Screens/ChoosePaymentType';
@@ -89,32 +76,39 @@ import PaymentSuccessful from './Screens/PaymentSuccessful';
 import PaymentFailed from './Screens/PaymentFailed';
 import Orders from './Screens/Orders';
 import OrderDetails from './Screens/OrderDetails';
+import { LogBox } from 'react-native';
 
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0);
 OneSignal.setAppId("49e49fa7-d31e-42d9-b1d5-536c4d3758cc");
 //END OneSignal Init Code
 
+
 //Prompt for push on iOS
-OneSignal.promptForPushNotificationsWithUserResponse(response => {
-  console.log("Prompt response:", response);
-});
+if(Platform.OS === 'ios')
+{
+  OneSignal.promptForPushNotificationsWithUserResponse(response => {
+    console.log("Prompt response:", response);
+  });
+}
 
 //Method for handling notifications received while app in foreground
 OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
-  console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
   let notification = notificationReceivedEvent.getNotification();
-  console.log("notification: ", notification);
+
   const data = notification.additionalData
-  console.warn("additionalData: ", data);
+
   // Complete with null means don't show a notification.
   notificationReceivedEvent.complete(notification);
 });
 
 //Method for handling notifications opened
 OneSignal.setNotificationOpenedHandler(notification => {
-  console.warn("OneSignal: notification opened:", notification.additionalData);
 });
 
 //Navigators
@@ -123,11 +117,11 @@ const Stacks = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+ //global.vendor_api = "https://dine-api.weazy.in/api/";
 
 //for demo
-global.vendor_api = "https://weazydine.healthyrabbit.in/api/";
-global.image_url = ""
+global.vendor_api = "http://10.0.2.2:8000/api/";
+global.image_url = "";
 
 global.login_data = true
 global.msg = "Welcome"
@@ -147,37 +141,37 @@ class TabNav extends Component {
             if (route.name == "Tables") {
               return (
                 <Image source={require('./img/icons/feeds.png')}
-                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
               )
             }
             else if (route.name == "Products") {
               return (
                 <Image source={require('./img/icons/services.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
               )
             }
             else if (route.name == "Home") {
               return (
                 <Image source={require('./img/icons/logo.png')}
-                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
               )
             }
             // else if (route.name == "Offers") {
             //   return (
             //     <Image source={require('./img/icons/offers.png')}
-            //       style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+            //       style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
             //   )
             // }
             else if (route.name == "Orders") {
               return (
                 <Image source={require('./img/icons/orders.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
               )
             }
             else if (route.name == "More") {
               return (
                 <Image source={require('./img/icons/more.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
               )
             }
             return (
@@ -221,7 +215,9 @@ class App extends Component {
       isloading: true,
       islogin: false,
       step: 'done',
-      netconnected: true
+      netconnected: true,
+      user:[],
+      token:'',
     }
   }
 
@@ -232,32 +228,28 @@ class App extends Component {
     });
 
     Linking.getInitialURL().then((url) => {
-      console.log('Initial url is: ' + url);
       if(url != null && url != undefined && url != ""){
         Linking.openURL(url);
       }
   }).catch(err => console.error('An error occurred', err));
  
     AsyncStorage.getItem('@auth_login', (err, result) => {
-      console.warn(result)
+
       if (JSON.parse(result) != null) {
-        this.login(JSON.parse(result).use_type);
+      
         global.token = JSON.parse(result).token;
         global.vendor = JSON.parse(result).vendor_id;
         global.step = this.state.step
         global.msg = "Welcome Back"
         this.get_profile(JSON.parse(result).token);
-        setTimeout(() => { SplashScreen.hide(); }, 50)
       }
       else {
-        this.get_profile();
-        setTimeout(() => { SplashScreen.hide(); }, 50)
+        this.logout();
       }
     });
 
   }
-
-
+  
   handleConnectivityChange = isConnected => {
     if (isConnected) {
       this.setState({ netconnected: true });
@@ -267,12 +259,34 @@ class App extends Component {
     }
   };
 
-  login = (step) => {
-    this.setState({ islogin: true, step: step });
+  login = (step,user,token) => {
+    this.setState({ islogin: true, step: step,user:user,token:token });
+
+    window.Pusher = Pusher;
+    // console.log(Pusher);
+     window.Echo = new Echo({
+         broadcaster: 'pusher',
+         key: "b8ba8023ac2fc3612e90",
+         cluster: "ap2",
+         forceTLS: true,
+         authEndpoint: global.vendor_api+'broadcasting/auth',
+         auth: {
+           headers: {
+             Accept: 'application/json',
+             "Authorization":token,
+           }
+         },
+     });
+     
+     OneSignal.sendTag("id", '' + user.id);
+     OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
+
+    SplashScreen.hide();
   }
 
   logout = () => {
-    this.setState({ islogin: false })
+    this.setState({ islogin: false,token:'',user:[] });
+    SplashScreen.hide();
   }
 
   get_profile = (token) => {
@@ -289,7 +303,7 @@ class App extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json)
+
         if (json.message == "Unauthenticated.") {
           this.loggedOut();
         }
@@ -297,6 +311,8 @@ class App extends Component {
 
         }
         else {
+          this.login(token,json.data,token);
+
           json.data.map(value => {
             // alert(value.category_type)
             global.category_type = value.category_type
@@ -349,7 +365,7 @@ class App extends Component {
     }
     else {
       return (
-        <AuthContext.Provider value={{ login: this.login, logout: this.logout }}>
+        <AuthContext.Provider value={{ login: this.login, logout: this.logout,user:this.state.user,token:this.state.token }}>
           <NavigationContainer linking={linking}>
             <Stacks.Navigator >
               {!this.state.islogin ? (
