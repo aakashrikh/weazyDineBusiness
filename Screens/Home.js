@@ -57,9 +57,7 @@ class Home extends Component {
 
   componentDidMount= ()=> {
 
-    window.Echo.private(`checkTableStatus.1`).listen('.server.created', (e) => {
-      alert(e.id);
-  });
+  
 
 
   //   // alert(global.vendor)
