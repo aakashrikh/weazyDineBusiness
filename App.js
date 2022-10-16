@@ -235,8 +235,30 @@ class App extends Component {
     AsyncStorage.getItem('@auth_login', (err, result) => {
 0
       if (JSON.parse(result) != null) {
-        // this.login(JSON.parse(result).use_type, JSON.parse(result).token);
-      // console.warn(JSON.parse(result))
+
+        window.Pusher = Pusher;
+    // console.log(Pusher);
+     window.Echo = new Echo({
+         broadcaster: 'pusher',
+         key: "b8ba8023ac2fc3612e90212",
+         cluster: "mt1",
+         wsHost:'10.0.2.2',
+         wsPort: 6001,
+        //  forceTLS: true,
+        //  authEndpoint: global.vendor_api+'broadcasting/auth',
+        //  auth: {
+        //    headers: {
+        //      Accept: 'application/json',
+        //      "Authorization":JSON.parse(result).token,
+        //    }
+        //  },
+     });
+
+     window.Echo.channel(`checkTableStatus`).listen('server.created', (e) => {
+      alert(e.id);
+  });
+     
+
         global.token = JSON.parse(result).token;
         global.vendor = JSON.parse(result).vendor_id;
         global.step = this.state.step
@@ -263,21 +285,8 @@ class App extends Component {
     // console.log("hhh",user)
     this.setState({ islogin: true, step: step,user:user,token:token });
 
-    window.Pusher = Pusher;
-    // console.log(Pusher);
-     window.Echo = new Echo({
-         broadcaster: 'pusher',
-         key: "b8ba8023ac2fc3612e90",
-         cluster: "ap2",
-         forceTLS: true,
-         authEndpoint: global.vendor_api+'broadcasting/auth',
-         auth: {
-           headers: {
-             Accept: 'application/json',
-             "Authorization":token,
-           }
-         },
-     });
+    
+
      
      OneSignal.sendTag("id", '' + user.id);
      OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
