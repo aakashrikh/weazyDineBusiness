@@ -8,11 +8,14 @@ import { Icon, Header} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import moment from 'moment';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 
 class ListingDashboardItems extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -48,19 +51,16 @@ class ListingDashboardItems extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
 
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
                 if (json.status) {
                     var obj=json.data.data;
                     var joined = this.state.item.concat(obj);
 
                     this.setState({ item: joined })
-                    console.warn("visits", this.state.item)
-                    //    alert(this.state.item.shop_visit)
                 }
                 return json;
             }).catch((error) => {
@@ -100,15 +100,13 @@ class ListingDashboardItems extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
 
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (json.status) {
                     this.setState({ item: json.data.data })
-                    console.warn(this.state.item)
                 }
                 return json;
             }).catch((error) => {
@@ -123,15 +121,13 @@ class ListingDashboardItems extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
 
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (json.status) {
                     this.setState({ item: json.data.data })
-                    console.warn(this.state.item)
                 }
                 return json;
             }).catch((error) => {
@@ -147,17 +143,14 @@ class ListingDashboardItems extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
 
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (json.status) {
                     this.setState({ save: false })
                     this.setState({ item: json.data.data })
-                    console.warn(this.state.item)
-                    //    alert(this.state.item.shop_visit)
                 }
                 return json;
             }).catch((error) => {
@@ -255,24 +248,6 @@ class ListingDashboardItems extends Component {
     <ActivityIndicator color="#EDA332" size="large" />
     </View>
 }
-                {/* <View style={{ flexDirection: "row", marginLeft: 20, margin: 10 }}>
-                    <Image source={require("../img/user.jpg")} style={{ width: 40, height: 40,borderRadius:50 }} />
-                    <Text style={[styles.h3, { marginLeft: 20,marginTop:5 }]}>
-                        Aman
-                    </Text>
-                </View>
-                <View style={{ flexDirection: "row", marginLeft: 20, margin: 10 }}>
-                    <Image source={require("../img/user.jpg")} style={{ width: 40, height: 40,borderRadius:50 }} />
-                    <Text style={[styles.h3, { marginLeft: 20,marginTop:5 }]}>
-                        Aman
-                    </Text>
-                </View>
-                <View style={{ flexDirection: "row", marginLeft: 20, margin: 10 }}>
-                    <Image source={require("../img/user.jpg")} style={{ width: 40, height: 40,borderRadius:50 }} />
-                    <Text style={[styles.h3, { marginLeft: 20,marginTop:5 }]}>
-                        Aman
-                    </Text>
-                </View> */}
 
             </View>
         )

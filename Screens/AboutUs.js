@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-import { View, Text , ScrollView, Image,
-    TextInput, Button, StyleSheet,TouchableOpacity, ImageBackground, Platform} from 'react-native';
+import { 
+    View, Text , ScrollView,
+    StyleSheet, Platform} 
+from 'react-native';
 import {Header,Icon} from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
+import { RFValue } from "react-native-responsive-fontsize";
+
+
 //Global Style Import
 const styles = require('../Components/Style.js');
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 class AboutUs extends Component{
         
@@ -18,6 +22,8 @@ renderLeftComponent(){
       </View>
     )
   }
+
+  
   //for header center component
   renderCenterComponent()
   {
@@ -46,7 +52,6 @@ renderLeftComponent(){
                 />
             
                 <ScrollView showsVerticalScrollIndicator={false}>
-            
                 <View >
                 {/* <Image source={require("../img/logo/logo.png")} style={{width:188,height:80,margin:17,alignSelf:"center"}}/> */}
                    

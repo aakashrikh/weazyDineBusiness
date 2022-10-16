@@ -10,11 +10,13 @@ import { RFValue } from "react-native-responsive-fontsize";
 import LinearGradient from 'react-native-linear-gradient';
 import Toast from 'react-native-simple-toast';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 class OnlinePayment extends Component {
+   static contextType = AuthContext;
    constructor(props) {
       super(props);
       this.state = {
@@ -61,11 +63,10 @@ class OnlinePayment extends Component {
          headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': global.token
+            'Authorization': this.context.token
          },
       }).then((response) => response.json())
          .then((json) => {
-            console.log(json);
             this.setState({ buttonLoading : true });
             if (json != null && json != '') {
                json.map((item) => {
@@ -114,7 +115,7 @@ class OnlinePayment extends Component {
             headers: {
                'Accept': 'application/json',
                'Content-Type': 'application/json',
-               'Authorization': global.token,
+               'Authorization': this.context.token,
             },
             body: JSON.stringify({
                bank_account_no: this.state.bankAccountNo,

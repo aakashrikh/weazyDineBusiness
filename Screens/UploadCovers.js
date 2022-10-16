@@ -14,6 +14,8 @@ import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
@@ -28,7 +30,7 @@ const options = {
 }
 
 class UploadCovers extends Component{
-     
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -65,7 +67,6 @@ camera = () => {
         // const source = {uri: response.assets.uri};
         let path = response.assets.map(path => {
           return (
-            //  console.warn(path.uri)
             this.setState({image: path.uri})
           );
         });
@@ -83,9 +84,6 @@ camera = () => {
         height:600,
         cropping:true,
     }).then(image=>{
-        
-        console.log(image);
-        // this.setState({image:"Image Uploaded"})
         this.setState({image:image.path});
         this.RBSheet.close()
         // this.upload_image();      
@@ -115,11 +113,10 @@ camera = () => {
                 body: form,
                    headers: {    
                     'Content-Type': 'multipart/form-data',
-                         'Authorization':global.token  
+                         'Authorization':this.context.token  
                         }, 
                          }).then((response) => response.json())
                                  .then((json) => {
-                                     console.warn(json)
                                      if(json.status)
                                      {
                                          Toast.show('Image uploaded successfully!')
@@ -156,13 +153,12 @@ camera = () => {
               headers: {    
                   Accept: 'application/json',  
                     'Content-Type': 'application/json',
-                    'Authorization':global.token  
+                    'Authorization':this.context.token  
                    }, 
                     body: JSON.stringify({ 
                         cover_id:id
                             })}).then((response) => response.json())
                             .then((json) => {
-                                console.warn(json)
                                 if(!json.status)
                                 {
                                     var msg=json.msg;

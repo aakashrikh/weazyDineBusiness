@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import { TouchableOpacity } from 'react-native';
 import {
-    View,ImageBackground,Alert,
-    StyleSheet,Pressable,Switch,
-    Image,Text,Dimensions
+    View, StyleSheet, Text
 } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import {Header,Icon} from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
-import RBSheet from "react-native-raw-bottom-sheet";
-import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
-
-//Global Style Import
-const styles = require('../Components/Style.js');
-
-const win = Dimensions.get('window')
 
 
 class Categories extends Component{
@@ -41,7 +30,6 @@ class Categories extends Component{
             })
             .then((response) => response.json())
             .then((json) => {
-                // console.warn(json.data)
                 this.setState({data:json.data })              
                 return json;
             })
@@ -50,6 +38,7 @@ class Categories extends Component{
                 this.setState({ isLoading: false });
             });
     }
+    
     render(){
         const {data} = this.state;
 
@@ -88,30 +77,6 @@ export default Categories;
 
 
 const style=StyleSheet.create({
-    img:{
-        width:"100%",
-        height:"100%",
-    },
-    storyimg:{
-        width:"100%",
-        height:"100%",
-        borderRadius:30
-
-    },
-    iconPencil:{
-        marginLeft:20,
-        fontSize:20,
-        marginBottom:10,
-        // color:"#bc3b3b"
-    },
-    Text:{
-        position:"absolute",
-        fontSize:RFValue(13,580),
-        marginLeft:80,
-        // fontFamily:"Raleway-Medium",
-        fontFamily: "Montserrat-Regular",
-    },
-
     button:{
         backgroundColor:"#326bf3",
         padding:4,
@@ -147,19 +112,4 @@ const style=StyleSheet.create({
         fontSize:RFValue(9,580)
 
     },
-    add:{
-        
-            // borderWidth: 1,
-            // borderColor: 'rgba(0,0,0,0.2)',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 50,
-            position: 'absolute',
-            bottom: 15,
-            right: 10,
-            height: 50,
-            backgroundColor: '#bc3b3b',
-            borderRadius: 100,
-         
-    }
 })

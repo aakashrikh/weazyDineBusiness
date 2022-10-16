@@ -10,7 +10,7 @@ import moment from 'moment';
 import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from "react-native-simple-toast";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -19,7 +19,7 @@ const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
 
 class Notifications extends Component{
-
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -58,7 +58,7 @@ class Notifications extends Component{
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-          'Authorization':global.token 
+          'Authorization':this.context.token 
         },
         body:JSON.stringify({
             page:page
@@ -66,18 +66,19 @@ class Notifications extends Component{
       })
       .then((response)=>response.json())
       .then((json)=>{
-         console.warn(json)
         if(!json.status){
             Toast.show(json.msg)
         }
         else
         {  
-            var obj=json.data.data;     
-            console.warn(obj)
+            var obj=json.data.data;   
             this.setState({data:[...obj] , isloading:false})
           }
           this.setState({load_more:false});
       })
+        .catch((error)=>{
+            console.log(error);
+            })
   }
 
   loadmore()

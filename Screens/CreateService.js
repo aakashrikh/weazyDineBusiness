@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput, Pressable,
-    ScrollView, Dimensions, TouchableOpacity, Alert, ActivityIndicator
+    ScrollView, Dimensions, TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import MultiSelect from 'react-native-multiple-select';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera} from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
-import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
+import { AuthContext } from '../AuthContextProvider.js';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -81,6 +80,7 @@ class CreateService extends Component {
 export default CreateService;
 
 class Fields extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
 
@@ -120,7 +120,6 @@ class Fields extends Component {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
                     return (
-                        //  console.warn(path.uri) 
                         this.setState({ image: path.uri })
                     )
                 });
@@ -137,11 +136,8 @@ class Fields extends Component {
             height: 500,
             cropping: true,
         }).then(image => {
-            console.log(image);
-            // this.setState({image:"Image Uploaded"})
             this.setState({ image: image.path });
             this.RBSheet.close()
-            // this.upload_image();      
         })
     }
 
@@ -159,7 +155,6 @@ class Fields extends Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
                 if (json.status) {
                     if (json.data.length > 0) {
                         this.setState({ category: json.data })
@@ -185,7 +180,6 @@ class Fields extends Component {
     set_value = (index) => {
         var vv = this.state.cat_id[index];
         this.setState({ c_id: vv })
-        // console.warn(this.state.c_id)
     }
     //Create service button
     create = () => {
@@ -199,10 +193,6 @@ class Fields extends Component {
         else if (this.state.category == "") {
             Toast.show("Add category first !");
         }
-        // else if (this.state.market_price<this.state.our_price) {
-        //     Toast.show("Your price should be less than market price !");
-        // }
-
         else if (this.state.c_id == "") {
             Toast.show("Category is required !");
         }
@@ -227,7 +217,6 @@ class Fields extends Component {
             }
             var form = new FormData();
             form.append("product_name", this.state.name);
-            // form.append("token",global.token);
             form.append("vendor_category_id", this.state.c_id);
             form.append("market_price", this.state.market_price);
             form.append("price", this.state.our_price);
@@ -240,11 +229,10 @@ class Fields extends Component {
                 body: form,
                 headers: {
 
-                    'Authorization': global.token 
+                    'Authorization': this.context.token 
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
@@ -407,12 +395,6 @@ class Fields extends Component {
                                         </Pressable>
                                     </View>
                                 }
-
-                                {/* <TouchableOpacity style={style.uploadButton} onPress={()=>this.RBSheet.open()} >
-                                <Text style={style.buttonText}>
-                                    Choose Photo
-                                </Text>
-                            </TouchableOpacity> */}
                             </View>
                         </View>
                     </View>

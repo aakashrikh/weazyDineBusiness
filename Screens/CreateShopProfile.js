@@ -10,6 +10,7 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import moment from 'moment';
+import { AuthContext } from '../AuthContextProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -23,6 +24,7 @@ const options = {
     }
 }
 class CreateShopProfile extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +56,7 @@ class CreateShopProfile extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
@@ -124,28 +126,24 @@ class CreateShopProfile extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
                 body: JSON.stringify({
                     email: mail,
                     name: name,
-                    // shop_name:shopName,
                     description: shopDescription,
                     whatsapp:this.state.whatsapp_number,
                     website:this.state.website
-                    // update_type:'insert'
 
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
                     if (!json.status) {
 
                         Toast.show(json.errors[0])
 
                     }
                     else {
-                        //  Toast.show("Profile successfully created!")
                         this.props.navigation.navigate("ShopTiming")
                     }
 
@@ -208,48 +206,7 @@ class CreateShopProfile extends Component {
                                 }} />
                         </View>
 
-                        {/* <View style={{paddingLeft:10}}>
-                        <Text style={style.fieldsText}>Shop Name*</Text>
-                        <Input
-                        maxLength={60}
-                        value={this.state.shopName}
-                        onChangeText={(e)=>{this.setState({shopName:e})}}
-                        style={{
-                            fontSize:RFValue(11,580),
-                            color:"black"
-                            }}
-                        inputContainerStyle={{
-                            width:Dimensions.get("window").width/1.12,
-                        }}/>
-                    </View> */}
-
-                        {/* <View style={{ paddingLeft: 10 }}>
-                            <Text style={style.fieldsText}>Email Address (Optional)</Text>
-                            <Input
-                                maxLength={50}
-                                value={this.state.mail}
-                                onChangeText={(e) => { this.setState({ mail: e }) }}
-                                style={{
-                                    fontSize: RFValue(11, 580),
-                                    color: "black"
-                                }}
-                                inputContainerStyle={{
-                                    width: Dimensions.get("window").width / 1.12,
-                                }} />
-                        </View> */}
-                        {/* <View style={{ paddingLeft: 10 }}>
-                            <Text style={style.fieldsText}>Website(Optional)</Text>
-                            <Input
-                                value={this.state.website}
-                                onChangeText={(e) => { this.setState({ website: e }) }}
-                                style={{
-                                    fontSize: RFValue(11, 580),
-                                    color: "black"
-                                }}
-                                inputContainerStyle={{
-                                    width: Dimensions.get("window").width / 1.12,
-                                }} />
-                        </View> */}
+                        
                         <View style={{ paddingLeft: 10 }}>
                             <Text style={style.fieldsText}>Shop Description*</Text>
                             <Input
@@ -375,28 +332,11 @@ const style = StyleSheet.create({
         borderColor: "#000",
         alignSelf: "center",
     },
-    editIcon: {
-        // position:"absolute",
-        alignSelf: "center",
-        left: 40,
-        top: -25
-    },
     fieldsText: {
         fontSize: RFValue(11, 580),
         fontFamily: "Raleway-SemiBold",
         color: "grey",
         marginLeft: 10
-    },
-    iconPencil: {
-        marginLeft: 20,
-        // fontSize:20,
-        fontSize: RFValue(18, 580),
-        marginBottom: 10
-    },
-    container1: {
-        backgroundColor: "#EDA332",
-        width: "100%",
-        height: 230
     },
     Text: {
         position: "absolute",

@@ -14,6 +14,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import RadioForm from 'react-native-simple-radio-button';
 import SelectDropdown from 'react-native-select-dropdown';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -35,6 +36,7 @@ var radio_props = [
 ];
 
 class EditPackage extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -126,7 +128,6 @@ class Fields extends Component {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
                     return (
-                        //  console.warn(path.uri) 
                         this.setState({ image: path.uri })
                     )
                 });
@@ -143,7 +144,6 @@ class Fields extends Component {
             height: 500,
             cropping: true,
         }).then(image => {
-            console.log(image);
             // this.setState({image:"Image Uploaded"})
             this.setState({ image: image.path });
             this.RBSheet.close()
@@ -163,7 +163,6 @@ class Fields extends Component {
 
     // Fetching vendor categories
     get_category = () => {
-        // console.warn(this.props.category)
         var nn = [];
         var pp = [];
         this.props.category.map((value, key) => {
@@ -192,7 +191,6 @@ class Fields extends Component {
         var vv = this.state.cat_id[index];
 
         this.setState({ c_id: vv })
-        // console.warn(this.state.c_id)
     }
     //Create service button
     create = () => {
@@ -207,9 +205,6 @@ class Fields extends Component {
         else if (this.state.c_id == "") {
             Toast.show("Category is required !");
         }
-        // else if (this.state.market_price <= this.state.our_price) {
-        //     Toast.show("Your price should be less than market price !");
-        // }
         else if (!isnumValid) {
             Toast.show("Price contains digits only!");
         }
@@ -231,7 +226,7 @@ class Fields extends Component {
             }
             var form = new FormData();
             form.append("product_name", this.state.name);
-            // form.append("token",global.token);
+            // form.append("token",this.context.token);
             form.append("vendor_category_id", this.state.c_id);
             form.append("market_price", this.state.market_price);
             form.append("price", this.state.our_price);
@@ -246,11 +241,10 @@ class Fields extends Component {
                 body: form,
                 headers: {
 
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

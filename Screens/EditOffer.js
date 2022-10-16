@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import {
     Text,View,
-    StyleSheet,Image,TextInput,Pressable,
+    StyleSheet, TextInput,Pressable,
     ScrollView,Dimensions,TouchableOpacity, ActivityIndicator
 } from 'react-native';
 import {Icon,Header} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import moment  from 'moment';
 import DateTimePicker from "react-native-modal-datetime-picker";
-import MultiSelect from 'react-native-multiple-select';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-import SelectDropdown from 'react-native-select-dropdown';
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 const win = Dimensions.get('window');
 
 class EditOffer extends Component{
-
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -72,55 +70,6 @@ export default EditOffer;
 
 
 
-// const category = [{
-//     id: '1',
-//     name: 'Phone'
-//   }, {
-//     id: '2',
-//     name: 'Laptop'
-//   }, {
-//     id: '3',
-//     name: 'Gadgets'
-//   }, {
-//     id: '4',
-//     name: 'Spa'
-//   }, {
-//     id: '5',
-//     name: 'Fashion'
-//   }, {
-//     id: '6',
-//     name: 'Salon'
-//   }, {
-//     id: '7',
-//     name: 'Health'
-//   }, {
-//     id: '8',
-//     name: 'Restaurant'
-//   }, {
-//     id: '9',
-//     name: 'Gym'
-//     }
-// ];
-
-
-
-
-
-// const items = [{
-//     id: '1',
-//     name: 'Buy 1 Get 1 free'
-//   }, {
-//     id: '2',
-//     name: 'Beard + Haircut + Facial massage'
-//   }, {
-//     id: '3',
-//     name: '3 months premium membership'
-//   }, {
-//     id: '4',
-//     name: 'Get 20% discount on each product'
-//   }, 
-// ];
-
 class Fields extends Component{
     constructor(props){
         super(props);
@@ -147,7 +96,6 @@ class Fields extends Component{
 
     componentDidMount = async()=>
     {  
-        console.warn(this.props.data)
         this.get_product()
         this.get_package()
         this.get_offer_data()
@@ -155,38 +103,32 @@ class Fields extends Component{
     }
 
     get_offer_data=()=>{
-        console.log(this.props.data)
             this.setState({title:this.props.data.offer_name})
             this.setState({offer_id:this.props.data.id})
             this.setState({offer:this.props.data.offer})
             this.setState({startDate:this.props.data.start_from})
             this.setState({endDate:this.props.data.start_to})
             this.setState({offer_description:this.props.data.offer_description})
-            // this.setState({selectedProduct:this.props.data.products})
             this.props.data.products.map(product=>{
-                console.warn(product)
                 if(product.type=="product"){
                 this.state.selectedProduct.push(product.id);
                 }
                 else{
                 this.state.selectedPackage.push(product.id);
                 }
-                console.log(this.state.selectedPackage)
                 
-                // this.setState({selectedProduct:product.product_name})
             })
     }
 
     //   Fetching vendor products
     get_product=()=>{
         var product_type="product"
-        // console.warn(global.token)
         fetch(global.vendor_api+'vendor_get_vendor_product', { 
             method: 'POST',
               headers: {    
                   Accept: 'application/json',  
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                    }, 
                     body: JSON.stringify({ 
                         vendor_category_id:0 ,
@@ -194,7 +136,6 @@ class Fields extends Component{
                             })
                         }).then((response) => response.json())
                             .then((json) => {
-                                // console.warn(json)
                                 if(!json.status)
                                 {
                                     var msg=json.msg;
@@ -210,7 +151,6 @@ class Fields extends Component{
                                     nn.push(pp)                                           
                                    });
                                    this.setState({product_name:nn})
-                                   console.warn(this.state.product_name)
                                 }
                                return json;    
                            }).catch((error) => {  
@@ -221,7 +161,6 @@ class Fields extends Component{
         }
         onSelectedProductsChange = selectedProduct => {
             this.setState({ selectedProduct });
-            console.log(this.state.selectedProduct)
         };
 
 // Fetching Vendor Packages
@@ -232,7 +171,7 @@ get_package=()=>{
           headers: {    
               Accept: 'application/json',  
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
                }, 
                 body: JSON.stringify({ 
                     vendor_category_id:0 ,
@@ -240,7 +179,6 @@ get_package=()=>{
                         })
                     }).then((response) => response.json())
                         .then((json) => {
-                            // console.warn(json)
                             if(!json.status)
                             {
                                 var msg=json.msg;
@@ -256,7 +194,6 @@ get_package=()=>{
                                 nn.push(pp)                                           
                                });
                                this.setState({package_name:nn})
-                               console.warn(this.state.package_name)
                             }
                            return json;    
                        }).catch((error) => {  
@@ -294,7 +231,6 @@ get_package=()=>{
     }
 
     startShowPicker =()=>{
-        // alert("hi");
         this.setState({
             isStartVisible:true
         })
@@ -358,7 +294,7 @@ get_package=()=>{
                    headers: {    
                        Accept: 'application/json',  
                          'Content-Type': 'application/json',
-                         'Authorization':global.token  
+                         'Authorization':this.context.token  
                         }, 
                          body: JSON.stringify({   
                             offer_name: title, 
@@ -372,7 +308,6 @@ get_package=()=>{
 
                                  })}).then((response) => response.json())
                                  .then((json) => {
-                                     console.warn(json)
                                      if(!json.status)
                                      {
                                          var msg=json.msg;
@@ -418,71 +353,7 @@ get_package=()=>{
                     maxLength={2}
                     style={style.textInput}/>
                 </View>
-
-                {/* Category View */}
-
-                {/* <View>
-                <Text style={style.fieldsTitle}>Menu</Text>
-                    <View style={{marginLeft:20,marginRight:20,}}>
-                    <MultiSelect
-                    items={this.state.product_name}
-                    uniqueKey="id"
-                    ref={(component) => { this.multiSelect = component }}
-                    onSelectedItemsChange={this.onSelectedProductsChange}
-                    selectedItems={this.state.selectedProduct}
-                    selectText="Select Menu"
-                    searchInputPlaceholderText="Search Menu..."
-                    onChangeInput={ (text)=> console.log(text)}
-                    // altFontFamily="ProximaNova-Light"
-                    tagRemoveIconColor="#CCC"
-                    tagBorderColor="#CCC"
-                    tagTextColor="#CCC"
-                    selectedItemTextColor="#EDA332"
-                    selectedItemIconColor="#000"
-                    itemTextColor="#000"
-                    displayKey="name"
-                    searchInputStyle={{ color: '#000' }}
-                    submitButtonColor="#EDA332"
-                    submitButtonText="Submit"
-                    />
-                 </View>
-                 <TouchableOpacity style={style.uploadButton} onPress={()=>this.props.navigation.navigate("CreateService")} >
-                                <Text style={style.buttonText}>
-                                    Add new
-                                </Text>
-                            </TouchableOpacity>
-                </View>
-                <View>
-                <Text style={style.fieldsTitle}>Combos</Text>
-                    <View style={{marginLeft:20,marginRight:20,}}>
-                    <MultiSelect
-                    items={this.state.package_name}
-                    uniqueKey="id"
-                    ref={(component) => { this.multiSelect = component }}
-                    onSelectedItemsChange={this.onSelectedPackagesChange}
-                    selectedItems={this.state.selectedPackage}
-                    selectText="Select Combo"
-                    searchInputPlaceholderText="Search Combo..."
-                    onChangeInput={ (text)=> console.log(text)}
-                    // altFontFamily="ProximaNova-Light"
-                    tagRemoveIconColor="#CCC"
-                    tagBorderColor="#CCC"
-                    tagTextColor="#CCC"
-                    selectedItemTextColor="#EDA332"
-                    selectedItemIconColor="#000"
-                    itemTextColor="#000"
-                    displayKey="name"
-                    searchInputStyle={{ color: '#000' }}
-                    submitButtonColor="#EDA332"
-                    submitButtonText="Submit"
-                    />
-                 </View>
-                 <TouchableOpacity style={style.uploadButton} onPress={()=>this.props.navigation.navigate("CreatePackages")} >
-                                <Text style={style.buttonText}>
-                                    Add new
-                                </Text>
-                            </TouchableOpacity>
-                </View> */}
+                   
 
                 <View>
                     <Text style={style.fieldsTitle}>
@@ -595,25 +466,6 @@ const style=StyleSheet.create({
         marginRight:5,
         marginBottom:20
       },
-      uploadButton:{
-        // backgroundColor:"#EDA332",
-        borderColor:"black",
-        borderWidth:1,
-        width:90,
-        height:30,
-        justifyContent:"center",
-        padding:5,
-        borderRadius:5,
-        alignItems:"center",
-        alignSelf:"flex-end",
-        marginLeft:30,
-        marginTop:20,
-        marginRight:20
-    },
-    buttonText:{
-        fontFamily:"Raleway-SemiBold",
-        color:"#000"
-    },
     loader:{
         shadowOffset:{width:50,height:50},
         marginTop:20,

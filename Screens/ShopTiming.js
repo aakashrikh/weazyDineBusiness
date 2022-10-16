@@ -12,6 +12,9 @@ import Toast from "react-native-simple-toast";
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import { AuthContext } from '../AuthContextProvider.js';
+
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -20,6 +23,7 @@ const objectd = [{ status: true, open: "09:00 AM", close: "10:00 PM", day_name: 
 { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Tue" }, { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Wed" }, { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Thurs" }, { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Fri" }, { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Sat" }, { status: true, open: "09:00 AM", close: "10:00 PM", day_name: "Sun" }];
 
 class ShopTiming extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +53,7 @@ class ShopTiming extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
@@ -58,12 +62,10 @@ class ShopTiming extends Component {
             .then((json) => {
                 const obj = json.data[0].timings;
                 const object = this.state.timing;
-                console.warn(json.data[0].timings)
                 if (obj.length > 0) {
                     this.state.timing.map((value2, id2) => {
 
                         obj.map((value, id) => {
-                            //    console.warn(value); 
                             if (value2.day_name == value.day_name) {
                                 if (value.day_status) {
 
@@ -99,7 +101,7 @@ class ShopTiming extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 days: this.state.timing
@@ -111,7 +113,6 @@ class ShopTiming extends Component {
                     this.props.navigation.navigate("VerificationDone")
 
                 }
-                console.warn(json);
                 return json;
             }).catch((error) => {
                 console.error(error);
@@ -124,7 +125,6 @@ class ShopTiming extends Component {
     // Function for Open time picker
     showOpenPicker = (day, time) => {
         this.setState({ current_day: day, current_time: time });
-        // alert("hi");
         this.setState({
             isOpenVisible: true
         })

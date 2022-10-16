@@ -14,6 +14,8 @@ import Toast from "react-native-simple-toast";
 import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -21,6 +23,7 @@ const order_cancel = [{ "id": "1", "name": "Low Driver Rating" }, { "id": "2", "
 
 const variant = []
 class ProductVariants extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -80,7 +83,7 @@ class ProductVariants extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
       body: JSON.stringify({
         variants: this.state.v_data,
@@ -89,7 +92,6 @@ class ProductVariants extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json);
         if (!json.status) {
           Toast.show(json.msg);
         }
@@ -308,7 +310,7 @@ class ProductVariants extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
       body: JSON.stringify({
       })
@@ -492,7 +494,7 @@ class Addons extends Component {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': global.token
+          'Authorization': this.context.token
         },
         body: JSON.stringify({
           addon_name: this.state.addon_name,
@@ -500,7 +502,6 @@ class Addons extends Component {
         })
       }).then((response) => response.json())
         .then((json) => {
-          console.warn(json)
           if (!json.status) {
             Toast.show(json.msg);
           }

@@ -6,14 +6,14 @@ import {
 } from 'react-native';
 import { Input, Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-// import DropDownPicker from 'react-native-dropdown-picker';
 import Toast from "react-native-simple-toast";
 import { RFValue } from 'react-native-responsive-fontsize';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 class OtherCharges extends Component {
-
+    static contextType = AuthContext;
     constructor(props) {
 
         super(props);
@@ -61,14 +61,13 @@ class OtherCharges extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
             })
         }).then((response) => response.json())
-            .then((json) => {
-                console.warn(json)
+            .then((json) => {e
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
@@ -138,7 +137,7 @@ class OtherCharges extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
                 body: JSON.stringify({
                     gstin: gstin,
@@ -147,7 +146,6 @@ class OtherCharges extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

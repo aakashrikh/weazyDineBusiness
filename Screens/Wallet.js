@@ -9,6 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import moment from 'moment';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { AuthContext } from '../AuthContextProvider.js';
 
 const win = Dimensions.get('window');
 //Global StyleSheet Import
@@ -16,6 +17,7 @@ const styles = require('../Components/Style.js');
 
 
 class Wallet extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -57,7 +59,7 @@ class Wallet extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 page: page_id
@@ -65,7 +67,6 @@ class Wallet extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (!json.status) {
 
 

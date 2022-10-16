@@ -1,27 +1,28 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity, Pressable,
-    Modal
+    StyleSheet,
+    ScrollView, Dimensions, TouchableOpacity,
 } from 'react-native';
 import { Icon, Header, Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
+import RadioForm from 'react-native-simple-radio-button';
+import { AuthContext } from '../AuthContextProvider.js';
 
 var radio_props = [
     { label: 'Google Pay/Paytm/UPI', value: 'UPI' },
     { label: 'Credit/Debit Card', value: 'card' },
     { label: 'Cash', value: 'cash' }
 ];
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 const win = Dimensions.get('window');
 
 class GenerateBill extends Component {
-
+    static contextType = AuthContext;
     constructor(props) {
 
         super(props);
@@ -67,7 +68,7 @@ class GenerateBill extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 order_id: this.props.route.params.bill.id,
@@ -76,7 +77,6 @@ class GenerateBill extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json);
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
@@ -84,8 +84,6 @@ class GenerateBill extends Component {
                 }
                 else {
                     this.props.navigation.navigate('Tables');
-                    console.warn(json.data);
-
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
                     //     // this.get_profile();
@@ -151,90 +149,13 @@ class GenerateBill extends Component {
                                 buttonColor={'#EDA332'}
                                 selectedButtonColor={'#EDA332'}
                                 onPress={(value) => {
-                                    console.warn(value)
                                     this.setState({ payment: value })
                                 }}
                                 labelStyle={{ fontSize: RFValue(13, 580), margin:10,marginTop:0,marginBottom:0 }}
                             />
                         </View>
 
-                        {/* <Pressable style={{flexDirection:"row",justifyContent:"space-between",width:"100%"}}>
-                     <View style={{flexDirection:"row",width:"60%",padding:10}}>
-                        <Image source={require('../img/bhim.png')} style={{height:40,width:27}}/>
-                        <Text style={{alignSelf:"center",marginLeft:12}}>
-                           Pay Using UPI
-                        </Text>
-                     </View>
-                     <View style={{width:"40%",paddingRight:10}}>
-                        <Icon name="chevron-forward-outline" type="ionicon" size={25} style={{alignSelf:"flex-end",marginTop:20}}/>
-                     </View>
-                  </Pressable >
-
-
-                  <Pressable style={{flexDirection:"row",justifyContent:"space-between",width:"100%"}} >
-                     <View style={{flexDirection:"row",width:"60%",padding:10}}>
-                        <Image source={require('../img/cash.png')} style={{height:30,width:30}}/>
-                        <Text style={{alignSelf:"center",marginLeft:10}}>
-                           Pay Using Cash
-                        </Text>
-                     </View>
-                     <View style={{width:"40%",paddingRight:10}}>
-                        <Icon name="chevron-forward-outline" type="ionicon" size={25} style={{alignSelf:"flex-end",marginTop:20}}/>
-                     </View>
-                  </Pressable >
-
-
-                  <Pressable style={{flexDirection:"row",justifyContent:"space-between",width:"100%"}}>
-                     <View style={{flexDirection:"row",width:"60%",padding:10}}>
-                        <Image source={require('../img/card.png')} style={{height:30,width:30}}/>
-                        <Text style={{alignSelf:"center",marginLeft:10}}>
-                           Pay Using Debit/Credit Card
-                        </Text>
-                     </View>
-                     <View style={{width:"40%",paddingRight:10}}>
-                        <Icon name="chevron-forward-outline" type="ionicon" size={25} style={{alignSelf:"flex-end",marginTop:20}}/>
-                     </View>
-                  </Pressable > */}
-
-
-                        {/* <View style={{height:1,backgroundColor:"#f2f2f2",marginTop:20}}/> */}
-
-                        {/* for discount field */}
-                        {/* <View
-                    style={{
-                        flexDirection: 'row',
-                        marginTop: 30,
-                        justifyContent: 'space-between',height:50,
-                    }}>
-                    <View style={{marginTop:5, marginLeft: 20}}>
-                        <Text style={[style.text,{color:'#222'}]}>Any Discount</Text>
-                    </View> */}
-
-                        {/* for input amount */}
-                        {/* <View style={{borderWidth:0.5,marginRight:20,borderRadius:10,}}>
-                        <Input
-                        onChangeText={(e)=>{this.handleChange(e)}}
-                        placeholder="Enter Discount Amount"
-                        placeholderTextColor="#5d5d5d"
-                        // maxLength={4}
-                        autoFocus={true}
-                        // ref={ref => (this.textInputef = ref)}
-                        inputStyle={{
-                            fontWeight: 'bold',
-                            color: 'grey',
-                            fontSize:
-                            Platform.OS == 'ios'
-                                ? RFValue(12.5, 580)
-                                : RFValue(12.5, 580),
-                        }}
-                        inputContainerStyle={{borderBottomColor: 'transparent', textAlign: 'right'}}
-                        containerStyle={{width: Dimensions.get('window').width / 2}}
-                        keyboardType="number-pad"
-                        />
-                    </View> */}
-
-
-                        {/* </View> */}
+                     
 
 
                     </View>
@@ -270,13 +191,6 @@ const style = StyleSheet.create({
         fontSize: RFValue(14.5, 580),
         margin: 5,
         color: '#000',
-    },
-    heading: {
-        fontFamily: "Raleway-SemiBold",
-        fontSize: RFValue(14.5, 580),
-        margin: 5,
-        color: '#000',
-        marginLeft: 10,
     },
     text1: {
         fontSize: RFValue(12, 580),

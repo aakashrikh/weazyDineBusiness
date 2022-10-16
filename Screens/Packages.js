@@ -1,21 +1,19 @@
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import {
-    View, ImageBackground, Alert,
-    StyleSheet, Pressable, Switch,
-    Image, Text, Dimensions, TouchableHighlight,
+    View, Alert,
+    StyleSheet, Switch,
+    Image, Text, Dimensions,
 } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import { Header, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
 import RBSheet from "react-native-raw-bottom-sheet";
 import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
-import Loading from './Loading.js';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-image";
-// import Categories from './Categories.js';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -24,9 +22,9 @@ const win = Dimensions.get('window');
 
 
 class Packages extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
-        // console.warn("back", props)
         this.state = {
             data: '',
             active_cat: 0,
@@ -75,7 +73,7 @@ class Packages extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 vendor_category_id: category_id,
@@ -84,7 +82,6 @@ class Packages extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                //  console.warn(json);
                 if (!json.status) {
                     var msg = json.msg;
                     if (page == 1) {
@@ -112,9 +109,6 @@ class Packages extends Component {
                         // Toast.show("Please Add Services First");
 
                     }
-
-                    //    this.setState({prod_id:json.data[0].id})
-                    //    alert(this.state.prod_id)
 
                 }
                 this.setState({ isloading: false, load_data: false })
@@ -178,7 +172,7 @@ class Packages extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 action_id: id,
@@ -214,9 +208,6 @@ class Packages extends Component {
                 <View style={{ borderBottomWidth: 1, borderColor: "#dedede", paddingVertical: 0 }}>
 
                     <View style={{ flexDirection: 'row', padding: 10 }}>
-                        {/* <TouchableOpacity style={style.button} onPress={()=>this.props.navigation.navigate("AddCategory")}>
-                              <Text style={style.buttonText}>Add Category</Text>
-                          </TouchableOpacity>   */}
                         <Categories
                             navigation={this.props.navigation}
                             category={this.state.category}
@@ -433,7 +424,7 @@ class Card extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 action_id: this.state.prod_id,
@@ -442,7 +433,6 @@ class Card extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn("delete_product",json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
@@ -462,8 +452,6 @@ class Card extends Component {
     }
 
     editNavigation = () => {
-        // alert(this.state.id)
-        // console.warn("props",this.props.category)
         this.props.navigation.navigate("EditPackage",
             {
                 data: this.state.id,
@@ -502,11 +490,8 @@ class Card extends Component {
                                 style={style.logo}
                             />
 
-
-                        // <Image source={{uri:global.image_url+item.product_img}}
-                        // style={style.logo}/>
                     }
-                    {/* <Image source={require('../img/logo/mp.png')} style={{width:80,height:80,marginTop:10}}/> */}
+
                 </View>
                 {/* View for Content */}
 
@@ -677,42 +662,6 @@ const style = StyleSheet.create({
         marginTop: 2,
         marginLeft: 10
     },
-    viewDetailsButton: {
-        borderColor: "#000",
-        height: 35,
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        width: 110,
-        alignContent: "center",
-        alignItems: "center",
-        alignSelf: "flex-end",
-        borderRadius: 10,
-        // position:"absolute",
-        // top:80,
-        // left:165
-        //alignSelf:"flex-end"
-    },
-    textButton: {
-        fontFamily: "Raleway-SemiBold",
-        fontSize: RFValue(11, 580),
-        color: "#000",
-        marginLeft: -10
-
-    }, iconView: {
-        width: 32,
-        height: 32,
-        shadowColor: '#fafafa',
-        shadowOpacity: 1,
-        elevation: 1,
-        padding: 6,
-        shadowRadius: 2,
-        shadowOffset: { width: 1, height: 1 },
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 100
-    },
-
     contentView: {
         flexDirection: "column",
         width: "68%",
@@ -771,19 +720,4 @@ const style = StyleSheet.create({
         fontSize: RFValue(9, 580)
 
     },
-    add: {
-
-        // borderWidth: 1,
-        // borderColor: 'rgba(0,0,0,0.2)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 50,
-        position: 'absolute',
-        bottom: 15,
-        right: 10,
-        height: 50,
-        backgroundColor: '#bc3b3b',
-        borderRadius: 100,
-
-    }
 })

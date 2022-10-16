@@ -15,7 +15,9 @@ import Loading from '../Screens/Loading.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
+
 const win = Dimensions.get('window');
+
 //this is the component for Post 
 class SingleFeed extends Component{
 
@@ -42,7 +44,6 @@ class SingleFeed extends Component{
     }
   
     componentDidMount(){
-     console.warn(global.token)
      this.fetch_feeds();
     }
 
@@ -65,9 +66,7 @@ class SingleFeed extends Component{
           })})
           .then((response) => response.json())
           .then((json) => {
-            console.warn(json)
             if(json.data.length>0){   
-              console.warn(json)
                     
                     this.setState({ data: json.data })
                     this.setState({user_type:json.data.user_type})
@@ -88,7 +87,6 @@ class SingleFeed extends Component{
     
     //function for share
     myShare = async (title,content,url)=>{
-      console.warn(title)
       const shareOptions={
           title:title,
           message:content,
@@ -141,7 +139,6 @@ class SingleFeed extends Component{
           })
           .then((response)=>response.json())
           .then((json)=>{
-            console.warn(json)
             if(!json.status){
               Toast.show(json.msg)
             }
@@ -419,39 +416,5 @@ const style=StyleSheet.create({
       height:280
       // height:"100%"
 
-    },followButton:{
-      borderRadius:25,
-      borderColor:"#000",
-      borderWidth:1,
-      alignItems:"center",
-      alignContent:"center",
-      justifyContent:"center",
-      // padding:5,
-      height:28,  
-      width:90,
-      top:5,
-      // left:5
-    },
-    followButtonText:{
-      fontFamily:"Raleway-SemiBold",
-      // fontSize:13,
-      fontSize:RFValue(9, 580),
-      // alignSelf:"center",
-      textAlign:"center",
-      top:-5.8,
-      left:3,
-      color:"#fff",
-    },
-    
-    unFollowButtonText:{
-      color:"#000",
-      fontFamily:"Raleway-SemiBold",
-      // fontSize:13,
-      fontSize:RFValue(9, 580),
-      // alignSelf:"center",
-      textAlign:"center",
-      top:0,
-      // left:3
-    },
-
+    }
 })

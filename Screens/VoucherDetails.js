@@ -12,6 +12,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import moment from 'moment';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import * as Animatable from 'react-native-animatable';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -21,8 +22,8 @@ var radio_props = [
 ];
 
 class VoucherDetails extends Component {
+    static contextType = AuthContext;
     constructor(props){
-        console.warn("props", props)
         super(props);
         this.state = {
             code: "",
@@ -47,7 +48,7 @@ class VoucherDetails extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 order_code: this.props.route.params.code
@@ -55,12 +56,10 @@ class VoucherDetails extends Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
                 if (!json.status) {
 
                 }
                 else {
-                    // console.warn(json.data[0].cart)
                     this.setState({ data: json.data[0] })
                     this.setState({ cart: json.data[0].cart })
                     this.setState({ load: false });
@@ -102,7 +101,7 @@ class VoucherDetails extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 order_id: this.props.route.params.code,
@@ -112,7 +111,6 @@ class VoucherDetails extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json);
                 if (!json.status) {
 
                     Toast.show(json.errors[0])

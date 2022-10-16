@@ -10,13 +10,16 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import moment from 'moment';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import * as Animatable from 'react-native-animatable';
+import { AuthContext } from '../AuthContextProvider.js';
 
 const win = Dimensions.get('window');
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 
 class CashbackHistory extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -61,7 +64,7 @@ class CashbackHistory extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 page: page_id
@@ -313,19 +316,6 @@ const style = StyleSheet.create({
         fontFamily: "Raleway-SemiBold",
         fontSize: RFValue(14.5, 580),
         margin: 5, color: "#000000"
-    },
-
-    fieldsText: {
-        fontSize: RFValue(11, 580),
-        fontFamily: "Montserrat-SemiBold",
-        color: "grey",
-        // marginLeft: 10
-    },
-    inputText: {
-        fontSize: RFValue(12, 580),
-        fontFamily: "Montserrat-Regular",
-        color: "black",
-        // marginLeft:10
     },
 
 }

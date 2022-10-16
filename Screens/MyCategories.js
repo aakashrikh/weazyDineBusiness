@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import {
-    View,ImageBackground,Alert,
-    StyleSheet,Pressable,Switch,
-    Image,Text,Dimensions,TouchableHighlight,
+    View, Alert,
+    StyleSheet, Pressable,
+    Image, Text
 } from 'react-native';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import {Header,Icon} from 'react-native-elements'
-import { ScrollView } from 'react-native-gesture-handler';
-import RBSheet from "react-native-raw-bottom-sheet";
+import { Icon } from 'react-native-elements'
 import Toast from 'react-native-simple-toast';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { ActivityIndicator } from 'react-native-paper';
-import Loading from './Loading.js';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import  { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js')
 
 class MyCategories extends Component{
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -42,7 +38,6 @@ class MyCategories extends Component{
         })
         .then((response) => response.json())
         .then((json) => {
-            console.warn(json)
             if(json.status)
             {
                 if(json.data.length >0)
@@ -62,7 +57,6 @@ class MyCategories extends Component{
     }
 
     alertFunc=(id,name)=>{
-       console.warn(id, name)
         Alert.alert(
           "",
           "Are you sure you want to delete this category?",
@@ -78,13 +72,12 @@ class MyCategories extends Component{
     }
 
     delete=(id,name)=>{
-        console.warn(id)
             fetch(global.vendor_api+'update_category_vendor', { 
                 method: 'POST',
                   headers: {    
                       Accept: 'application/json',  
                         'Content-Type': 'application/json',
-                        'Authorization': global.token
+                        'Authorization': this.context.token
                        }, 
                         body: JSON.stringify({ 
                             category_id:id,
@@ -93,7 +86,6 @@ class MyCategories extends Component{
                                 })
                             }).then((response) => response.json())
                                 .then((json) => {
-                                    console.warn(json)
                                     if(!json.status)
                                     {
                                         var msg=json.msg;
@@ -112,7 +104,6 @@ class MyCategories extends Component{
     }
 
     edit=(id,name)=>{
-        console.warn(id,name)
         this.props.navigation.navigate("EditCategory",{id:id,name:name})
     }
 

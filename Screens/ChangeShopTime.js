@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import {
-  View, TouchableOpacity, FlatList, Switch,
+  View, TouchableOpacity, Switch,
   StyleSheet, Text,
-  Image, ActivityIndicator, ScrollView, Dimensions, Pressable
+  ActivityIndicator, ScrollView, Dimensions, Pressable
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Icon, Input, Header } from 'react-native-elements';
+import { Icon, Header } from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
-import Toast from "react-native-simple-toast";
 import moment from 'moment';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -30,6 +29,7 @@ const objectd =
   ];
 
 class ChangeShopTime extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -60,7 +60,7 @@ class ChangeShopTime extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
       body: JSON.stringify({
 
@@ -68,7 +68,6 @@ class ChangeShopTime extends Component {
     }).then((response) => response.json())
       .then((json) => {
         const obj = json.data[0].timings;
-        console.log(obj);
         const object = this.state.timing;
         if (obj.length > 0) {
           obj.map((value, id) => {
@@ -116,7 +115,7 @@ class ChangeShopTime extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
       body: JSON.stringify({
         days: this.state.timing
@@ -128,7 +127,6 @@ class ChangeShopTime extends Component {
           this.props.navigation.navigate("More")
 
         }
-        console.warn(json);
         return json;
       }).catch((error) => {
         console.error(error);
@@ -305,12 +303,6 @@ class ChangeShopTime extends Component {
 export default ChangeShopTime
 
 const style = StyleSheet.create({
-  fieldsText: {
-    fontSize: RFValue(11, 580),
-    fontFamily: "Raleway-SemiBold",
-    color: "grey",
-    marginLeft: 10
-  },
   loader: {
     shadowOffset: { width: 50, height: 50 },
     marginTop: 20,

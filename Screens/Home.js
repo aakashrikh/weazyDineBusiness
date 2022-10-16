@@ -7,29 +7,17 @@ import {
 import { Header, Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Demo from './Demo.js';
-import { launchCamera } from 'react-native-image-picker';
-import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
-    
+import { AuthContext } from '../AuthContextProvider.js';    
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
-
-const options = {
-  title: "Pick an Image",
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-}
-
 class Home extends Component {
-
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -61,9 +49,7 @@ class Home extends Component {
       alert(e.id);
   });
 
-
-  //   // alert(global.vendor)
-  //   // this.setState({subscription:false});
+// this.setState({subscription:false});
 
     this.get_profile();
     this.get_cover();
@@ -83,7 +69,7 @@ class Home extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
     }).then((response) => response.json())
       .then((json) => {
@@ -108,7 +94,7 @@ class Home extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       }
     }).then((response) => response.json())
       .then((json) => {
@@ -138,7 +124,6 @@ class Home extends Component {
             }
             this.setState({ id: value.id })
             this.setState({ name: value.name, gstin: value.gstin })
-            // alert(value.category_type)
             global.category_type = value.category_type
           })
         }
@@ -160,7 +145,7 @@ class Home extends Component {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': global.token
+        'Authorization': this.context.token
       },
       body: JSON.stringify({
       })
@@ -255,27 +240,6 @@ class Home extends Component {
             </>
           }
 
-          {/* <View style={style.header}>
-                        <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center",width:"100%",paddingTop:20}}>
-                            <Text style={ { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold'}}>Welcome to Weazy Dine</Text>
-                                <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center",  }} 
-                                onPress={() => this.props.navigation.navigate('Notification')}>
-                                    <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
-                                </TouchableOpacity>
-                        </View>
-                    </View> */}
-
-          {/* <View style={{ width: '100%', height: 100, backgroundColor: 'rgba(233,149,6,1)', flexDirection: "row", borderBottomEndRadius: 15, borderBottomStartRadius: 15 }}>
-                        <View style={{ width: '80%', paddingTop: 20 }}>
-                            <Text style={[styles.heading, { color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold', marginTop: 25, left: 20 }]}>Welcome to Weazy Dine</Text>
-                        </View>
-                        <View style={{ width: '20%', padding: 20, paddingTop: 30, }}>
-                            <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, marginTop: 17 }}>
-                                <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
-                            </TouchableOpacity>
-                        </View>
-                    </View> */}
-
           <ScrollView showsVerticalScrollIndicator={false}>
 
             {/* for account details */}
@@ -316,30 +280,6 @@ class Home extends Component {
                 }
               </>
             }
-
-            {/* for profile photo */}
-            {/* {this.state.isloading ?
-                        <SkeletonPlaceholder>
-                            <View style={[style.viewBox,{height:80}]} />
-                        </SkeletonPlaceholder>
-                        :
-                        <>
-                        {(!this.state.image_loade )?
-                        <TouchableOpacity onPress={()=>this.RBSheet.open()} style={[style.cardView,{marginTop:15, borderWidth:1,borderRadius:10,borderColor:'#ececec', flexDirection:"row",justifyContent:"space-between",paddingTop:0,paddingBottom:0,paddingRight:0,marginLeft:20,marginRight:20}]}>
-                            <View style={{width:'20%',paddingTop:5,}}>
-                                <Image source={require('../img/user-2.png')} style={{width:50,height:50,marginLeft:10,marginTop:10}} />
-                            </View>
-                            <View style={{width:'80%',paddingTop:10,paddingBottom:10}}>
-                              <Text style={{fontSize:RFValue(12,580),fontFamily:"Roboto-Bold"}}>Upload Your Profile Picture</Text>
-                              <Text style={{fontSize:RFValue(10,580),fontFamily:"Roboto-Regular",marginTop:2}}>Upload your profile picture to showcase your profile good to your customers</Text>
-                          
-                            </View>
-                            
-                        </TouchableOpacity>
-                          :
-                          <></>
-                        }
-                        </>} */}
 
 
             {/* for cover photo */}
@@ -477,66 +417,6 @@ export default Home;
 
 
 const style = StyleSheet.create({
-  bannerImg: {
-    height: "100%",
-    width: "100%",
-    // marginTop:10
-  },
-  child: {
-    height: 200,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 20,
-    marginLeft: 20,
-    borderRadius: 5,
-  },
-  carousel: {
-    width: "100%",
-    borderRadius: 15,
-    height: 200,
-    alignItems: 'center',
-    alignContent: 'center',
-    alignSelf: 'center',
-    // marginTop:5,
-  },
-  camIcon: {
-    top: 60, right: 20, backgroundColor: "#dcdcdc",
-    height: 30, width: 30, padding: 5, alignContent: "center",
-    borderRadius: 30, justifyContent: "center"
-  },
-
-  editIcon: {
-    position: "absolute",
-    top: 40,
-    right: 5, backgroundColor: "#dcdcdc",
-    height: 30, width: 30, padding: 5, alignContent: "center",
-    borderRadius: 30, justifyContent: "center"
-  },
-  iconPencil: {
-    marginLeft: 20,
-    fontSize: 20,
-    marginBottom: 10
-  },
-  Text: {
-    position: "absolute",
-    fontSize: RFValue(15, 580),
-    marginLeft: 80,
-    fontFamily: "Raleway-Medium"
-  },
-
-  profileImg: {
-    height: 85,
-    width: 85,
-    borderRadius: 100,
-    // marginLeft:10
-  },
-  nameText: {
-    color: '#fff',
-    fontSize: RFValue(17, 580),
-    // paddingLeft:0,
-    fontFamily: "Raleway-Regular",
-  },
   text: {
     color: '#fff',
     fontSize: RFValue(11, 580),
@@ -553,14 +433,6 @@ const style = StyleSheet.create({
     marginTop: -330,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30
-  },
-  loader: {
-    shadowOffset: { width: 50, height: 50 },
-    marginBottom: 5,
-    marginTop: 30,
-    shadowRadius: 50,
-    elevation: 5,
-    backgroundColor: "#fbf9f9", width: 30, height: 30, borderRadius: 50, padding: 5, alignSelf: "center"
   },
   viewBox: {
     width: Dimensions.get('window').width / 1.05,
@@ -585,27 +457,5 @@ const style = StyleSheet.create({
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    margin: 20,
-    width: 300,
-    backgroundColor: "white",
-    borderRadius: 5,
-    padding: 15,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  }
 
 })

@@ -1,28 +1,22 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, TextInput, Linking,
-    ScrollView, Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Platform
+    StyleSheet, Image, Linking,
+    Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import MultiSelect from 'react-native-multiple-select';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Toast from "react-native-simple-toast";
-import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
-const win = Dimensions.get('window');
-
-var categ = []
-
 class Tables extends Component {
 
+    static contextType = AuthContext;
     constructor(props) {
 
         super(props);
@@ -92,23 +86,20 @@ class Tables extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
             })
         }).then((response) => response.json())
             .then((json) => {
-                // console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
-                    console.warn(json.data);
                     if (json.data.length > 0) {
-                        // console.warn(json.data)
                         this.setState({ data: json.data })
                     }
 
@@ -141,13 +132,12 @@ class Tables extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
@@ -173,18 +163,6 @@ class Tables extends Component {
             {(item.table_status == 'active') ?
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: item.qr_link }) }} style={[style.viewBox,
                 { marginTop: 10, padding: 10, backgroundColor: '#fff', width: Dimensions.get('window').width / 1.05, marginBottom: 2, alignSelf: 'center', borderRadius: 5, flexDirection: "row" }]}>
-                    {/* <View style={{flexDirection:'row'}}>
-                        <View style={{width:60,height:60,backgroundColor:'#EDA332',borderRadius:5}}>
-                            <Text style={{fontSize:45,alignSelf:'center',color:'#eee'}}>T</Text>
-                        </View>
-                        <View style={{marginLeft:20}}>
-                            <Text style={styles.h3}>{item.table_name}</Text>
-                            <Text style={[styles.p,{fontSize:RFValue(12,580)}]}>{item.table_status}</Text>
-                        </View>
-                        <View style={{padding:5,backgroundColor:'#EDA332',borderRadius:5,}}>
-
-                        </View>
-                    </View> */}
                     <View style={{ width: "20%" }}>
                         <View style={{ width: 60, height: 60, backgroundColor: '#EDA332', borderRadius: 5 }}>
                             <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
@@ -267,29 +245,6 @@ class Tables extends Component {
                     :
                     <Loaders />
                 }
-
-
-                {/* <View>
-                    <Text style={style.fieldsTitle}>
-                      Sub-Category
-                    </Text>
-                    <TextInput 
-                    style={style.textInput}/>
-                </View> */}
-
-                {/* {(!this.state.table_load )?
-                    <TouchableOpacity style={style.uploadButton} onPress={() => this.add()} >
-                        <Text style={style.buttonText}>
-                            Add New Table
-                        </Text>
-                    </TouchableOpacity>
-                    :
-                    <View style={style.loader}>
-           <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
-           </View>
-
-                } */}
-
             </View>
         )
     }
@@ -319,44 +274,6 @@ class Loaders extends Component {
 export default Tables;
 
 const style = StyleSheet.create({
-    fieldsTitle: {
-        fontFamily: "Raleway-Regular",
-        // color:"grey",
-        fontSize: RFValue(14, 580),
-        padding: 10,
-        paddingLeft: 20
-
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: "#d3d3d3",
-        color: "#5d5d5d",
-        //   backgroundColor: '#f5f5f5',
-        borderRadius: 5,
-        padding: 5,
-        width: Dimensions.get("window").width / 1.1,
-        height: 40,
-        alignContent: 'center',
-        alignSelf: 'center',
-        fontSize: RFValue(11, 580),
-    },
-    uploadButton: {
-        backgroundColor: "rgba(233,149,6,1)",
-        // width: 105,
-        justifyContent: "center",
-        padding: 5,
-        borderRadius: 5,
-        alignSelf: "center",
-        alignItems: "center",
-        // marginLeft:20,
-        marginTop: 70,
-        paddingHorizontal: 15
-    },
-    buttonText: {
-        fontFamily: "Raleway-SemiBold",
-        color: "#fff",
-        fontSize: RFValue(14, 580)
-    },
     text: {
 
         fontFamily: "Raleway-SemiBold",

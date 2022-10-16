@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, TextInput,
-    ScrollView, Dimensions, TouchableOpacity
+    StyleSheet, TextInput,
+    Dimensions, TouchableOpacity
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import RBSheet from 'react-native-raw-bottom-sheet';
-import MultiSelect from 'react-native-multiple-select';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Toast from "react-native-simple-toast";
-import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
-const win = Dimensions.get('window');
-
-var categ = []
-
 class AddCategory extends Component {
-
+static contextType = AuthContext;
     constructor(props) {
 
         super(props);
@@ -32,8 +25,6 @@ class AddCategory extends Component {
         };
 
     }
-
-
 
 
     //for header left component
@@ -61,7 +52,7 @@ class AddCategory extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
                 body: JSON.stringify({
                     category_name: this.state.category,
@@ -69,7 +60,6 @@ class AddCategory extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
@@ -124,14 +114,6 @@ class AddCategory extends Component {
                             style={style.textInput}
                         />
                     </View>
-
-                    {/* <View>
-                    <Text style={style.fieldsTitle}>
-                      Sub-Category
-                    </Text>
-                    <TextInput 
-                    style={style.textInput}/>
-                </View> */}
                     <TouchableOpacity style={style.uploadButton} onPress={() => this.add()} >
                         <Text style={style.buttonText}>
                             Add

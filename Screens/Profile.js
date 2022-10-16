@@ -9,10 +9,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Loading from './Loading.js';
 import moment from 'moment';
-import DateTimePicker from "react-native-modal-datetime-picker";
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global Style Import
 const styles = require('../Components/Style.js');
 
@@ -20,6 +20,7 @@ const win = Dimensions.get('window');
 
 
 class Profile extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -108,14 +109,13 @@ class Profile extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
@@ -174,13 +174,12 @@ class Profile extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
                 body: JSON.stringify({
                     email: mail,
                     name: name,
                     contact: contact,
-                    // shop_name:shopName,
                     description: description,
                     whatsapp: this.state.whatsapp,
                     website: this.state.website,
@@ -188,7 +187,6 @@ class Profile extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
                     if (!json.status) {
 
                         Toast.show(json.errors[0])
@@ -293,34 +291,9 @@ class Profile extends Component {
                                         }} />
                                 </View>
 
-                                {/* <View style={{ paddingLeft: 10 }}>
-                                    <Text style={style.fieldsText}>Contact</Text>
-                                    <Input
-                                        value={this.state.contact}
-                                        style={style.inputText}
-                                        onChangeText={(e) => { this.setState({ contact: e }) }}
-                                        inputContainerStyle={{
-                                            width: Dimensions.get("window").width / 1.12,
-                                        }}
-                                        maxLength={10}
-                                        keyboardType="numeric" />
-                                </View> */}
 
                                 
-                                
-                                
-
-
-                                {/* <View style={{paddingLeft:10}}>
-                      <Text style={style.fieldsText}>Shop Address</Text>
-                      <Input 
-                      onChangeText={()=>this.props.navigation.navigate("LocationAccess")}
-                      value={(this.state.Shop_No) + "" +(this.state.address)}
-                      style={style.inputText}
-                      inputContainerStyle={{
-                        width:Dimensions.get("window").width/1.12,
-                        }}/>
-                  </View> */}
+                 
                                
                             </View>
                         }
@@ -406,31 +379,8 @@ class Loader extends Component {
 }
 
 const style = StyleSheet.create({
-    container1: {
-        flex:1,
-        backgroundColor: "#EDA332",
-        width: "100%",
-        
-    },
     container2: {
-
         width: "100%",
-    },
-    userImg: {
-        height: 120,
-        width: 120,
-        alignSelf: "center",
-        top: 40,
-        borderRadius: 100,
-        shadowRadius: 50,
-        borderWidth: 0.5,
-        borderColor: "#fff",
-        shadowOffset: { width: 100, height: 100 },
-    },
-    editIcon: {
-        position: "absolute",
-        left: 255,
-        top: 140
     },
     fieldsText: {
         fontSize: RFValue(11, 580),
@@ -444,17 +394,6 @@ const style = StyleSheet.create({
         color: "black",
         marginTop:-7
         // marginLeft:10
-    },
-    GenderText: {
-        fontSize: RFValue(12, 580),
-        fontFamily: "Montserrat-SemiBold",
-        color: "grey",
-        paddingLeft: 5
-    },
-    dobInput: {
-        marginTop: 15,
-        fontSize: RFValue(14, 580),
-        paddingLeft: 10
     },
     buttonStyles: {
         width: "60%",

@@ -6,10 +6,13 @@ import {
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 class Demo extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -34,17 +37,14 @@ class Demo extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
 
             })
         }).then((response) => response.json())
             .then((json) => {
-                //console.warn(json)
                 if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
                 }
                 else {
                     this.setState({ data: json.data })
@@ -69,7 +69,7 @@ class Demo extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
             })
@@ -78,8 +78,6 @@ class Demo extends Component {
                 if (json.status) {
 
                     this.setState({ item: json.data })
-                    //   console.warn(json.data)
-                    //    alert(this.state.item.shop_visit)
                 }
                 return json;
             }).catch((error) => {

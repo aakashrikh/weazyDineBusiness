@@ -15,6 +15,7 @@ import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
 import MultiSelect from 'react-native-multiple-select';
+import { AuthContext } from '../AuthContextProvider.js';
 // import Categories from './Categories.js';
 
 //Global Style Import
@@ -23,6 +24,7 @@ const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
 
 class CreateOffers extends Component{
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -72,13 +74,13 @@ class CreateOffers extends Component{
     //   Fetching vendor products
     get_product=()=>{
             var product_type="product"
-            // console.warn(global.token)
+            // console.warn(this.context.token)
             fetch(global.vendor_api+'vendor_get_vendor_product', { 
                 method: 'POST',
                   headers: {    
                       Accept: 'application/json',  
                         'Content-Type': 'application/json',
-                        'Authorization': global.token
+                        'Authorization': this.context.token
                        }, 
                         body: JSON.stringify({ 
                             vendor_category_id:0 ,
@@ -124,7 +126,7 @@ class CreateOffers extends Component{
               headers: {    
                   Accept: 'application/json',  
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                    }, 
                     body: JSON.stringify({ 
                         vendor_category_id:0 ,
@@ -248,7 +250,7 @@ class CreateOffers extends Component{
                    headers: {    
                        Accept: 'application/json',  
                          'Content-Type': 'application/json',
-                         'Authorization':global.token  
+                         'Authorization':this.context.token  
                         }, 
                          body: JSON.stringify({   
                             offer_name: title, 

@@ -12,11 +12,13 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import CategoriesSelect from '../Components/CategoriesSelect';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 class ChangeSubCategory extends Component{
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -156,7 +158,6 @@ class CategoriesSelect extends Component{
             })
             .then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if(json.data.length>0){
                     json.data.map((value,key)=>{
                     const object = this.state.object;
@@ -180,9 +181,7 @@ class CategoriesSelect extends Component{
    
 
     update_cat(id)
-    {   
-        
-        // console.warn(str)
+    { 
         const object=this.state.object;
         if(object[id])
         {
@@ -195,13 +194,10 @@ class CategoriesSelect extends Component{
             main_category_id.push(id);
         }
         this.setState({object})
-        console.warn(main_category_id)
         
     }
 
     submit=()=>{
-        
-        console.warn(main_category_id.length)
         if(main_category_id.length<2)
         {
             Toast.show('Please choose a category!');
@@ -214,14 +210,13 @@ class CategoriesSelect extends Component{
                        headers: {    
                            Accept: 'application/json',  
                              'Content-Type': 'application/json',
-                             'Authorization':global.token  
+                             'Authorization':this.context.token  
                             }, 
                              body: JSON.stringify({   
                                 category_id: main_category_id, 
     
                                      })}).then((response) => response.json())
                                      .then((json) => {
-                                         console.warn(json)
                                          if(!json.status)
                                          {
                                              var msg=json.msg;

@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { FlatList, Platform, TouchableOpacity } from 'react-native';
 import {
-    View, ImageBackground, Alert,
-    StyleSheet, Pressable, Switch,
-    Image, Text, Dimensions, TouchableHighlight,
+    View, StyleSheet, 
+    Image, Text, Dimensions,
 } from 'react-native';
 import { Header, Icon } from 'react-native-elements'
 import { ScrollView } from 'react-native-gesture-handler';
-import RBSheet from "react-native-raw-bottom-sheet";
-import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment/moment.js';
-// import Categories from './Categories.js';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -23,6 +20,7 @@ const win = Dimensions.get('window');
 
 
 class Orders extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -46,17 +44,6 @@ class Orders extends Component {
         })
     }
 
-    // function to load data while scrolling
-    // load_more = () => {
-    //     var data_size = this.state.data.length
-    //     if (data_size > 9) {
-    //         var page = this.state.page + 1
-    //         this.setState({ page: page })
-    //         this.setState({ load_data: true });
-    //         this.fetch_order(page, "")
-    //     }
-    // }
-
     load_more = () => {
         var data_size = this.state.data.length
         if (data_size > 9) {
@@ -73,7 +60,7 @@ class Orders extends Component {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-                Authorization: global.token,
+                Authorization: this.context.token,
             },
             body: JSON.stringify({
                 page: page_id,
@@ -521,52 +508,7 @@ const style = StyleSheet.create({
         borderRadius: 15,
         padding: 6,
 
-    },
-    logo: {
-        height: 50,
-        width: 50,
-        // borderWidth:0.2,
-        // borderRadius:10,
-        borderColor: "black",
-        margin: 10,
-        marginLeft: 10
-    },
-    viewDetailsButton: {
-        borderColor: "#000",
-        height: 35,
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        width: 110,
-        alignContent: "center",
-        alignItems: "center",
-        alignSelf: "flex-end",
-        borderRadius: 10,
-        // position:"absolute",
-        // top:80,
-        // left:165
-        //alignSelf:"flex-end"
-    },
-    textButton: {
-        fontFamily: "Raleway-SemiBold",
-        fontSize: RFValue(11, 580),
-        color: "#000",
-        marginLeft: -10
-
-    }, iconView: {
-        width: 32,
-        height: 32,
-        shadowColor: '#fafafa',
-        shadowOpacity: 1,
-        elevation: 1,
-        padding: 6,
-        shadowRadius: 2,
-        shadowOffset: { width: 1, height: 1 },
-        alignContent: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 100
-    },
-
+    },    
     contentView: {
         flexDirection: "column",
         width: "100%",
@@ -577,18 +519,6 @@ const style = StyleSheet.create({
         //  marginLeft:10,
         //  marginTop:10,
 
-    },
-    fab: {
-        backgroundColor: "#EDA332",
-        borderRadius: 100,
-        height: 50,
-        width: 50,
-        bottom: 10,
-        right: 10,
-        // alignSelf:"flex-end",
-        // margin:20,
-        justifyContent: "center",
-        position: "absolute"
     },
     button: {
         backgroundColor: "#EDA332",

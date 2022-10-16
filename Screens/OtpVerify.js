@@ -158,7 +158,6 @@ class OtpVerify extends Component {
       })
         .then((response) => response.json())
         .then((json) => {
-          console.warn(json)
           if (json.msg == 'ok') {
             OneSignal.sendTag("id", '' + json.usr);
             OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
@@ -204,7 +203,6 @@ class OtpVerify extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json);
 
         if (json.msg == 'ok') {
           console.warn(json.msg)

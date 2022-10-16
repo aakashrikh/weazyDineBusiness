@@ -8,11 +8,14 @@ import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
+import { AuthContext } from '../AuthContextProvider.js';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
 
 class TopDeals extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -52,15 +55,13 @@ class TopDeals extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
 
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (json.status) {
                     this.setState({ item: json.data.data })
-                    console.warn(this.state.item)
                 }
                 return json;
             }).catch((error) => {
@@ -102,7 +103,7 @@ class TopDeals extends Component {
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
                 body: JSON.stringify({
                     first_time: this.state.first_deal,
@@ -111,7 +112,6 @@ class TopDeals extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
-                    console.warn(json)
                     if (!json.status) {
 
                         // Toast.show(json.errors[0])
@@ -261,12 +261,6 @@ const style = StyleSheet.create({
         // marginLeft: 10,
         alignSelf: "flex-start",
         marginTop: 10
-    },
-    inputText: {
-        fontSize: RFValue(12, 580),
-        fontFamily: "Montserrat-Regular",
-        color: "black",
-        // marginLeft:10
     },
     loader:{
         shadowOffset:{width:50,height:50},

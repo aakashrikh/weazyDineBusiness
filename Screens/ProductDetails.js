@@ -11,7 +11,6 @@ const styles = require('../Components/Style.js');
 class ProductDetails extends Component {
    constructor(props) {
       super(props);
-      console.warn("props", props)
       this.state = {
       };
    }

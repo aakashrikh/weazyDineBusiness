@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import {
     Text,View,
-    StyleSheet,Image,TextInput,
-    ScrollView,Dimensions,TouchableOpacity
+    StyleSheet,TextInput,
+    Dimensions,TouchableOpacity
 } from 'react-native';
 import {Icon,Header} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-// import DropDownPicker from 'react-native-dropdown-picker';
-import RBSheet from 'react-native-raw-bottom-sheet';
 import MultiSelect from 'react-native-multiple-select';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import Toast from "react-native-simple-toast";
-import {Picker} from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -66,7 +63,6 @@ class AddPackageCategory extends Component{
       };
 
       add =()=>{
-        //   alert("sfghsdf")
           if(this.state.category!="")
           {
             this.props.navigation.navigate("CreatePackages" ,{category:this.state.category})
@@ -142,13 +138,6 @@ class AddPackageCategory extends Component{
                         submitButtonText="Submit"
                         />
                      </View>
-                {/* <View>
-                    <Text style={style.fieldsTitle}>
-                      Sub-Category
-                    </Text>
-                    <TextInput 
-                    style={style.textInput}/>
-                </View> */}
                 <TouchableOpacity style={style.uploadButton} onPress={()=>this.add()} >
                                     <Text style={style.buttonText}>
                                         Add

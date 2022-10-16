@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import {
     Text,View,
-    StyleSheet,Image,Dimensions,
-    TouchableOpacity,Pressable,PermissionsAndroid, ActivityIndicator, 
+    StyleSheet, Image,
+    TouchableOpacity, ActivityIndicator, 
 } from 'react-native';
-import {Icon,Input} from "react-native-elements";
 import LinearGradient from 'react-native-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import CategoriesSelect from '../Components/CategoriesSelect';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -32,21 +29,7 @@ class ChangeCategory extends Component{
 
                         {/* Component for Categories select */}
                         <CategoriesSelect navigation={this.props.navigation}/>
-                        
-                        {/* <View>
-                        <TouchableOpacity  
-                        onPress={()=>this.props.navigation.navigate("UnderVerification")}
-                        style={style.buttonStyles}>
-                        <LinearGradient 
-                            colors={['#326bf3', '#0b2654']}
-                            style={styles.signIn}>
-
-                            <Text style={[styles.textSignIn, {color:'#fff'}]}>
-                            Submit</Text>
-                        
-                        </LinearGradient>
-                        </TouchableOpacity>
-                        </View> */}
+               
 
                     </View>
                 </ScrollView>
@@ -62,9 +45,7 @@ export default ChangeCategory;
 
 
 const style=StyleSheet.create({
-    icon:{
-        margin:10
-    },
+
     buttonStyles:{
         width:"45%",
         alignSelf:"center",
@@ -98,34 +79,6 @@ const style=StyleSheet.create({
         shadowRadius: 10,
         shadowOffset: { width:1, height: 1 },
     },
-    activestep:{
-        width:25,
-        height:25,
-        backgroundColor:"#326bf3",
-        borderColor:"#326bf3",
-        borderWidth:1,
-        borderRadius:50
-    },
-    runningstep:{
-        width:25,
-        height:25,
-        // backgroundColor:"#326bf3",
-        borderColor:"#326bf3",
-        borderWidth:1,
-        borderRadius:50
-    },
-    step:{
-        width:25,
-        height:25,
-        backgroundColor:"#d3d3d3",
-        borderRadius:50
-    },
-    stepBorder:{
-        width:60,
-        borderTopWidth:1,
-        marginTop:13,
-        borderColor:"#696969"
-    },
     loader:{
         shadowOffset:{width:50,height:50},
         marginTop:20,
@@ -138,16 +91,16 @@ const style=StyleSheet.create({
 
 
 var  main_category_id=[]
+
 class CategoriesSelect extends Component{
     constructor(props){
         super(props);
         this.state={
-           
             bgColor:"#3e3737",
             buttonloading:true,
             data:[],
-           isloading:true,
-           selected:0
+            isloading:true,
+            selected:0
         }
     }
 
@@ -169,7 +122,6 @@ class CategoriesSelect extends Component{
             })
             .then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 this.setState({data:json.data })   
                     
                 return json;
@@ -187,7 +139,7 @@ class CategoriesSelect extends Component{
                       headers: {    
                           Accept: 'application/json',  
                             'Content-Type': 'application/json',
-                            'Authorization': global.token
+                            'Authorization': this.context.token
                            }, 
                             body: JSON.stringify({ 
                                 
@@ -197,7 +149,6 @@ class CategoriesSelect extends Component{
                                         
                 if(json.data.length>0){
                     json.data.map((value,key)=>{
-                        console.warn(value)
                        this.update_cat(value.parent_id)
                     })
                 }      
@@ -231,14 +182,13 @@ class CategoriesSelect extends Component{
                        headers: {    
                            Accept: 'application/json',  
                              'Content-Type': 'application/json',
-                             'Authorization':global.token  
+                             'Authorization':this.context.token  
                             }, 
                              body: JSON.stringify({   
                                 category_id: main_category_id, 
     
                                      })}).then((response) => response.json())
                                      .then((json) => {
-                                         console.warn(json)
                                          if(!json.status)
                                          {
                                              var msg=json.msg;
@@ -248,7 +198,6 @@ class CategoriesSelect extends Component{
                                              Toast.show(json.msg)
                                                   this.props.navigation.navigate("ChangeSubCategory",
                                                   {id:this.state.selected})
-                                            // this.props.navigation.navigate("Home")
                                          }
                                         return json;    
                                     }).catch((error) => {  

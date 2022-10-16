@@ -15,6 +15,7 @@ import RadioForm from 'react-native-simple-radio-button';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
+import { AuthContext } from '../AuthContextProvider.js';
 
 var radio_props = [
     { label: 'Veg', value: 1 },
@@ -36,6 +37,7 @@ const options = {
 }
 
 class EditService extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         
@@ -50,7 +52,6 @@ class EditService extends Component {
     }
 
     componentDidMount() {
-        console.log("Sssss", this.props.route.params.category)
     }
 
     //for header left component
@@ -98,7 +99,6 @@ export default EditService;
 class Fields extends Component {
     constructor(props) {
         super(props);
-// console.warn(';;',this.props.data.addon_map);
         this.state = {
             name: "",
             cat_name: {},
@@ -136,7 +136,6 @@ class Fields extends Component {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
                     return (
-                        //  console.warn(path.uri) 
                         // this.setState({ image_upload: path.uri })
                         this.setState({ image: path.uri })
                     )
@@ -154,7 +153,6 @@ class Fields extends Component {
             height: 500,
             cropping: true,
         }).then(image => {
-            console.log(image);
             // this.setState({image:"Image Uploaded"})
             // this.setState({ image_upload: image.path });
             this.setState({ image: image.path })
@@ -176,7 +174,6 @@ class Fields extends Component {
 
     // Fetching vendor categories
     get_category = () => {
-        // console.warn(this.props.category)
         var nn = [];
         var pp = [];
         this.props.category.map((value, key) => {
@@ -204,7 +201,6 @@ class Fields extends Component {
     set_value = (index) => {
         var vv = this.state.cat_id[index];
         this.setState({ c_id: vv })
-        // console.warn(this.state.c_id)
     }
 
     //Create service button
@@ -235,7 +231,6 @@ class Fields extends Component {
         else {
             this.setState({ isLoading: true });
             if (this.state.image != '') {
-                // console.warn("jkkj")
                 var photo = {
                     uri: this.state.image,
                     type: 'image/jpg',
@@ -243,28 +238,23 @@ class Fields extends Component {
                 };
                 form.append("product_img", photo);
             }
-            // console.warn(this.state.name, this.state.c_id, this.state.market_price, this.state.our_price, this.state.description, photo, this.state.prod_id, this.state.is_veg)
 
             form.append("product_name", this.state.name);
-            // form.append("token",global.token);
             form.append("vendor_category_id", this.state.c_id);
             form.append("market_price", this.state.market_price);
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
-
             form.append("product_id", this.state.prod_id);
             form.append("is_veg", this.state.is_veg);
-            // console.warn(form)
             fetch(global.vendor_api + 'vendor_update_product', {
                 method: 'POST',
                 body: form,
                 headers: {
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
             }).then((response) => response.json())
                 .then((json) => {
-                    // console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
@@ -379,22 +369,6 @@ class Fields extends Component {
                     style={{ marginTop: 20, alignSelf: "center" }}
                 />
 
-                {/* <View style={{ marginTop: 20, alignSelf: 'center' }}>
-                    <RadioForm
-                        formHorizontal={true}
-                        radio_props={radio_props}
-                        animation={true}
-                        initial={0}
-                        labelHorizontal={false}
-                        labelStyle={{ marginRight: 20 }}
-                        selectedButtonColor={"#EDA332"}
-                        buttonColor={"#EDA332"}
-                        onPress={(value) => { this.setState({ is_veg: value }) }}
-                    />
-                </View> */}
-
-
-
                 <View>
                     <Text style={style.fieldsTitle}>
                         Description <Text style={{ color: "grey" }}>(50words) </Text>
@@ -443,8 +417,6 @@ class Fields extends Component {
 
                                 {this.state.image == "" ?
                                     <View style={{ flexDirection: "row", }}>
-                                        {/* <Image source={require('../img/addProduct.png')}
-                                style={style.serviceImg}/> */}
                                         <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
                                             <View style={style.add}>
                                                 <Icon name="add" size={35} color="#EDA332" />
@@ -462,11 +434,6 @@ class Fields extends Component {
                                     </View>
                                 }
 
-                                {/* <TouchableOpacity style={style.uploadButton} onPress={()=>this.RBSheet.open()} >
-                                <Text style={style.buttonText}>
-                                    Choose Photo
-                                </Text>
-                            </TouchableOpacity> */}
                             </View>
                         </View>
                     </View>

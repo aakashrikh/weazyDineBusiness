@@ -14,11 +14,13 @@ import { ActivityIndicator } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
 
 class OrderDetails extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -56,13 +58,12 @@ class OrderDetails extends Component {
   }
 
   orderDetails = (id) => {
-    console.warn(id);
     fetch(global.vendor_api + "get_orders_details_vendor", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: global.token,
+        Authorization: this.context.token,
       },
       body: JSON.stringify({
         order_code: id,
@@ -70,21 +71,18 @@ class OrderDetails extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        // console.warn(json)
         if (!json.status) {
         } else {
 
           json.data.map((item) => {
             this.setState({ data: item });
           });
-          console.warn(this.state.data.id);
 
           this.setState({
             cart: json.data[0].cart,
             user: json.data[0].user,
             isLoading: false,
           });
-          console.warn(this.state.cart)
         }
       })
       .catch((error) => console.error(error))
@@ -93,14 +91,13 @@ class OrderDetails extends Component {
 
 
   change_order_status = (status) => {
-    console.warn(this.state.data.id)
     this.setState({ mark_complete_buttonLoading: true });
     fetch(global.vendor_api + "update_order_status_by_vendor", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: global.token,
+        Authorization: this.context.token,
       },
       body: JSON.stringify({
         order_id: this.state.data.id,
@@ -109,7 +106,6 @@ class OrderDetails extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.warn(json);
         if (!json.status) {
         } else {
           this.orderDetails(this.state.data.id);

@@ -77,7 +77,6 @@ import PaymentFailed from './Screens/PaymentFailed';
 import Orders from './Screens/Orders';
 import OrderDetails from './Screens/OrderDetails';
 import { LogBox } from 'react-native';
-
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
@@ -119,8 +118,8 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //for production
  //global.vendor_api = "https://dine-api.weazy.in/api/";
 
-//for demo
-global.vendor_api = "http://10.0.2.2:8000/api/";
+//for demo 
+global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 
 global.login_data = true
@@ -234,9 +233,10 @@ class App extends Component {
   }).catch(err => console.error('An error occurred', err));
  
     AsyncStorage.getItem('@auth_login', (err, result) => {
-
+0
       if (JSON.parse(result) != null) {
-      
+        // this.login(JSON.parse(result).use_type, JSON.parse(result).token);
+      // console.warn(JSON.parse(result))
         global.token = JSON.parse(result).token;
         global.vendor = JSON.parse(result).vendor_id;
         global.step = this.state.step
@@ -260,6 +260,7 @@ class App extends Component {
   };
 
   login = (step,user,token) => {
+    // console.log("hhh",user)
     this.setState({ islogin: true, step: step,user:user,token:token });
 
     window.Pusher = Pusher;
@@ -382,17 +383,8 @@ class App extends Component {
                     <>
                       <Stacks.Screen name="CreateShopProfile" component={CreateShopProfile} options={{ headerShown: false }} />
                       <Stacks.Screen name="ShopTiming" component={ShopTiming} options={{ headerShown: false }} />
-
-                      {/* <Stacks.Screen name="EnableLocation" component={EnableLocation} options={{headerShown: false}}/> */}
-                      {/* <Stacks.Screen name="LocationAccess" component={LocationAccess} options={{headerShown: false}}/> */}
-                      {/* <Stacks.Screen name="LocationDetails" component={LocationDetails} options={{headerShown: false}}/> */}
-                      {/* <Stacks.Screen name="ChooseCategories" component={ChooseCategories} options={{headerShown: false}}/> */}
-                      {/* <Stacks.Screen name="UnderVerification" component={UnderVerification} options={{headerShown: false}}/> */}
                       <Stacks.Screen name="VerificationDone" component={VerificationDone} options={{ headerShown: false }} />
-                      {/* <Stacks.Screen name="UploadLogo" component={UploadLogo} options={{headerShown:false}}/> */}
-                      {/* <Stacks.Screen name="UploadCovers" component={UploadCovers} options={{headerShown:false}}/> */}
-                      {/* <Stacks.Screen name="ChooseSubCategories" component={ChooseSubCategory} options={{headerShown: false}}/> */}
-
+                      
 
                     </>
                     :

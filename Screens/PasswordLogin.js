@@ -57,7 +57,6 @@ class PasswordLogin extends Component
                          })
                 }).then((response) => response.json())
                 .then((json) => {
-                    console.log("jhkhk",json);
                    
                     if (json.msg == 'ok') {
                         OneSignal.sendTag("id", '' + json.usr);

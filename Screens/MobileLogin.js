@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
     Text,View,ScrollView,ActivityIndicator,
-    StyleSheet,Image,Pressable,
-    TouchableOpacity,ImageBackground
+    StyleSheet,Image,
+    TouchableOpacity,
 } from 'react-native';
 import { 
-    Input,Icon,Button 
+    Input,Icon
 } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import Toast from "react-native-simple-toast";
@@ -27,8 +27,6 @@ class MobileLogin extends Component
    
     sendOtp = () =>
     {
-        // if(this.state.contact_no != '')
-        // {
             var contact_no=this.state.contact_no;
             var phoneNumber = this.state.contact_no;
             let rjx= /^[0]?[6789]\d{9}$/;
@@ -51,11 +49,9 @@ class MobileLogin extends Component
                          })
                 }).then((response) => response.json())
                 .then((json) => {
-                    console.log(json);
                    
                  if(json.msg=='ok')
                   {
-                    console.warn(json.msg)
                     Toast.show('OTP sent successfully!'); 
                     this.props.navigation.navigate('OtpVerify',{contact_no:contact_no});
                   }
@@ -69,14 +65,10 @@ class MobileLogin extends Component
                   this.setState({ isLoading: false });
                 });
             }
-        // }
     }
 
     render()
     {
-        
-        
-        let {contact_no}= this.state;
         return (
         
         <View style ={styles.container}>
@@ -135,7 +127,6 @@ class MobileLogin extends Component
             </TouchableOpacity>
             }        
                         
-                {/* <Button title="Send OTP" buttonStyle={{marginTop:10,borderRadius:5}}/> */}
             
             </View>
             </ScrollView>

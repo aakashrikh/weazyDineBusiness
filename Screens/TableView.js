@@ -16,6 +16,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import Modal from "react-native-modal";
 import RadioForm from 'react-native-simple-radio-button';
+import { AuthContext } from '../AuthContextProvider.js';
 
 
 //Global StyleSheet Import
@@ -30,11 +31,11 @@ var radio_props = [
 ];
 
 class TableView extends Component {
+    static contextType = AuthContext;
 
     constructor(props) {
 
         super(props);
-        // console.warn(props)
         this.state = {
             category: "",
             status: "active",
@@ -60,26 +61,22 @@ class TableView extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 table_id: this.props.route.params.table_uu_id,
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn("hh",json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
-                    console.warn(json.data);
                     if (json.data.length > 0) {
-                        // console.warn(json.data)
                         this.setState({ data: json.data[0] })
                         this.setState({ cart: json.data[0].cart })
-                        // console.warn("cart", this.state.cart)
                     }
 
                     // let myInterval = setInterval(() => {
@@ -140,14 +137,13 @@ class TableView extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 table_id: this.props.route.params.table_uu_id
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     console.warn(msg);
@@ -174,7 +170,7 @@ class TableView extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 table_id: this.props.route.params.table_uu_id,
@@ -182,16 +178,13 @@ class TableView extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json)
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
                 else {
-                    console.warn(json.data);
                     if (json.data.length > 0) {
-                        // console.warn(json.data)
                         this.setState({ bill: json.data[0] })
                         this.setState({ cart: json.data[0].cart })
                     }
@@ -250,7 +243,7 @@ class TableView extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 order_id: this.state.bill.id,
@@ -259,7 +252,6 @@ class TableView extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn(json);
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
@@ -268,7 +260,6 @@ class TableView extends Component {
                 else {
                     this.setState({ modalVisible: false });
                     this.props.navigation.navigate('Tables');
-                    console.warn(json.data);
 
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
@@ -397,12 +388,6 @@ class TableView extends Component {
                                         <Text style={[styles.h4, { width: '20%', alignSelf: 'flex-end',fontFamily:"Poppins-Medium" }]}>₹{this.state.data.order_amount}</Text>
                                     </View>
 
-                                    {/* <View style={{flexDirection:'row',width:'100%',paddingLeft:20,marginTop:5,marginBottom:5}}>
-                        <Text style={[styles.h4,{width:'80%'}]}>GST (15%)</Text>
-                        <Text style={[styles.h4,{width:'20%',alignSelf:'flex-end'}]}>300</Text>
-                    </View> */}
-
-
                                 </View>
                                 :
                                 <Text></Text>
@@ -418,7 +403,6 @@ class TableView extends Component {
                     {(this.state.cart.length > 0) ?
                         <TouchableOpacity
                             onPress={() => this.genrate_bill()}
-                            // onPressIn={() => alert("hi")}
                             style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10}]}>
                             <LinearGradient
                                 colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
@@ -448,7 +432,6 @@ class TableView extends Component {
                             borderTopRightRadius: 20
                         },
                         wrapper: {
-                            // backgroundColor: "transparent",
                             borderWidth: 1
                         },
                         draggableIcon: {
@@ -504,7 +487,6 @@ class TableView extends Component {
                                         buttonColor={'#EDA332'}
                                         selectedButtonColor={'#EDA332'}
                                         onPress={(value) => {
-                                            console.warn(value)
                                             this.setState({ payment: value })
                                         }}
                                         labelStyle={{ fontSize: RFValue(13, 580), margin:10,marginTop:0,marginBottom:0 }}
@@ -596,19 +578,10 @@ const style = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
     },
-    fieldsTitle: {
-        fontFamily: "Raleway-Regular",
-        // color:"grey",
-        fontSize: RFValue(14, 580),
-        padding: 10,
-        paddingLeft: 20
-
-    },
     textInput: {
         borderWidth: 1,
         borderColor: "#d3d3d3",
         color: "#5d5d5d",
-        //   backgroundColor: '#f5f5f5',
         borderRadius: 5,
         padding: 5,
         width: Dimensions.get("window").width / 1.1,
@@ -616,23 +589,6 @@ const style = StyleSheet.create({
         alignContent: 'center',
         alignSelf: 'center',
         fontSize: RFValue(11, 580),
-    },
-    uploadButton: {
-        backgroundColor: "#EDA332",
-        width: 105,
-        height: 40,
-        justifyContent: "center",
-        padding: 5,
-        borderRadius: 5,
-        alignSelf: "center",
-        alignItems: "center",
-        // marginLeft:20,
-        marginTop: 20
-    },
-    buttonText: {
-        fontFamily: "Raleway-SemiBold",
-        color: "#fff",
-        fontSize: RFValue(14, 580)
     },
     text: {
         fontFamily: "Roboto-Medium",

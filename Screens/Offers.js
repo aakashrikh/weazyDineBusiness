@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import {
-    Text, View, ScrollView, Switch, Alert,
+    Text, View, Switch, Alert,
     StyleSheet, Image, ActivityIndicator,
-    TouchableOpacity, Dimensions, ImageBackground, Pressable, FlatList
+    TouchableOpacity, Dimensions, Pressable, FlatList
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import RBSheet from "react-native-raw-bottom-sheet";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from 'react-native-simple-toast';
-import Loading from './Loading.js';
 import Share from 'react-native-share';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -20,6 +19,7 @@ const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
 
 class Offers extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -72,14 +72,13 @@ class Offers extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 page: 0
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn("jhkj",json)
                 if (!json.status) {
                 }
                 else {
@@ -97,7 +96,6 @@ class Offers extends Component {
                             this.setState({ object });
                         })
                         this.setState({ data: json.data })
-                        console.warn('aaa',json.data)
                     }
                 }
                 return json;
@@ -116,14 +114,13 @@ class Offers extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 page: page
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn('sds',json)
                 if (!json.status) {
                 }
                 else {
@@ -143,7 +140,6 @@ class Offers extends Component {
                         var obj = json.data;
                         var joined = this.state.data.concat(obj);
                         this.setState({ data: joined })
-                        console.warn('sss',json.data)
                     }
                 }
                 return json;
@@ -172,7 +168,7 @@ class Offers extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 action_id: id,
@@ -181,7 +177,6 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn('qqq',json)
                 if (!json.status) {
 
                 }
@@ -220,7 +215,7 @@ class Offers extends Component {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': global.token
+                'Authorization': this.context.token
             },
             body: JSON.stringify({
                 action_id: this.state.prod_id,
@@ -229,7 +224,6 @@ class Offers extends Component {
             })
         }).then((response) => response.json())
             .then((json) => {
-                console.warn('aaaaaaa',json)
                 if (!json.status) {
                 }
                 else {
@@ -245,8 +239,6 @@ class Offers extends Component {
 
     //   Edit offer function
     editNavigation = () => {
-        // alert(this.state.id)
-        console.warn(this.state.id)
         this.props.navigation.navigate("EditOffer",
             {
                 data: this.state.id,
@@ -294,19 +286,7 @@ class Offers extends Component {
         <View>
             <Pressable onPress={() => this.props.navigation.navigate("OfferProduct", { offer: item })} >
                 <View style={{ flexDirection: "row", width: "100%", marginTop: 5 }}>
-                    {/* View for Image */}
-                    {/* <View style={{width:"27%"}}>
- <Image source={require("../img/image.jpg")}
- style={style.logo}/>
-
-
- <View style={{width:"85%",backgroundColor:"#EDA332",height:30,top:85,justifyContent:"center",  left:15,position:"absolute", alignItems:"center",borderRadius:5}} >
                
-                <Text style={{fontFamily:"Montserrat-Bold",
-            fontSize:RFValue(11,580),color:"#fff"}}>
-                    {details.offer}% Off</Text>
-    </View>
-</View> */}
 
 
                     {/* View for Content */}
@@ -481,26 +461,7 @@ class Offers extends Component {
                         :
                         <View>
                         </View>}
-                    {/* {this.state.isloading ? 
-                    <View style={{paddingTop:120,alignItems:"center"}}>
-                    <ActivityIndicator size='small' color="#EDA332" />
-                    <Text style={styles.p}>Please wait</Text>
-                    </View>
-                        :
-                <View >  
-                {/* {details}
-                 */}
-                    {/* <FlatList
-                 navigation={this.props.navigation}
-                 showsVerticalScrollIndicator={false}
-                 data={this.state.data}
-                 renderItem={this.offerCard}
-                 keyExtractor={item=>item.id}  
-                 onEndReachedThreshold={0.5}
-                 onEndReached={()=>this.load_more()}
-                />
-                </View>
-                        } */}
+       
 
 
                 <View>
@@ -556,15 +517,6 @@ const style = StyleSheet.create({
         shadowOffset: { width: 50, height: 50 },
 
     },
-    logo: {
-        height: 90,
-        width: "95%",
-        // borderWidth:0.2,
-        // borderRadius:10,
-        borderColor: "black",
-        margin: 10,
-        marginLeft: 10
-    },
     contentView: {
         flexDirection: "column",
         marginHorizontal: 10,
@@ -594,42 +546,6 @@ const style = StyleSheet.create({
         // margin:20,
         justifyContent: "center",
         position: "absolute"
-    },
-
-    button: {
-        backgroundColor: "#EDA332",
-        padding: 4,
-        borderRadius: 25,
-        width: 80,
-        height: 30,
-        justifyContent: "center"
-
-    },
-    buttonText: {
-        alignSelf: "center",
-        color: "#fff",
-        // fontFamily:"Roboto-Regular",
-        fontFamily: "Montserrat-Medium",
-        fontSize: RFValue(9, 580)
-    },
-    catButton: {
-        // backgroundColor:"#BC3B3B",
-        // padding:7,
-        height: 30,
-        marginLeft: 10,
-        borderRadius: 25,
-        justifyContent: "center",
-        borderColor: "#EBEBEB",
-        borderWidth: 1,
-        width: 100
-    },
-    catButtonText: {
-        alignSelf: "center",
-        color: "#222222",
-        // fontFamily:"Roboto-Regular",
-        fontFamily: "Montserrat-Regular",
-        fontSize: RFValue(9, 580)
-
     },
     loader: {
         shadowOffset: { width: 50, height: 50 },
