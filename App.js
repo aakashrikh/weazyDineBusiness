@@ -119,7 +119,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
  //global.vendor_api = "https://dine-api.weazy.in/api/";
 
 //for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.vendor_api = "http://127.0.0.1:8000/api/";
 global.image_url = "";
 
 global.login_data = true
@@ -235,33 +235,10 @@ class App extends Component {
     AsyncStorage.getItem('@auth_login', (err, result) => {
 0
       if (JSON.parse(result) != null) {
-
-        window.Pusher = Pusher;
-    // console.log(Pusher);
-     window.Echo = new Echo({
-         broadcaster: 'pusher',
-         key: "b8ba8023ac2fc3612e90212",
-         cluster: "mt1",
-         wsHost:'10.0.2.2',
-         wsPort: 6001,
-        //  forceTLS: true,
-        //  authEndpoint: global.vendor_api+'broadcasting/auth',
-        //  auth: {
-        //    headers: {
-        //      Accept: 'application/json',
-        //      "Authorization":JSON.parse(result).token,
-        //    }
-        //  },
-     });
-
-     window.Echo.channel(`checkTableStatus`).listen('server.created', (e) => {
-      alert(e.id);
-  });
-     
-
-        global.token = JSON.parse(result).token;
-        global.vendor = JSON.parse(result).vendor_id;
-        global.step = this.state.step
+        
+        // global.token = JSON.parse(result).token;
+        // global.vendor = JSON.parse(result).vendor_id;
+        // global.step = this.state.step
         global.msg = "Welcome Back"
         this.get_profile(JSON.parse(result).token);
       }
@@ -284,14 +261,35 @@ class App extends Component {
   login = (step,user,token) => {
     // console.log("hhh",user)
     this.setState({ islogin: true, step: step,user:user,token:token });
-
-    
-
-     
-     OneSignal.sendTag("id", '' + user.id);
-     OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
-
     SplashScreen.hide();
+
+    OneSignal.sendTag("id", '' + user.id);
+    OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
+
+    window.Pusher = Pusher;
+     // console.log(Pusher);
+      window.Echo = new Echo({
+          broadcaster: 'pusher',
+          key: "b8ba8023ac2fc3612e90",
+          cluster: "mt",
+          wsHost:'websockets.webixun.com',
+          wsPort: 6001,
+          forceTLS: false,
+         disableStats: true,
+          authEndpoint: global.vendor_api+'broadcasting/auth',
+          auth: {
+            headers: {
+              Accept: 'application/json',
+              "Authorization":token,
+            }
+          },
+      });
+     
+      window.Echo.private(`checkTableStatus.1`).listen('.server.created', (e) => {
+       alert(e.id);
+     });
+
+   
   }
 
   logout = () => {
@@ -313,15 +311,15 @@ class App extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-
+        console.warn(json);
         if (json.message == "Unauthenticated.") {
           this.loggedOut();
         }
         if (!json.status) {
-
+          this.logout();
         }
         else {
-          this.login(token,json.data,token);
+         this.login(json.step,json.data[0],token);
 
           json.data.map(value => {
             // alert(value.category_type)
@@ -329,9 +327,9 @@ class App extends Component {
           })
         }
 
-        global.vendor = this.state.id,
-          global.pic = this.state.image,
-          global.name = this.state.name
+        // global.vendor = this.state.id,
+        //   global.pic = this.state.image,
+        //   global.name = this.state.name
         return json;
       }).catch((error) => {
         console.error(error);

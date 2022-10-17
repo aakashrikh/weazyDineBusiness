@@ -335,7 +335,7 @@ class Home extends Component {
               }}>
                 <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginRight: 5 }}>Hi,{" "}
                   <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10, }}>
-                    {this.state.name}
+                    {this.context.user.name}
                   </Text> </Text>
                 {this.state.gstin == "" || this.state.gstin == null ?
                   <></>
