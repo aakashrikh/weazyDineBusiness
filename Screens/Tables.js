@@ -74,8 +74,18 @@ class Tables extends Component {
     componentDidMount() {
         this.fetch_table_vendors();
 
+        
+        window.Echo.private(`checkTableStatus.`+this.context.user.id).listen('.server.created', (data) => {
+            //logic here
+            this.setState({data:data.tables})
+            });
         this.focusListener = this.props.navigation.addListener('focus', () => {
             this.fetch_table_vendors();
+
+            window.Echo.private(`checkTableStatus.`+this.context.user.id).listen('.server.created', (data) => {
+                //logic here
+                this.setState({data:data.tables})
+                });
         });
 
     }
@@ -161,7 +171,7 @@ class Tables extends Component {
     (
         <>
             {(item.table_status == 'active') ?
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: item.qr_link }) }} style={[style.viewBox,
+                <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link+item.qr_link }) }} style={[style.viewBox,
                 { marginTop: 10, padding: 10, backgroundColor: '#fff', width: Dimensions.get('window').width / 1.05, marginBottom: 2, alignSelf: 'center', borderRadius: 5, flexDirection: "row" }]}>
                     <View style={{ width: "20%" }}>
                         <View style={{ width: 60, height: 60, backgroundColor: '#EDA332', borderRadius: 5 }}>
@@ -175,7 +185,7 @@ class Tables extends Component {
                     </View>
 
                     <View style={{ width: "30%", alignItems: "center", justifyContent: "center" }}>
-                        <TouchableOpacity onPress={() => { Linking.openURL(item.qr_link) }}
+                        <TouchableOpacity onPress={() => { Linking.openURL(global.qr_link+item.qr_link) }}
                             style={{ backgroundColor: "#EDA332", padding: 5, paddingTop: 2, paddingHorizontal: 10, flexDirection: "row", borderRadius: 5 }}>
                             <Text style={{ color: "#fff", fontSize: RFValue(12, 580), fontFamily: "Raleway-Bold", marginTop: Platform.OS == "ios" ? 3 : 0 }}>View QR</Text>
                             <Icon type="ionicon" name="qr-code-outline" size={20} color="#fff" style={{ marginLeft: 5, marginTop: 2 }} />
@@ -183,7 +193,7 @@ class Tables extends Component {
                     </View>
                 </TouchableOpacity>
                 :
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: item.qr_link }) }} style={[style.viewBox,
+                <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link+item.qr_link }) }} style={[style.viewBox,
                 { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#EDA332', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
                     <View style={{ flexDirection: 'row' }}>
                         <View style={{ width: 60, height: 60, backgroundColor: '#E47635', borderRadius: 5 }}>
@@ -201,6 +211,7 @@ class Tables extends Component {
         </>
 
     )
+
     render() {
 
         return (

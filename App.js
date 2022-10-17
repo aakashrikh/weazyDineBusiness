@@ -115,12 +115,18 @@ const Tab = createBottomTabNavigator();
 const Stacks = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
-//for production
- //global.vendor_api = "https://dine-api.weazy.in/api/";
 
+//for production
+//global.vendor_api = "https://dine-api.weazy.in/api/";
+//global.qr_link = "https://dine-api.weazy.in"
+
+
+//for local 
+global.vendor_api = "http://172.16.1.111:8000/api/";
 //for demo 
-global.vendor_api = "http://127.0.0.1:8000/api/";
+// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
+global.qr_link = ""
 
 global.login_data = true
 global.msg = "Welcome"
@@ -140,19 +146,19 @@ class TabNav extends Component {
             if (route.name == "Tables") {
               return (
                 <Image source={require('./img/icons/feeds.png')}
-                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "Products") {
               return (
                 <Image source={require('./img/icons/services.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "Home") {
               return (
                 <Image source={require('./img/icons/logo.png')}
-                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             // else if (route.name == "Offers") {
@@ -164,13 +170,13 @@ class TabNav extends Component {
             else if (route.name == "Orders") {
               return (
                 <Image source={require('./img/icons/orders.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "More") {
               return (
                 <Image source={require('./img/icons/more.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             return (
@@ -284,12 +290,6 @@ class App extends Component {
             }
           },
       });
-     
-      window.Echo.private(`checkTableStatus.1`).listen('.server.created', (e) => {
-       alert(e.id);
-     });
-
-   
   }
 
   logout = () => {

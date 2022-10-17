@@ -1,12 +1,10 @@
 const config={
     screens:{
         Offers:'offer_details/:offer_id',
-        SingleFeed:'feedView/:id',
         Home:'home/',
-        Comments:'feedComment/:id',
-        VoucherDetails:'voucher/:code',
+        VoucherDetails:'OrderDetails/:code',
         Wallet:'ViewTransaction',
-        TableView:'ViewTableOrder/:table_uu_id',
+        TableView:'TableOrderDetails/:table_uu_id',
     }
 }
 

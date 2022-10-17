@@ -44,8 +44,8 @@ class Services extends Component {
         this.get_category();
         this.get_vendor_product(0, 1);
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            // this.get_category();
-            // this.get_vendor_product(0, 1);
+            this.get_category();
+            this.get_vendor_product(0, 1);
             if (this.props.route.params != undefined) {
                 this.get_category();
                 this.get_vendor_product(0,1);
@@ -362,7 +362,7 @@ class Categories extends Component {
                                             onPress={() => this.props.filter(cat.id)}>
                                             <View style={style.catButton}>
                                                 <Text style={style.catButtonText}>
-                                                    {cat.name}{cat.id}
+                                                    {cat.name}
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>
@@ -371,7 +371,7 @@ class Categories extends Component {
                                             onPress={() => this.props.filter(cat.id)}>
                                             <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
                                                 <Text style={[style.catButtonText, { color: "#fff" }]}>
-                                                {cat.name}{cat.id}
+                                                {cat.name}
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>

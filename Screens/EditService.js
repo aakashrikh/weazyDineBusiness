@@ -37,7 +37,7 @@ const options = {
 }
 
 class EditService extends Component {
-    static contextType = AuthContext;
+   
     constructor(props) {
         super(props);
         
@@ -97,6 +97,7 @@ class EditService extends Component {
 export default EditService;
 
 class Fields extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -162,7 +163,6 @@ class Fields extends Component {
     }
 
     componentDidMount = async () => {
-
         this.get_category()
         this.get_vendor_product()
         this.focusListener = this.props.navigation.addListener('focus', () => {
@@ -251,7 +251,8 @@ class Fields extends Component {
                 method: 'POST',
                 body: form,
                 headers: {
-                    'Authorization': this.context.token
+
+                    'Authorization': this.context.token 
                 },
             }).then((response) => response.json())
                 .then((json) => {

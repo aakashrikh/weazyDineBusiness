@@ -12,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment/moment.js';
 import { AuthContext } from '../AuthContextProvider.js';
+import * as Animatable from 'react-native-animatable';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -34,6 +35,11 @@ class Orders extends Component {
     }
 
     componentDidMount = () => {
+        window.Echo.private(`orderstatus.1`).listen('.order.status', (data) => {
+            //logic here
+            
+            });
+
         this.fetch_order(1, "");
         this.focusListener = this.props.navigation.addListener('focus', () => {
             this.fetch_order(1, "");
@@ -233,7 +239,7 @@ class Card extends Component {
         <View style={style.card}>
             <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-evenly" }}>
                 <View style={{ width: "50%" }}>
-                    <Text>O.Id- {item.order_code}</Text>
+                    <Text>Id- {item.order_code}</Text>
                 </View>
                 <View style={{ width: "50%" }}>
                     <Text>{moment(item.created_at).format("llll")}</Text>
@@ -255,7 +261,7 @@ class Card extends Component {
                         </View>
                         {/* View for payment mode  */}
                         {item.order_type != "TakeAway" &&
-                            item.order_type != "delivery" ? (
+                            item.order_type != "Delivery" ? (
                             <View style={{ margin: 5, marginTop: 20, marginLeft: Platform.OS == "ios" ? -30 : -20, }}>
                                 <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5 }} >
                                     <Text style={{ fontSize: RFValue(9.5, 580), color: "#fff", fontWeight: "bold" }}>Dine-In</Text>
@@ -263,7 +269,7 @@ class Card extends Component {
                             </View>
                         ) : (
                             <View style={{ margin: 5, marginTop: 20, marginLeft: Platform.OS == "ios" ? -30 : -20, }}>
-                                <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5 }} >
+                                <View style={{ marginRight: 10, backgroundColor: "#F4C430", padding: 5, borderRadius: 5}} >
                                     <Text style={{ fontSize: RFValue(9.5, 580), color: "#fff", fontWeight: "bold" }}>{item.order_type}</Text>
                                 </View>
                             </View>
@@ -291,10 +297,10 @@ class Card extends Component {
                             <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#EDA332" }]}>Confirmed</Text>
                         </View>
                         :
-                        (item.order_status == "proccessed") ?
+                        ( item.order_status == "in_progress" ) ?
                             <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                                <Icon name="ellipse" type="ionicon" size={15} color="yellow" style={{ margin: 5 }} />
-                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "yellow" }]}>OnGoing</Text>
+                                <Icon name="ellipse" type="ionicon" size={15} color="#ffdf00" style={{ margin: 5 }} />
+                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ffdf00" }]}>OnGoing</Text>
                             </View>
                             :
                             (item.order_status == "cancelled") ?
@@ -305,9 +311,21 @@ class Card extends Component {
                                 :
                                 <View style={{ flexDirection: "row", paddingTop: 5 }}>
                                     <Icon name="ellipse" type="ionicon" size={15} color="green" style={{ margin: 5 }} />
-                                    <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "green" }]}>{item.order_status}</Text>
+                                    <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "green",
+                                textTransform:"capitalize" }]}>{item.order_status}</Text>
                                 </View>
                 }
+
+                            {item.order_status == "in_progress" ?
+                                <Animatable.View style={{ flexDirection: "row",paddingTop: 10 }}
+                                    animation="pulse"
+                                    duraton="1500" iterationCount="infinite">
+                                    <Icon type="ionicon" name="time-outline" size={20} color="green" />
+                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
+                                </Animatable.View>
+                                :
+                                <></>
+                            }
 
                 {/* details button */}
                 <View style={{ paddingTop: 5, paddingVertical: 5 }}>
@@ -409,9 +427,9 @@ class OrderType extends Component {
                         </TouchableOpacity>
                     }
 
-                    {this.props.active_cat != "processed" ?
+                    {this.props.active_cat != "in_progress" ?
                         <TouchableOpacity
-                            onPress={() => this.props.filter("processed")}>
+                            onPress={() => this.props.filter("in_progress")}>
                             <View style={style.catButton}>
                                 <Text style={style.catButtonText}>
                                     OnGoing
@@ -420,10 +438,31 @@ class OrderType extends Component {
                         </TouchableOpacity>
                         :
                         <TouchableOpacity
-                            onPress={() => this.props.filter("processed")}>
+                            onPress={() => this.props.filter("in_progress")}>
                             <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
                                 <Text style={[style.catButtonText,{color:"#fff"}]}>
                                     OnGoing
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+                    {
+                        this.props.active_cat != "out for delivery" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("out for delivery")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                Out for Delivery
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("out for delivery")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                                Out for Delivery
                                 </Text>
                             </View>
                         </TouchableOpacity>

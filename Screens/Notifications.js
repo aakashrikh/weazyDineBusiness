@@ -111,7 +111,7 @@ class Notifications extends Component{
             </Text>
             <Text style={[styles.p,{fontFamily:"Poppins-Medium",fontSize:12,}]}>{item.notification_description}</Text>
             <Text style={[styles.h6,{color:"grey",marginTop:-13}]}>
-            {moment.utc(item.created_at).local().startOf('seconds').fromNow()}
+            {moment(item.created_at).local().startOf('seconds').fromNow()}
             </Text>
         </View>
         </TouchableOpacity>

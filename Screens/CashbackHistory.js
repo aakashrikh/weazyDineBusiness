@@ -25,7 +25,7 @@ class CashbackHistory extends Component {
         this.state = {
             isLoading: true,
             data: [],
-            page: 1
+            page: 1,
         }
 
     }
@@ -117,9 +117,16 @@ class CashbackHistory extends Component {
                     <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15, width: '100%' }}>
 
                         <View style={{ width: '65%' }}>
-                            {/* <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
-                                Table No : {item.table_no}
-                            </Text> */}
+                            {
+                                (item.table == null) ?
+                                <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
+                                    Order Type : {item.order_type}
+                                </Text>
+                                :
+                                <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
+                                    Table No : {item.table.table_name}
+                                </Text>
+                            }
                             <Text style={[styles.h5, { marginBottom: 5, fontFamily: "Roboto-Bold" }]}>
                                 {item.order_code}
                             </Text>
@@ -166,7 +173,7 @@ class CashbackHistory extends Component {
                                 }
                             </>
 
-                            {/* {item.order_status == "ongoing" ?
+                            {item.order_status == "ongoing" ?
                                 <Animatable.View style={{ flexDirection: "row", marginLeft: 10 }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
@@ -175,7 +182,7 @@ class CashbackHistory extends Component {
                                 </Animatable.View>
                                 :
                                 <></>
-                            } */}
+                            }
                         </View>
                     </View>
                 </View>
