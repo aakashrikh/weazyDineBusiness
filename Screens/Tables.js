@@ -181,7 +181,7 @@ class Tables extends Component {
 
                     <View style={{ width: "50%" }}>
                         <Text style={styles.h3}>{item.table_name}</Text>
-                        <Text style={[styles.p, { fontSize: RFValue(12, 580) }]}>{item.table_status}</Text>
+                        <Text style={[styles.h5, { fontSize: RFValue(12, 580),color:"green",textTransform:"capitalize" }]}>{item.table_status}</Text>
                     </View>
 
                     <View style={{ width: "30%", alignItems: "center", justifyContent: "center" }}>
@@ -201,7 +201,7 @@ class Tables extends Component {
                         </View>
                         <View style={{ marginLeft: 20 }}>
                             <Text style={[styles.h3, { color: '#eee' }]}>{item.table_name}</Text>
-                            <Text style={[styles.p, { color: '#eee', fontSize: RFValue(12, 580) }]}>{item.table_status}</Text>
+                            <Text style={[styles.h5, { color: '#eee', fontSize: RFValue(12, 580),textTransform:"capitalize" }]}>{item.table_status}</Text>
 
                         </View>
                     </View>

@@ -73,16 +73,27 @@ class CashbackHistory extends Component {
         }).then((response) => response.json())
             .then((json) => {
                 if (!json.status) {
-
-
+                    if (page_id == 1) {
+                        this.setState({ data: [] });
+                    }
                 }
                 else {
-                    var refresh = setInterval(() => {
-                        this.fetch_order(1);
-                    }, 20000);
-                    this.setState({ data: json.data.data });
-                    if (json.data.data.length >= 0) {
-                        clearInterval(refresh);
+                    // var refresh = setInterval(() => {
+                    //     this.fetch_order(1);
+                    // }, 20000);
+                    
+                    
+                    if (json.data.data.length > 0) {
+                        var obj = json.data.data;
+                        if (page_id == 1) {
+                            this.setState({ data: obj });
+                        }
+                        else {
+                            this.setState({ data: [...this.state.data, ...obj] });
+                        }
+                        // this.setState({ data: json.data.data });
+                        console.warn(json)
+                        // clearInterval(refresh);
                     }
                     // this.props.navigation.navigate("More")
 
@@ -161,24 +172,29 @@ class CashbackHistory extends Component {
                                                 </Text>
 
                                                 :
-                                                (item.order_status == 'ongoing') ?
+                                                (item.order_status == 'in_process') ?
                                                     <Text style={{ backgroundColor: '#EDA332', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
                                                         <Text style={[styles.p, { color: '#fff', alignSelf: 'center', fontFamily: "Roboto-Bold" }]}>Ongoing</Text>
                                                     </Text>
                                                     :
+                                                    (item.order_status == "processed") ?
                                                     <Text style={{ backgroundColor: '#EDA332', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
-                                                        <Text style={[styles.p, { color: '#fff', alignSelf: 'center' }]}>{item.order_status}</Text>
+                                                        <Text style={[styles.p, { color: '#fff', alignSelf: 'center', fontFamily: "Roboto-Bold"  }]}>Processed</Text>
+                                                    </Text>
+                                                    :
+                                                    <Text style={{ backgroundColor: '#EDA332', paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                        <Text style={[styles.p, { color: '#fff', alignSelf: 'center', fontFamily: "Roboto-Bold", textTransform:"capitalize"  }]}>{item.order_status}</Text>
                                                     </Text>
 
                                 }
                             </>
 
-                            {item.order_status == "ongoing" ?
-                                <Animatable.View style={{ flexDirection: "row", marginLeft: 10 }}
+                            {item.order_status == "in_process" ?
+                                <Animatable.View style={{ flexDirection: "row", }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
                                     <Icon type="ionicon" name="time-outline" size={20} color="green" />
-                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
+                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>{moment(item.estimate_prepare_time).local().startOf('seconds').fromNow()}</Text>
                                 </Animatable.View>
                                 :
                                 <></>
@@ -215,7 +231,7 @@ class CashbackHistory extends Component {
                                 data={this.state.data}
                                 renderItem={this.renderItem}
                                 keyExtractor={item => item.id}
-                                style={{ flex: 1 }}
+                                style={{ flex: 1, marginBottom:20 }}
                                 onEndReached={() => { this.load_more() }}
                                 onEndReachedThreshold={0.5}
                             /> :

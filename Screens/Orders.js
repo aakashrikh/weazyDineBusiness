@@ -239,20 +239,26 @@ class Card extends Component {
         <View style={style.card}>
             <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-evenly" }}>
                 <View style={{ width: "50%" }}>
-                    <Text>Id- {item.order_code}</Text>
+                    <Text style={style.heading}>Id- {item.order_code}</Text>
                 </View>
                 <View style={{ width: "50%" }}>
-                    <Text>{moment(item.created_at).format("llll")}</Text>
+                    <Text style={style.heading}>{moment(item.created_at).format("llll")}</Text>
                 </View>
             </View>
             <View style={{ flexDirection: "row", width: "100%" }}>
                 {/* View for Content */}
                 <View style={style.contentView}>
+
+                    {item.channel == "website" ?
+                    <Text style={style.heading}>Order from App</Text>
+                    :
+                    <Text style={style.heading}>Order from {item.channel}</Text>
+                    }
                     {/* View for name and heart */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         {/* Text View */}
                         <View style={{ width: 200, marginLeft: 10 }}>
-                            <Text style={[styles.smallHeading, { top: 10, }]}>
+                            <Text style={[styles.h4, { top: 10, textTransform:"capitalize" }]}>
                                 {item.user.name}
                             </Text>
                             <Text numberOfLines={3} style={{ marginTop: 10, fontSize: RFValue(11, 580), color: "#EDA332", fontWeight: "bold" }}>
@@ -322,16 +328,16 @@ class Card extends Component {
                                 </View>
                 }
 
-                            {/* {item.order_status == "in_progress" ?
+                            {item.order_status == "in_process" ?
                                 <Animatable.View style={{ flexDirection: "row",paddingTop: 10 }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
                                     <Icon type="ionicon" name="time-outline" size={20} color="green" />
-                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
+                                    <Text style={{ fontSize: RFValue(11, 580), color: "green", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>{moment(item.estimate_prepare_time).local().startOf('seconds').fromNow()}</Text>
                                 </Animatable.View>
                                 :
                                 <></>
-                            } */}
+                            }
 
                 {/* details button */}
                 <View style={{ paddingTop: 5, paddingVertical: 5 }}>
@@ -522,20 +528,6 @@ class OrderType extends Component {
 
 
 const style = StyleSheet.create({
-    header: {
-        width: Dimensions.get("window").width / 2 - 40,
-        height: 50,
-        backgroundColor: "#fff",
-        justifyContent: "center",
-        borderColor: "black"
-    },
-    headerText: {
-        fontSize: RFValue(16, 580),
-        borderColor: "black",
-        color: "black",
-        alignSelf: "center",
-        fontFamily: "Raleway-SemiBold",
-    },
     card: {
         backgroundColor: "#fff",
         alignSelf: "center",
@@ -552,7 +544,6 @@ const style = StyleSheet.create({
         elevation: 5,
         borderRadius: 15,
         padding: 6,
-
     },    
     contentView: {
         flexDirection: "column",
@@ -563,7 +554,6 @@ const style = StyleSheet.create({
         // borderColor:"#d3d3d3",
         //  marginLeft:10,
         //  marginTop:10,
-
     },
     button: {
         backgroundColor: "#EDA332",
@@ -572,7 +562,6 @@ const style = StyleSheet.create({
         width: 100,
         height: 30,
         justifyContent: "center"
-
     },
     buttonText: {
         alignSelf: "center",
@@ -598,10 +587,8 @@ const style = StyleSheet.create({
         // fontFamily:"Roboto-Regular",
         fontFamily: "Montserrat-Regular",
         fontSize: RFValue(9, 580)
-
     },
     add: {
-
         // borderWidth: 1,
         // borderColor: 'rgba(0,0,0,0.2)',
         alignItems: 'center',
@@ -613,6 +600,10 @@ const style = StyleSheet.create({
         height: 50,
         backgroundColor: '#bc3b3b',
         borderRadius: 100,
-
+    },
+    heading:{
+        color:"#000",
+        fontFamily:"Roboto-bold"
     }
+
 })

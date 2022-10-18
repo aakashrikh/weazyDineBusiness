@@ -167,15 +167,15 @@ class VoucherDetails extends Component {
                                     }
 
                                     <View>
-                                    {this.state.data.order_status == "ongoing" ?
+                                    {/* {this.state.data.order_status == "in_process" ?
                                     <Animatable.View style={{ flexDirection: "row", marginRight: 10, alignSelf:"flex-end" }}
                                         animation="pulse"
                                         duraton="1500" iterationCount="infinite">
                                         <Icon type="ionicon" name="time-outline" size={20} color="#fff" />
-                                        <Text style={{ fontSize: RFValue(11, 580), color: "#fff", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>20 Mins</Text>
+                                        <Text style={{ fontSize: RFValue(11, 580), color: "#fff", fontWeight: "bold",marginTop:Platform.OS == "ios" ? 2 : 0, paddingLeft: 5 }}>{moment(this.state.data.estimate_preparing_time).local().startOf('seconds').fromNow()}</Text>
                                     </Animatable.View>
                                     :
-                                    <></>}
+                                    <></>} */}
                                     </View>
                                 </View>
                                 

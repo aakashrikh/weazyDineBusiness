@@ -1,20 +1,8 @@
 import React, {Component} from 'react';
 import {FlatList, Platform, TouchableOpacity} from 'react-native';
-import {
-  View,
-  ImageBackground,
-  Alert,
-  StyleSheet,
-  Pressable,
-  Switch,
-  Image,
-  Text,
-  Dimensions,
-  TouchableHighlight,
-} from 'react-native';
+import {View, StyleSheet, Image, Text, Dimensions} from 'react-native';
 import {Header, Icon, Input} from 'react-native-elements';
-import {ScrollView, TextInput} from 'react-native-gesture-handler';
-import RBSheet from 'react-native-raw-bottom-sheet';
+import {ScrollView} from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {ActivityIndicator} from 'react-native-paper';
@@ -67,7 +55,6 @@ class OrderDetails extends Component {
   }
 
   componentDidMount = () => {
-    console.warn(this.props.route.params.id);
     this.orderDetails(this.props.route.params.id);
     window.Echo.private(`orderstatus.` + this.props.route.params.id).listen(
       '.order.status',
@@ -111,7 +98,6 @@ class OrderDetails extends Component {
   };
 
   change_order_status = (status, time) => {
-    console.warn(time);
     this.setState({mark_complete_buttonLoading: true});
     fetch(global.vendor_api + 'update_order_status', {
       method: 'POST',
@@ -475,7 +461,20 @@ class Card extends Component {
           ) : this.props.data.order_status == 'confirmed' ? (
             <>
               {this.props.buttonLoading ? (
-                <ActivityIndicator size="small" color="#EDA332" />
+                <View
+                  style={{
+                    alignItems: 'center',
+                    flex: 1,
+                    backgroundColor: 'white',
+                    flex: 1,
+                    paddingTop: 20,
+                  }}>
+                  <ActivityIndicator
+                    animating={true}
+                    size="small"
+                    color="#EDA332"
+                  />
+                </View>
               ) : (
                 <View
                   style={{
