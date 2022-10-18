@@ -120,6 +120,7 @@ class Fields extends Component {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
                     return (
+                        //  console.warn(path.uri) 
                         this.setState({ image: path.uri })
                     )
                 });
@@ -136,8 +137,11 @@ class Fields extends Component {
             height: 500,
             cropping: true,
         }).then(image => {
+            console.log(image);
+            // this.setState({image:"Image Uploaded"})
             this.setState({ image: image.path });
             this.RBSheet.close()
+            // this.upload_image();      
         })
     }
 

@@ -297,7 +297,7 @@ class Card extends Component {
                             <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#EDA332" }]}>Confirmed</Text>
                         </View>
                         :
-                        ( item.order_status == "in_progress" ) ?
+                        ( item.order_status == "in_process" ) ?
                             <View style={{ flexDirection: "row", paddingTop: 5 }}>
                                 <Icon name="ellipse" type="ionicon" size={15} color="#ffdf00" style={{ margin: 5 }} />
                                 <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ffdf00" }]}>OnGoing</Text>
@@ -309,6 +309,12 @@ class Card extends Component {
                                     <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "red" }]}>Cancelled</Text>
                                 </View>
                                 :
+                                (item.order_status == "processed")?
+                                <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                                <Icon name="ellipse" type="ionicon" size={15} color="#ffdf00" style={{ margin: 5 }} />
+                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ffdf00" }]}>Processed</Text>
+                                    </View>
+                                :
                                 <View style={{ flexDirection: "row", paddingTop: 5 }}>
                                     <Icon name="ellipse" type="ionicon" size={15} color="green" style={{ margin: 5 }} />
                                     <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "green",
@@ -316,7 +322,7 @@ class Card extends Component {
                                 </View>
                 }
 
-                            {item.order_status == "in_progress" ?
+                            {/* {item.order_status == "in_progress" ?
                                 <Animatable.View style={{ flexDirection: "row",paddingTop: 10 }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
@@ -325,7 +331,7 @@ class Card extends Component {
                                 </Animatable.View>
                                 :
                                 <></>
-                            }
+                            } */}
 
                 {/* details button */}
                 <View style={{ paddingTop: 5, paddingVertical: 5 }}>

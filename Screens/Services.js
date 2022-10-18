@@ -67,13 +67,12 @@ class Services extends Component {
     }
 
     get_vendor_product = (category_id, page) => {
-
         fetch(global.vendor_api + 'vendor_get_vendor_product', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': this.context.token
+                Authorization: this.context.token
             },
             body: JSON.stringify({
                 vendor_category_id: category_id,
@@ -88,8 +87,8 @@ class Services extends Component {
                     }
                 }
                 else {
-                    if (json.data.length > 0) {
-                        json.data.map((value, key) => {
+                    if (json.data.data.length > 0) {
+                        json.data.data.map((value, key) => {
                             const object = this.state.object;
 
                             if (value.status == 'active') {
@@ -101,7 +100,8 @@ class Services extends Component {
 
                             this.setState({ object });
                         })
-                        this.setState({ data: json.data })
+                        this.setState({ data: json.data.data })
+                        console.warn(this.state.data)
                     }
                     else {
                         // this.setState({data:''})
@@ -392,6 +392,7 @@ class Categories extends Component {
 }
 
 class Card extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {

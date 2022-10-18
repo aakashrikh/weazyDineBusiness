@@ -21,8 +21,9 @@ import {ActivityIndicator} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import moment from 'moment';
-import Modal from "react-native-modal";
+import Modal from 'react-native-modal';
 import {AuthContext} from '../AuthContextProvider.js';
+import Counter from 'react-native-counters';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -38,7 +39,7 @@ class OrderDetails extends Component {
       cart: [],
       load_data: false,
       mark_complete_buttonLoading: false,
-      modalVisible:false
+      time: '',
     };
   }
 
@@ -66,10 +67,14 @@ class OrderDetails extends Component {
   }
 
   componentDidMount = () => {
+    console.warn(this.props.route.params.id);
     this.orderDetails(this.props.route.params.id);
-    window.Echo.private(`orderstatus.`+this.props.route.params.id).listen('.order.status', data => {
-     console.warn(data)
-    });
+    window.Echo.private(`orderstatus.` + this.props.route.params.id).listen(
+      '.order.status',
+      data => {
+        console.warn(data);
+      },
+    );
   };
 
   orderDetails = id => {
@@ -105,9 +110,10 @@ class OrderDetails extends Component {
       });
   };
 
-  change_order_status = status => {
+  change_order_status = (status, time) => {
+    console.warn(time);
     this.setState({mark_complete_buttonLoading: true});
-    fetch(global.vendor_api + 'update_order_status_by_vendor', {
+    fetch(global.vendor_api + 'update_order_status', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -115,15 +121,16 @@ class OrderDetails extends Component {
         Authorization: this.context.token,
       },
       body: JSON.stringify({
-        order_id: this.state.data.id,
-        order_status: status,
+        order_id: this.state.data.order_code,
+        status: status,
+        prepare_time: time,
       }),
     })
       .then(response => response.json())
       .then(json => {
         if (!json.status) {
         } else {
-          this.orderDetails(this.state.data.id);
+          this.orderDetails(this.state.data.order_code);
           Toast.show('Order Status Updated Successfully');
           this.props.navigation.navigate('Orders', {active_cat: 0});
         }
@@ -133,7 +140,7 @@ class OrderDetails extends Component {
         console.error(error);
       })
       .finally(() => {
-        // this.orderDetails(this.state.data.id);
+        // this.orderDetails(this.state.data.order_code);
         this.setState({mark_complete_buttonLoading: false});
       });
   };
@@ -177,11 +184,10 @@ class OrderDetails extends Component {
               data={this.state.data}
               user={this.state.user}
               change_order_status={this.change_order_status}
-              modalVisible={this.state.modalVisible}
+              buttonLoading={this.state.mark_complete_buttonLoading}
             />
           )}
         </ScrollView>
-
       </View>
     );
   }
@@ -193,8 +199,13 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      modalVisible: false,
     };
+  }
+
+  onChange(number, type) {
+    this.setState({time: number});
+    // console.log(number, type) // 1, + or -
   }
 
   productCard = ({item}) => (
@@ -265,6 +276,27 @@ class Card extends Component {
       </View>
     </View>
   );
+
+  renderMinusIcon = () => {
+    return (
+      <View>
+        <Icon
+          name="remove-circle-outline"
+          type="ionicon"
+          color="#000"
+          size={30}
+        />
+      </View>
+    );
+  };
+
+  renderPlusIcon = () => {
+    return (
+      <View>
+        <Icon name="add-circle-outline" type="ionicon" color="#000" size={30} />
+      </View>
+    );
+  };
 
   render() {
     return (
@@ -373,7 +405,7 @@ class Card extends Component {
           {this.props.data.order_type == 'Delivery' ||
           this.props.data.order_type == 'TakeAway' ? (
             <>
-              {this.props.user.address == null  ? (
+              {this.props.user.address == null ? (
                 <></>
               ) : (
                 <>
@@ -389,7 +421,6 @@ class Card extends Component {
                       {this.props.user.address}
                     </Text>
                   </View>
-
                 </>
               )}
             </>
@@ -397,17 +428,27 @@ class Card extends Component {
             <></>
           )}
         </View>
-          
-
-
 
         {/* accept decline button */}
 
         <View style={{marginBottom: 30}}>
           {this.props.data.order_status == 'placed' ? (
             <>
-              {this.state.mark_complete_buttonLoading ? (
-                <ActivityIndicator size="small" color="#EDA332" />
+              {this.props.buttonLoading ? (
+                <View
+                  style={{
+                    alignItems: 'center',
+                    flex: 1,
+                    backgroundColor: 'white',
+                    flex: 1,
+                    paddingTop: 20,
+                  }}>
+                  <ActivityIndicator
+                    animating={true}
+                    size="small"
+                    color="#EDA332"
+                  />
+                </View>
               ) : (
                 <View
                   style={{
@@ -433,7 +474,7 @@ class Card extends Component {
             </>
           ) : this.props.data.order_status == 'confirmed' ? (
             <>
-              {this.state.mark_complete_buttonLoading ? (
+              {this.props.buttonLoading ? (
                 <ActivityIndicator size="small" color="#EDA332" />
               ) : (
                 <View
@@ -447,10 +488,12 @@ class Card extends Component {
                       style.acceptButton,
                       {backgroundColor: '#EDA332', width: '50%'},
                     ]}
-                    // onPress={() => {this.setState({modalVisible:true})}}
+                    onPress={() => {
+                      this.setState({modalVisible: true});
+                    }}
 
-                    onPress={()=>this.change_order_status('in_progress')}
-                    >
+                    // onPress={()=>this.props.change_order_status('in_process')}
+                  >
                     <Text style={[style.buttonText]}>Order In Progress</Text>
                   </TouchableOpacity>
 
@@ -464,11 +507,23 @@ class Card extends Component {
                 </View>
               )}
             </>
-          )
-          : this.props.data.order_status == 'in_process' ? (
+          ) : this.props.data.order_status == 'in_process' ? (
             <>
-              {this.state.mark_complete_buttonLoading ? (
-                <ActivityIndicator size="small" color="#EDA332" />
+              {this.props.buttonLoading ? (
+                <View
+                  style={{
+                    alignItems: 'center',
+                    flex: 1,
+                    backgroundColor: 'white',
+                    flex: 1,
+                    paddingTop: 20,
+                  }}>
+                  <ActivityIndicator
+                    animating={true}
+                    size="small"
+                    color="#EDA332"
+                  />
+                </View>
               ) : (
                 <View
                   style={{
@@ -495,12 +550,24 @@ class Card extends Component {
                 </View>
               )}
             </>
-          ) 
-           : this.props.data.order_status == 'processed' ? (
+          ) : this.props.data.order_status == 'processed' ? (
             this.props.data.order_type == 'Delivery' ? (
               <>
-                {this.state.mark_complete_buttonLoading ? (
-                  <ActivityIndicator size="small" color="#EDA332" />
+                {this.props.buttonLoading ? (
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      flex: 1,
+                      backgroundColor: 'white',
+                      flex: 1,
+                      paddingTop: 20,
+                    }}>
+                    <ActivityIndicator
+                      animating={true}
+                      size="small"
+                      color="#EDA332"
+                    />
+                  </View>
                 ) : (
                   <View
                     style={{
@@ -527,23 +594,57 @@ class Card extends Component {
                 )}
               </>
             ) : (
-              <View
-                style={{
-                  justifyContent: 'space-evenly',
-                  flexDirection: 'row',
-                  marginTop: 40,
-                }}>
-                <TouchableOpacity
-                  style={style.acceptButton}
-                  onPress={() => this.props.change_order_status('completed')}>
-                  <Text style={style.buttonText}>Completed</Text>
-                </TouchableOpacity>
-              </View>
+              <>
+                {this.props.buttonLoading ? (
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      flex: 1,
+                      backgroundColor: 'white',
+                      flex: 1,
+                      paddingTop: 20,
+                    }}>
+                    <ActivityIndicator
+                      animating={true}
+                      size="small"
+                      color="#EDA332"
+                    />
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      justifyContent: 'space-evenly',
+                      flexDirection: 'row',
+                      marginTop: 40,
+                    }}>
+                    <TouchableOpacity
+                      style={style.acceptButton}
+                      onPress={() =>
+                        this.props.change_order_status('completed')
+                      }>
+                      <Text style={style.buttonText}>Completed</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </>
             )
           ) : this.props.data.order_status == 'out for delivery' ? (
             <>
-              {this.state.mark_complete_buttonLoading ? (
-                <ActivityIndicator size="small" color="#EDA332" />
+              {this.props.buttonLoading ? (
+                <View
+                  style={{
+                    alignItems: 'center',
+                    flex: 1,
+                    backgroundColor: 'white',
+                    flex: 1,
+                    paddingTop: 20,
+                  }}>
+                  <ActivityIndicator
+                    animating={true}
+                    size="small"
+                    color="#EDA332"
+                  />
+                </View>
               ) : (
                 <View
                   style={{
@@ -564,28 +665,81 @@ class Card extends Component {
           )}
         </View>
 
-
         <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={this.props.modalVisible}
-                        onBackdropPress={() => {
-                            this.setState({ modalVisible: false })
-                        }}
-                    >
-                        <View style={style.centeredView}>
-                            <View style={style.modalView}>
-                            <Input  
-             onChangeText={(e) => {this.setState({contact_no:e})}}
-             placeholder='Enter your mobile number'
-             maxLength={10}
-             keyboardType="number-pad"
-            
-            style ={{marginTop:15,marginLeft:15}}
-           />
-                            </View>
-                        </View>
-                    </Modal>
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onBackdropPress={() => {
+            this.setState({modalVisible: false});
+          }}>
+          <View style={style.centeredView}>
+            <View style={style.modalView}>
+              <Text style={styles.h4}>Enter Preparing Time (Minutes)</Text>
+              {/* <Input
+                onChangeText={e => {
+                  this.setState({time: e});
+                }}
+                placeholder="Enter Here"
+                maxLength={10}
+                keyboardType="number-pad"
+                style={{marginTop: 15, marginLeft: 15}}
+                autoFocus={true}
+              /> */}
+
+              <View style={{padding: 20}}>
+                <Counter
+                  start={0}
+                  max={100}
+                  onChange={this.onChange.bind(this)}
+                  minusIcon={this.renderMinusIcon}
+                  plusIcon={this.renderPlusIcon}
+                  countTextStyle={{
+                    color: '#000',
+                    fontFamily: 'Roboto-Bold',
+                    fontSize: RFValue(15, 580),
+                  }}
+                  buttonStyle={{borderColor: '#fff'}}
+                />
+              </View>
+              <View>
+                {this.props.buttonLoading ? (
+                  <View
+                    style={{
+                      alignItems: 'center',
+                      flex: 1,
+                      backgroundColor: 'white',
+                      flex: 1,
+                      paddingTop: 20,
+                    }}>
+                    <ActivityIndicator
+                      animating={true}
+                      size="small"
+                      color="#EDA332"
+                    />
+                  </View>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.props.change_order_status(
+                        'in_process',
+                        this.state.time,
+                      ),
+                        this.setState({modalVisible: false});
+                    }}
+                    style={[styles.signIn, {width: '80%', borderRadius: 5}]}>
+                    <LinearGradient
+                      colors={['#EDA332', '#EDA332']}
+                      style={[styles.signIn, {width: '80%', borderRadius: 5}]}>
+                      <Text style={[styles.textSignIn, {color: '#fff'}]}>
+                        Update
+                      </Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -613,10 +767,6 @@ class Loader extends Component {
                     style={{width: 250, height: 20, marginLeft: 10, top: 10}}
                   />
                 </View>
-                <View
-                  style={{height: 20, width: 35, right: 60, bottom: 5}}></View>
-                <View
-                  style={{height: 20, width: 20, right: 50, bottom: 5}}></View>
               </View>
               <View
                 style={{
@@ -713,24 +863,24 @@ const style = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
-},
-modalView: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
     margin: 20,
     width: 300,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 5,
     padding: 15,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
-        width: 0,
-        height: 2
+      width: 0,
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
-},
+    elevation: 5,
+  },
 });

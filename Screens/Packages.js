@@ -89,8 +89,8 @@ class Packages extends Component {
                     }
                 }
                 else {
-                    if (json.data.length > 0) {
-                        json.data.map((value, key) => {
+                    if (json.data.data.length > 0) {
+                        json.data.data.map((value, key) => {
                             const object = this.state.object;
 
                             if (value.status == 'active') {
@@ -102,7 +102,7 @@ class Packages extends Component {
 
                             this.setState({ object });
                         })
-                        this.setState({ data: json.data })
+                        this.setState({ data: json.data.data })
                     }
                     else {
                         // this.setState({data:''})

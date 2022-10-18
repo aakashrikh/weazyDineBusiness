@@ -40,6 +40,7 @@
     "react-native-code-push": "^7.0.5",
     "react-native-collapsible": "^1.6.0",
     "react-native-countdown-component": "^2.7.1",
+    "react-native-counters": "^1.2.0",
     "react-native-device-info": "^8.5.0",
     "react-native-dropdown-menu": "^2.0.0",
     "react-native-dropdown-picker": "^5.1.23",

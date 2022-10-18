@@ -2,19 +2,25 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput, Pressable,
-    ScrollView, Dimensions, TouchableOpacity, ActivityIndicator
+    ScrollView, Dimensions, TouchableOpacity, Alert, ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import MultiSelect from 'react-native-multiple-select';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
+import RadioForm from 'react-native-simple-radio-button';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
-import RadioForm from 'react-native-simple-radio-button';
 import SelectDropdown from 'react-native-select-dropdown';
 import { AuthContext } from '../AuthContextProvider.js';
+
+var radio_props = [
+    { label: 'Veg', value: 1 },
+    { label: 'Non-Veg', value: 0 }
+];
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -30,29 +36,31 @@ const options = {
     quality: 0.5
 }
 
-var radio_props = [
-    { label: 'Veg', value: 1 },
-    { label: 'Non-Veg', value: 0 }
-];
-
 class EditPackage extends Component {
-    static contextType = AuthContext;
+   
     constructor(props) {
         super(props);
+        
         this.state = {
-            id: this.props.route.params.prod_id,
+            // id:this.props.route.params.prod_id,
+            id: '',
             data: this.props.route.params.data,
-            category: this.props.route.params.category
+            category: this.props.route.params.category,
+            image_upload: "",
+            image:""
         }
+    }
+
+    componentDidMount() {
     }
 
     //for header left component
     renderLeftComponent() {
         return (
-            <View style={{ width: win.width, flexDirection: "row", paddingBottom: 10, borderBottomWidth: 1, borderColor: "#d3d3d3" }} >
+            <View style={{ width: win.width, flexDirection: "row", paddingBottom: 10, }} >
                 <Icon name="arrow-back-outline" type="ionicon"
                     onPress={() => this.props.navigation.goBack()} style={{ top: 2.5 }} />
-                <Text style={[styles.h3, { paddingLeft: 15, bottom: 1 }]}>Edit Combo</Text>
+                <Text style={[styles.h3, { paddingLeft: 15, bottom: 1 }]}>Edit Menu</Text>
             </View>
         )
     }
@@ -72,8 +80,7 @@ class EditPackage extends Component {
                 </View>
 
                 <ScrollView>
-                    <Fields
-                        navigation={this.props.navigation}
+                    <Fields navigation={this.props.navigation}
                         prod_id={this.state.id}
                         category={this.state.category}
                         get_cat={this.props.route.params.get_cat}
@@ -90,9 +97,9 @@ class EditPackage extends Component {
 export default EditPackage;
 
 class Fields extends Component {
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
-
         this.state = {
             name: "",
             cat_name: {},
@@ -105,12 +112,14 @@ class Fields extends Component {
             isLoading: false,
             image: '',
             image_load: '',
-            vendor_category_id: 11,
-            product_type: "product",
+            vendor_category_id: 0,
+            product_type: "package",
             type: 'package',
             prod_id: "",
             height: 0,
             is_veg: this.props.data.is_veg,
+            image_upload: "",
+            image:''
         };
     }
 
@@ -120,14 +129,15 @@ class Fields extends Component {
         launchCamera(options, (response) => {
 
             if (response.didCancel) {
-                console.warn(response)
-                console.warn("User cancelled image picker");
+                // console.warn(response)
+                // console.warn("User cancelled image picker");
             } else if (response.error) {
-                console.warn('ImagePicker Error: ', response.error);
+                // console.warn('ImagePicker Error: ', response.error);
             } else {
                 // const source = {uri: response.assets.uri};
                 let path = response.assets.map((path) => {
                     return (
+                        // this.setState({ image_upload: path.uri })
                         this.setState({ image: path.uri })
                     )
                 });
@@ -145,7 +155,8 @@ class Fields extends Component {
             cropping: true,
         }).then(image => {
             // this.setState({image:"Image Uploaded"})
-            this.setState({ image: image.path });
+            // this.setState({ image_upload: image.path });
+            this.setState({ image: image.path })
             this.RBSheet.close()
             // this.upload_image();      
         })
@@ -176,6 +187,7 @@ class Fields extends Component {
 
     // Fetching vendor products
     get_vendor_product = () => {
+
         this.setState({ prod_id: this.props.data.id })
         this.setState({ name: this.props.data.product_name })
         this.setState({ market_price: this.props.data.market_price })
@@ -183,18 +195,17 @@ class Fields extends Component {
         this.setState({ description: this.props.data.description })
         this.setState({ image: global.image_url + this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
-        this.setState({ is_veg: this.props.data.is_veg });
+        this.setState({ is_veg: this.props.data.is_veg }); 
     }
 
     set_value = (index) => {
-
         var vv = this.state.cat_id[index];
-
         this.setState({ c_id: vv })
     }
+
     //Create service button
     create = () => {
-
+        var form = new FormData();
         let numberValidation = /^[0-9]+$/;
         let isnumValid = numberValidation.test(this.state.market_price + this.state.our_price);
 
@@ -205,6 +216,9 @@ class Fields extends Component {
         else if (this.state.c_id == "") {
             Toast.show("Category is required !");
         }
+        // else if (this.state.our_price < this.state.market_price  ) {
+        //     Toast.show("Your price should be less than market price !");
+        // }
         else if (!isnumValid) {
             Toast.show("Price contains digits only!");
         }
@@ -222,26 +236,23 @@ class Fields extends Component {
                     type: 'image/jpg',
                     name: 'akash.jpg'
                 };
-
+                form.append("product_img", photo);
             }
-            var form = new FormData();
+
             form.append("product_name", this.state.name);
-            // form.append("token",this.context.token);
             form.append("vendor_category_id", this.state.c_id);
             form.append("market_price", this.state.market_price);
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
-            form.append("product_img", photo);
             form.append("product_id", this.state.prod_id);
             form.append("is_veg", this.state.is_veg);
-
             fetch(global.vendor_api + 'vendor_update_product', {
                 method: 'POST',
                 body: form,
                 headers: {
 
-                    'Authorization': this.context.token
+                    'Authorization': this.context.token 
                 },
             }).then((response) => response.json())
                 .then((json) => {
@@ -253,7 +264,8 @@ class Fields extends Component {
                         Toast.show(json.msg)
                         this.props.get_cat();
                         this.props.get_product(0);
-                        this.props.navigation.navigate("Products", { refresh: true })
+
+                        this.props.navigation.navigate("Products", { refresh: true,active_cat:0 })
                     }
                     return json;
                 }).catch((error) => {
@@ -266,23 +278,25 @@ class Fields extends Component {
 
     onSelectedCategoryChange = selectedCategories => {
         this.setState({ selectedCategories });
+
     };
 
 
     render() {
 
         return (
-            <View style={{ flex: 1, marginBottom: 15, }}>
+            <View>
                 <View>
                     <Text style={style.fieldsTitle}>
                         Name
                     </Text>
                     <TextInput
+                        returnKeyType='next'
                         value={this.state.name}
-                        returnKeyType="done"
                         onChangeText={(e) => { this.setState({ name: e }) }}
                         style={style.textInput} />
                 </View>
+
                 <View>
                     <Text style={style.fieldsTitle}>Category</Text>
                     <View style={{ marginLeft: 20, marginRight: 20, }}>
@@ -298,7 +312,6 @@ class Fields extends Component {
                             rowTextForSelection={(item, index) => {
                                 return item
                             }}
-
                             defaultValue={this.state.cat_name[this.state.cat_id.indexOf(this.props.data.vendor_category_id)]}
                         />
                     </View>
@@ -308,6 +321,8 @@ class Fields extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
+
+
                 <View style={{ marginTop: 10 }}>
                     <Text style={style.fieldsTitle}>
                         Market Price
@@ -325,6 +340,7 @@ class Fields extends Component {
 
                 </View>
 
+
                 <View>
                     <Text style={style.fieldsTitle}>
                         Our Price
@@ -339,7 +355,6 @@ class Fields extends Component {
                         <MaterialCommunityIcons name="currency-inr" size={20} />
                     </Text>
                 </View>
-
 
                 <RadioForm
                     formHorizontal={true}
@@ -360,7 +375,6 @@ class Fields extends Component {
                         Description <Text style={{ color: "grey" }}>(50words) </Text>
                     </Text>
                     <TextInput
-                        returnKeyType='done'
                         multiline={true}
                         onContentSizeChange={(event) => {
                             this.setState({ height: event.nativeEvent.contentSize.height })
@@ -373,8 +387,14 @@ class Fields extends Component {
                     />
                 </View>
 
+
                 <View>
+
+                
+
                     <View style={{ flexDirection: "row", width: "100%" }}>
+
+
                         <View style={{ width: "60%" }}>
                             <Text style={style.fieldsTitle}>
                                 Upload Image
@@ -383,8 +403,6 @@ class Fields extends Component {
 
                                 {this.state.image == "" ?
                                     <View style={{ flexDirection: "row", }}>
-                                        {/* <Image source={require('../img/addProduct.png')}
-                                style={style.serviceImg}/> */}
                                         <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
                                             <View style={style.add}>
                                                 <Icon name="add" size={35} color="#EDA332" />
@@ -402,15 +420,12 @@ class Fields extends Component {
                                     </View>
                                 }
 
-                                {/* <TouchableOpacity style={style.uploadButton} onPress={()=>this.RBSheet.open()} >
-                                <Text style={style.buttonText}>
-                                    Choose Photo
-                                </Text>
-                            </TouchableOpacity> */}
                             </View>
                         </View>
                     </View>
                 </View>
+
+
                 {/* Bottom Sheet fot FAB */}
                 <RBSheet
                     ref={ref => {
@@ -458,6 +473,8 @@ class Fields extends Component {
 
                     </View>
                 </RBSheet>
+
+
                 {!this.state.isLoading ?
                     <View>
                         <TouchableOpacity
@@ -507,7 +524,7 @@ const style = StyleSheet.create({
         alignSelf: "center",
         marginTop: 50,
         marginRight: 5,
-        marginBottom: Platform.OS === 'ios' ? 20 : 10,
+        marginBottom: Platform.OS === 'ios' ? 30 : 20,
     },
     iconPencil: {
         marginLeft: 20,
@@ -522,7 +539,7 @@ const style = StyleSheet.create({
     },
     serviceImg: {
         height: 90,
-        width: 89,
+        width: 90,
         marginLeft: 20,
         borderRadius: 10
     },

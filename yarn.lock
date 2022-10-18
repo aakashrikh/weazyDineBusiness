@@ -6162,6 +6162,14 @@
     "prop-types" "^15.5.8"
     "sprintf-js" "^1.1.1"
 
+"react-native-counters@^1.2.0":
+  "integrity" "sha512-KFcpyopqFXOb2iw1qbVJRbxmJStK8jcf/zlEJ/PAy6sV4M82xGImRFy+Y1jqdm6Eherg34LR2ay4KYoA3wB/8g=="
+  "resolved" "https://registry.npmjs.org/react-native-counters/-/react-native-counters-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "prop-types" "^15.6.2"
+    "react-native-text" "^1.0.8"
+
 "react-native-device-info@^8.5.0":
   "integrity" "sha512-Zr0JNHSEPy2RWObWwUp9npTEWSG5HyY+nR/mRkf6ZTU5zd8oskarnPcCxAgwYhJbvshHSZbZIDRxCVCskXSpEA=="
   "resolved" "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-8.7.0.tgz"
@@ -6453,6 +6461,11 @@
   "integrity" "sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg=="
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-2.16.0.tgz"
   "version" "2.16.0"
+
+"react-native-text@^1.0.8":
+  "integrity" "sha512-pw6qY88hH5EXhnBzkN4KuRVdpjc0TZtL94/0oznDSXdowTf8Lrqsxg8LTlSrypBWNiWa8++6zfDz6dEfbHw45A=="
+  "resolved" "https://registry.npmjs.org/react-native-text/-/react-native-text-1.2.2.tgz"
+  "version" "1.2.2"
 
 "react-native-vector-icons@^8.1.0":
   "integrity" "sha512-sHIdBB6Y0dHaot2fMXgy5J/hhCn5YuyN7SKDNFgPzL8KA1oF2/v7mgYMavnK7LIIs2dJoGnDANKf61dsU+TZlg=="

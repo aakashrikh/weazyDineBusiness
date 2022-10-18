@@ -472,6 +472,7 @@ class ProductVariants extends Component {
 
 
 class Addons extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -503,6 +504,7 @@ class Addons extends Component {
       }).then((response) => response.json())
         .then((json) => {
           if (!json.status) {
+            console.warn(json)
             Toast.show(json.msg);
           }
           else {

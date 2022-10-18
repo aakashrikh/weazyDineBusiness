@@ -253,7 +253,8 @@ class TableView extends Component {
         }).then((response) => response.json())
             .then((json) => {
                 if (!json.status) {
-                    var msg = json.msg;
+                    console.warn(json)
+                    var msg = json.message;
                     Toast.show(msg);
                     //  clearInterval(myInterval);
                 }
