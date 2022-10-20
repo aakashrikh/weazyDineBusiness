@@ -125,7 +125,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 // global.vendor_api = "http://172.16.1.111:8000/api/";
 
 //for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.vendor_api = "https://dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 

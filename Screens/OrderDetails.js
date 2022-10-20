@@ -27,7 +27,7 @@ class OrderDetails extends Component {
       cart: [],
       load_data: false,
       mark_complete_buttonLoading: false,
-      time: '',
+      time: 5,
     };
   }
 
@@ -205,7 +205,7 @@ class Card extends Component {
           justifyContent: 'space-between',
         }}>
         <View>
-          <Text>1 ITEM</Text>
+          <Text>ITEM</Text>
         </View>
         <View>{/* <Text>RECEIPT</Text> */}</View>
       </View>
@@ -493,7 +493,7 @@ class Card extends Component {
 
                     // onPress={()=>this.props.change_order_status('in_process')}
                   >
-                    <Text style={[style.buttonText]}>Order In Progress</Text>
+                    <Text style={[style.buttonText]}>Order In Process</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -536,7 +536,7 @@ class Card extends Component {
                       {backgroundColor: '#EDA332', width: '50%'},
                     ]}
                     onPress={() => this.props.change_order_status('processed')}>
-                    <Text style={[style.buttonText]}>Order In Progress</Text>
+                    <Text style={[style.buttonText]}>Processed</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -610,6 +610,7 @@ class Card extends Component {
                     />
                   </View>
                 ) : (
+                  (this.props.data.order_type == 'TakeAway'&&
                   <View
                     style={{
                       justifyContent: 'space-evenly',
@@ -624,6 +625,7 @@ class Card extends Component {
                       <Text style={style.buttonText}>Completed</Text>
                     </TouchableOpacity>
                   </View>
+                  )
                 )}
               </>
             )

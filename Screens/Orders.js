@@ -306,7 +306,7 @@ class Card extends Component {
                         ( item.order_status == "in_process" ) ?
                             <View style={{ flexDirection: "row", paddingTop: 5 }}>
                                 <Icon name="ellipse" type="ionicon" size={15} color="#ffdf00" style={{ margin: 5 }} />
-                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ffdf00" }]}>OnGoing</Text>
+                                <Text style={[styles.smallHeading, { marginTop: Platform.OS == "ios" ? 4 : 1, color: "#ffdf00" }]}>In Process</Text>
                             </View>
                             :
                             (item.order_status == "cancelled") ?
@@ -439,21 +439,42 @@ class OrderType extends Component {
                         </TouchableOpacity>
                     }
 
-                    {this.props.active_cat != "in_progress" ?
+                    {this.props.active_cat != "in_process" ?
                         <TouchableOpacity
-                            onPress={() => this.props.filter("in_progress")}>
+                            onPress={() => this.props.filter("in_process")}>
                             <View style={style.catButton}>
                                 <Text style={style.catButtonText}>
-                                    OnGoing
+                                    In Process
                                 </Text>
                             </View>
                         </TouchableOpacity>
                         :
                         <TouchableOpacity
-                            onPress={() => this.props.filter("in_progress")}>
+                            onPress={() => this.props.filter("in_process")}>
                             <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
                                 <Text style={[style.catButtonText,{color:"#fff"}]}>
-                                    OnGoing
+                                In Process
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    }
+
+
+{this.props.active_cat != "processed" ?
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("processed")}>
+                            <View style={style.catButton}>
+                                <Text style={style.catButtonText}>
+                                    Processed
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                        :
+                        <TouchableOpacity
+                            onPress={() => this.props.filter("processed")}>
+                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                <Text style={[style.catButtonText,{color:"#fff"}]}>
+                               Processed
                                 </Text>
                             </View>
                         </TouchableOpacity>
