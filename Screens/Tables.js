@@ -46,7 +46,7 @@ class Tables extends Component {
     renderCenterComponent() {
         return (
             <View>
-                <Text style={style.text}>Tables</Text>
+                <Text style={style.text}>Dine-In Management</Text>
             </View>
 
         )

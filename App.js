@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Linking, Platform
+  Image, Linking, Platform,StatusBar
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -10,7 +10,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import linking from './Components/Linking';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from "@react-native-community/netinfo";
-
 //Import screens 
 import MobileLogin from './Screens/MobileLogin';
 import OtpVerify from './Screens/OtpVerify';
@@ -125,7 +124,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 // global.vendor_api = "http://172.16.1.111:8000/api/";
 
 //for demo 
-global.vendor_api = "https://dine-api.weazy.in/api/";
+global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -144,7 +143,7 @@ class TabNav extends Component {
           headerShown: false,
           tabBarIcon: ({ focused, color, tintColor }) => {
             let iconName;
-            if (route.name == "Tables") {
+            if (route.name == "Dine-In") {
               return (
                 <Image source={require('./img/icons/feeds.png')}
                   style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
@@ -203,7 +202,7 @@ class TabNav extends Component {
         }}>
 
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Tables" component={Tables} />
+        <Tab.Screen name="Dine-In" component={Tables} />
         <Tab.Screen name="Products" component={TopTab} />
         <Tab.Screen name="Orders" component={Orders} />
         {/* <Tab.Screen name="Offers" component={Offers} /> */}
@@ -219,7 +218,7 @@ class App extends Component {
     super(props);
     this.state = {
       isloading: true,
-      islogin: false,
+      islogin: true,
       step: 'done',
       netconnected: true,
       user:[],
@@ -233,12 +232,14 @@ class App extends Component {
       this.handleConnectivityChange(state.isConnected);
     });
 
-    Linking.getInitialURL().then((url) => {
-      if(url != null && url != undefined && url != ""){
-        Linking.openURL(url);
-      }
-  }).catch(err => console.error('An error occurred', err));
- 
+   
+  //   Linking.getInitialURL().then((url) => {
+
+  //     if(url != null && url != undefined && url != ""){
+  //       Linking.openURL(url);
+  //     }
+  // }).catch(err => console.error('An error occurred', err));
+  
     AsyncStorage.getItem('@auth_login', (err, result) => {
 0
       if (JSON.parse(result) != null) {
@@ -247,6 +248,7 @@ class App extends Component {
         // global.vendor = JSON.parse(result).vendor_id;
         // global.step = this.state.step
         global.msg = "Welcome Back"
+        this.setState({token:JSON.parse(result).token});
         this.get_profile(JSON.parse(result).token);
       }
       else {
@@ -374,6 +376,8 @@ class App extends Component {
     }
     else {
       return (
+        <>
+         <StatusBar backgroundColor="#222" barStyle="dark-content" />
         <AuthContext.Provider value={{ login: this.login, logout: this.logout,user:this.state.user,token:this.state.token }}>
           <NavigationContainer linking={linking}>
             <Stacks.Navigator >
@@ -455,6 +459,7 @@ class App extends Component {
             </Stacks.Navigator>
           </NavigationContainer>
         </AuthContext.Provider>
+        </>
 
       );
 

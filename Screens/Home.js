@@ -178,9 +178,10 @@ class Home extends Component {
   //for header center component
   renderCenterComponent() {
     return (
-      <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, right: 10 }}>
-        <Text style={{ color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold', alignSelf: "center" }}>Welcome To Weazy Dine</Text>
-      </View>
+      <></>
+      // <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, right: 10 }}>
+      //   <Text style={{ color: '#222', fontSize: RFValue(18, 580), fontWeight: 'bold', alignSelf: "center" }}>Welcome To Weazy Dine</Text>
+      // </View>
 
     )
   }
@@ -188,11 +189,35 @@ class Home extends Component {
   //for right component
   renderRightComponent() {
     return (
-      <View style={{ padding: 5, right: 5 }}>
-        <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+      <View style={{ padding: 5, right: 5,marginTop:5 }}>
+        <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
           onPress={() => this.props.navigation.navigate("Notification")}>
           <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
         </TouchableOpacity>
+      </View>
+    )
+  }
+
+  //for right component
+  renderLeftComponent() {
+    return (
+      <View style={{flexDirection:'row'}}>
+     <View>
+     <Image source={
+                    require('../img/logo/mp.png')
+                  }
+                  style={
+                    {
+                      width:70,
+                      height:70,
+                      marginTop:-5
+                    }
+                  }/>
+     </View>
+      <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
+        <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+        <Text>Welcome to WeazyDine</Text>
+      </View>
       </View>
     )
   }
@@ -206,16 +231,34 @@ class Home extends Component {
 
           {Platform.OS == 'ios' ?
             <>
-              <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-              <View style={style.header}>
-                <View style={{ flexDirection: "row", justifyContent: "space-evenly", alignItems: "center", width: "100%", paddingTop: 20 }}>
-                  <Text style={{ color: '#eee', fontSize: RFValue(18, 580), fontWeight: 'bold' }}>Welcome to Weazy Dine</Text>
-                  <TouchableOpacity style={{ backgroundColor: "#fff", height: 30, width: 30, borderRadius: 50, justifyContent: "center", }}
+             
+    
+                 <View style={{flexDirection:'row' ,  borderBottomColor:'#ececec',
+                  borderBottomWidth:1,}}>
+     <View>
+     <Image source={
+                    require('../img/logo/mp.png')
+                  }
+                  style={
+                    {
+                      width:70,
+                      height:70,
+                      marginTop:-5
+                    }
+                  }/>
+     </View>
+      <View style={{ width: Dimensions.get('window').width / 1.45, padding: 5, left: 0 }}>
+        <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+        <Text>Welcome to WeazyDine</Text>
+      </View>
+
+      <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center",marginTop:10 }}
                     onPress={() => this.props.navigation.navigate('Notification')}>
                     <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
                   </TouchableOpacity>
-                </View>
-              </View>
+      </View>
+      
+              
             </>
             :
             <>
@@ -224,15 +267,18 @@ class Home extends Component {
                 statusBarProps={{ barStyle: 'light-content' }}
                 centerComponent={this.renderCenterComponent()}
                 rightComponent={this.renderRightComponent()}
+                leftComponent={this.renderLeftComponent()}
                 ViewComponent={LinearGradient} // Don't forget this!
                 linearGradientProps={{
-                  colors: ['#EDA332', '#EDA332'],
+                  colors: ['#fff', '#fff'],
                   start: { x: 0, y: 0.5 },
                   end: { x: 1, y: 0.5 },
                 }}
                 containerStyle={{
                   borderBottomLeftRadius: 10,
                   borderBottomRightRadius: 10,
+                  borderBottomColor:'#ececec',
+                  borderBottomWidth:1,
                 }}
               />
             </>
@@ -317,36 +363,6 @@ class Home extends Component {
               </>
             }
 
-
-            {this.state.isloading ?
-              <SkeletonPlaceholder>
-                <View style={[style.viewBox, { height: 80 }]} />
-              </SkeletonPlaceholder>
-              :
-              <View style={{
-                width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 2
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 4,
-                elevation: 5, marginTop: 20, borderRadius: 10, padding: 15
-              }}>
-                <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginRight: 5 }}>Hi,{" "}
-                  <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10, }}>
-                    {this.context.user.name}
-                  </Text> </Text>
-                {this.state.gstin == "" || this.state.gstin == null ?
-                  <></>
-                  :
-                  <Text style={{ color: '#000', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginTop: 10 }}>GSTIN :{" "}
-                    <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>{this.state.gstin}</Text>
-                  </Text>
-                }
-              </View>}
-
-
             {/* Component for business and flat discounts */}
             <Demo navigation={this.props.navigation} />
 
@@ -359,7 +375,7 @@ class Home extends Component {
               },
               shadowOpacity: 0.25,
               shadowRadius: 4, marginBottom: 10,
-              elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
+              elevation: 5, marginTop: 20, borderRadius: 10, padding: 10,
             }}>
               <Text style={[styles.h3]}>Share More to Earn More </Text>
               <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>

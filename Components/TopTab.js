@@ -24,7 +24,6 @@ class TopTab extends Component{
     }
   render(){
     return(
-      
       <Tabs.Navigator 
       initialRouteName="MyCategory"  
       tabBarPosition="top"  
@@ -38,6 +37,7 @@ class TopTab extends Component{
         indicatorStyle: { backgroundColor: "#EDA332", height: 2 },
         style: {
         backgroundColor: "white",
+        marginTop:15
         // height:55,
         
       },
@@ -54,7 +54,6 @@ class TopTab extends Component{
       <Tabs.Screen name="Package" component={Packages} options={{title:"Combos"}} props={this.props}/>
       
     </Tabs.Navigator>
-    
     )
   }
 }

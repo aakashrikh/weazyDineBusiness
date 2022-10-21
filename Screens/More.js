@@ -364,10 +364,43 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
+
           {/* privacy policy */}
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("PrivacyPolicy")
-          }>
+          <TouchableOpacity 
+             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://dine.weazy.in/customer-term-condition.html"})}
+          >
+            <View style={
+              style.questView
+            }>
+              <View style={
+                {flexDirection: "row"}
+              }>
+                <Image source={
+                    require('../img/icons/privacy.png')
+                  }
+                  style={
+                    style.Icon
+                  }/>
+                <Text style={
+                  style.texxt
+                }>Terms & Conditions</Text>
+              </View>
+              <Image source={
+                  require('../img/icons/right-arrow.png')
+                }
+                style={
+                  {
+                    height: 20,
+                    width: 20,
+                    alignSelf: "center"
+                  }
+                }/>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://marketpluss.com/customer-privacy-policy.html"})}
+          >
             <View style={
               style.questView
             }>
@@ -383,6 +416,38 @@ class Buttons extends Component {
                 <Text style={
                   style.texxt
                 }>Privacy Policy</Text>
+              </View>
+              <Image source={
+                  require('../img/icons/right-arrow.png')
+                }
+                style={
+                  {
+                    height: 20,
+                    width: 20,
+                    alignSelf: "center"
+                  }
+                }/>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://marketpluss.com/customer-refund-cancellation.html"})}
+          >
+            <View style={
+              style.questView
+            }>
+              <View style={
+                {flexDirection: "row"}
+              }>
+                <Image source={
+                    require('../img/icons/privacy.png')
+                  }
+                  style={
+                    style.Icon
+                  }/>
+                <Text style={
+                  style.texxt
+                }>Refunds And Cancellation</Text>
               </View>
               <Image source={
                   require('../img/icons/right-arrow.png')
@@ -431,7 +496,7 @@ class Buttons extends Component {
           </TouchableOpacity>
 
           {/* Subscription */}
-          <TouchableOpacity onPress={
+          {/* <TouchableOpacity onPress={
             () => this.props.navigation.navigate("Subscription")
           }>
             <View style={
@@ -461,7 +526,7 @@ class Buttons extends Component {
                   }
                 }/>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
 
           {/* How to use */}

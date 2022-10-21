@@ -653,14 +653,15 @@ const style = StyleSheet.create({
         padding: 6
     },
     logo: {
-        height: 90,
-        width: 90,
+        height: 80,
+        width: 80,
         // borderWidth:0.2,
-        // borderRadius:10,
+         borderRadius:5,
         borderColor: "black",
         margin: 10,
-        marginTop: 2,
-        marginLeft: 10
+        marginTop: -10,
+        marginLeft: 10,
+        zIndex:-10
     },
     contentView: {
         flexDirection: "column",

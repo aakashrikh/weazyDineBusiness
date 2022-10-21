@@ -199,8 +199,8 @@ class Demo extends Component {
                 </View>
 
                 {/* Deals */}
-                <Text style={[styles.h3, { color: "#000", paddingTop: 10, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }]}>Flat Discounts Deals</Text>
-                <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
+                {/* <Text style={[styles.h3, { color: "#000", paddingTop: 10, fontWeight: 'bold', marginLeft: 15, marginTop: 10 }]}>Flat Discounts Deals</Text> */}
+                {/* <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
 
                     <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("TopDeals", { screen: "New Customer", first_deal: this.state.first_deal, all_deal: this.state.recurring_deal })}>
                         <LinearGradient
@@ -238,7 +238,7 @@ class Demo extends Component {
                         </LinearGradient>
                     </TouchableOpacity>
 
-                </View>
+                </View> */}
 
             </View>
         )

@@ -1,15 +1,15 @@
 const config={
     screens:{
-        Offers:'offer_details/:offer_id',
+        Offers:'offerdetails/:offer_id',
         Home:'home/',
-        VoucherDetails:'OrderDetails/:code',
+        VoucherDetails:'orderdetails/:code',
         Wallet:'ViewTransaction',
-        TableView:'TableOrderDetails/:table_uu_id',
+        TableView:'tableorderdetails/:table_uu_id',
     }
 }
 
 const linking={
-    prefixes:["weazydine://",'http://myweazy.com', 'https://myweazy.com'],
+    prefixes:["weazydine://",'http://pos.myweazy.com', 'https://pos.myweazy.com'],
     config,
 };
 
