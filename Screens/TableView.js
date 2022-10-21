@@ -34,7 +34,7 @@ class TableView extends Component {
     static contextType = AuthContext;
 
     constructor(props) {
-
+        
         super(props);
         this.state = {
             category: "",
@@ -52,6 +52,7 @@ class TableView extends Component {
 
     componentDidMount() {
         //   this.RBSheet.open();
+        console.log( this.props.route.params.table_uu_id)
         this.fetch_table_order()
     }
 
@@ -155,7 +156,7 @@ class TableView extends Component {
                 }
                 else {
                     Toast.show(json.msg)
-                    this.props.navigation.navigate('Tables');
+                    this.props.navigation.navigate('Dine-In');
                 }
                 return json;
             }).catch((error) => {
@@ -265,7 +266,7 @@ class TableView extends Component {
                 }
                 else {
                     this.setState({ modalVisible: false });
-                    this.props.navigation.navigate('Tables');
+                    this.props.navigation.navigate('Dine-In');
 
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();

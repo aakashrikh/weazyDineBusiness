@@ -63,6 +63,7 @@ class Services extends Component {
             this.setState({ page: page })
             this.setState({ load_data: true });
             this.get_vendor_product(this.state.active_cat, page)
+            console.warn("page", page)
         }
     }
 
@@ -88,6 +89,7 @@ class Services extends Component {
                 }
                 else {
                     if (json.data.data.length > 0) {
+                        var obj = json.data.data;
                         json.data.data.map((value, key) => {
                             const object = this.state.object;
 
@@ -100,17 +102,17 @@ class Services extends Component {
 
                             this.setState({ object });
                         })
-                        this.setState({ data: json.data.data })
-                        console.warn(this.state.data)
+                        if (page == 1) {
+                            this.setState({ data: obj })
+                        }
+                        else {
+                            this.setState({ data: [...this.state.data, ...obj] })
+                        }
+                        // console.warn(this.state.data)
                     }
                     else {
-                        // this.setState({data:''})
-                        // Toast.show("Please Add Services First");
 
                     }
-
-                    //    this.setState({prod_id:json.data[0].id})
-                    //    alert(this.state.prod_id)
 
                 }
                 this.setState({ isloading: false, load_data: false })
@@ -151,7 +153,7 @@ class Services extends Component {
     }
 
     filter = (id) => {
-
+alert(id,1)
         this.setState({ isloading: true })
         this.get_vendor_product(id, 1);
         this.setState({ active_cat: id })

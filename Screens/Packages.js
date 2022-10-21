@@ -90,6 +90,7 @@ class Packages extends Component {
                 }
                 else {
                     if (json.data.data.length > 0) {
+                        var obj = json.data.data;
                         json.data.data.map((value, key) => {
                             const object = this.state.object;
 
@@ -102,12 +103,15 @@ class Packages extends Component {
 
                             this.setState({ object });
                         })
-                        this.setState({ data: json.data.data })
+                        if (page == 1) {
+                            this.setState({ data: obj })
+                        }
+                        else {
+                            this.setState({ data: [...this.state.data, ...obj] })
+                        }
+                        console.warn(this.state.data)
                     }
                     else {
-                        // this.setState({data:''})
-                        // Toast.show("Please Add Services First");
-
                     }
 
                 }

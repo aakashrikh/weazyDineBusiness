@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -9,12 +9,12 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-import {Header} from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import {RFValue} from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import OneSignal from 'react-native-onesignal';
-import {AuthContext} from '../AuthContextProvider.js';
+import { AuthContext } from '../AuthContextProvider.js';
 import DeviceInfo from 'react-native-device-info';
 
 // Global StyleSheet Import
@@ -33,7 +33,7 @@ class More extends Component {
   renderLeftComponent() {
     return (
       <View style={
-        {width: win.width}
+        { width: win.width }
       }>
         <Text style={
           [styles.h3]
@@ -50,8 +50,8 @@ class More extends Component {
 
         <View>
           <Header statusBarProps={
-              {barStyle: 'light-content'}
-            }
+            { barStyle: 'light-content' }
+          }
             leftComponent={
               this.renderLeftComponent()
             }
@@ -63,13 +63,13 @@ class More extends Component {
 
 
               }
-            }/>
+            } />
         </View>
 
         <ScrollView>
           <Buttons navigation={
             this.props.navigation
-          }/>
+          } />
 
           <Text style={
             {
@@ -81,8 +81,8 @@ class More extends Component {
             }
           }>
             App Version: {
-            DeviceInfo.getVersion()
-          } </Text>
+              DeviceInfo.getVersion()
+            } </Text>
         </ScrollView>
 
       </View>
@@ -122,8 +122,8 @@ class Buttons extends Component {
 
     }).catch((error) => {
       console.error(error);
-    }). finally(() => {
-      this.setState({isLoading: false})
+    }).finally(() => {
+      this.setState({ isLoading: false })
     });
 
   }
@@ -137,361 +137,123 @@ class Buttons extends Component {
         }
       }>
         <ScrollView>
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("Profile")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/profile.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Profile</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Profile")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+                <Icon name="person-circle-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Profile</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("MultipleImage")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/covers.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Add  Covers Pictures</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="camera-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Add  Covers Pictures</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("OtherCharges")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/others.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Other Charges</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("OtherCharges")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="apps-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Other Charges</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("ChangeShopTime")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/timing.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Update Store Timing</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="time-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Update Store Timing</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
           {/* Online Payment */}
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("OnlinePayment")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/onlinepayment.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Online Payment</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("OnlinePayment")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="cash-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Online Payment</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
+
+
           {/* Notifications */}
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("Notification")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/notification-bell.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Notifications</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("Notification") }>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="notifications-circle-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Notifications</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
 
           {/* About us */}
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("AboutUs")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/about.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>About Us</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("AboutUs")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="alert-circle-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>About Us</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
 
           {/* privacy policy */}
-          <TouchableOpacity 
-             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://dine.weazy.in/customer-term-condition.html"})}
-          >
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/privacy.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Terms & Conditions</Text>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://dine.weazy.in/customer-term-condition.html"})}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="settings-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Terms & Conditions</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://marketpluss.com/customer-privacy-policy.html"})}
-          >
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/privacy.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Privacy Policy</Text>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://marketpluss.com/customer-privacy-policy.html"})}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="lock-closed-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Privacy Policy</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity 
-             onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://marketpluss.com/customer-refund-cancellation.html"})}
-          >
-            <View style={
-              style.questView
-            }>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://marketpluss.com/customer-refund-cancellation.html"})}>
+            <View style={style.questView}>
               <View style={
                 {flexDirection: "row"}
               }>
-                <Image source={
-                    require('../img/icons/privacy.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Refunds And Cancellation</Text>
+                <Icon name="git-compare-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Refunds And Cancellation</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
           {/* Contact us */}
-          <TouchableOpacity onPress={
-            () => this.props.navigation.navigate("ContactUs")
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/support.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Support</Text>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactUs")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="headset-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Support</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -511,20 +273,9 @@ class Buttons extends Component {
                   style={
                     style.Icon
                   }/>
-                <Text style={
-                  style.texxt
-                }>Subscription</Text>
+                <Text style={style.texxt}>Subscription</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity> */}
 
@@ -542,38 +293,15 @@ class Buttons extends Component {
                     </TouchableOpacity> */}
 
           {/* logout */}
-          <TouchableOpacity onPress={
-            () => this.logOut()
-          }>
-            <View style={
-              style.questView
-            }>
-              <View style={
-                {flexDirection: "row"}
-              }>
-                <Image source={
-                    require('../img/icons/logout.png')
-                  }
-                  style={
-                    style.Icon
-                  }/>
-                <Text style={
-                  style.texxt
-                }>Logout</Text>
+          <TouchableOpacity onPress={() => this.logOut()}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="log-out-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Text style={style.texxt}>Logout</Text>
               </View>
-              <Image source={
-                  require('../img/icons/right-arrow.png')
-                }
-                style={
-                  {
-                    height: 20,
-                    width: 20,
-                    alignSelf: "center"
-                  }
-                }/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
-
         </ScrollView>
       </View>
     )
@@ -581,32 +309,19 @@ class Buttons extends Component {
 }
 
 const style = StyleSheet.create({
-  icon: {
-    margin: 10
-  },
-  image: {
-    height: 100,
-    width: 100,
-    alignSelf: "center",
-    marginTop: 50
-  },
   questView: {
     padding: 10,
-    borderBottomWidth: 1,
-    borderColor: "#d3d3d3",
     flexDirection: "row",
+    borderBottomWidth:1,
+    borderBottomColor:"#f5f5f5",
     justifyContent: "space-between"
   },
   texxt: {
-    fontSize: RFValue(15, 580),
-    fontFamily: "Roboto-Regular",
-    padding: 5,
-    paddingLeft: 30
-  },
-  Icon: {
-    height: 30,
-    width: 30,
-    alignSelf: "center",
-    marginLeft: 10
+    fontSize: RFValue(13, 580),
+    fontFamily: "Roboto-Medium",
+    padding: 2,
+    marginTop:2,
+    paddingLeft: 20
   }
+
 })

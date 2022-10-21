@@ -83,7 +83,7 @@ class GenerateBill extends Component {
                     //  clearInterval(myInterval);
                 }
                 else {
-                    this.props.navigation.navigate('Tables');
+                    this.props.navigation.navigate('Dine-In');
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
                     //     // this.get_profile();

@@ -91,7 +91,7 @@ OneSignal.setAppId("49e49fa7-d31e-42d9-b1d5-536c4d3758cc");
 if(Platform.OS === 'ios')
 {
   OneSignal.promptForPushNotificationsWithUserResponse(response => {
-    console.log("Prompt response:", response);
+    // console.log("Prompt response:", response);
   });
 }
 
@@ -116,7 +116,7 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
-//global.vendor_api = "https://dine-api.weazy.in/api/";
+// global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
@@ -233,12 +233,12 @@ class App extends Component {
     });
 
    
-  //   Linking.getInitialURL().then((url) => {
+    Linking.getInitialURL().then((url) => {
 
-  //     if(url != null && url != undefined && url != ""){
-  //       Linking.openURL(url);
-  //     }
-  // }).catch(err => console.error('An error occurred', err));
+      if(url != null && url != undefined && url != ""){
+        Linking.openURL(url);
+      }
+  }).catch(err => console.error('An error occurred', err));
   
     AsyncStorage.getItem('@auth_login', (err, result) => {
 0
@@ -314,7 +314,7 @@ class App extends Component {
       })
     }).then((response) => response.json())
       .then((json) => {
-        console.warn(json);
+        // console.warn(json);
         if (json.message == "Unauthenticated.") {
           this.loggedOut();
         }
