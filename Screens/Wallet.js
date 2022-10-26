@@ -145,7 +145,7 @@ class Wallet extends Component {
         return (
             <View style={styles.container}>
                 <Header
-                    statusBarProps={{ barStyle: 'light-content' }}
+                    statusBarProps={{ barStyle: 'dark-content' }}
                     centerComponent={this.renderCenterComponent()}
                     leftComponent={this.renderLeftComponent()}
                     ViewComponent={LinearGradient} // Don't forget this!
@@ -155,6 +155,7 @@ class Wallet extends Component {
                         end: { x: 1, y: 0.5 },
 
                     }}
+                    backgroundColor="#ffffff"
                 />
                 {(!this.state.isLoading) ?
                     [

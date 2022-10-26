@@ -32,7 +32,7 @@ class MyCategories extends Component{
     }
 
     get_category=()=>{
-        fetch(global.vendor_api+'get_category_vendor?vendor_id='+global.vendor
+        fetch(global.vendor_api+'get_category_vendor?vendor_id='+this.context.user.id
          ,{
         method: 'GET',
         })

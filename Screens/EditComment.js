@@ -91,7 +91,7 @@ renderLeftComponent(){
             <View style={[styles.container,{backgroundColor:"#fff",height:"100%"}]}>
                                
             <Header 
-            statusBarProps={{ barStyle: 'light-content' }}
+            statusBarProps={{ barStyle: 'dark-content' }}
             centerComponent={this.renderCenterComponent()}
             leftComponent={this.renderLeftComponent()}
             ViewComponent={LinearGradient} // Don't forget this!
@@ -100,6 +100,7 @@ renderLeftComponent(){
             start: { x: 0, y: 0.5 },
             end: { x: 1, y: 0.5 },
             }}
+            backgroundColor="#ffffff"
             />
             <View style={{flexDirection:"row",bottom:0,width:"100%",borderTopWidth:1,borderColor:"#fafafa", paddingLeft:10,backgroundColor:"#f5f5f5", paddingBottom:10}}>
                 <Image source={{uri:global.image_url+this.props.route.params.pic}} style={[style.profileImage,{marginTop:10}]}/>

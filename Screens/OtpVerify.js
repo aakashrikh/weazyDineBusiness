@@ -96,7 +96,6 @@ class OtpVerify extends Component {
             contact: contact_no,
             otp: input,
             verification_type: "vendor",
-            request_type: 'resend'
           })
         })
           .then((response) => response.json())
@@ -199,7 +198,8 @@ class OtpVerify extends Component {
       },
       body: JSON.stringify({
         contact: this.props.route.params.contact_no,
-        verification_type: "vendor"
+        verification_type: "vendor",
+        request_type:'resend'
       })
     }).then((response) => response.json())
       .then((json) => {

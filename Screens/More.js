@@ -7,7 +7,8 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-  ScrollView
+  ScrollView,
+  SafeAreaView
 } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -32,13 +33,25 @@ class More extends Component {
   // for header left component
   renderLeftComponent() {
     return (
-      <View style={
-        { width: win.width }
-      }>
-        <Text style={
-          [styles.h3]
-        }>More</Text>
-      </View>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate("Profile")} style={{flexDirection:'row'}}>
+      {/* <View>
+      <Image source={
+                     require('../img/logo/mp.png')
+                   }
+                   style={
+                     {
+                       width:70,
+                       height:70,
+                       marginTop:-5
+                     }
+                   }/>
+      </View> */}
+       <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
+         <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>Hello! {this.context.user.name} </Text>
+         <Text style={{marginLeft:5}}>+91 {this.context.user.contact}</Text>
+       </View>
+       </TouchableOpacity>
+
     )
   }
 
@@ -50,7 +63,7 @@ class More extends Component {
 
         <View>
           <Header statusBarProps={
-            { barStyle: 'light-content' }
+            { barStyle: 'dark-content' }
           }
             leftComponent={
               this.renderLeftComponent()
@@ -63,7 +76,9 @@ class More extends Component {
 
 
               }
-            } />
+            }
+            backgroundColor="#ffffff"
+            />
         </View>
 
         <ScrollView>
@@ -130,6 +145,7 @@ class Buttons extends Component {
 
   render() {
     return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={
         {
           borderTopWidth: 0.2,
@@ -137,43 +153,36 @@ class Buttons extends Component {
         }
       }>
         <ScrollView>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Profile")}>
-            <View style={style.questView}>
-              <View style={{flexDirection: "row"}}>
-                <Icon name="person-circle-outline" type='ionicon' size={30} color="#EDA332"/>
-                <Text style={style.texxt}>Profile</Text>
-              </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
-            </View>
-          </TouchableOpacity>
+          <Text style={[styles.h3,{marginLeft:10,marginTop:5}]}>Accounts</Text>
+    
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="camera-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="camera-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Add  Covers Pictures</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("OtherCharges")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="apps-outline" type='ionicon' size={30} color="#EDA332"/>
-                <Text style={style.texxt}>Other Charges</Text>
+              <Icon name="apps-outline" type='ionicon' size={25} color="#EDA332"/>
+                <Text style={style.texxt}>Tax & Charges Setup</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="time-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="time-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Update Store Timing</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -181,34 +190,23 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("OnlinePayment")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="cash-outline" type='ionicon' size={30} color="#EDA332"/>
-                <Text style={style.texxt}>Online Payment</Text>
+              <Icon name="cash-outline" type='ionicon' size={25} color="#EDA332"/>
+                <Text style={style.texxt}>Online Payment Setup</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
-
-          {/* Notifications */}
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("Notification") }>
-            <View style={style.questView}>
-              <View style={{flexDirection: "row"}}>
-              <Icon name="notifications-circle-outline" type='ionicon' size={30} color="#EDA332"/>
-                <Text style={style.texxt}>Notifications</Text>
-              </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
-            </View>
-          </TouchableOpacity>
-
+          <Text style={[styles.h3,{marginLeft:10,marginTop:5}]}>Legal</Text>
 
           {/* About us */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate("AboutUs")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="alert-circle-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="alert-circle-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>About Us</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -217,20 +215,20 @@ class Buttons extends Component {
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://dine.weazy.in/customer-term-condition.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="settings-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="settings-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Terms & Conditions</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://marketpluss.com/customer-privacy-policy.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="lock-closed-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="lock-closed-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Privacy Policy</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon'color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -239,10 +237,10 @@ class Buttons extends Component {
               <View style={
                 {flexDirection: "row"}
               }>
-                <Icon name="git-compare-outline" type='ionicon' size={30} color="#EDA332"/>
+                <Icon name="git-compare-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Refunds And Cancellation</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -250,10 +248,10 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactUs")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="headset-outline" type='ionicon' size={30} color="#EDA332"/>
+              <Icon name="headset-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Support</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
           </TouchableOpacity>
 
@@ -296,14 +294,14 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.logOut()}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="log-out-outline" type='ionicon' size={30} color="#EDA332"/>
-                <Text style={style.texxt}>Logout</Text>
+              <Icon name="log-out-outline" type='ionicon' size={25} color="#EDA332"/>
+                <Text style={[style.texxt,{color:"#EDA332"}]}>Logout</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
             </View>
           </TouchableOpacity>
         </ScrollView>
       </View>
+      </SafeAreaView>
     )
   }
 }
@@ -317,8 +315,8 @@ const style = StyleSheet.create({
     justifyContent: "space-between"
   },
   texxt: {
-    fontSize: RFValue(13, 580),
-    fontFamily: "Roboto-Medium",
+    fontSize: RFValue(12, 550),
+    fontFamily: "Roboto-Regular",
     padding: 2,
     marginTop:2,
     paddingLeft: 20

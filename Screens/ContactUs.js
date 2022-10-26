@@ -37,7 +37,7 @@ class ContactUs extends Component{
             <View style={[styles.container,{backgroundColor:"#fafafa"}]}>
                 <View>
                 <Header 
-                statusBarProps={{ barStyle: 'light-content' }}
+                statusBarProps={{ barStyle: 'dark-content' }}
                 leftComponent={this.renderLeftComponent()}
                 ViewComponent={LinearGradient} // Don't forget this!
                 linearGradientProps={{
@@ -46,6 +46,7 @@ class ContactUs extends Component{
                 end: { x: 1, y: 0.5 },
                 
                 }}
+                backgroundColor="#ffffff"
                 />
                 </View>
 

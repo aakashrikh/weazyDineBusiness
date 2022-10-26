@@ -43,7 +43,7 @@ class EditOffer extends Component{
             <View style={styles.container}>
                 <View>
                     <Header 
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
@@ -51,6 +51,7 @@ class EditOffer extends Component{
                         
                         
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
 

@@ -70,12 +70,13 @@ class EditPackage extends Component {
             <View style={[styles.container]}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
                             colors: ['#fff', '#fff'],
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
 

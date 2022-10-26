@@ -264,7 +264,7 @@ class Home extends Component {
             <>
 
               <Header
-                statusBarProps={{ barStyle: 'light-content' }}
+                statusBarProps={{ barStyle: 'dark-content' }}
                 centerComponent={this.renderCenterComponent()}
                 rightComponent={this.renderRightComponent()}
                 leftComponent={this.renderLeftComponent()}
@@ -280,6 +280,7 @@ class Home extends Component {
                   borderBottomColor:'#ececec',
                   borderBottomWidth:1,
                 }}
+                backgroundColor="#ffffff"
               />
             </>
           }

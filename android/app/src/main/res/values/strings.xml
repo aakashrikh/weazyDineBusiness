@@ -5,9 +5,9 @@
 <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
 <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 
-    <!-- beta -->
+    <!-- Production -->
      <string moduleConfig="true" name="CodePushDeploymentKey">kBUi9h1c7PDTuhRgmSlm4KqL7Tgtuh3OFcOXx</string>
 
-     <!-- Production -->
+     <!-- Beta -->
      <!-- <string moduleConfig="true" name="CodePushDeploymentKey">DICl4SjjVqNtIAhTuWkdvwPuv3X3TFRogM5hy</string>  -->
 </resources>

@@ -107,7 +107,7 @@ class TableView extends Component {
                 <Icon type="ionicon" name="arrow-back-outline"
                     onPress={() => {
                         //Linking.openURL("weazydine://home/");
-                         this.props.navigation.navigate("Orders") 
+                         this.props.navigation.navigate("Dine-In") 
                     }}
                         
                         />
@@ -294,7 +294,7 @@ class TableView extends Component {
             <View style={[styles.container]}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
                         rightComponent={this.renderRightComponent()}
@@ -304,6 +304,7 @@ class TableView extends Component {
 
 
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
 

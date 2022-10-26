@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Linking, Platform,StatusBar
+  Image, Linking, Platform,StatusBar,SafeAreaView
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -124,7 +124,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 // global.vendor_api = "http://172.16.1.111:8000/api/";
 
 //for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.vendor_api = "https://dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -376,11 +376,11 @@ class App extends Component {
     }
     else {
       return (
-        <>
-         <StatusBar backgroundColor="#222" barStyle="dark-content" />
+      <>
+    
         <AuthContext.Provider value={{ login: this.login, logout: this.logout,user:this.state.user,token:this.state.token }}>
           <NavigationContainer linking={linking}>
-            <Stacks.Navigator >
+            <Stacks.Navigator  screenOptions={{ headerShown: false }} >
               {!this.state.islogin ? (
                 <>
                   <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
@@ -459,6 +459,7 @@ class App extends Component {
             </Stacks.Navigator>
           </NavigationContainer>
         </AuthContext.Provider>
+
         </>
 
       );

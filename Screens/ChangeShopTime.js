@@ -199,7 +199,7 @@ class ChangeShopTime extends Component {
     return (
       <View style={styles.container}>
         <Header
-          statusBarProps={{ barStyle: 'light-content' }}
+          statusBarProps={{ barStyle: 'dark-content' }}
           leftComponent={this.renderLeftComponent()}
           ViewComponent={LinearGradient} // Don't forget this!
           linearGradientProps={{
@@ -207,6 +207,7 @@ class ChangeShopTime extends Component {
 
 
           }}
+          backgroundColor="#ffffff"
         />
         <ScrollView>
           <View style={{ marginTop: 30 }}>

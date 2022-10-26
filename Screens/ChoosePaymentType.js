@@ -52,7 +52,7 @@ class ChoosePaymentType extends Component {
 
             {/* view for header */}
             <Header
-               // statusBarProps={{ barStyle: 'light-content' }}
+               // statusBarProps={{ barStyle: 'dark-content' }}
                leftComponent={this.renderLeftComponent()}
                ViewComponent={LinearGradient} // Don't forget this!
                linearGradientProps={{
@@ -61,6 +61,7 @@ class ChoosePaymentType extends Component {
                   end: { x: 1, y: 0.5 }
 
                }}
+               backgroundColor="#ffffff"
                containerStyle={{
                   // elevation:2,
                   borderBottomLeftRadius: 10,

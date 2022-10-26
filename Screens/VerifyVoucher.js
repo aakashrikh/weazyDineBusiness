@@ -128,7 +128,7 @@ verify=()=>{
         return (
             <View style={[styles.container,{backgroundColor:'#f2f2f2'}]}>
                 <Header
-                    statusBarProps={{ barStyle: 'light-content' }}
+                    statusBarProps={{ barStyle: 'dark-content' }}
                     centerComponent={this.renderCenterComponent()}
                     leftComponent={this.renderLeftComponent()}
                     ViewComponent={LinearGradient} // Don't forget this!
@@ -138,6 +138,7 @@ verify=()=>{
                         end: { x: 1, y: 0.5 },
 
                     }}
+                    backgroundColor="#ffffff"
                 />
 
                 <View style={{backgroundColor:'white', paddingLeft: 10, marginTop: 20,paddingVertical:10, width:"93%",alignSelf:"center",borderWidth:1,borderColor:"#d3d3d3",elevation:0.5,shadowRadius:10,borderRadius:5 }}>

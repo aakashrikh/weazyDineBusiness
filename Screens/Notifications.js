@@ -127,7 +127,7 @@ class Notifications extends Component{
             <View style={styles.container}>
                 
                 <Header
-                statusBarProps={{ barStyle: 'light-content' }}
+                statusBarProps={{ barStyle: 'dark-content' }}
                 leftComponent={this.renderLeftComponent()}    
                 centerComponent={this.renderCenterComponent()}        
                 ViewComponent={LinearGradient} // Don't forget this!
@@ -137,6 +137,7 @@ class Notifications extends Component{
                 end: { x: 1, y: 0.5 }
                 
                 }}
+                backgroundColor="#ffffff"
                 />
 
                 {!this.state.isloading?

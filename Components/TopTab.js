@@ -30,7 +30,7 @@ class TopTab extends Component{
       lazy="true"
       tabBarOptions={
         {
-        tabStyle: { marginTop:28 },
+        tabStyle: { marginTop:28},
         labelPosition: "below-icon",
         activeTintColor: "#EDA332",
         inactiveTintColor:"#c0c0c0",

@@ -328,7 +328,7 @@ class SingleFeed extends Component{
           {/* {/ header View /} */}
             <View>
                   <Header 
-                  statusBarProps={{ barStyle: 'light-content' }}
+                  statusBarProps={{ barStyle: 'dark-content' }}
                   leftComponent={this.renderLeftComponent()}
                   ViewComponent={LinearGradient} // Don't forget this!
                   linearGradientProps={{

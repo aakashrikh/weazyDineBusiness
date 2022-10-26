@@ -14,7 +14,7 @@ class Categories extends Component{
             data:[]
         }
     }
-    componentDidMount = async()=>
+    componentDidMount ()
     {  
         
         this.get_category()
@@ -25,11 +25,13 @@ class Categories extends Component{
 
 
     get_category=()=>{
+        alert("ss");
             fetch(global.vendor_api+'get_category_vendor?vendor_id='+global.vendor_id, {
             method: 'GET',
             })
             .then((response) => response.json())
             .then((json) => {
+                console.warn(json)
                 this.setState({data:json.data })              
                 return json;
             })

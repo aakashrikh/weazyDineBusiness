@@ -193,7 +193,7 @@ class OtherCharges extends Component {
             <View style={styles.container}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
@@ -202,6 +202,7 @@ class OtherCharges extends Component {
 
 
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
                 <View style={{ marginBottom: 10, marginTop: 10, borderRadius: 20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>

@@ -111,7 +111,7 @@ class GenerateBill extends Component {
             <View style={[styles.container, { backgroundColor: '#fff' }]}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
@@ -120,6 +120,7 @@ class GenerateBill extends Component {
 
 
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
                 <ScrollView style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3", marginBottom: 60 }}>

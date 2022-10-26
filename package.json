@@ -69,7 +69,7 @@
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.2.0",
     "react-native-responsive-fontsize": "^0.5.1",
-    "react-native-safe-area-context": "^3.2.0",
+    "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.4.0",
     "react-native-select-dropdown": "^1.4.0",
     "react-native-shape": "^1.1.2",

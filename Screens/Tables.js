@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, Linking,
+    StyleSheet, Image, Linking,StatusBar,
     Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
@@ -10,7 +10,7 @@ import Toast from "react-native-simple-toast";
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { AuthContext } from '../AuthContextProvider.js';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -215,19 +215,19 @@ class Tables extends Component {
     render() {
 
         return (
+            <SafeAreaProvider>
             <View style={[styles.container]}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
                         rightComponent={this.renderRightComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
                             colors: ['#fff', '#fff'],
-
-
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
                 {!this.state.isloading ?
@@ -257,6 +257,7 @@ class Tables extends Component {
                     <Loaders />
                 }
             </View>
+            </SafeAreaProvider>
         )
     }
 }
@@ -285,6 +286,7 @@ class Loaders extends Component {
 export default Tables;
 
 const style = StyleSheet.create({
+    
     text: {
 
         fontFamily: "Raleway-SemiBold",

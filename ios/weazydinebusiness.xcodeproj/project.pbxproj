@@ -26,7 +26,6 @@
 		079C0D5728E81B020090AFE3 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41F416D65F9541C091D33DF2 /* Poppins-Medium.ttf */; };
 		079C0D5828E81B4C0090AFE3 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D41D6DD07F9F4D05A2B55849 /* Poppins-SemiBold.ttf */; };
 		079C0D5928E825BB0090AFE3 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEBD16CA274C49759825F018 /* Poppins-Bold.ttf */; };
-		07F3729328E433CF000385AB /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8BDC0A3280AFB289C1FBE496 /* libPods-weazydinebusiness-weazydinebusinessTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1D0219BE31F2B50349DAC07 /* libPods-weazydinebusiness-weazydinebusinessTests.a */; };
@@ -44,28 +43,7 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = MarketPlussVendor;
 		};
-		07F3729428E433CF000385AB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 070AFCCD285333C200FC6962;
-			remoteInfo = OneSignalNotificationServiceExtension;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		07F3729628E433CF000385AB /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				07F3729328E433CF000385AB /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* weazydinebusinessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weazydinebusinessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -473,12 +451,10 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				59900900E352D20F4FE4A0A1 /* [CP] Embed Pods Frameworks */,
 				C2E8268767463325F4E80C36 /* [CP] Copy Pods Resources */,
-				07F3729628E433CF000385AB /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				07F3729528E433CF000385AB /* PBXTargetDependency */,
 			);
 			name = weazydinebusiness;
 			productName = MarketPlussVendor;
@@ -612,7 +588,6 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -773,11 +748,6 @@
 			target = 13B07F861A680F5B00A75B9A /* weazydinebusiness */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
-		07F3729528E433CF000385AB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 070AFCCD285333C200FC6962 /* OneSignalNotificationServiceExtension */;
-			targetProxy = 07F3729428E433CF000385AB /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -862,7 +832,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
@@ -903,7 +873,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.webixun.weazydine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -921,6 +891,7 @@
 			baseConfigurationReference = 14F099C1AF1748C9E5CC7F4C /* Pods-weazydinebusiness.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
 				CURRENT_PROJECT_VERSION = 3;
@@ -928,12 +899,14 @@
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				INFOPLIST_FILE = weazydinebusiness/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Weazy DIne";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -953,17 +926,20 @@
 			baseConfigurationReference = 81E85E57A1A2C2B8578869B9 /* Pods-weazydinebusiness.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
 				INFOPLIST_FILE = weazydinebusiness/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Weazy DIne";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

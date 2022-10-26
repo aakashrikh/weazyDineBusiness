@@ -53,13 +53,14 @@ class ProductDetails extends Component {
       return (
          <View style={styles.container}>
             <Header
-               statusBarProps={{ barStyle: 'light-content' }}
+               statusBarProps={{ barStyle: 'dark-content' }}
                leftComponent={this.renderLeftComponent()}
                centerComponent={this.renderCenterComponent()}
                ViewComponent={LinearGradient} // Don't forget this!
                linearGradientProps={{
                   colors: ['#fff', '#fff'],
                }}
+               backgroundColor="#ffffff"
             />
 
             <ScrollView>

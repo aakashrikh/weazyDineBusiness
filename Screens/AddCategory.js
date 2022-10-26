@@ -89,7 +89,7 @@ static contextType = AuthContext;
             <View style={styles.container}>
                 <View>
                     <Header
-                        statusBarProps={{ barStyle: 'light-content' }}
+                        statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
                         centerComponent={this.renderCenterComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
@@ -98,6 +98,7 @@ static contextType = AuthContext;
 
 
                         }}
+                        backgroundColor="#ffffff"
                     />
                 </View>
                 <View style={{ flex: 1, marginBottom: 15, borderTopWidth: 1, borderColor: "#d3d3d3" }}>

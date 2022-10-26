@@ -141,7 +141,7 @@ class OnlinePayment extends Component {
       return (
          <View style={styles.container}>
             <Header
-               statusBarProps={{ barStyle: 'light-content' }}
+               statusBarProps={{ barStyle: 'dark-content' }}
                centerComponent={this.renderCenterComponent()}
                leftComponent={this.renderLeftComponent()}
                ViewComponent={LinearGradient} // Don't forget this!
@@ -150,6 +150,7 @@ class OnlinePayment extends Component {
                   start: { x: 0, y: 0.5 },
                   end: { x: 1, y: 0.5 },
                }}
+               backgroundColor="#ffffff"
             />
 
             {

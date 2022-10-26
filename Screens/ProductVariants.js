@@ -337,7 +337,7 @@ class ProductVariants extends Component {
 
         <View>
           <Header
-            statusBarProps={{ barStyle: 'light-content' }}
+            statusBarProps={{ barStyle: 'dark-content' }}
             leftComponent={this.renderLeftComponent()}
             centerComponent={this.renderCenterComponent()}
             ViewComponent={LinearGradient} // Don't forget this!
@@ -346,6 +346,7 @@ class ProductVariants extends Component {
 
 
             }}
+            backgroundColor="#ffffff"
           />
         </View>
 

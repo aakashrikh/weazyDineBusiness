@@ -49,7 +49,7 @@ class PaymentFailed extends Component {
          <View style={styles.container}>
             {/* view for header */}
             <Header
-               // statusBarProps={{ barStyle: 'light-content' }}
+               // statusBarProps={{ barStyle: 'dark-content' }}
                leftComponent={this.renderLeftComponent()}
                ViewComponent={LinearGradient} // Don't forget this!
                linearGradientProps={{
@@ -64,6 +64,7 @@ class PaymentFailed extends Component {
                   borderBottomRightRadius: 10,
                   borderBottomColor: '#fff',
                }}
+               backgroundColor="#ffffff"
             />
 
             <ScrollView>

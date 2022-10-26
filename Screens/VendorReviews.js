@@ -148,7 +148,7 @@ class VendorReviews extends Component {
             {/* View for header */}
             <View>
                <Header
-                  statusBarProps={{ barStyle: 'light-content' }}
+                  statusBarProps={{ barStyle: 'dark-content' }}
                   leftComponent={this.renderLeftComponent()}
                   ViewComponent={LinearGradient} // Don't forget this!
                   linearGradientProps={{
@@ -156,6 +156,7 @@ class VendorReviews extends Component {
                      start: { x: 0, y: 0.5 },
                      end: { x: 1, y: 0.5 },
                   }}
+                  backgroundColor="#ffffff"
                />
             </View>
             {(!this.state.isloading) ?

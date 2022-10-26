@@ -63,7 +63,6 @@ class Services extends Component {
             this.setState({ page: page })
             this.setState({ load_data: true });
             this.get_vendor_product(this.state.active_cat, page)
-            console.warn("page", page)
         }
     }
 

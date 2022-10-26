@@ -163,7 +163,7 @@ renderLeftComponent(){
             <View style={styles.container}>
                 <View>
                 <Header 
-                statusBarProps={{ barStyle: 'light-content' }}
+                statusBarProps={{ barStyle: 'dark-content' }}
                 centerComponent={this.renderCenterComponent()}
                 leftComponent={this.renderLeftComponent()}
                 ViewComponent={LinearGradient} // Don't forget this!

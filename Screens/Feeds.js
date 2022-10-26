@@ -152,7 +152,7 @@ class Feeds extends Component{
 
             <View>
             <Header 
-                statusBarProps={{ barStyle: 'light-content' }}
+                statusBarProps={{ barStyle: 'dark-content' }}
                 leftComponent={this.renderLeftComponent()}
                 // rightComponent={this.renderRightComponent()}
                 ViewComponent={LinearGradient} // Don't forget this!
