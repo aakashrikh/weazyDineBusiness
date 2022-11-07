@@ -75,7 +75,7 @@ class VoucherDetails extends Component {
         return (
             <View style={{ top: 5 }}>
                 <Icon type="ionicon" name="arrow-back-outline"
-                    onPress={() => { this.props.navigation.goBack() }} />
+                    onPress={() => { this.props.navigation.navigate('Home') }} />
             </View>
         )
     }

@@ -138,7 +138,7 @@ class TabNav extends Component {
   render() {
     return (
       <Tab.Navigator
-        initialRouteName="Home"
+        //initialRouteName="Home"
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarIcon: ({ focused, color, tintColor }) => {
@@ -218,7 +218,7 @@ class App extends Component {
     super(props);
     this.state = {
       isloading: true,
-      islogin: true,
+      islogin: false,
       step: 'done',
       netconnected: true,
       user:[],
@@ -233,12 +233,12 @@ class App extends Component {
     });
 
    
-    Linking.getInitialURL().then((url) => {
+  //   Linking.getInitialURL().then((url) => {
 
-      if(url != null && url != undefined && url != ""){
-        Linking.openURL(url);
-      }
-  }).catch(err => console.error('An error occurred', err));
+  //     if(url != null && url != undefined && url != ""){
+  //       Linking.openURL(url);
+  //     }
+  // }).catch(err => console.error('An error occurred', err));
   
     AsyncStorage.getItem('@auth_login', (err, result) => {
 0
@@ -249,6 +249,7 @@ class App extends Component {
         // global.step = this.state.step
         global.msg = "Welcome Back"
         this.setState({token:JSON.parse(result).token});
+        this.setState({islogin:true})
         this.get_profile(JSON.parse(result).token);
       }
       else {

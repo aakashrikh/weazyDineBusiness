@@ -39,7 +39,7 @@ class OrderDetails extends Component {
           type="ionicon"
           name="arrow-back-outline"
           onPress={() => {
-            this.props.navigation.goBack();
+            this.props.navigation.navigate('Orders');
           }}
         />
       </View>
@@ -80,6 +80,8 @@ class OrderDetails extends Component {
       .then(json => {
         if (!json.status) {
         } else {
+
+          console.warn(json);
           json.data.map(item => {
             this.setState({data: item});
           });
@@ -365,6 +367,55 @@ class Card extends Component {
         </View>
 
         <View style={{height: 2, backgroundColor: '#F5f5f5'}} />
+
+
+        <View
+          style={{backgroundColor: '#fff', marginTop: 5, paddingBottom: 10}}>
+          <Text
+            style={{
+              fontSize: RFValue(11.5, 580),
+              color: '#696969',
+              fontWeight: '600',
+              marginLeft: 10,
+            }}>
+            Payment Method
+          </Text>
+
+          <View style={{padding: 5, paddingLeft: 12}}>
+            <Text
+              style={[styles.h4, {color: '#000', fontSize: RFValue(12, 580)}]}>
+              {this.props.user.name}
+            </Text>
+           
+          </View>
+
+          {this.props.data.order_type == 'Delivery' ||
+          this.props.data.order_type == 'TakeAway' ? (
+            <>
+              {this.props.user.address == null ? (
+                <></>
+              ) : (
+                <>
+                  <View style={{padding: 5, paddingLeft: 12}}>
+                    <Text
+                      style={[
+                        styles.h4,
+                        {color: '#000', fontSize: RFValue(12, 580)},
+                      ]}>
+                      Address
+                    </Text>
+                    <Text style={{color: '#000', fontSize: RFValue(12, 580)}}>
+                      {this.props.user.address}
+                    </Text>
+                  </View>
+                </>
+              )}
+            </>
+          ) : (
+            <></>
+          )}
+        </View>
+
 
         {/* for customer details */}
         <View

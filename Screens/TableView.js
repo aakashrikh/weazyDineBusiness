@@ -107,7 +107,7 @@ class TableView extends Component {
                 <Icon type="ionicon" name="arrow-back-outline"
                     onPress={() => {
                         //Linking.openURL("weazydine://home/");
-                         this.props.navigation.navigate("Dine-In") 
+                         this.props.navigation.navigate("Home") 
                     }}
                         
                         />

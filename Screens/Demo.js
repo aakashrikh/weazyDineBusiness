@@ -108,14 +108,15 @@ class Demo extends Component {
                                 <Icon type="ionicon" name="cash-outline" color='rgba(233,149,6,1)'
                                     style={{ marginRight: 10, fontSize: RFValue(12, 580), top: 2 }} size={25} />
                                 <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
-                                    TOTAL SALES
+                                    Total Sales
                                 </Text>
                             </View>
-                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                Rs.{item.total_earnning}
+                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            ₹{item.total_earnning}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
+                    
 
 
                     <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
@@ -127,36 +128,77 @@ class Demo extends Component {
                                 <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
                                     style={{ marginRight: 10, top: 2 }} size={25} />
                                 <Text style={{ color: '#222', fontSize: RFValue(12, 580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
-                                    ORDERS
+                                 Online Sales
                                 </Text>
                             </View>
-                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+                            <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
                                 {item.orders}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
-                    {/* Total Feed Views */}
-                    {/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
-                        <LinearGradient
-                            start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
-                            colors={['#ffffff', '#ffffff']}
-                            style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
-                            <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="person-outline" color='rgba(233,149,6,1)'
-                                    style={{ marginRight: 10,fontSize:16, top: 2 }} size={25} />
-                                <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4,fontSize: RFValue(12,580) }}>
-                                    TOTAL CUSTOMER
-                                </Text>
-                            </View>
-                            <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                {item.customer}
-                            </Text>
-                        </LinearGradient>
-                    </TouchableOpacity> */}
-
+                 
                 </View>
 
+                <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
 
+{/* Total Feed Views */}
+<TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("Wallet")}>
+    <LinearGradient
+        start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+        colors={['#ffffff', '#ffffff']}
+        style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
+        <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
+            <Icon type="ionicon" name="cash-outline" color='rgba(233,149,6,1)'
+                style={{ marginRight: 10, fontSize: RFValue(12, 580), top: 2 }} size={25} />
+            <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
+         Cash Sales
+            </Text>
+        </View>
+        <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+        ₹{item.total_earnning}
+        </Text>
+    </LinearGradient>
+</TouchableOpacity>
+
+
+
+<TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+    <LinearGradient
+        start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+        colors={['#ffffff', '#ffffff']}
+        style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
+        <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
+            <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
+                style={{ marginRight: 10, top: 2 }} size={25} />
+            <Text style={{ color: '#222', fontSize: RFValue(12, 580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
+              Orders
+            </Text>
+        </View>
+        <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+            {item.orders}
+        </Text>
+    </LinearGradient>
+</TouchableOpacity>
+{/* Total Feed Views */}
+{/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+    <LinearGradient
+        start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+        colors={['#ffffff', '#ffffff']}
+        style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
+        <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
+            <Icon type="ionicon" name="person-outline" color='rgba(233,149,6,1)'
+                style={{ marginRight: 10,fontSize:16, top: 2 }} size={25} />
+            <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4,fontSize: RFValue(12,580) }}>
+                TOTAL CUSTOMER
+            </Text>
+        </View>
+        <Text style={{ color: 'rgba(233,149,6,1)', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
+            {item.customer}
+        </Text>
+    </LinearGradient>
+</TouchableOpacity> */}
+
+</View>
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
                     {/* Shop Visits View  */}
                     {/* <TouchableOpacity style={[style.gradientView, { width: "45%" }]} onPress={() => this.props.navigation.navigate("ListingDashboardItems", { screen: "visits" })}>

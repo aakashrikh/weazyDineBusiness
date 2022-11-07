@@ -48,10 +48,12 @@ class Orders extends Component {
   load_more = () => {
     var data_size = this.state.data.length;
     if (data_size > 9) {
+
       var page = this.state.page + 1;
+      this.fetch_order(page, '');
       this.setState({page: page});
       this.setState({load_data: true});
-      this.fetch_order(page, '');
+   
     }
   };
 
@@ -253,7 +255,10 @@ class Card extends Component {
   }
 
   productCard = ({item}) => (
-    <View style={style.card}>
+    <TouchableOpacity   onPress={() =>
+      this.props.navigation.navigate('OrderDetails', {
+        id: item.order_code,
+      } )}  style={style.card}>
       <View
         style={{
           flexDirection: 'row',
@@ -262,7 +267,7 @@ class Card extends Component {
           justifyContent: 'space-evenly',
         }}>
         <View style={{width: '50%'}}>
-          <Text style={style.heading}>Id- {item.order_code}</Text>
+          <Text style={style.heading}>{item.order_code}</Text>
         </View>
         <View style={{width: '50%'}}>
           <Text style={style.heading}>
@@ -297,16 +302,14 @@ class Card extends Component {
                 numberOfLines={3}
                 style={{
                   marginTop: 10,
-                  fontSize: RFValue(11, 580),
-                  color: '#EDA332',
+                  fontSize: RFValue(12, 580),
+                  color: '#222',
                   fontWeight: 'bold',
                 }}>
                 ₹ {item.total_amount}
               </Text>
             </View>
-            {/* View for payment mode  */}
-            {item.order_type != 'TakeAway' && item.order_type != 'Delivery' ? (
-              <View
+            <View
                 style={{
                   margin: 5,
                   marginTop: 20,
@@ -315,45 +318,39 @@ class Card extends Component {
                 <View
                   style={{
                     marginRight: 10,
-                    backgroundColor: '#F4C430',
+                    backgroundColor: '#f2f2f2',
                     padding: 5,
+                    paddingLeft: 10,
+                    paddingRight: 10,
                     borderRadius: 5,
                   }}>
+
+            {item.order_type != 'TakeAway' && item.order_type != 'Delivery' ? (
+             
                   <Text
                     style={{
-                      fontSize: RFValue(9.5, 580),
-                      color: '#fff',
+                      fontSize: RFValue(10, 580),
+                      color: '#222',
                       fontWeight: 'bold',
                     }}>
                     Dine-In
                   </Text>
-                </View>
-              </View>
+           
             ) : (
-              <View
-                style={{
-                  margin: 5,
-                  marginTop: 20,
-                  marginLeft: Platform.OS == 'ios' ? -30 : -20,
-                }}>
-                <View
-                  style={{
-                    marginRight: 10,
-                    backgroundColor: '#F4C430',
-                    padding: 5,
-                    borderRadius: 5,
-                  }}>
+             
                   <Text
                     style={{
-                      fontSize: RFValue(9.5, 580),
-                      color: '#fff',
+                      fontSize: RFValue(10, 580),
+                      color: '#222',
                       fontWeight: 'bold',
                     }}>
                     {item.order_type}
                   </Text>
-                </View>
-              </View>
+              
             )}
+            </View>
+            </View>
+            
           </View>
         </View>
       </View>
@@ -530,7 +527,7 @@ class Card extends Component {
 
         {/* details button */}
         <View style={{paddingTop: 5, paddingVertical: 5}}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() =>
               this.props.navigation.navigate('OrderDetails', {
                 id: item.order_code,
@@ -558,10 +555,10 @@ class Card extends Component {
               color="#000"
               style={{marginTop: 2}}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   render() {

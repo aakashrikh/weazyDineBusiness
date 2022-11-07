@@ -234,7 +234,7 @@ class Home extends Component {
              
     
                  <View style={{flexDirection:'row' ,  borderBottomColor:'#ececec',
-                  borderBottomWidth:1,}}>
+                  borderBottomWidth:1,  marginTop:10}}>
      <View>
      <Image source={
                     require('../img/logo/mp.png')
@@ -279,6 +279,7 @@ class Home extends Component {
                   borderBottomRightRadius: 10,
                   borderBottomColor:'#ececec',
                   borderBottomWidth:1,
+                  marginTop:10
                 }}
                 backgroundColor="#ffffff"
               />
@@ -369,7 +370,7 @@ class Home extends Component {
 
             {/* share more to earn */}
             <View style={{
-              width: Dimensions.get('window').width / 1.05, height: 130, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+              width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
               shadowOffset: {
                 width: 0,
                 height: 2
@@ -382,10 +383,10 @@ class Home extends Component {
               <Text style={[styles.p, { fontFamily: "Raleway-SemiBold" }]}>Your customer can visit your online store and place the orders from this link</Text>
               <View style={{ flexDirection: 'row', width: Dimensions.get('window').width / 1.05 }}>
                 <View style={{ width: "50%" }}>
-                  <Text numberOfLines={2} style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
+                  <Text numberOfLines={3} style={[styles.p, { marginTop: 15, fontFamily: "Raleway-SemiBold" }]}>{this.state.link}</Text>
                 </View>
                 <View style={{ width: "40%" }}>
-                  <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link, this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 10 }]}>
+                  <TouchableOpacity onPress={() => { this.share_whatsapp(this.state.link, this.state.name) }} style={[styles.catButton, { backgroundColor: "#25d366", width: 100, padding: 5, alignSelf: 'flex-end', borderRadius: 5, marginLeft: 10, marginTop: 20 }]}>
                     <View style={{ flexDirection: "row", alignSelf: "center" }}>
                       <MaterialCommunityIcons name="whatsapp" color={"#fff"} type="ionicon" size={20} />
                       <Text style={[style.buttonText, { color: "#fff", marginLeft: 3, marginTop: -1 }]}>Share</Text>
