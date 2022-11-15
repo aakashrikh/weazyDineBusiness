@@ -52,11 +52,11 @@ class Home extends Component {
     this.get_profile();
     this.get_cover();
     this.checkBankDetails();
-  //   this.focusListener = this.props.navigation.addListener('focus', () => {
-  //     this.get_profile();
-  //     this.get_cover();
-  //     this.checkBankDetails();
-  //   })
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      this.get_profile();
+      this.get_cover();
+      this.checkBankDetails();
+    })
 
   
   }

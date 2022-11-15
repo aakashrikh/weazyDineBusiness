@@ -116,7 +116,7 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
-// global.vendor_api = "https://dine-api.weazy.in/api/";
+ //global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
@@ -124,7 +124,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 // global.vendor_api = "http://172.16.1.111:8000/api/";
 
 //for demo 
-global.vendor_api = "https://dine-api.weazy.in/api/";
+global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -282,7 +282,7 @@ class App extends Component {
           broadcaster: 'pusher',
           key: "b8ba8023ac2fc3612e90",
           cluster: "mt",
-          wsHost:'websockets.webixun.com',
+          wsHost:'xobo.in',
           wsPort: 6001,
           forceTLS: false,
          disableStats: true,
@@ -302,7 +302,7 @@ class App extends Component {
   }
 
   get_profile = (token) => {
-
+console.log(global.vendor_api + 'get_vendor_profile');
     fetch(global.vendor_api + 'get_vendor_profile', {
       method: 'POST',
       headers: {
@@ -379,7 +379,7 @@ class App extends Component {
       return (
       <>
     
-        <AuthContext.Provider value={{ login: this.login, logout: this.logout,user:this.state.user,token:this.state.token }}>
+        <AuthContext.Provider value={{ login: this.login, logout: this.logout,user:this.state.user,token:this.state.token,getProfile:this.get_profile }}>
           <NavigationContainer linking={linking}>
             <Stacks.Navigator  screenOptions={{ headerShown: false }} >
               {!this.state.islogin ? (

@@ -200,7 +200,7 @@ class Buttons extends Component {
           <Text style={[styles.h3,{marginLeft:10,marginTop:5}]}>Legal</Text>
 
           {/* About us */}
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("AboutUs")}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/about-weazydine.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="alert-circle-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -212,7 +212,7 @@ class Buttons extends Component {
 
 
           {/* privacy policy */}
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://dine.weazy.in/customer-term-condition.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/customer-term-condition.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="settings-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -222,7 +222,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://marketpluss.com/customer-privacy-policy.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://weazydine.com/customer-privacy-policy.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="lock-closed-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -232,7 +232,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://marketpluss.com/customer-refund-cancellation.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://weazydine.com/customer-refund-cancellation.html"})}>
             <View style={style.questView}>
               <View style={
                 {flexDirection: "row"}

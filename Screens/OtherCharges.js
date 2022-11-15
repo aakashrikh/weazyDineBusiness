@@ -9,7 +9,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import Toast from "react-native-simple-toast";
 import { RFValue } from 'react-native-responsive-fontsize';
 import { AuthContext } from '../AuthContextProvider.js';
+import RadioForm from 'react-native-simple-radio-button';
 
+var radio_props = [
+    { label: 'inclusive', value: 'inclusive' },
+    { label: 'exclusive', value: 'exclusive' }
+];
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 class OtherCharges extends Component {
@@ -27,7 +32,8 @@ class OtherCharges extends Component {
             sc: true,
             gstin: '',
             gstper: '',
-            scamount: ''
+            scamount: '',
+            gst_type:''
         };
 
     }
@@ -67,7 +73,7 @@ class OtherCharges extends Component {
 
             })
         }).then((response) => response.json())
-            .then((json) => {e
+            .then((json) => {
                 if (!json.status) {
                     var msg = json.msg;
                     Toast.show(msg);
@@ -88,7 +94,8 @@ class OtherCharges extends Component {
                     this.setState({ gstin: value.gstin })
                     this.setState({ scamount: value.service_charge })
                     this.setState({ gstper: value.gst_percentage })
-
+                    this.setState({ gst_type: value.gst_type })
+                    
 
 
                 }
@@ -143,6 +150,7 @@ class OtherCharges extends Component {
                     gstin: gstin,
                     gst_percentage: gst_percentage,
                     service_charge: service_charge,
+                    gst_type:this.state.gst_type
                 })
             }).then((response) => response.json())
                 .then((json) => {
@@ -165,9 +173,6 @@ class OtherCharges extends Component {
         }
 
     }
-
-
-
     update_toggle = () => {
         if (this.state.gst) {
             this.setState({ gst: false })
@@ -251,6 +256,21 @@ class OtherCharges extends Component {
                                             width: Dimensions.get("window").width / 1.3,
                                         }} />
                                 </View>
+
+                                <View style={{ marginTop: 20, alignSelf: 'center' }}>
+                    <RadioForm
+                        formHorizontal={true}
+                        radio_props={radio_props}
+                        animation={true}
+                        initial={this.state.gst_type == "inclusive" ? 0 : 1}
+                        buttonColor={'#EDA332'}
+                        selectedButtonColor={'#EDA332'}
+                        labelHorizontal={false}
+                        labelStyle={{ marginRight: 10, marginLeft: 10 }}
+                        onPress={(value) => { 
+                            this.setState({ gst_type: value }) }}
+                    />
+                </View>
                             </View>
                             :
                             <></>

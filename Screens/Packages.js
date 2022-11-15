@@ -245,7 +245,7 @@ class Packages extends Component {
                                         <Image source={require("../img/no-product.png")}
                                             style={{ width: 300, height: 300 }} />
                                         <Text style={[styles.h3, { top: -20, alignSelf: "center" }]}>
-                                            No Products Found!
+                                            No Combos Found!
                                         </Text>
                                     </View>
                                 </View>
@@ -271,7 +271,7 @@ class Packages extends Component {
 
                 {/* fab button */}
                 <View>
-                    {this.state.category == "" ?
+                    {(this.state.category.length ==0) ?
                         <TouchableOpacity style={style.fab}
                             onPress={() => this.props.navigation.navigate("AddCategory", { get_cat: this.get_category })}>
                             <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{ alignSelf: "center" }} />

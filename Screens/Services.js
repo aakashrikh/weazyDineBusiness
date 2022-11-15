@@ -125,7 +125,7 @@ class Services extends Component {
 
     get_category = () => {
         // this.setState({isloading:true})
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + global.vendor
+        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + +this.context.user.id
             , {
                 method: 'GET',
             })
@@ -141,7 +141,7 @@ class Services extends Component {
 
                 }
                 else {
-                    this.setState({ isloading: false, category: "" })
+                    this.setState({ isloading: false, })
                 }
                 return json;
             })
@@ -270,7 +270,7 @@ alert(id,1)
 
                 {/* fab button */}
                 <View>
-                    {this.state.category == "" ?
+                    {(this.state.category.length==0) ?
                         <TouchableOpacity style={style.fab}
                             onPress={() => this.props.navigation.navigate("AddCategory", { get_cat: this.get_category })}>
                             <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{ alignSelf: "center" }} />

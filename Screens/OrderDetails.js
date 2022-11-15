@@ -384,7 +384,12 @@ class Card extends Component {
           <View style={{padding: 5, paddingLeft: 12}}>
             <Text
               style={[styles.h4, {color: '#000', fontSize: RFValue(12, 580)}]}>
-              {this.props.user.name}
+                {
+                  (this.props.data.transactions && this.props.data.transactions.length > 0) ? 
+                  this.props.data.transactions[0].txn_method - this.props.data.transactions[0].txn_channel : 'N/A'
+                }
+
+              {this.props.data.payment_mode}
             </Text>
            
           </View>

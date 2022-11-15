@@ -20,13 +20,8 @@ static contextType =AuthContext
     componentDidMount(){
         setTimeout(()=>{
             global.use_type='done';
-            AsyncStorage.getItem('@auth_login', (err, result) => {
-                if (JSON.parse(result) != null) {
-                  const data={"token":JSON.parse(result).token,"vendor_id":JSON.parse(result).user_id,"use_type":'done'};
-                  AsyncStorage.setItem('@auth_login',JSON.stringify(data));
-                this.context.login('done');
-                } 
-            });
+
+            this.context.getProfile(this.context.token);
 
         },2000)
     }

@@ -6321,10 +6321,10 @@
   "resolved" "https://registry.npmjs.org/react-native-otp-verify/-/react-native-otp-verify-1.0.4.tgz"
   "version" "1.0.4"
 
-"react-native-pager-view@^5.4.0":
-  "integrity" "sha512-P/aGuJqRe/HaocYd8o6TsO9YQMFPQrVnkjph9vZ+yg3HCCF/7XLRlntOLEs24Vmg4M+02MjpH557WACpBADi/A=="
-  "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.1.tgz"
-  "version" "5.4.1"
+"react-native-pager-view@^6.1.0":
+  "integrity" "sha512-wBtc77l+lWRDS1FlpeO+rE0iG/ecRtVhHrERMkm7CACQvhB+ty8NL2zlAzOCCbS83DZrIdtWuPu9VqziKHzJPw=="
+  "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.1.0.tgz"
+  "version" "6.1.0"
 
 "react-native-paper@^4.9.2":
   "integrity" "sha512-J7FRsd0YblQawtuj9I46F//apZHadsCKk6jWpc6njFTYdgUeCdkR8KgEto7cp2WxbcGNELx7KGwPQ4zAgX746A=="

@@ -307,7 +307,7 @@ class Fields extends Component {
                 </View>
                 <View style={{ marginTop: 10 }}>
                     <Text style={style.fieldsTitle}>
-                        Market Price
+                         Price
                     </Text>
 
                     <TextInput
@@ -324,7 +324,7 @@ class Fields extends Component {
 
                 <View>
                     <Text style={style.fieldsTitle}>
-                        Our Price
+                        Offer Price
                     </Text>
                     <TextInput
                         keyboardType="numeric"

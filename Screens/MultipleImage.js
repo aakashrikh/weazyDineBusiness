@@ -11,7 +11,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import Toast from "react-native-simple-toast";
-
+import { AuthContext } from '../AuthContextProvider.js';
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -28,7 +28,7 @@ const options = {
 }
 
 class MultipleImage extends Component{
-    
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -61,7 +61,7 @@ get_cover=()=>{
           headers: {    
               Accept: 'application/json',  
                 'Content-Type': 'application/json',
-                'Authorization':global.token  
+                'Authorization':this.context.token
                }, 
                 body: JSON.stringify({ 
                         })}).then((response) => response.json())
@@ -146,7 +146,7 @@ camera =()=>{
                 method: 'POST',
                 body: form,
                    headers: {    
-                         'Authorization':global.token  
+                         'Authorization':this.context.token
                         }, 
                          }).then((response) => response.json())
                                  .then((json) => {
@@ -190,7 +190,7 @@ camera =()=>{
               headers: {    
                   Accept: 'application/json',  
                     'Content-Type': 'application/json',
-                    'Authorization':global.token  
+                    'Authorization':this.context.token  
                    }, 
                     body: JSON.stringify({ 
                         cover_id:id

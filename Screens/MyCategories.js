@@ -32,6 +32,7 @@ class MyCategories extends Component{
     }
 
     get_category=()=>{
+
         fetch(global.vendor_api+'get_category_vendor?vendor_id='+this.context.user.id
          ,{
         method: 'GET',
@@ -153,7 +154,7 @@ class MyCategories extends Component{
                       }
                 
                 <TouchableOpacity style={style.fab}
-                onPress={()=>this.props.navigation.navigate("AddCategory")}>
+                onPress={()=>this.props.navigation.navigate("AddCategory",{get_cat:this.get_category})}>
                         <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{alignSelf:"center"}}/>
                 </TouchableOpacity>
             </View>

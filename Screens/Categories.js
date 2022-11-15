@@ -25,7 +25,6 @@ class Categories extends Component{
 
 
     get_category=()=>{
-        alert("ss");
             fetch(global.vendor_api+'get_category_vendor?vendor_id='+global.vendor_id, {
             method: 'GET',
             })

@@ -37,7 +37,7 @@ class Orders extends Component {
 
     this.fetch_order(1, '');
     this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.fetch_order(1, '');
+      // this.fetch_order(1, '');
       if (this.props.route.params != undefined) {
         this.fetch_order(1, '');
         this.setState({active_cat: this.props.route.params.active_cat});
@@ -50,9 +50,9 @@ class Orders extends Component {
     if (data_size > 9) {
 
       var page = this.state.page + 1;
-      this.fetch_order(page, '');
+     this.fetch_order(page, this.state.active_cat);
       this.setState({page: page});
-      this.setState({load_data: true});
+       this.setState({load_data: true});
    
     }
   };
@@ -78,11 +78,12 @@ class Orders extends Component {
           }
         } else {
           if (json.data.data.length > 0) {
+           // console.warn(json.data.data);
             var obj = json.data.data;
             if (page_id == 1) {
               this.setState({data: obj});
             } else {
-              this.setState({data: [...this.state.data, ...obj]});
+              this.setState({data: [this.state.data, ...obj]});
             }
           }
         }
@@ -145,7 +146,7 @@ class Orders extends Component {
               {this.state.data.length > 0 ? (
                 <Card
                   navigation={this.props.navigation}
-                  data={this.state.data}
+                 data={this.state.data}
                   load_more={this.load_more}
                   load_data={this.state.load_data}
                 />
@@ -157,7 +158,7 @@ class Orders extends Component {
                       style={{width: 300, height: 300}}
                     />
                     <Text style={[styles.h3, {top: -20, alignSelf: 'center'}]}>
-                      No Products Found!
+                      No Orders Found!
                     </Text>
                   </View>
                 </View>
@@ -254,8 +255,8 @@ class Card extends Component {
     };
   }
 
-  productCard = ({item}) => (
-    <TouchableOpacity   onPress={() =>
+  productCard = ({item,index}) => (
+    <TouchableOpacity key={index}  onPress={() =>
       this.props.navigation.navigate('OrderDetails', {
         id: item.order_code,
       } )}  style={style.card}>
@@ -296,7 +297,10 @@ class Card extends Component {
             {/* Text View */}
             <View style={{width: 200}}>
               <Text style={[styles.h4, {top: 10, textTransform: 'capitalize'}]}>
-                {item.user.name}
+                {(item.user != undefined ) ?item.user.name : 'Guest'}
+
+              
+                {/* {item.user.name} */}
               </Text>
               <Text
                 numberOfLines={3}
@@ -333,7 +337,7 @@ class Card extends Component {
                       color: '#222',
                       fontWeight: 'bold',
                     }}>
-                    Dine-In
+                    Dine-In 
                   </Text>
            
             ) : (
@@ -499,7 +503,7 @@ class Card extends Component {
                 item.estimate_prepare_time != null ? 
                     <>
                     {
-                        this.state.isTimerFinished == false ? */}
+                         this.state.isTimerFinished == false ? 
                         <CountDown
                     style={{ marginTop: -10 }}
                     until={moment(item.estimate_prepare_time).diff(moment())}
@@ -571,6 +575,7 @@ class Card extends Component {
           data={this.props.data}
           renderItem={this.productCard}
           keyExtractor={item => item.id}
+          style={{flex:1}}
           onEndReachedThreshold={0.5}
           onEndReached={() => this.props.load_more()}
         />

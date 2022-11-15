@@ -72,11 +72,14 @@ class Demo extends Component {
                 'Authorization': this.context.token
             },
             body: JSON.stringify({
+                range:'today',
+                from:'',
+                to:''
             })
         }).then((response) => response.json())
             .then((json) => {
                 if (json.status) {
-
+console.log(json.data)
                     this.setState({ item: json.data })
                 }
                 return json;
@@ -95,7 +98,11 @@ class Demo extends Component {
 
 
                 {/* Business */}
-                <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Business</Text>
+                <View style={{ flexDirection: "row",width: Dimensions.get("window").width/1.1, justifyContent: "space-between"}}>
+                <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Overview</Text>
+                <Text style={[ { paddingTop: 15, fontWeight: 'bold', marginLeft: 15 }]}>Today</Text>
+                </View>
+             
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width, justifyContent: "space-around", marginTop: 10, }}>
 
                     {/* Total Feed Views */}
@@ -105,14 +112,14 @@ class Demo extends Component {
                             colors={['#ffffff', '#ffffff']}
                             style={[style.gradientView, { width: "100%", marginLeft: 0 }]}>
                             <View style={{ flexDirection: "row", marginLeft: -20, marginTop: 5 }}>
-                                <Icon type="ionicon" name="cash-outline" color='rgba(233,149,6,1)'
-                                    style={{ marginRight: 10, fontSize: RFValue(12, 580), top: 2 }} size={25} />
+                            <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
+                                    style={{ marginRight: 10, top: 2 }} size={25} />
                                 <Text style={{ color: '#222', fontFamily: "Roboto-Medium", marginTop: 4 }}>
-                                    Total Sales
+                                    Total Orders
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                            ₹{item.total_earnning}
+                            {item.orders}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -128,11 +135,11 @@ class Demo extends Component {
                                 <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
                                     style={{ marginRight: 10, top: 2 }} size={25} />
                                 <Text style={{ color: '#222', fontSize: RFValue(12, 580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
-                                 Online Sales
+                                Total Sales
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                {item.orders}
+                                {item.total_earnning}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -155,7 +162,7 @@ class Demo extends Component {
             </Text>
         </View>
         <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-        ₹{item.total_earnning}
+        ₹{item.cashsale}
         </Text>
     </LinearGradient>
 </TouchableOpacity>
@@ -171,11 +178,11 @@ class Demo extends Component {
             <Icon type="ionicon" name="fast-food-outline" color='rgba(233,149,6,1)'
                 style={{ marginRight: 10, top: 2 }} size={25} />
             <Text style={{ color: '#222', fontSize: RFValue(12, 580), fontFamily: "Roboto-Medium", marginTop: 4 }}>
-              Orders
+             Online Sales
             </Text>
         </View>
         <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-            {item.orders}
+            {item.online}
         </Text>
     </LinearGradient>
 </TouchableOpacity>
