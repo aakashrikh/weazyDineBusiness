@@ -139,7 +139,7 @@ console.log(json.data)
                                 </Text>
                             </View>
                             <Text style={{ color: '#222', fontFamily: "Roboto-Bold", fontSize: RFValue(14, 580), marginBottom: 10 }}>
-                                {item.total_earnning}
+                            ₹{parseFloat(item.total_earnning).toFixed(2)}
                             </Text>
                         </LinearGradient>
                     </TouchableOpacity>
