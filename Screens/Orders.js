@@ -733,14 +733,14 @@ class Card extends Component {
             </View>
           )}
   
-          {item.order_status == 'in_process' ? (
+          {/* {item.order_status == 'in_process' ? (
             <Animatable.View
               style={{flexDirection: 'row', paddingTop: 10}}
               animation="pulse"
               duraton="1500"
               iterationCount="infinite">
               <Icon type="ionicon" name="time-outline" size={20} style={{paddingRight:-5}} color="green" />
-              {/* <Text
+               <Text
                 style={{
                   fontSize: RFValue(11, 580),
                   color: 'green',
@@ -752,9 +752,9 @@ class Card extends Component {
                   .local()
                   .startOf('seconds')
                   .fromNow()}
-              </Text> */}
+              </Text> 
               
-              {/* {
+              {
                   item.estimate_prepare_time != null ? 
                       <>
                       {
@@ -770,19 +770,19 @@ class Card extends Component {
                       timeLabels={{ m: null, s: null }}
                       showSeparator
                     />
-                  {/* //   :
-                  //   <Text style={[styles.h4,{color:"red"}]}>Order Time is up</Text>
+                     :
+                     <Text style={[styles.h4,{color:"red"}]}>Order Time is up</Text>
   
-                  //     }
-                  //     </> */}
-                  {/* //     :
-                  //     <></>
+                      }
+                      </> 
+                       :
+                       <></>
               }
-               */}
+              
             </Animatable.View>
           ) : (
             <></>
-          )}
+          )} */}
   
           {/* details button */}
           <View style={{paddingTop: 5, paddingVertical: 5}}>

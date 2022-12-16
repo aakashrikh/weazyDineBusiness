@@ -3,7 +3,7 @@ import { Dimensions, TextInput } from 'react-native';
 import {
     View,ImageBackground,
     StyleSheet,Pressable,ScrollView,Linking,
-    Image,Text,TouchableOpacity
+    Image,Text,TouchableOpacity, Platform
 } from 'react-native';
 import {Icon,Header} from "react-native-elements"
 import LinearGradient from 'react-native-linear-gradient';
@@ -172,7 +172,7 @@ class Mail extends Component{
 <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#EDA332"}]}>
     Call US
 </Text>
-<Text style={styles.h4} onPress={() => Linking.openURL(`tel:$7060222517`) }>
+<Text style={[styles.h4,{fontFamily:Platform.OS == "ios" ? null : "Roboto-Medium"}]} onPress={() => Linking.openURL(`tel:$7060222517`) }>
     7060222517
 </Text>
 </View>

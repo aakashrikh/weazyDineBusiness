@@ -200,7 +200,7 @@ class Buttons extends Component {
           <Text style={[styles.h3,{marginLeft:10,marginTop:5}]}>Legal</Text>
 
           {/* About us */}
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/about-weazydine.html"})}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy",{title: "About Us" ,url:"https://weazydine.com/about-us.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="alert-circle-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -212,7 +212,7 @@ class Buttons extends Component {
 
 
           {/* privacy policy */}
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/customer-term-condition.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/termsandconditions.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="settings-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -222,7 +222,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://weazydine.com/customer-privacy-policy.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://weazydine.com/privacy-policy.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
               <Icon name="lock-closed-outline" type='ionicon' size={25} color="#EDA332"/>
@@ -232,7 +232,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://weazydine.com/customer-refund-cancellation.html"})}>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title:"Refunds And Cancellation",url:"https://weazydine.com/refund.html"})}>
             <View style={style.questView}>
               <View style={
                 {flexDirection: "row"}

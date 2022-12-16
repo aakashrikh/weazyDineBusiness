@@ -152,7 +152,7 @@ class Services extends Component {
     }
 
     filter = (id) => {
-alert(id,1)
+// alert(id,1)
         this.setState({ isloading: true })
         this.get_vendor_product(id, 1);
         this.setState({ active_cat: id })
