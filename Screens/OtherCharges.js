@@ -126,9 +126,9 @@ class OtherCharges extends Component {
             gstin = "";
             Toast.show("GSTIN is required!");
         }
-        else if (this.state.gst && this.state.gstper == "") {
+        else if (this.state.gst || this.state.gstper == "") {
             gst_percentage = 0;
-            Toast.show("GST Percentage is required!");
+            // Toast.show("GST Percentage is required!");
         }
         else if (this.state.sc && this.state.scamount == "") {
             Toast.show("Service Charge is required!");

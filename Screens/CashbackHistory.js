@@ -189,7 +189,7 @@ class CashbackHistory extends Component {
                                 }
                             </>
 
-                            {item.order_status == "in_process" ?
+                            {/* {item.order_status == "in_process" ?
                                 <Animatable.View style={{ flexDirection: "row", }}
                                     animation="pulse"
                                     duraton="1500" iterationCount="infinite">
@@ -198,7 +198,7 @@ class CashbackHistory extends Component {
                                 </Animatable.View>
                                 :
                                 <></>
-                            }
+                            } */}
                         </View>
                     </View>
                 </View>

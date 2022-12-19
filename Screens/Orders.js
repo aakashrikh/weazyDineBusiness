@@ -103,8 +103,8 @@ class Orders extends Component {
                         }
                         else {
                             this.setState({ data: [...this.state.data, ...obj] })
+                            
                         }
-                        // console.warn(this.state.data)
                     }
                     else {
 
