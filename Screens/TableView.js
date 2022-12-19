@@ -44,7 +44,8 @@ class TableView extends Component {
             cart: [],
             modalVisible: false,
             total_price: 0,
-            bill: []
+            bill: [],
+            payment:"UPI"
         };
 
     }
@@ -244,6 +245,7 @@ class TableView extends Component {
     }
 
     mark_complete = () => {
+        // console.warn(this.state.payment)
         fetch(global.vendor_api + 'update_order_status_by_vendor', {
             method: 'POST',
             headers: {
