@@ -15,6 +15,7 @@ import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import Geocoder from "react-native-geocoding";
 import Toast from "react-native-simple-toast";
 import RNLocation from 'react-native-location';
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -46,6 +47,7 @@ export default ChangeLocation;
 //this component is for map
 
 class Map extends Component {
+  static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -227,7 +229,7 @@ class Map extends Component {
         headers: {    
             Accept: 'application/json',  
               'Content-Type': 'application/json',
-              'Authorization':global.token  
+              'Authorization':this.context.token  
              }, 
               body: JSON.stringify({ 
                  latitude:this.state.latitude, 

@@ -48,7 +48,8 @@ class More extends Component {
       </View> */}
        <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
          <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>Hello! {this.context.user.name} </Text>
-         <Text style={{marginLeft:5}}>+91 {this.context.user.contact}</Text>
+         <Text>+91 - {this.context.user.contact}</Text>
+         <Text  numberOfLines={2}>{this.context.user.address}</Text>
        </View>
        </TouchableOpacity>
 
@@ -192,6 +193,17 @@ class Buttons extends Component {
               <View style={{flexDirection: "row"}}>
               <Icon name="cash-outline" type='ionicon' size={25} color="#EDA332"/>
                 <Text style={style.texxt}>Online Payment Setup</Text>
+              </View>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
+            </View>
+          </TouchableOpacity>
+
+          {/* update address */}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeLocation")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="location-outline" type='ionicon' size={25} color="#EDA332"/>
+                <Text style={style.texxt}>Update Address</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>
