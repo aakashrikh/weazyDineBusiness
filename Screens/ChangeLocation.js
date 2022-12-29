@@ -317,7 +317,7 @@ class Map extends Component {
             </View>
             :
             <View style={{marginTop:200,alignItems:"center"}}>
-              <ActivityIndicator size="large" color="#EDA332" />
+              <ActivityIndicator size="large" color="#5BC2C1" />
               <Text style={style.h4}>
                 Locating...
               </Text>
@@ -401,7 +401,7 @@ styles={{
                     onPress={() => this.update_data()}
                     style={style.confirmbutton}>
                     <LinearGradient
-                      colors={['#EDA332', '#EDA332']}
+                      colors={['#5BC2C1', '#296e84']}
                       style={styles.signIn}>
 
                       <Text style={[styles.textSignIn, { color: '#fff' }]}>
@@ -412,7 +412,7 @@ styles={{
                   </Pressable>
                 :
                 <View style={style.loader}>
-                <ActivityIndicator size={"large"} color="#EDA332"  />
+                <ActivityIndicator size={"large"} color="#5BC2C1"  />
                 </View>
                   }
                 </View>

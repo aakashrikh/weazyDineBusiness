@@ -247,7 +247,7 @@ class TableView extends Component {
     }
 
     addonItem = ({ item }) => (
-        <View style={{ margin: 5, borderWidth: 1, padding: 5, borderRadius: 5, borderColor: "#EDA332" }}>
+        <View style={{ margin: 5, borderWidth: 1, padding: 5, borderRadius: 5, borderColor: "#5BC2C1" }}>
             <Text>{item.addon_name}</Text>
         </View>
     )
@@ -454,7 +454,7 @@ class TableView extends Component {
                 <TouchableOpacity onPress={() => { this.swapTableAlert(item.table_uu_id) }} style={style.tableBox}>
 
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: 60, height: 60, backgroundColor: '#EDA332', borderRadius: 5 }}>
+                        <View style={{ width: 60, height: 60, backgroundColor: '#5BC2C1', borderRadius: 5 }}>
                             <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
                         </View>
                         <View style={{ marginLeft: 20 }}>
@@ -579,7 +579,7 @@ class TableView extends Component {
                                         {
                                             this.state.clear_table_buttonLoading ?
                                                 <View style={[style.loader, { marginRight: 20 }]}>
-                                                    <ActivityIndicator size={"large"} color="#EDA332" />
+                                                    <ActivityIndicator size={"large"} color="#5BC2C1" />
                                                 </View>
                                                 :
                                                 <TouchableOpacity
@@ -609,7 +609,7 @@ class TableView extends Component {
                                                     shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, borderRadius: 10, alignSelf: "center"
                                                 }}>
 
-                                                    <View style={{ width: '20%', width: 45, height: 45, backgroundColor: '#EDA332', borderRadius: 5 }}>
+                                                    <View style={{ width: '20%', width: 45, height: 45, backgroundColor: '#5BC2C1', borderRadius: 5 }}>
                                                         <Text style={{ fontSize: 42, alignSelf: 'center', color: '#eee' }}>T</Text>
                                                     </View>
 
@@ -668,9 +668,9 @@ class TableView extends Component {
                                 :
                                 <View style={{ paddingTop: 120, alignItems: "center" }}>
                                     <View style={{ alignSelf: "center" }}>
-                                        <Image source={require("../img/no-product.png")}
-                                            style={{ width: 300, height: 300 }} />
-                                        <Text style={[styles.h3, { top: -10, alignSelf: "center" }]}>
+                                        <Image source={require("../img/no-product.webp")}
+                                            style={{ width: 300, height: 250 }} />
+                                        <Text style={[styles.h3, { top: 10, alignSelf: "center" }]}>
                                             No Order Found!
                                         </Text>
                                     </View>
@@ -754,14 +754,14 @@ class TableView extends Component {
                         <View style={{ width: "100%", padding: 20 }}>
                             <TouchableOpacity onPress={() => { Linking.openURL(this.props.route.params.table_url) }} style={{ flexDirection: 'row' }}>
                                 <Text style={style.iconPencil}>
-                                    <Icon name='qr-code-outline' type="ionicon" color={'#EDA332'} size={30} />
+                                    <Icon name='qr-code-outline' type="ionicon" color={'#5BC2C1'} size={30} />
                                 </Text>
                                 <Text style={[styles.h4, { marginLeft: 20, marginTop: 4 }]}>View Table QR</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={() => { this.state.cart.length > 0 ? this.noDeleteAlert() : this.deleteAlert() }} style={{ flexDirection: 'row', marginTop: 10 }}>
                                 <Text style={style.iconPencil}>
-                                    <Icon name='trash-outline' type="ionicon" color={'#EDA332'} size={30} />
+                                    <Icon name='trash-outline' type="ionicon" color={'#5BC2C1'} size={30} />
                                 </Text>
                                 <Text style={[styles.h4, { marginLeft: 20, marginTop: 4 }]}>Delete Table</Text>
                             </TouchableOpacity>
@@ -794,8 +794,8 @@ class TableView extends Component {
                                         radio_props={radio_props}
                                         initial={0}
                                         buttonSize={10}
-                                        buttonColor={'#EDA332'}
-                                        selectedButtonColor={'#EDA332'}
+                                        buttonColor={'#5BC2C1'}
+                                        selectedButtonColor={'#5BC2C1'}
                                         onPress={(value) => {
                                             // alert(value)
                                             {
@@ -812,7 +812,7 @@ class TableView extends Component {
                                 {
                                     this.state.isButtonLoading ?
                                         <View style={style.loader}>
-                                            <ActivityIndicator size={"large"} color="#EDA332" />
+                                            <ActivityIndicator size={"large"} color="#5BC2C1" />
                                         </View>
                                         :
                                         <TouchableOpacity
@@ -886,7 +886,7 @@ class TableView extends Component {
                                         {
                                             this.state.isButtonLoading ?
                                                 <View style={style.loader}>
-                                                    <ActivityIndicator size={"large"} color="#EDA332" />
+                                                    <ActivityIndicator size={"large"} color="#5BC2C1" />
                                                 </View>
                                                 :
                                                 <TouchableOpacity
@@ -948,7 +948,7 @@ class TableView extends Component {
 
                                 :
                                 <View style={style.loader}>
-                                    <ActivityIndicator size={"large"} color="#EDA332" />
+                                    <ActivityIndicator size={"large"} color="#5BC2C1" />
                                 </View>
                             }
                         </View>
@@ -993,7 +993,7 @@ class TableView extends Component {
                             {
                                 this.state.update_product_quantity_buttonLoading ?
                                     <View style={[style.loader, { marginRight: 20 }]}>
-                                        <ActivityIndicator size={"large"} color="#EDA332" />
+                                        <ActivityIndicator size={"large"} color="#5BC2C1" />
                                     </View>
                                     :
                                     <View style={{ flexDirection: "row", justifyContent: "center" }}>

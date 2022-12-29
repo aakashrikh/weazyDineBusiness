@@ -150,7 +150,8 @@ class Profile extends Component {
         let numberValidation = /^[0]?[6789]\d{9}$/;
         let isnumValid = numberValidation.test( this.state.whatsapp);
         this.setState({ msg: "" });
-        if (this.state.name == "" || this.state.contact == "") {
+        if (this.state.name == "" || this.state.contact == "" || this.state.mail == "" || this.state.mail == null
+        || this.state.name == null) {
             Toast.show("All fields are required !");
         }
         else if (this.state.name == "") {
@@ -246,7 +247,7 @@ class Profile extends Component {
                                         }} />
                                 </View>
                                 <View style={{ paddingLeft: 10 }}>
-                                    <Text style={style.fieldsText}>Email Address (Optional)</Text>
+                                    <Text style={style.fieldsText}>Email Address</Text>
                                     <Input
                                         style={style.inputText}
                                         value={this.state.mail}
@@ -310,7 +311,7 @@ class Profile extends Component {
                                             onPress={() => this.save()}
                                             style={[style.buttonStyles,{bottom:Platform.OS == "ios" ? 25 : 15}]}>
                                             <LinearGradient
-                                                colors={['#EDA332', '#EDA332']}
+                                                colors={['#5BC2C1', '#296E84']}
                                                 style={styles.signIn}>
 
                                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>

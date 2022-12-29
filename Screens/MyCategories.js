@@ -139,9 +139,9 @@ class MyCategories extends Component{
                         :
                         <View style={{paddingTop:120,alignItems:"center"}}>
                         <View style={{alignSelf:"center"}}>
-                        <Image source={require("../img/no-product.png")}
-                        style={{width:300,height:300}} />
-                         <Text style={[styles.h3,{top:-20,alignSelf:"center"}]}>
+                        <Image source={require("../img/no-product.webp")}
+                        style={{ width: 300, height: 250 }} />
+                         <Text style={[styles.h3,{top:20,alignSelf:"center"}]}>
                         No Categories Found! 
                         </Text>
                     </View>  
@@ -195,7 +195,7 @@ const style=StyleSheet.create({
         
     },
     fab:{
-        backgroundColor:"#EDA332",
+        backgroundColor:"#5BC2C1",
         borderRadius:100,
         height:50,
         width:50,

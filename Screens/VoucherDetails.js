@@ -23,7 +23,7 @@ var radio_props = [
 
 class VoucherDetails extends Component {
     static contextType = AuthContext;
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             code: "",
@@ -157,18 +157,14 @@ class VoucherDetails extends Component {
 
 
                             <>
-                            <View style={style.viewBox}>
-                            
-                                <View style={{flexDirection:"row",justifyContent:"space-between"}}>
-                                    {
-                                        this.state.data.table == null ?
-                                         <></> 
-                                         :
-                                         <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>{this.state.data.table.table_name}</Text>
-                                    }
+                                <View>
+                                    <LinearGradient style={style.viewBox}
+                                        colors={['#5BC2C1', '#296e84']}>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
 
-                                    <View>
-                                    {/* {this.state.data.order_status == "in_process" ?
+
+                                            <View>
+                                                {/* {this.state.data.order_status == "in_process" ?
                                     <Animatable.View style={{ flexDirection: "row", marginRight: 10, alignSelf:"flex-end" }}
                                         animation="pulse"
                                         duraton="1500" iterationCount="infinite">
@@ -177,183 +173,194 @@ class VoucherDetails extends Component {
                                     </Animatable.View>
                                     :
                                     <></>} */}
+                                            </View>
+                                        </View>
+
+
+                                        <View style={{ flexDirection: "row" }}>
+                                            <View style={{ width: "20%" }}>
+                                                <Image source={require('../img/order.png')} style={{ height: 60, width: 60 }} />
+                                            </View>
+
+                                            <View style={{ width: "80%" }}>
+
+                                                <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}>Order ID : {this.state.data.order_code}</Text>
+                                                <Text style={[style.textWhite, { fontSize: RFValue(12, 580) }]}>Status :
+                                                    <Text>
+                                                        <Text style={{ paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
+                                                            <Text style={[style.textWhite, { fontSize: RFValue(12, 580), textTransform: "capitalize" }]}> {this.state.data.order_status}</Text>
+                                                        </Text>
+                                                    </Text></Text>
+
+                                                <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}>
+                                                    Order Type :
+                                                    <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}>
+
+                                                        {
+                                                            (this.state.data.order_type == 'delivery' || this.state.data.order_type == 'takeaway') ?
+                                                                <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}> {this.state.data.order_type}</Text>
+                                                                :
+                                                                <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}> Dine In - </Text>
+                                                        }
+                                                    </Text>
+                                                    {
+                                                        this.state.data.table == null ?
+                                                            <></>
+                                                            :
+                                                            <Text style={[style.textWhite, { fontFamily: "Poppins-SemiBold" }]}>{this.state.data.table.table_name}</Text>
+                                                    }</Text>
+                                                <Text style={[style.textWhite, { fontSize: RFValue(12, 580) }]}>{moment(this.state.data.created_at).format('ddd, MMMM Do YYYY, h:mm a')}</Text>
+                                            </View>
+
+                                        </View>
+                                    </LinearGradient>
+                                </View>
+
+
+                                <View style={{
+                                    width: "95%", flexDirection: "row", marginTop: 20, alignSelf: "center",
+                                    marginBottom: 10, borderBottomWidth: 1, borderBottomColor: "#f1f1f1"
+                                }}>
+                                    {/* quantity */}
+                                    <View style={{ width: "10%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                        <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>No.</Text>
+                                    </View>
+
+                                    {/* name */}
+                                    <View style={{ width: "40%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                        <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>Item</Text>
+                                    </View>
+
+                                    {/* price */}
+                                    <View style={{ width: "20%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                        <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>Price</Text>
+                                    </View>
+
+                                    {/* quantity */}
+                                    <View style={{ width: "15%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                        <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>Qty.</Text>
+                                    </View>
+
+                                    {/* amount */}
+                                    <View style={{ width: "15%" }}>
+                                        <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>Amt.</Text>
                                     </View>
                                 </View>
-                                
 
-                                <View style={{flexDirection:"row"}}>
-                                <View style={{width:"20%"}}>
-                                    <Image source={require('../img/order.png')} style={{height:60,width:60}}/>
-                                </View>
+                                {
+                                    (!this.state.load) ? (
 
-                                <View style={{width:"80%"}}>
-                                    
-                                    <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>Order ID : {this.state.data.order_code}</Text>
-                                    <Text style={[style.textWhite,{fontSize:RFValue(12,580)}]}>Status : 
-                                    <Text>
-                                        <Text style={{  paddingLeft: 10, alignSelf: 'center', paddingRight: 10, borderRadius: 5, paddingTop: 5, paddingBottom: 5 }}>
-                                            <Text style={[style.textWhite,{fontSize:RFValue(12,580),textTransform:"capitalize"}]}> {this.state.data.order_status}</Text>
-                                        </Text>
-                                    </Text></Text>
+                                        (this.state.cart.length > 0) ?
 
-                                    <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>
-                                        Order Type :
-                                        <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}>
-
-                                        {
-                                            (this.state.data.order_type == 'delivery' || this.state.data.order_type == 'takeaway') ?
-                                                <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}> {this.state.data.order_type}</Text>
-                                                :
-                                                <Text style={[style.textWhite,{fontFamily:"Poppins-SemiBold"}]}> Dine In</Text>
-                                        }
-                                        </Text>
-                                    </Text>
-                                    <Text style={[style.textWhite,{fontSize:RFValue(12,580)}]}>{moment(this.state.data.created_at).format('ddd, MMMM Do YYYY, h:mm a')}</Text>
-                                </View>
-                                </View>
-                            </View>
-
-                            
-                            <View style={{width:"95%",flexDirection:"row",marginTop:20,alignSelf:"center",
-                            marginBottom:10,borderBottomWidth:1,borderBottomColor:"#f1f1f1"}}>
-                                {/* quantity */}
-                                <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                    <Text style={[style.text,{fontSize:RFValue(12,580)}]}>No.</Text>
-                                </View>
-                                
-                                {/* name */}
-                                <View style={{width:"40%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                    <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Item</Text>
-                                </View>
-
-                                {/* price */}
-                                <View style={{width:"20%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                    <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Price</Text>
-                                </View>
-
-                                {/* quantity */}
-                                <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                    <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Qty.</Text>
-                                </View>
-
-                                {/* amount */}
-                                <View style={{width:"15%"}}>
-                                    <Text style={[style.text,{fontSize:RFValue(12,580)}]}>Amt.</Text>
-                                </View>
-                            </View>
-
-                            {
-                                (!this.state.load) ? (
-
-                                    (this.state.cart.length > 0) ?
-
-                                        (this.state.cart.map((item, index) => {
-                                            return (
-                                                <View style={{width:"95%",flexDirection:"row",alignSelf:"center",
-                                                    marginBottom:10,borderBottomWidth:1,borderBottomColor:"#f1f1f1"}}>
+                                            (this.state.cart.map((item, index) => {
+                                                return (
+                                                    <View style={{
+                                                        width: "95%", flexDirection: "row", alignSelf: "center",
+                                                        marginBottom: 10, borderBottomWidth: 1, borderBottomColor: "#f1f1f1"
+                                                    }}>
                                                         {/* quantity */}
-                                                        <View style={{width:"10%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{this.state.cart.indexOf(item)+1}</Text>
+                                                        <View style={{ width: "10%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                                            <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>{this.state.cart.indexOf(item) + 1}</Text>
                                                         </View>
-                                                        
+
                                                         {/* name */}
-                                                        <View style={{width:"40%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product.product_name}</Text>
+                                                        <View style={{ width: "40%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                                            <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>{item.product.product_name}</Text>
                                                         </View>
 
                                                         {/* price */}
-                                                        <View style={{width:"20%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_price/item.product_quantity}</Text>
+                                                        <View style={{ width: "20%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                                            <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>{item.product_price / item.product_quantity}</Text>
                                                         </View>
 
                                                         {/* quantity */}
-                                                        <View style={{width:"15%",borderRightWidth:1,borderColor:"#f1f1f1"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>x {item.product_quantity}</Text>
+                                                        <View style={{ width: "15%", borderRightWidth: 1, borderColor: "#f1f1f1" }}>
+                                                            <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>x {item.product_quantity}</Text>
                                                         </View>
 
                                                         {/* amount */}
-                                                        <View style={{width:"15%"}}>
-                                                            <Text style={[style.text,{fontSize:RFValue(12,580)}]}>{item.product_price}</Text>
+                                                        <View style={{ width: "15%" }}>
+                                                            <Text style={[style.text, { fontSize: RFValue(12, 580) }]}>{item.product_price}</Text>
                                                         </View>
                                                     </View>
-                                            )
-                                        }))
-                                        :
-                                        <Text>No OnGoing Orders</Text>
+                                                )
+                                            }))
+                                            :
+                                            <Text>No OnGoing Orders</Text>
 
 
-                                ) :
-                                    <Text>Loading...</Text>
+                                    ) :
+                                        <Text>Loading...</Text>
 
-                            }
-                            
-                            <View style={{ backgroundColor: '#fff', marginTop: 10, padding: 10 }}>
-                                
-                                <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
-                                    
-                                    <View
-                                        style={{
-                                            borderBottomColor: '#ececec',
-                                            borderBottomWidth: 1,
-                                            marginTop: 10
-                                        }}
-                                    />
+                                }
+
+                                <View style={{ backgroundColor: '#fff', marginTop: 10, padding: 10 }}>
+
+                                    <View style={{ paddingHorizontal: 20, marginTop: 10 }}>
+
+                                        <View
+                                            style={{
+                                                borderBottomColor: '#ececec',
+                                                borderBottomWidth: 1,
+                                                marginTop: 10
+                                            }}
+                                        />
 
 
-                                
 
-                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                                        <Text style={{fontFamily:"Poppins-SemiBold",color:"#EDA332",fontSize:RFValue(12,580)}}>
-                                            Item Total
-                                        </Text>
-                                        <Text style={{ fontFamily: "Poppins-SemiBold",fontSize:RFValue(12,580) }}>
-                                             ₹ {this.state.data.order_amount.toFixed(2)}
-                                        </Text>
-                                    </View>
 
-                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                                        <Text style={{ color: "green",fontFamily: "Poppins-SemiBold",fontSize:RFValue(10,580) }}>
-                                            Taxes and Charges
-                                        </Text>
-                                        <Text style={ { color: "green", fontFamily: "Roboto-Regular",fontFamily: "Poppins-SemiBold",fontSize:RFValue(10,580) }}>
-                                           + ₹ {this.state.data.sgst + this.state.data.cgst}
-                                        </Text>
-                                    </View>
-
-                                    {(this.state.data.order_discount > 0) ?
                                         <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                                            <Text style={{ color: "red",fontFamily: "Poppins-SemiBold",fontSize:RFValue(10,580) }}>
-                                                {(this.state.data.order_discount / this.state.data.order_amount * 100).toFixed(1)} % Discount Applied
+                                            <Text style={{ fontFamily: "Poppins-SemiBold", color: "#5BC2C1", fontSize: RFValue(12, 580) }}>
+                                                Item Total
                                             </Text>
-                                            <Text style={{ color: "red",fontFamily: "Poppins-SemiBold",fontSize:RFValue(10,580) }}>
-                                                ₹  {this.state.data.order_discount}
+                                            <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: RFValue(12, 580) }}>
+                                                ₹ {this.state.data.order_amount.toFixed(2)}
                                             </Text>
                                         </View>
-                                        :
-                                        <></>
-                                    }
+
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
+                                            <Text style={{ color: "green", fontFamily: "Poppins-SemiBold", fontSize: RFValue(10, 580) }}>
+                                                Taxes and Charges
+                                            </Text>
+                                            <Text style={{ color: "green", fontFamily: "Roboto-Regular", fontFamily: "Poppins-SemiBold", fontSize: RFValue(10, 580) }}>
+                                                + ₹ {this.state.data.sgst + this.state.data.cgst}
+                                            </Text>
+                                        </View>
+
+                                        {(this.state.data.order_discount > 0) ?
+                                            <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
+                                                <Text style={{ color: "red", fontFamily: "Poppins-SemiBold", fontSize: RFValue(10, 580) }}>
+                                                    {(this.state.data.order_discount / this.state.data.order_amount * 100).toFixed(1)} % Discount Applied
+                                                </Text>
+                                                <Text style={{ color: "red", fontFamily: "Poppins-SemiBold", fontSize: RFValue(10, 580) }}>
+                                                    ₹  {this.state.data.order_discount}
+                                                </Text>
+                                            </View>
+                                            :
+                                            <></>
+                                        }
 
 
 
-                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
-                                        <Text style={{fontFamily:"Poppins-SemiBold",color:"#EDA332",fontSize:RFValue(12,580)}}>
-                                            Grand Total
-                                        </Text>
-                                        <Text style={{fontFamily:"Poppins-SemiBold",color:"#EDA332",fontSize:RFValue(12,580)}}>
-                                            ₹ {this.state.data.total_amount.toFixed(2)}
-                                        </Text>
+                                        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10, }} >
+                                            <Text style={{ fontFamily: "Poppins-SemiBold", color: "#5BC2C1", fontSize: RFValue(12, 580) }}>
+                                                Grand Total
+                                            </Text>
+                                            <Text style={{ fontFamily: "Poppins-SemiBold", color: "#5BC2C1", fontSize: RFValue(12, 580) }}>
+                                                ₹ {this.state.data.total_amount.toFixed(2)}
+                                            </Text>
+                                        </View>
+
+
+
                                     </View>
-
-
-
                                 </View>
-                            </View>
                             </>
                             :
                             <View style={style.loader}>
-                                <ActivityIndicator size="large" color="#EDA332" ></ActivityIndicator>
+                                <ActivityIndicator size="large" color="#5BC2C1" ></ActivityIndicator>
                             </View>
-                            
+
                     }
                 </ScrollView>
 
@@ -375,7 +382,7 @@ class VoucherDetails extends Component {
                         <></>
                     :
                     <View style={styles.loader}>
-                        <ActivityIndicator size="large" color="#EDA332" />
+                        <ActivityIndicator size="large" color="#5BC2C1" />
                     </View>
                 } */}
 
@@ -455,28 +462,28 @@ const style = StyleSheet.create({
         color: "black",
         // marginLeft:10
     },
-    viewBox:{
+    viewBox: {
         // flexDirection: "row",
-        width:Dimensions.get("window").width/1.05,
-        backgroundColor:"#EDA332",
-        alignSelf:"center",
-        borderRadius:10,
-        marginTop:10,
-        justifyContent:"space-between",
-        padding:10
+        width: Dimensions.get("window").width / 1.05,
+        backgroundColor: "#5BC2C1",
+        alignSelf: "center",
+        borderRadius: 10,
+        marginTop: 10,
+        justifyContent: "space-between",
+        padding: 10,
     },
-    loader:{
-        shadowOffset:{width:50,height:50},
-        marginTop:20,
-        shadowRadius:50,
-        elevation:5,
-        backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,alignSelf:"center",
-        marginBottom:10
+    loader: {
+        shadowOffset: { width: 50, height: 50 },
+        marginTop: 20,
+        shadowRadius: 50,
+        elevation: 5,
+        backgroundColor: "#fff", width: 40, height: 40, borderRadius: 50, padding: 5, alignSelf: "center",
+        marginBottom: 10
     },
-    textWhite:{ 
-        fontSize: RFValue(12, 580), 
-        color:"#fff",
-        fontFamily:"Poppins-Medium"
+    textWhite: {
+        fontSize: RFValue(12, 580),
+        color: "#fff",
+        fontFamily: "Poppins-Medium"
     }
 }
 )

@@ -409,7 +409,7 @@ class Card extends Component {
                   {this.props.transactions.length == 1 ?
                     <Text style={{ fontSize: RFValue(12, 580), color: '#000' }}>
                       {this.props.transactions[0].txn_method} - Rs.{this.props.transactions[0].txn_amount} {'\n'}Txn Id ({this.props.transactions[0].payment_txn_id})
-                      </Text>
+                    </Text>
                     :
                     <>
                       <Text style={styles.h4}>Split Payment Details</Text>
@@ -586,7 +586,7 @@ class Card extends Component {
                   <ActivityIndicator
                     animating={true}
                     size="small"
-                    color="#EDA332"
+                    color="#5BC2C1"
                   />
                 </View>
               ) : (
@@ -626,7 +626,7 @@ class Card extends Component {
                   <ActivityIndicator
                     animating={true}
                     size="small"
-                    color="#EDA332"
+                    color="#5BC2C1"
                   />
                 </View>
               ) : (
@@ -637,17 +637,24 @@ class Card extends Component {
                     marginTop: 40,
                   }}>
                   <TouchableOpacity
-                    style={[
-                      style.acceptButton,
-                      { backgroundColor: '#EDA332', width: '50%' },
-                    ]}
+                    style={
+                      { width: '50%' }
+                    }
                     onPress={() => {
                       this.setState({ modalVisible: true });
                     }}
 
                   // onPress={()=>this.props.change_order_status('in_process')}
                   >
-                    <Text style={[style.buttonText]}>Order In Process</Text>
+                    <LinearGradient
+                      colors={['#5BC2C1', '#296e84']}
+                      style={[
+                        style.acceptButton,
+                        { backgroundColor: '#5BC2C1', width: '100%' },
+                      ]}>
+
+                      <Text style={[style.buttonText]}>Order In Process</Text>
+                    </LinearGradient>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -674,7 +681,7 @@ class Card extends Component {
                   <ActivityIndicator
                     animating={true}
                     size="small"
-                    color="#EDA332"
+                    color="#5BC2C1"
                   />
                 </View>
               ) : (
@@ -685,12 +692,20 @@ class Card extends Component {
                     marginTop: 40,
                   }}>
                   <TouchableOpacity
-                    style={[
-                      style.acceptButton,
-                      { backgroundColor: '#EDA332', width: '50%' },
-                    ]}
+                    style={
+                      { width: '50%' }
+                    }
                     onPress={() => this.props.change_order_status('processed')}>
-                    <Text style={[style.buttonText]}>Processed</Text>
+                    <LinearGradient
+                      style={[
+                        style.acceptButton,
+                        { width: '100%' },
+                      ]}
+                      colors={['#5BC2C1', '#296e84']}
+                    >
+
+                      <Text style={[style.buttonText]}>Processed</Text>
+                    </LinearGradient>
                   </TouchableOpacity>
 
                   <TouchableOpacity
@@ -718,7 +733,7 @@ class Card extends Component {
                     <ActivityIndicator
                       animating={true}
                       size="small"
-                      color="#EDA332"
+                      color="#5BC2C1"
                     />
                   </View>
                 ) : (
@@ -729,11 +744,17 @@ class Card extends Component {
                       marginTop: 40,
                     }}>
                     <TouchableOpacity
-                      style={style.acceptButton}
+                    style={[style.acceptButton, { width: '50%', backgroundColor: 'transparent' }]}
                       onPress={() =>
                         this.props.change_order_status('out for delivery')
                       }>
+                        <LinearGradient
+                        colors={['#5BC2C1', '#296e84']}
+                        style={[style.acceptButton,{width:'100%',}]}
+                        >
+
                       <Text style={style.buttonText}>Out for Delivery</Text>
+                        </LinearGradient>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -760,7 +781,7 @@ class Card extends Component {
                     <ActivityIndicator
                       animating={true}
                       size="small"
-                      color="#EDA332"
+                      color="#5BC2C1"
                     />
                   </View>
                 ) : (
@@ -772,11 +793,16 @@ class Card extends Component {
                         marginTop: 40,
                       }}>
                       <TouchableOpacity
-                        style={style.acceptButton}
                         onPress={() =>
                           this.props.change_order_status('completed')
                         }>
+                          <LinearGradient
+                          style={style.acceptButton}
+                          colors={['#5BC2C1', '#296e84']}
+                          >
+
                         <Text style={style.buttonText}>Completed</Text>
+                          </LinearGradient>
                       </TouchableOpacity>
                     </View>
                   )
@@ -797,7 +823,7 @@ class Card extends Component {
                   <ActivityIndicator
                     animating={true}
                     size="small"
-                    color="#EDA332"
+                    color="#5BC2C1"
                   />
                 </View>
               ) : (
@@ -808,9 +834,15 @@ class Card extends Component {
                     marginTop: 40,
                   }}>
                   <TouchableOpacity
-                    style={style.acceptButton}
+                    style={[style.acceptButton,{width:'50%',backgroundColor:'transparent'}]}
                     onPress={() => this.props.change_order_status('completed')}>
+                      <LinearGradient
+                      colors={['#5BC2C1', '#296e84']}
+                      style={[style.acceptButton,{width:'100%'}]}
+                      >
+
                     <Text style={style.buttonText}>Completed</Text>
+                      </LinearGradient>
                   </TouchableOpacity>
                 </View>
               )}
@@ -869,7 +901,7 @@ class Card extends Component {
                     <ActivityIndicator
                       animating={true}
                       size="small"
-                      color="#EDA332"
+                      color="#5BC2C1"
                     />
                   </View>
                 ) : (
@@ -883,7 +915,7 @@ class Card extends Component {
                     }}
                     style={[styles.signIn, { width: '80%', borderRadius: 5 }]}>
                     <LinearGradient
-                      colors={['#EDA332', '#EDA332']}
+                      colors={['#5BC2C1', '#296e84']}
                       style={[styles.signIn, { width: '80%', borderRadius: 5 }]}>
                       <Text style={[styles.textSignIn, { color: '#fff' }]}>
                         Update

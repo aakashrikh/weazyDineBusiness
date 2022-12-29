@@ -361,8 +361,8 @@ class Fields extends Component {
                     formHorizontal={true}
                     radio_props={radio_props}
                     animation={false}
-                    selectedButtonColor="#EDA332"
-                    buttonColor="#EDA332"
+                    selectedButtonColor="#5BC2C1"
+                    buttonColor="#5BC2C1"
                     buttonSize={12}
                     buttonOuterSize={25}
                     initial={this.state.is_veg == 1 ? 0 : 1}
@@ -421,7 +421,7 @@ class Fields extends Component {
                                     <View style={{ flexDirection: "row", }}>
                                         <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
                                             <View style={style.add}>
-                                                <Icon name="add" size={35} color="#EDA332" />
+                                                <Icon name="add" size={35} color="#5BC2C1" />
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -472,14 +472,14 @@ class Fields extends Component {
                         <View style={{ width: "100%", padding: 20 }}>
                             <TouchableOpacity onPress={this.camera}>
                                 <Text style={style.iconPencil}>
-                                    <Icon name='camera' type="ionicon" color={'#EDA332'} size={25} />
+                                    <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Take a picture</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity onPress={this.gallery} >
                                 <Text style={style.iconPencil}>
-                                    <Icon name='folder' type="ionicon" color={'#EDA332'} size={25} />
+                                    <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25} />
                                 </Text>
                                 <Text style={style.Text}>Select from library</Text>
                             </TouchableOpacity>
@@ -497,7 +497,7 @@ class Fields extends Component {
                             onPress={() => this.create()}
                             style={style.buttonStyles}>
                             <LinearGradient
-                                colors={['#EDA332', '#EDA332']}
+                                colors={['#5BC2C1', '#296e84']}
                                 style={styles.signIn}>
 
                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>
@@ -507,7 +507,7 @@ class Fields extends Component {
                     </View>
                     :
                     <View style={style.loader}>
-                        <ActivityIndicator size={"large"} color="#EDA332" />
+                        <ActivityIndicator size={"large"} color="#5BC2C1" />
                     </View>
                 }
             </View>
@@ -560,8 +560,8 @@ const style = StyleSheet.create({
         borderRadius: 10
     },
     uploadButton: {
-        // backgroundColor:"#EDA332",
-        borderColor: "#EDA332",
+        // backgroundColor:"#5BC2C1",
+        borderColor: "#5BC2C1",
         paddingTop: 2,
         borderWidth: 1,
         width: 90,

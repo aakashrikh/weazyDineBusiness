@@ -262,7 +262,7 @@ class CreateShopProfile extends Component {
                                 onPress={() => this.vendor_registration()}
                                 style={[styles.buttonStyles, {width:'90%', marginBottom: 15, marginTop: 25, alignSelf: "center" }]}>
                                 <LinearGradient
-                                     colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                     colors={['#5BC2C1', '#296e84']}
                                     style={[styles.signIn]}>
 
                                     <Text style={[styles.textSignIn, {
@@ -276,7 +276,7 @@ class CreateShopProfile extends Component {
                         </View>
                         :
                         <View style={style.loader}>
-                            <ActivityIndicator size={"large"} color="#EDA332" />
+                            <ActivityIndicator size={"large"} color="#5BC2C1" />
                         </View>
                     }
 
@@ -347,8 +347,8 @@ const style = StyleSheet.create({
     activestep: {
         width: 25,
         height: 25,
-        // backgroundColor:"#EDA332",
-        borderColor: "#EDA332",
+        // backgroundColor:"#5BC2C1",
+        borderColor: "#5BC2C1",
         borderWidth: 1,
         borderRadius: 50
     },

@@ -209,7 +209,7 @@ class ShopTiming extends Component {
                                     </View>
                                     <View style={{ width: "10%", marginLeft: 5 }}>
                                         <Switch
-                                            trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
+                                            trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
                                             thumbColor={"white"}
                                             value={value.status}
                                             onValueChange={() => this.update_time(id)}
@@ -259,7 +259,7 @@ class ShopTiming extends Component {
                                 onPress={() => this.update_vendor_timing()}
                                 style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, width: "80%", alignSelf: "center" }]}>
                                 <LinearGradient
-                                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                    colors={['#5BC2C1', '#296e84']}
                                     style={[styles.signIn]}>
 
                                     <Text style={[styles.textSignIn, {
@@ -273,7 +273,7 @@ class ShopTiming extends Component {
                         </View>
                         :
                         <View style={style.loader}>
-                            <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
+                            <ActivityIndicator size={"large"} color="#5BC2C1" />
                         </View>
                     }
                 </ScrollView>

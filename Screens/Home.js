@@ -11,7 +11,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import { AuthContext } from '../AuthContextProvider.js';    
+import { AuthContext } from '../AuthContextProvider.js';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -40,14 +40,14 @@ class Home extends Component {
       // subscription:true
     };
 
-    
+
   }
 
-  componentDidMount= ()=> {
+  componentDidMount = () => {
 
-  
 
-// this.setState({subscription:false});
+
+    // this.setState({subscription:false});
 
     this.get_profile();
     this.get_cover();
@@ -58,7 +58,7 @@ class Home extends Component {
       this.checkBankDetails();
     })
 
-  
+
   }
 
   checkBankDetails = () => {
@@ -189,10 +189,10 @@ class Home extends Component {
   //for right component
   renderRightComponent() {
     return (
-      <View style={{ padding: 5, right: 5,marginTop:5 }}>
+      <View style={{ padding: 5, right: 5, marginTop: 5 }}>
         <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
           onPress={() => this.props.navigation.navigate("Notification")}>
-          <Icon name='notifications' type='ionicon' size={20} color='rgba(233,149,6,1)' />
+          <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
         </TouchableOpacity>
       </View>
     )
@@ -201,23 +201,23 @@ class Home extends Component {
   //for right component
   renderLeftComponent() {
     return (
-      <View style={{flexDirection:'row'}}>
-     <View>
-     <Image source={
-                    require('../img/logo/mp.png')
-                  }
-                  style={
-                    {
-                      width:70,
-                      height:70,
-                      marginTop:-5
-                    }
-                  }/>
-     </View>
-      <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
-        <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
-        <Text>Welcome to WeazyDine</Text>
-      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <View>
+          <Image source={
+            require('../img/logo/mp.png')
+          }
+            style={
+              {
+                width: 55,
+                height: 55,
+                // marginTop:-5
+              }
+            } />
+        </View>
+        <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
+          <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+          <Text>Welcome to WeazyDine</Text>
+        </View>
       </View>
     )
   }
@@ -225,40 +225,42 @@ class Home extends Component {
   render() {
 
     return (
-  
+
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={[styles.container, { backgroundColor: "#fff" }]}>
 
           {Platform.OS == 'ios' ?
             <>
-             
-    
-                 <View style={{flexDirection:'row' ,  borderBottomColor:'#ececec',
-                  borderBottomWidth:1,  marginTop:10}}>
-     <View>
-     <Image source={
+
+
+              <View style={{
+                flexDirection: 'row', borderBottomColor: '#ececec',
+                borderBottomWidth: 1, marginTop: 10
+              }}>
+                <View>
+                  <Image source={
                     require('../img/logo/mp.png')
                   }
-                  style={
-                    {
-                      width:70,
-                      height:70,
-                      marginTop:-5
-                    }
-                  }/>
-     </View>
-      <View style={{ width: Dimensions.get('window').width / 1.45, padding: 5, left: 0 }}>
-        <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
-        <Text>Welcome to WeazyDine</Text>
-      </View>
+                    style={
+                      {
+                        width: 70,
+                        height: 70,
+                        marginTop: -5
+                      }
+                    } />
+                </View>
+                <View style={{ width: Dimensions.get('window').width / 1.45, padding: 5, left: 0 }}>
+                  <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+                  <Text>Welcome to WeazyDine</Text>
+                </View>
 
-      <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center",marginTop:10 }}
-                    onPress={() => this.props.navigation.navigate('Notification')}>
-                    <Icon name="notifications" size={20} type="ionicon" color="#EDA332" />
-                  </TouchableOpacity>
-      </View>
-      
-              
+                <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginTop: 10 }}
+                  onPress={() => this.props.navigation.navigate('Notification')}>
+                  <Icon name="notifications" size={20} type="ionicon" color="#5BC2C1" />
+                </TouchableOpacity>
+              </View>
+
+
             </>
             :
             <>
@@ -277,9 +279,9 @@ class Home extends Component {
                 containerStyle={{
                   borderBottomLeftRadius: 10,
                   borderBottomRightRadius: 10,
-                  borderBottomColor:'#ececec',
-                  borderBottomWidth:1,
-                  marginTop:10
+                  borderBottomColor: '#ececec',
+                  borderBottomWidth: 1,
+                  marginTop: 10
                 }}
                 backgroundColor="#ffffff"
               />
@@ -467,7 +469,7 @@ const style = StyleSheet.create({
     padding: 10,
   },
   header: {
-    backgroundColor: "#EDA332",
+    backgroundColor: "#5BC2C1",
     flexDirection: "row",
     padding: 10,
     borderBottomLeftRadius: 10,

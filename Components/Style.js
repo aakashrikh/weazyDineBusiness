@@ -77,7 +77,7 @@ module.exports =  StyleSheet.create({
       fontSize: RFValue(14, 580),
     },
     heading:{
-        color:"rgba(201,80,42,1)",
+        color:"#296E84",
        // color:"#000",
         // fontSize:24,
         fontSize: RFValue(18, 580),

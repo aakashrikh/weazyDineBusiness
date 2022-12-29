@@ -227,7 +227,7 @@ class ChangeShopTime extends Component {
                   </View>
                   <View style={{ width: "10%", marginLeft: 10 }}>
                     <Switch
-                      trackColor={{ false: "#d3d3d3", true: "#EDA332" }}
+                      trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
                       thumbColor={"white"}
 
                       value={value.status}
@@ -278,7 +278,7 @@ class ChangeShopTime extends Component {
                 onPress={() => this.update_vendor_timing()}
                 style={[styles.buttonStyles, { marginBottom: 15, marginTop: 25, width: "60%", alignSelf: "center" }]}>
                 <LinearGradient
-                  colors={['#EDA332', '#EDA332']}
+                  colors={['#5BC2C1', '#296e84']}
                   style={[styles.signIn]}>
 
                   <Text style={[styles.textSignIn, {
@@ -292,7 +292,7 @@ class ChangeShopTime extends Component {
             </View>
             :
             <View style={style.loader}>
-              <ActivityIndicator size={"large"} color="#EDA332" />
+              <ActivityIndicator size={"large"} color="#5BC2C1" />
             </View>
           }
         </ScrollView>

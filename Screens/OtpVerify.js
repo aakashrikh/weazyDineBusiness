@@ -241,12 +241,12 @@ class OtpVerify extends Component {
           </View>
 
           {/* Heading */}
-          <Text style={[styles.heading, { color: '#ffbf0b' }]} >OTP
+          <Text style={[styles.heading, { color: '#5BC2C1' }]} >OTP
             <Text style={styles.heading}> Verification</Text></Text>
 
 
           <Text style={styles.p} >Enter your OTP code we have sent to :</Text>
-          <Text style={[styles.p, { top: -15 }]}>+91 {this.props.route.params.contact_no} <Text style={{ color: "#EDA332", fontFamily: "Raleway-Regular" }} onPress={() => this.props.navigation.navigate('MobileLogin')} > Edit</Text></Text>
+          <Text style={[styles.p, { top: -15 }]}>+91 {this.props.route.params.contact_no} <Text style={{ color: "#5BC2C1", fontFamily: "Raleway-Regular" }} onPress={() => this.props.navigation.navigate('MobileLogin')} > Edit</Text></Text>
 
 
           {/* OTP TextInput */}
@@ -273,7 +273,7 @@ class OtpVerify extends Component {
 
           {this.state.isLoading ?
             <View style={styles.loader}>
-              <ActivityIndicator size="large" color="#EDA332" />
+              <ActivityIndicator size="large" color="#5BC2C1" />
             </View>
             :
             <View>
@@ -282,7 +282,7 @@ class OtpVerify extends Component {
             // onPress={()=>this.props.navigation.navigate("CreateShopProfile")}
             style={styles.buttonStyles}>
               <LinearGradient 
-                colors={['#EDA332', '#0b2654']}
+                colors={['#5BC2C1', '#0b2654']}
                 style={style.signIn}>
 
                 <Text style={[style.textSignIn, {color:'#fff'}]}>
@@ -299,8 +299,8 @@ class OtpVerify extends Component {
                     until={30}
                     onFinish={() => this.setState({ resend: true })}
                     digitStyle={{ backgroundColor: '#FFF', }}
-                    digitTxtStyle={{ color: '#EDA332', fontFamily: "Raleway-Regular" }}
-                    separatorStyle={{ color: '#EDA332' }}
+                    digitTxtStyle={{ color: '#5BC2C1', fontFamily: "Raleway-Regular" }}
+                    separatorStyle={{ color: '#5BC2C1' }}
                     timeToShow={['M', 'S']}
                     timeLabels={{ m: null, s: null }}
                     showSeparator
@@ -308,7 +308,7 @@ class OtpVerify extends Component {
                 </View>
                 :
                 <View style={{ alignSelf: "center", marginTop: -32 }}>
-                  <Text onPress={() => this.resend()} style={[styles.p, { color: "#EDA332" }]} >RESEND OTP?
+                  <Text onPress={() => this.resend()} style={[styles.p, { color: "#5BC2C1" }]} >RESEND OTP?
                   </Text>
                 </View>
               }
@@ -330,9 +330,9 @@ const styles = StyleSheet.create({
     paddingRight: 50,
   },
   image: {
-    height: 250,
-    width: 200,
-    //marginTop:30,
+    height: 300,
+    width: 250,
+    marginTop:-10,
     justifyContent: "center",
     alignSelf: "center"
   },
@@ -374,7 +374,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     fontSize: 24,
     borderColor: '#eee',
-    color: "#EDA332"
+    color: "#5BC2C1"
   },
 
   underlineStyleHighLighted: {

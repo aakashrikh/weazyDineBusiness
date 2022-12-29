@@ -76,7 +76,7 @@ class SupportView extends Component{
         return(
             <View style={{backgroundColor:"#fff",flexDirection:"row",borderTopWidth:2,borderColor:"#f5f5f5", padding:10}}>
                     <View style={style.leftView}>
-                <Text style={[style.heading,{color:"#EDA332"}]}>Welcome to</Text>
+                <Text style={[style.heading,{color:"#5BC2C1"}]}>Welcome to</Text>
                 <Text style={[style.heading,{color:"#1F449B"}]}>
                  Customer Support</Text>
                  <Text style={styles.p}>
@@ -84,8 +84,8 @@ class SupportView extends Component{
                  </Text>
                  </View>
                  <View style={{width:Dimensions.get("window").width/2}}>
-                 <Image source={require("../img/Capture1.png")} 
-                 style={{width:200,height:140,alignSelf:"center"}} />
+                 <Image source={require("../img/Capture1.webp")} 
+                 style={{width:170,height:170,alignSelf:"center"}} />
                  </View>
                 </View>
         )
@@ -160,7 +160,7 @@ class Mail extends Component{
         return(
             <View>
             <View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
-                    <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#EDA332"}]}>
+                    <Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#5BC2C1"}]}>
                         Mail us
                     </Text>
                     <Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@weazy.in') }>
@@ -169,7 +169,7 @@ class Mail extends Component{
                 </View>
 
 <View style={{marginTop:10,backgroundColor:"#fff",padding:10}}>
-<Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#EDA332"}]}>
+<Text style={[styles.heading,{fontSize:RFValue(14.5, 580),marginTop:0, marginLeft:0,color:"#5BC2C1"}]}>
     Call US
 </Text>
 <Text style={[styles.h4,{fontFamily:Platform.OS == "ios" ? null : "Roboto-Medium"}]} onPress={() => Linking.openURL(`tel:$7060222517`) }>

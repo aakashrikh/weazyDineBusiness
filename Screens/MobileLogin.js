@@ -76,9 +76,9 @@ class MobileLogin extends Component
             <View style={{flex:1,marginTop:30}}>
 
             <Image source={require("../img/logo/mp.png")} 
-            style={{height:50,width:51,alignSelf:"flex-end",margin:5,marginRight:20}}/>
+            style={{height:40,width:40,alignSelf:"flex-start",margin:5,marginLeft:20}}/>
 
-            <Image source={require('../img/011.jpeg')} style={ss.image}/>
+            <Image source={require('../img/registration.png')} style={ss.image}/>
            
             </View>
             
@@ -109,7 +109,7 @@ class MobileLogin extends Component
             {/* Continue Button */}
             {this.state.isLoading ?
            <View style={ss.loader}>
-           <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
+           <ActivityIndicator size={"large"} color="#5BC2C1" />
            </View>
            :
             <TouchableOpacity
@@ -117,7 +117,7 @@ class MobileLogin extends Component
             onPress={()=>this.sendOtp()}
             style={styles.buttonStyles}>
                 <LinearGradient 
-                    colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                    colors={['#5BC2C1', '#296E84']}
                     style={[styles.signIn]}>
 
                     <Text style={[styles.textSignIn, {
@@ -142,8 +142,8 @@ export default MobileLogin;
 const ss=StyleSheet.create({
     image:{
         height:255,
-        width:255,
-        //marginTop:30,
+        width:300,
+        marginTop:30,
         justifyContent:"center",
         alignSelf:"center"
     },

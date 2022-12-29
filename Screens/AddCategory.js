@@ -115,10 +115,14 @@ static contextType = AuthContext;
                             style={style.textInput}
                         />
                     </View>
-                    <TouchableOpacity style={style.uploadButton} onPress={() => this.add()} >
+                    <TouchableOpacity onPress={() => this.add()} >
+                        <LinearGradient
+                        style={style.uploadButton} colors={['#5BC2C1', '#296e84']}>
+
                         <Text style={style.buttonText}>
                             Add
                         </Text>
+                        </LinearGradient>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -151,7 +155,7 @@ const style = StyleSheet.create({
         fontSize: RFValue(11, 580),
     },
     uploadButton: {
-        backgroundColor: "#EDA332",
+        backgroundColor: "#5BC2C1",
         width: 105,
         height: 40,
         justifyContent: "center",

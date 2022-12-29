@@ -78,6 +78,7 @@ import OrderDetails from './Screens/OrderDetails';
 import { LogBox } from 'react-native';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
+import PasswordLogin from './Screens/PasswordLogin';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -145,31 +146,31 @@ class TabNav extends Component {
             if (route.name == "Dine-In") {
               return (
                 <Image source={require('./img/icons/feeds.png')}
-                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "Products") {
               return (
                 <Image source={require('./img/icons/services.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "Home") {
               return (
                 <Image source={require('./img/icons/logo.png')}
-                  style={{ width: 30, height: 30, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             // else if (route.name == "Offers") {
             //   return (
             //     <Image source={require('./img/icons/offers.png')}
-            //       style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#EDA332" : color }} />
+            //       style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "#5BC2C1" : color }} />
             //   )
             // }
             else if (route.name == "Orders") {
               return (
                 <Image source={require('./img/icons/orders.png')}
-                  style={{ width: 22, height: 22, marginTop: 5, tintColor: focused ? "" : color }} />
+                  style={{ width: 25, height: 25, marginTop: 5, tintColor: focused ? "" : color }} />
               )
             }
             else if (route.name == "More") {
@@ -185,7 +186,7 @@ class TabNav extends Component {
         })}
         tabBarOptions={{
           labelPosition: "below-icon",
-          activeTintColor: "#EDA332",
+          activeTintColor: "#5BC2C1",
           inactiveTintColor: "#c0c0c0",
           style: {
             backgroundColor: "white",

@@ -160,7 +160,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="camera-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="camera-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Add  Covers Pictures</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -170,7 +170,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("OtherCharges")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="apps-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="apps-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Tax & Charges Setup</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -180,7 +180,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="time-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="time-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Update Store Timing</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -191,7 +191,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("OnlinePayment")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="cash-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="cash-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Online Payment Setup</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -202,7 +202,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeLocation")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="location-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="location-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Update Address</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -215,7 +215,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy",{title: "About Us" ,url:"https://weazydine.com/about-us.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="alert-circle-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="alert-circle-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>About Us</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -227,7 +227,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Terms & Conditions" ,url:"https://weazydine.com/termsandconditions.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="settings-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="settings-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Terms & Conditions</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -237,7 +237,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={()=>this.props.navigation.navigate("PrivacyPolicy",{title: "Privacy Policy" ,url:"https://weazydine.com/privacy-policy.html"})}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="lock-closed-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="lock-closed-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Privacy Policy</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon'color="#222222" size={25}/>
@@ -249,7 +249,7 @@ class Buttons extends Component {
               <View style={
                 {flexDirection: "row"}
               }>
-                <Icon name="git-compare-outline" type='ionicon' size={25} color="#EDA332"/>
+                <Icon name="git-compare-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Refunds And Cancellation</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -260,7 +260,7 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactUs")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="headset-outline" type='ionicon' size={25} color="#EDA332"/>
+              <Icon name="headset-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Support</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
@@ -285,7 +285,7 @@ class Buttons extends Component {
                   }/>
                 <Text style={style.texxt}>Subscription</Text>
               </View>
-              <Icon name="chevron-forward-outline" type='ionicon' color="#EDA332" size={25}/>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#5BC2C1" size={25}/>
             </View>
           </TouchableOpacity> */}
 
@@ -306,8 +306,8 @@ class Buttons extends Component {
           <TouchableOpacity onPress={() => this.logOut()}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
-              <Icon name="log-out-outline" type='ionicon' size={25} color="#EDA332"/>
-                <Text style={[style.texxt,{color:"#EDA332"}]}>Logout</Text>
+              <Icon name="log-out-outline" type='ionicon' size={25} color="#5BC2C1"/>
+                <Text style={[style.texxt,{color:"#296E84"}]}>Logout</Text>
               </View>
             </View>
           </TouchableOpacity>

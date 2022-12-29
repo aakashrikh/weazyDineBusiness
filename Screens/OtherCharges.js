@@ -220,7 +220,7 @@ class OtherCharges extends Component {
                             <Text style={[styles.h3, { width: '80%' }]}>GST</Text>
 
                             <Switch
-                                trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
+                                trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
                                 thumbColor={"white"}
                                 value={this.state.gst}
                                 onValueChange={() => this.update_toggle()}
@@ -263,8 +263,8 @@ class OtherCharges extends Component {
                         radio_props={radio_props}
                         animation={true}
                         initial={this.state.gst_type == "inclusive" ? 0 : 1}
-                        buttonColor={'#EDA332'}
-                        selectedButtonColor={'#EDA332'}
+                        buttonColor={'#5BC2C1'}
+                        selectedButtonColor={'#5BC2C1'}
                         labelHorizontal={false}
                         labelStyle={{ marginRight: 10, marginLeft: 10 }}
                         onPress={(value) => { 
@@ -292,7 +292,7 @@ class OtherCharges extends Component {
                             <Text style={[styles.h3, { width: '80%' }]}>Service Charge</Text>
 
                             <Switch
-                                trackColor={{ false: "#d3d3d3", true: 'rgba(233,149,6,1)' }}
+                                trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
                                 thumbColor={"white"}
                                 value={this.state.sc}
                                 onValueChange={() => this.update_toggle2()}
@@ -332,7 +332,7 @@ class OtherCharges extends Component {
                             onPress={() => { this.update_profile() }}
                             style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 25 : 15 }]}>
                             <LinearGradient
-                                colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                colors={['#5BC2C1', '#296e84']}
                                 style={[styles.signIn, { borderRadius: 25, width: '80%', alignSelf: 'center' }]}>
 
                                 <Text style={[styles.textSignIn, {
@@ -344,7 +344,7 @@ class OtherCharges extends Component {
                     </View>
                     :
                     <View style={style.loader}>
-                        <ActivityIndicator size={"large"} color="rgba(233,149,6,1)" />
+                        <ActivityIndicator size={"large"} color="#5BC2C1" />
                     </View>
                 }
             </View>
@@ -378,7 +378,7 @@ const style = StyleSheet.create({
         fontSize: RFValue(11, 580),
     },
     uploadButton: {
-        backgroundColor: "#EDA332",
+        backgroundColor: "#5BC2C1",
         width: 105,
         height: 40,
         justifyContent: "center",

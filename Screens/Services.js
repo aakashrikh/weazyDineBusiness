@@ -241,9 +241,9 @@ class Services extends Component {
                                 :
                                 <View style={{ paddingTop: 120, alignItems: "center" }}>
                                     <View style={{ alignSelf: "center" }}>
-                                        <Image source={require("../img/no-product.png")}
-                                            style={{ width: 300, height: 300 }} />
-                                        <Text style={[styles.h3, { top: -20, alignSelf: "center" }]}>
+                                        <Image source={require("../img/no-product.webp")}
+                                            style={{ width: 300, height: 250 }}  />
+                                        <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
                                             No Products Found!
                                         </Text>
                                     </View>
@@ -259,7 +259,7 @@ class Services extends Component {
 
                     {(this.state.load_data) ?
                         <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
-                            <ActivityIndicator animating={true} size="small" color="#EDA332" />
+                            <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
                             <Text style={styles.p}>Please wait...</Text>
                         </View>
                         :
@@ -347,7 +347,7 @@ class Categories extends Component {
                         :
                         <TouchableOpacity
                             onPress={() => this.props.filter(0)}>
-                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                            <View style={[style.catButton, { backgroundColor: "#5BC2C1" }]}>
                                 <Text style={[style.catButtonText, { color: "#fff" }]}>
                                     All
                                 </Text>
@@ -370,7 +370,7 @@ class Categories extends Component {
                                         :
                                         <TouchableOpacity
                                             onPress={() => this.props.filter(cat.id)}>
-                                            <View style={[style.catButton, { backgroundColor: "#EDA332" }]}>
+                                            <View style={[style.catButton, { backgroundColor: "#5BC2C1" }]}>
                                                 <Text style={[style.catButtonText, { color: "#fff" }]}>
                                                 {cat.name}
                                                 </Text>
@@ -515,7 +515,7 @@ class Card extends Component {
                         <View style={{ margin: 5, marginTop: 10, marginLeft: -5, flexDirection: "row" }}>
                             <View style={{ marginRight: 10 }} >
                                 <Switch
-                                    trackColor={{ false: "#d3d3d3", true: "#EDA332" }}
+                                    trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
@@ -665,7 +665,7 @@ const style = StyleSheet.create({
 
     },
     fab: {
-        backgroundColor: "#EDA332",
+        backgroundColor: "#5BC2C1",
         borderRadius: 100,
         height: 50,
         width: 50,
@@ -677,7 +677,7 @@ const style = StyleSheet.create({
         position: "absolute"
     },
     button: {
-        backgroundColor: "#EDA332",
+        backgroundColor: "#5BC2C1",
         padding: 4,
         borderRadius: 25,
         width: 100,

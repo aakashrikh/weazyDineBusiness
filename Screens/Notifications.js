@@ -99,7 +99,7 @@ class Notifications extends Component{
     <View style={{flexDirection:"row",width:"100%",padding:10,borderBottomWidth:1,borderColor:"#d3d3d3"}}>
         {/* {/ For profile Image/ user image /} */}
         <View style={{width:"15%"}}>
-        <Image source={require('../img/logo/logoBlack.png')} style={style.Image}/>
+        <Image source={require('../img/logo/mp.png')} style={style.Image}/>
         </View>
         
         <View style={{justifyContent:"space-between",width:"85%"}}>
@@ -153,7 +153,7 @@ class Notifications extends Component{
                 <View>
                    <Image source={require('../img/nonotification.png')} style={{height:180,width:180,alignSelf:"center",marginTop:100}}/>
                    <Text style={{alignSelf:"center",
-                    fontFamily:"Raleway-SemiBold",fontSize:RFValue(14,580),color:"grey"}}>No Notifications</Text>
+                    fontFamily:"Raleway-SemiBold",fontSize:RFValue(14,580),color:"grey", marginTop:50}}>No Notifications</Text>
                 </View>
                 :
                 
@@ -164,7 +164,7 @@ class Notifications extends Component{
 
                 {this.state.load_more?
                 <View style={style.loader}>
-                     <ActivityIndicator color="#EDA332" size="large" />
+                     <ActivityIndicator color="#5BC2C1" size="large" />
                      </View>
                      :
                      <View></View>
@@ -199,9 +199,9 @@ class Notify extends Component{
 
 const style=StyleSheet.create({
     Image:{
-        height:52,
+        height:55,
         width:55,
-        borderRadius:100,
+        borderRadius:10,
         borderColor:"grey",
         borderWidth:0.2
     },

@@ -32,9 +32,9 @@ class TopTab extends Component{
         {
         tabStyle: { marginTop:28},
         labelPosition: "below-icon",
-        activeTintColor: "#EDA332",
+        activeTintColor: "#5BC2C1",
         inactiveTintColor:"#c0c0c0",
-        indicatorStyle: { backgroundColor: "#EDA332", height: 2 },
+        indicatorStyle: { backgroundColor: "#5BC2C1", height: 2 },
         style: {
         backgroundColor: "white",
         marginTop:15

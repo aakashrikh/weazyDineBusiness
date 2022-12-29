@@ -57,13 +57,13 @@ class Tables extends Component {
         return (
             <View>
                 {(!this.state.table_load) ?
-                    <TouchableOpacity style={{ backgroundColor: "#EDA332", padding: 5, borderRadius: 5 }}>
+                    <TouchableOpacity style={{ backgroundColor: "#5BC2C1", padding: 5, borderRadius: 5 }}>
                         <Icon type="ionicon" name="add" size={30} color="#fff"
                             onPress={() => this.add()} />
                     </TouchableOpacity>
                     :
                     <View style={style.loader}>
-                        <ActivityIndicator size={"small"} color="rgba(233,149,6,1)" />
+                        <ActivityIndicator size={"small"} color="#5BC2C1" />
                     </View>
 
                 }
@@ -175,7 +175,7 @@ class Tables extends Component {
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link+item.qr_link }) }} style={[style.viewBox,
                 { marginTop: 10, padding: 10, backgroundColor: '#fff', width: Dimensions.get('window').width / 1.05, marginBottom: 2, alignSelf: 'center', borderRadius: 5, flexDirection: "row" }]}>
                     <View style={{ width: "20%" }}>
-                        <View style={{ width: 60, height: 60, backgroundColor: '#EDA332', borderRadius: 5 }}>
+                        <View style={{ width: 60, height: 60, backgroundColor: '#5BC2C1', borderRadius: 5 }}>
                             <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
                         </View>
                     </View>
@@ -187,7 +187,7 @@ class Tables extends Component {
 
                     <View style={{ width: "30%", alignItems: "center", justifyContent: "center" }}>
                         <TouchableOpacity onPress={() => { Linking.openURL(global.qr_link+item.qr_link) }}
-                            style={{ backgroundColor: "#EDA332", padding: 5, paddingTop: 2, paddingHorizontal: 10, flexDirection: "row", borderRadius: 5 }}>
+                            style={{ backgroundColor: "#5BC2C1", padding: 5, paddingTop: 2, paddingHorizontal: 10, flexDirection: "row", borderRadius: 5 }}>
                             <Text style={{ color: "#fff", fontSize: RFValue(12, 580), fontFamily: "Raleway-Bold", marginTop: Platform.OS == "ios" ? 3 : 0 }}>View QR</Text>
                             <Icon type="ionicon" name="qr-code-outline" size={20} color="#fff" style={{ marginLeft: 5, marginTop: 2 }} />
                         </TouchableOpacity>
@@ -195,9 +195,9 @@ class Tables extends Component {
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link+item.qr_link }) }} style={[style.viewBox,
-                { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#EDA332', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
+                { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#5BC2C1', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: 60, height: 60, backgroundColor: '#E47635', borderRadius: 5 }}>
+                        <View style={{ width: 60, height: 60, backgroundColor: '#296E84', borderRadius: 5 }}>
                             <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
                         </View>
                         <View style={{ marginLeft: 20 }}>

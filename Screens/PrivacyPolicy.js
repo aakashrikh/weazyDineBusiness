@@ -33,7 +33,7 @@ class PrivacyPolicy extends Component{
       return (
          <View >
             <ActivityIndicator
-               color="#326bf3"
+               color="#5BC2C1"
                size="large"
                style={style.IndicatorStyle}
             />
@@ -66,7 +66,7 @@ class PrivacyPolicy extends Component{
             />
             
             {/* <View>
-               <Pressable onPress={() => { this.props.navigation.navigate('ReviewScan') }} style={[style.catButton, { backgroundColor: "#326bf3", width: '100%', alignSelf: 'center' }]}>
+               <Pressable onPress={() => { this.props.navigation.navigate('ReviewScan') }} style={[style.catButton, { backgroundColor: "#5BC2C1", width: '100%', alignSelf: 'center' }]}>
                     <Text style={style.buttonText}>
                         Refer And Earn
                     </Text>
