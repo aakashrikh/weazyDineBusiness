@@ -79,6 +79,8 @@ import { LogBox } from 'react-native';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import PasswordLogin from './Screens/PasswordLogin';
+import Report from './Screens/Report';
+import TotalCustomers from './Screens/TotalCustomers';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -121,7 +123,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 
 //for local 
-// global.vendor_api = "http://172.16.1.111:8000/api/";
+// global.vendor_api = "http://3.108.227.189/weazy-dine-api/public/api/";
 
 //for demo 
 global.vendor_api = "https://beta-dine-api.weazy.in/api/";
@@ -453,6 +455,9 @@ class App extends Component {
                         <Stacks.Screen name="PaymentSuccessful" component={PaymentSuccessful} options={{ headerShown: false }} />
                         <Stacks.Screen name="PaymentFailed" component={PaymentFailed} options={{ headerShown: false }} />
                         <Stacks.Screen name="OrderDetails" component={OrderDetails} options={{ headerShown: false }} />
+                        <Stacks.Screen name="Report" component={Report} options={{ headerShown: false }} />
+                        <Stacks.Screen name="TotalCustomers" component={TotalCustomers} options={{ headerShown: false }} />
+
                       </>
                   )
                 }

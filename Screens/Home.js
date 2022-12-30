@@ -403,7 +403,7 @@ class Home extends Component {
           {/* {this.state.subscription ?
           <></>
         :
-        <View style={{position:"absolute",bottom:0,backgroundColor:"#EDA332",
+        <View style={{position:"absolute",bottom:0,backgroundColor:"#5BC2C1",
         width:Dimensions.get('window').width,height:50,flexDirection:"row",justifyContent:"space-evenly"
         }}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate("Subscription")}

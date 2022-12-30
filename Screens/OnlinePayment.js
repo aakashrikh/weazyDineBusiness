@@ -18,15 +18,18 @@ import SelectDropdown from "react-native-select-dropdown";
 const styles = require('../Components/Style.js');
 
 const businessType = [
-    "Individual" ,
-    "Public Limited" ,
-     "Trust" ,
-    "Society" ,
-    "Partnership" ,
-   "LLP" ,
-    "NGO" ,
-   "Private Limited" ,
-   "Proprietorship" ,
+   "Individual",
+   "Public Limited",
+   "Trust",
+   "Society",
+   "Partnership",
+   "LLP",
+   "NGO",
+   "Private Limited",
+   "Proprietorship",
+   "Not yet registered",
+   "Educational Institute",
+   "Other"
 ];
 class OnlinePayment extends Component {
    static contextType = AuthContext;
@@ -42,6 +45,7 @@ class OnlinePayment extends Component {
          buttonLoading: false,
          email: "",
          businessType: "",
+         businessName: "",
       };
    }
 
@@ -90,11 +94,12 @@ class OnlinePayment extends Component {
       }).then((response) => response.json())
          .then((json) => {
             if (!json.status) {
-               this.setState({ email: "" })
+               this.setState({ email: "", businessName: "" })
             }
             else {
                json.data.map(value => {
                   this.setState({ email: value.email })
+                  this.setState({ businessName: value.shop_name })
                })
             }
             return json;
@@ -117,7 +122,7 @@ class OnlinePayment extends Component {
          },
       }).then((response) => response.json())
          .then((json) => {
-            this.setState({ buttonLoading: true });
+            
             if (json != null && json != '') {
                json.map((item) => {
 
@@ -137,7 +142,7 @@ class OnlinePayment extends Component {
          })
          .catch((error) => console.error(error))
          .finally(() => {
-            this.setState({ isLoading: false, buttonLoading: false });
+            this.setState({ isLoading: false });
          });
    }
 
@@ -163,6 +168,7 @@ class OnlinePayment extends Component {
       else if (!isValid) {
          Toast.show('Please enter valid IFSC code');
       } else {
+         this.setState({ buttonLoading: true });
          fetch(global.vendor_api + "update_bank_account_vendor", {
             method: 'POST',
             headers: {
@@ -175,11 +181,14 @@ class OnlinePayment extends Component {
                confirm_bank_account_no: this.state.confirmBankAccountNo,
                bank_ifsc: bank_IFSC,
                beneficiary_name: this.state.beneficiaryName,
-               businessType: this.state.businessType,
+               business_type: this.state.businessType,
+               business_name: this.state.businessName,
+               email: this.state.email,
             })
          }).then((response) => response.json())
             .then((json) => {
                if (json.status) {
+                  console.warn(json);
                   this.setState({ status: false });
                } else {
                   Toast.show(json.msg);
@@ -187,7 +196,11 @@ class OnlinePayment extends Component {
             })
             .catch((error) => {
                console.error(error);
-            });
+            })
+            .finally(() => {
+               this.setState({ buttonLoading: false });
+            }
+            );
       }
    }
 
@@ -213,185 +226,193 @@ class OnlinePayment extends Component {
                      <Loaders />
                      :
                      <>
-                        {this.state.status ? (
-                           <>
-                              {this.state.email == "" || this.state.email == null || this.state.email == undefined ?
-                                 (
-                                    <TouchableOpacity style={{
-                                       width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
-                                       shadowOffset: {
-                                          width: 0,
-                                          height: 2
-                                       },
-                                       shadowOpacity: 0.25,
-                                       shadowRadius: 4,
-                                       elevation: 5, marginTop: 20, borderRadius: 10, padding: 10,
-                                       marginBottom: 10
-                                    }} onPress={() => { this.props.navigation.navigate("Profile") }} >
-                                       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                          <View style={{ width: '20%', paddingTop: 5, }}>
-                                             <Image source={require('../img/icons/email.png')} style={{ width: 50, height: 50, marginLeft: 10, }} />
-                                          </View>
-                                          <View style={{ width: '80%', paddingTop: 10, paddingBottom: 10 }}>
-                                             <Text style={{ fontSize: RFValue(12, 580), fontFamily: "Roboto-Bold" }}>Add Your Email</Text>
-                                             <Text style={{ fontSize: RFValue(10, 580), fontFamily: "Roboto-Regular", marginTop: 2 }}>Add your email to receive payment from us</Text>
+                        {
+                           this.state.status ?
+                              <>
 
-                                          </View>
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Business Type</Text>
+                                    <SelectDropdown
+                                       data={businessType}
+                                       onSelect={(selectedCategories, index) => {
+                                          this.setState({ businessType: selectedCategories })
+                                       }}
+                                       buttonTextAfterSelection={(selectedCategories, index) => {
+                                          return selectedCategories
+                                       }}
+                                       rowTextForSelection={(item, index) => {
+                                          return item
+                                       }}
+                                       buttonTextStyle={{
+                                          fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000",
+                                          position: "absolute", right: 10, top: 10
+                                       }}
+                                       buttonStyle={style.inputText}
+                                       renderDropdownIcon={() => {
+                                          return (
+                                             <Icon name="chevron-down" type="ionicon" />
+                                          )
+                                       }}
 
-                                       </View>
-
-                                    </TouchableOpacity>
-
-                                 ) : (
-                                    <>
-                                       <View style={{ marginTop: 10 }}>
-                                          <Text style={style.fieldsText}>Bank Account No </Text>
-                                          <Input
-                                             value={this.state.bankAccountNo}
-                                             placeholder="Enter Bank Account No"
-                                             onChangeText={(e) => { this.setState({ bankAccountNo: e }) }}
-                                             inputContainerStyle={{
-                                                width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
-                                             }}
-                                             secureTextEntry={true}
-                                             keyboardType="numeric"
-                                             containerStyle={style.inputText}
-                                             style={{ fontFamily: "Raleway-Medium" }}
-                                          />
-                                       </View>
-
-                                       <View style={{ marginTop: 10 }}>
-                                          <Text style={style.fieldsText}>Confirm Bank Account No</Text>
-                                          <Input
-                                             keyboardType="numeric"
-                                             placeholder="Enter Confirm Bank Account Number"
-                                             value={this.state.accountNumber}
-                                             onChangeText={(e) => { this.setState({ confirmBankAccountNo: e }) }}
-                                             inputContainerStyle={{
-                                                width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
-                                             }}
-                                             containerStyle={style.inputText}
-                                             style={{ fontFamily: "Raleway-Medium" }}
-                                          />
-                                       </View>
-
-                                       <View style={{ marginTop: 10 }}>
-                                          <Text style={style.fieldsText}>Bank IFSC Code</Text>
-                                          <Input
-                                             value={this.state.bankName}
-                                             placeholder="Enter Bank ISFC Code"
-                                             autoCapitalize="characters"
-                                             onChangeText={(e) => { this.setState({ bankIFSC: e }) }}
-                                             inputContainerStyle={{
-                                                width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
-                                             }}
-                                             maxLength={11}
-                                             containerStyle={style.inputText}
-                                             style={{ fontFamily: "Raleway-Medium" }}
-                                          />
-                                       </View>
-
-                                       <View style={{ marginTop: 10 }}>
-                                          <Text style={style.fieldsText}>Beneficiary Name</Text>
-                                          <Input
-                                             value={this.state.beneficiaryName}
-                                             placeholder="Enter Beneficiary Name"
-                                             onChangeText={(e) => { this.setState({ beneficiaryName: e }) }}
-                                             inputContainerStyle={{
-                                                width: Dimensions.get("window").width / 1.05, borderColor: 'transparent'
-                                             }}
-                                             containerStyle={style.inputText}
-                                             style={{ fontFamily: "Raleway-Medium" }}
-                                          />
-                                       </View>
-
-                                       <View style={{ marginTop: 10 }}>
-                                          <Text style={style.fieldsText}>Business Type</Text>
-                                          <SelectDropdown
-                                             data={businessType}
-                                             onSelect={(selectedCategories, index) => {
-                                                this.setState({ businessType: selectedCategories })
-                                             }}
-                                             buttonTextAfterSelection={(selectedCategories, index) => {
-                                                return selectedCategories
-                                             }}
-                                             rowTextForSelection={(item, index) => {
-                                                return item
-                                             }}
-                                             buttonTextStyle={{ fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000",
-                                          position: "absolute", right: 10, top: 10 }}
-                                             buttonStyle={style.inputText}
-                                             renderDropdownIcon={() => {
-                                                return (
-                                                   <Icon name="chevron-down" type="ionicon"/>
-                                                )
-                                             }}
-                                          />
-                                       </View>
-
-                                       {/* update button */}
-                                       {this.state.buttonLoading ?
-                                          <View style={style.loader}>
-                                             <ActivityIndicator size={"large"} color="#5BC2C1" />
-                                          </View>
-                                          :
-                                          <View style={{ alignItems: "center", marginTop: 20 }}>
-                                             <TouchableOpacity
-                                                onPress={() => { this.updateDetails() }}>
-                                                <LinearGradient
-                                                   style={style.updateButton}
-                                                   colors={['#5BC2C1', '#296e84']}>
-                                                   <Text style={style.updateText}>Update</Text>
-                                                </LinearGradient>
-                                             </TouchableOpacity>
-                                          </View>
-                                       }</>
-                                 )
-                              }
-                           </>
-                        ) : (
-                           <>
-                              {/* view for image */}
-                              <View>
-                                 <Image source={require('../img/activepayout.png')} style={style.img} />
-                              </View>
-
-                              {/* view for details */}
-                              <View style={style.viewBox}>
-                                 <Text style={style.text}>
-                                    Beneficiary Name: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.beneficiaryName}</Text>
-                                 </Text>
-
-                                 <Text style={style.text}>
-                                    Account Number: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.bankAccountNo}</Text>
-                                 </Text>
-
-                                 <Text style={style.text}>
-                                    IFSC Code: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.bankIFSC}</Text>
-                                 </Text>
-
-                              </View>
-
-                              {/* view for support */}
-                              <View style={{ width: Dimensions.get('window').width / 1.05, alignSelf: "center", justifyContent: "center", alignContent: "center" }}>
-                                 <Text style={{
-                                    fontSize: RFValue(14, 580),
-                                    fontFamily: "Roboto-Bold",
-                                    alignSelf: "center", color: "#000", marginTop: 25
-                                 }}>Want to change your details? Contact us...</Text>
-
-                                 <View>
-                                    <TouchableOpacity onPress={() => Linking.openURL('mailto:support@weazy.in')}>
-                                       <LinearGradient
-                                          style={style.mailButton}
-                                          colors={['#5BC2C1', '#296e84']}>
-                                          <Icon name="mail" size={25} type="ionicon" color="#fff" />
-                                          <Text style={[style.text, { color: "#fff" }]}>Mail Us</Text>
-                                       </LinearGradient>
-                                    </TouchableOpacity>
+                                    />
                                  </View>
-                              </View>
-                           </>)}
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Business Name </Text>
+                                    <Input
+                                       value={this.state.businessName}
+                                       placeholder="Enter Business Name"
+                                       onChangeText={(e) => { this.setState({ businessName: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
+                                       }}
+                                       keyboardType="numeric"
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Business Email </Text>
+                                    <Input
+                                       value={this.state.email}
+                                       placeholder="Enter Business Email"
+                                       onChangeText={(e) => { this.setState({ email: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
+                                       }}
+                                       keyboardType="numeric"
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Bank Account No </Text>
+                                    <Input
+                                       value={this.state.bankAccountNo}
+                                       placeholder="Enter Bank Account No"
+                                       onChangeText={(e) => { this.setState({ bankAccountNo: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
+                                       }}
+                                       secureTextEntry={true}
+                                       keyboardType="numeric"
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Confirm Bank Account No</Text>
+                                    <Input
+                                       keyboardType="numeric"
+                                       placeholder="Enter Confirm Bank Account Number"
+                                       value={this.state.accountNumber}
+                                       onChangeText={(e) => { this.setState({ confirmBankAccountNo: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
+                                       }}
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Bank IFSC Code</Text>
+                                    <Input
+                                       value={this.state.bankName}
+                                       placeholder="Enter Bank ISFC Code"
+                                       autoCapitalize="characters"
+                                       onChangeText={(e) => { this.setState({ bankIFSC: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
+                                       }}
+                                       maxLength={11}
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+                                 <View style={{ marginTop: 10 }}>
+                                    <Text style={style.fieldsText}>Beneficiary Name</Text>
+                                    <Input
+                                       value={this.state.beneficiaryName}
+                                       placeholder="Enter Beneficiary Name"
+                                       onChangeText={(e) => { this.setState({ beneficiaryName: e }) }}
+                                       inputContainerStyle={{
+                                          width: Dimensions.get("window").width / 1.05, borderColor: 'transparent'
+                                       }}
+                                       containerStyle={style.inputText}
+                                       style={{ fontFamily: "Raleway-Medium" }}
+                                    />
+                                 </View>
+
+
+
+                                 {/* update button */}
+                                 {this.state.buttonLoading ?
+                                    <View style={style.loader}>
+                                       <ActivityIndicator size={"large"} color="#5BC2C1" />
+                                    </View>
+                                    :
+                                    <View style={{ alignItems: "center", marginTop: 20, marginBottom:20}}>
+                                       <TouchableOpacity
+                                          onPress={() => { this.updateDetails() }}>
+                                          <LinearGradient
+                                             style={style.updateButton}
+                                             colors={['#5BC2C1', '#296e84']}>
+                                             <Text style={style.updateText}>Update</Text>
+                                          </LinearGradient>
+                                       </TouchableOpacity>
+                                    </View>
+                                 }
+                              </>
+                              :
+                              <>
+                                 {/* view for image */}
+                                 <View>
+                                    <Image source={require('../img/activepayout.png')} style={style.img} />
+                                 </View>
+
+                                 {/* view for details */}
+                                 <View style={style.viewBox}>
+                                    <Text style={style.text}>
+                                       Beneficiary Name: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.beneficiaryName}</Text>
+                                    </Text>
+
+                                    <Text style={style.text}>
+                                       Account Number: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.bankAccountNo}</Text>
+                                    </Text>
+
+                                    <Text style={style.text}>
+                                       IFSC Code: <Text style={{ fontFamily: "Roboto-Medium" }}>{this.state.bankIFSC}</Text>
+                                    </Text>
+
+                                 </View>
+
+                                 {/* view for support */}
+                                 <View style={{ width: Dimensions.get('window').width / 1.05, alignSelf: "center", justifyContent: "center", alignContent: "center" }}>
+                                    <Text style={{
+                                       fontSize: RFValue(14, 580),
+                                       fontFamily: "Roboto-Bold",
+                                       alignSelf: "center", color: "#000", marginTop: 25
+                                    }}>Want to change your details? Contact us...</Text>
+
+                                    <View>
+                                       <TouchableOpacity onPress={() => Linking.openURL('mailto:support@weazy.in')}>
+                                          <LinearGradient
+                                             style={style.mailButton}
+                                             colors={['#5BC2C1', '#296e84']}>
+                                             <Icon name="mail" size={25} type="ionicon" color="#fff" />
+                                             <Text style={[style.text, { color: "#fff" }]}>Mail Us</Text>
+                                          </LinearGradient>
+                                       </TouchableOpacity>
+                                    </View>
+                                 </View>
+                              </>
+                        }
                      </>
                }
             </ScrollView>
@@ -533,7 +554,8 @@ const style = StyleSheet.create({
    },
    loader: {
       shadowOffset: { width: 50, height: 50 },
-      marginBottom: 5,
+      marginBottom: 10,
+      marginTop: 20,
       shadowRadius: 50,
       elevation: 5,
       backgroundColor: "#fff", width: 40, height: 40, borderRadius: 50, padding: 5, alignSelf: "center"
