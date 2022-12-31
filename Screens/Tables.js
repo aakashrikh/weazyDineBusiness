@@ -77,7 +77,7 @@ class Tables extends Component {
         
         window.Echo.private(`checkTableStatus.`+this.context.user.id).listen('.server.created', (data) => {
             //logic here
-            alert("hello")
+            // alert("hello")
             // this.setState({data:data.tables})
             });
         this.focusListener = this.props.navigation.addListener('focus', () => {

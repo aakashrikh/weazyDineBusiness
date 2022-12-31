@@ -75,7 +75,7 @@ class TableView extends Component {
         //   this.RBSheet.open();
         console.log(this.props.route.params.table_uu_id)
         this.fetch_table_order()
-        
+
     }
 
     add_split_amount = (amount, index) => {
@@ -113,7 +113,7 @@ class TableView extends Component {
                 if (!json.status) {
                     var msg = json.msg;
                     // Toast.show(msg);
-                    
+
                     //  clearInterval(myInterval);
                 }
                 else {
@@ -121,7 +121,7 @@ class TableView extends Component {
                         this.setState({ data: json.data[0] })
                         this.setState({ cart: json.data[0].cart })
                     }
-                    else{
+                    else {
                         this.props.navigation.navigate("Dine-In")
                     }
                     // let myInterval = setInterval(() => {
@@ -151,7 +151,7 @@ class TableView extends Component {
                 <Icon type="ionicon" name="arrow-back-outline"
                     onPress={() => {
                         //Linking.openURL("weazydine://home/");
-                        this.props.navigation.navigate("Home")
+                        this.props.navigation.navigate("TabNav", { screen: "Dine-In" })
                     }}
 
                 />
@@ -519,7 +519,7 @@ class TableView extends Component {
                     var msg = json.msg;
                     Toast.show(msg);
                 } else {
-                    this.setState({ updateOrderModal : false });
+                    this.setState({ updateOrderModal: false });
                     this.fetch_table_order(this.props.route.params.table_uu_id);
                     Toast.show('Product Quantity Updated');
                 }
@@ -567,7 +567,7 @@ class TableView extends Component {
                                                 this.setState({ tableSwapModal: true }), this.fetch_table_vendors()
                                             }}>
                                             <LinearGradient
-                                                colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                                colors={['#5BC2C1', '#296E84']}
                                                 style={[{ borderRadius: 10, alignSelf: 'flex-end', backgroundColor: 'red', padding: 10, marginRight: 10, borderRadius: 5, paddingHorizontal: 10, marginTop: 20 }]}>
                                                 <Text style={[styles.textSignIn, {
                                                     color: '#fff', fontSize: RFValue(12, 580)
@@ -587,7 +587,7 @@ class TableView extends Component {
                                                         this.clear_table_order()
                                                     }}>
                                                     <LinearGradient
-                                                        colors={['#DC3545', '#DC3545']}
+                                                        colors={['red', '#DC3545']}
                                                         style={[{ borderRadius: 10, alignSelf: 'flex-end', backgroundColor: 'red', padding: 10, marginRight: 10, borderRadius: 5, paddingHorizontal: 10, marginTop: 20 }]}>
                                                         <Text style={[styles.textSignIn, {
                                                             color: '#fff', fontSize: RFValue(12, 580)
@@ -713,7 +713,7 @@ class TableView extends Component {
                             onPress={() => this.genrate_bill()}
                             style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
                             <LinearGradient
-                                colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                colors={['#5BC2C1', '#296E84']}
                                 style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>
 
                                 <Text style={[styles.textSignIn, {
@@ -818,7 +818,7 @@ class TableView extends Component {
                                         <TouchableOpacity
                                             onPress={() => this.mark_complete()}>
                                             <LinearGradient
-                                                colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                                colors={['#5BC2C1', '#296E84']}
                                                 style={[{ borderRadius: 10, alignSelf: 'center', backgroundColor: 'red', padding: 5, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20 }]}>
                                                 <Text style={[styles.textSignIn, {
                                                     color: '#fff', fontSize: RFValue(12, 580)
@@ -894,7 +894,7 @@ class TableView extends Component {
                                                         this.setState({ splitModalVisible: false }, this.mark_complete())
                                                     }}>
                                                     <LinearGradient
-                                                        colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}
+                                                        colors={['#5BC2C1', '#296E84']}
                                                         style={[{ borderRadius: 10, alignSelf: 'center', backgroundColor: 'red', padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20 }]}>
                                                         <Text style={[styles.textSignIn, {
                                                             color: '#fff', fontSize: RFValue(12, 580)
@@ -999,7 +999,7 @@ class TableView extends Component {
                                     <View style={{ flexDirection: "row", justifyContent: "center" }}>
                                         <TouchableOpacity
                                             onPress={() => {
-                                               this.update_product_quantity(this.state.edit_quantity)
+                                                this.update_product_quantity(this.state.edit_quantity)
                                             }}>
                                             <LinearGradient
                                                 colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}

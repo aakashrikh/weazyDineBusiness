@@ -10,11 +10,21 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import moment from 'moment';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import { AuthContext } from '../AuthContextProvider.js';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const win = Dimensions.get('window');
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
+const sort = [
+    "Today",
+    "Yesterday",
+    "This Week",
+    "Last Week",
+    "Last Month",
+    "This Month",
+    "Lifetime",
+]
 
 class Report extends Component {
     static contextType = AuthContext;
@@ -26,10 +36,18 @@ class Report extends Component {
             data: [],
             page: 1,
             wallet: 0,
-            to: this.props.route.params.to,
-            from: this.props.route.params.from,
-            range: this.props.route.params.range,
+            to: new Date(),
+            from: new Date(),
+            range: "Today",
             allData: [],
+                total_earnning: 0,
+                orders: 0,
+                shop_visit: 0,
+                customer: 0,
+                cashsale: 0,
+                online: 0,
+                weazypay: 0,
+            
         }
 
     }
@@ -100,7 +118,7 @@ class Report extends Component {
 
     // }
 
-    fetch_order = (page_id) => {
+    fetch_order = (page_id,range) => {
         fetch(global.vendor_api + 'fetch_sales_reports', {
             method: 'POST',
             headers: {
@@ -110,7 +128,7 @@ class Report extends Component {
             },
             body: JSON.stringify({
                 page: page_id,
-                range: this.state.range,
+                range: range,
                 start_date: this.state.from,
                 end_date: this.state.to,
             }),
@@ -121,15 +139,18 @@ class Report extends Component {
                 if (!json.status) {
                     if (page_id == 1) {
                         this.setState({ data: [], isLoading: false });
+                        this.setState({
+                            total_earnning: 0, orders: 0, shop_visit: 0, customer: 0, cashsale: 0, online: 0, weazypay: 0, 
+                        })
                     }
                 } else {
                     var obj = json.data.data;
                     this.setState({ data: this.state.data.concat(obj) });
                     console.warn(this.state.data);
                     this.setState({
-                        total: json.total_earnning,
+                        total_earnning: json.total_earnning,
                         online: json.online,
-                        cash: json.cashsale,
+                        cashSale: json.cashsale,
                         weazypay: json.weazypay,
                     });
 
@@ -201,6 +222,51 @@ class Report extends Component {
                     }}
                     backgroundColor="#ffffff"
                 />
+                <SelectDropdown
+                        data={sort}
+                        onSelect={(selectedRange, index) => {
+                            // this.setState({ range: selectedRange })
+                            if(selectedRange == "Today"){
+                                this.fetch_order(1,"today")
+                            }
+                            else if(selectedRange == "Yesterday"){
+                                this.fetch_order(1,"yesterday")
+                            }
+                            else if(selectedRange == "This Week"){
+                                this.fetch_order(1,"thisweek")
+                            }
+                            else if(selectedRange == "Last Week"){
+                                this.fetch_order(1,"lastweek")
+                            }
+                            else if(selectedRange == "Last Month"){
+                                this.fetch_order(1,"lastmonth")
+                            }
+                            else if(selectedRange == "This Month"){
+                                this.fetch_order(1,"thismonth")
+                            }
+                            else if(selectedRange == "Lifetime"){
+                                this.fetch_order(1,"lifetime")
+                            }
+                        }}
+                        buttonTextAfterSelection={(selectedRange, index) => {
+                            return selectedRange
+                        }}
+                        rowTextForSelection={(item, index) => {
+                            return item
+                        }}
+                        buttonTextStyle={{
+                            fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
+                        }}
+                        buttonStyle={style.buttonStyle}
+                        defaultButtonText="Today"
+                        renderDropdownIcon={() => {
+                            return (
+                                <Icon
+                                    name='chevron-down' type='ionicon' color='#000' size={20} />
+                            )
+                        }}
+                        dropdownIconPosition="right"
+                    />
 
                 {this.state.isLoading ?
                     <></>
@@ -208,21 +274,21 @@ class Report extends Component {
                     <View>
                         <View style={{
                             flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 20,
-                            width: Dimensions.get('window').width
+                            width: Dimensions.get('window').width,marginTop:10
                         }}>
                             <View style={{
                                 backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Total Sales</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.total}</Text>
+                                <Text style={{ fontSize: 30 }}>₹ {this.state.total_earnning}</Text>
                             </View>
                             <View style={{
                                 backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Cash Sales</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.cash}</Text>
+                                <Text style={{ fontSize: 30 }}>₹ {this.state.cashsale}</Text>
                             </View>
                         </View>
 
@@ -373,6 +439,28 @@ const style = StyleSheet.create({
         fontFamily: "Montserrat-Regular",
         color: "black",
         // marginLeft:10
+    },
+    buttonStyle: {
+        borderWidth: 1,
+        borderColor: "#d3d3d3",
+        color: "#fff",
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        padding: 5,
+        width: Dimensions.get("window").width / 3,
+        height: 40,
+        alignContent: 'center',
+        alignSelf: 'flex-end',
+        fontSize: RFValue(11, 580),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        elevation: 5,
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        right: 10,
     },
 
 }

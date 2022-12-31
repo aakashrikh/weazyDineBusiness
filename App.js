@@ -91,11 +91,11 @@ OneSignal.setAppId("49e49fa7-d31e-42d9-b1d5-536c4d3758cc");
 
 
 //Prompt for push on iOS
-if (Platform.OS === 'ios') {
-  OneSignal.promptForPushNotificationsWithUserResponse(response => {
-    // console.log("Prompt response:", response);
+// if (Platform.OS === 'ios') {
+  OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+    console.log("Prompt response:", response);
   });
-}
+// }
 
 //Method for handling notifications received while app in foreground
 OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {

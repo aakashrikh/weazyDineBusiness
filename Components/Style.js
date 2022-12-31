@@ -87,8 +87,8 @@ module.exports =  StyleSheet.create({
     },
     buttonStyles:{
       width:"100%",
-      justifyContent:"flex-end",
-      alignSelf:"flex-end",
+      justifyContent:"center",
+      alignSelf:"center",
       marginTop:25,
       marginRight:5,
  

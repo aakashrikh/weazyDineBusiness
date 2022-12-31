@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Text, View, Dimensions,
-    StyleSheet, TouchableOpacity, Image
+    StyleSheet, Pressable, Image
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -174,8 +174,8 @@ class Demo extends Component {
 
                 </View>
                 {/* total orders */}
-                <View style={{ flexDirection: "row", width: Dimensions.get('window').width, justifyContent: "space-around", marginTop: 10 }}>
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                <View style={{ flexDirection: "row", width: Dimensions.get('window').width/1.02, alignSelf:"center", justifyContent: "space-around", marginTop: 30 }}>
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={() => this.props.navigation.navigate("CashbackHistory")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
@@ -195,9 +195,9 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
                         range:this.state.range, to: this.state.to, from: this.state.from, type: "Total"
                     })}>
@@ -206,7 +206,7 @@ class Demo extends Component {
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { width: "100%", marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
+                                <Image source={require('../img/totalSales.png')} style={{
                                     height: 45, width: 45,
                                     position: "absolute",
                                     justifyContent: "center", top: -40, left: -5,
@@ -219,9 +219,9 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
                         range:this.state.range, to: this.state.to, from: this.state.from, type: "Cash"
                     })}>
@@ -230,7 +230,7 @@ class Demo extends Component {
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
+                                <Image source={require('../img/cashSales.png')} style={{
                                     height: 45, width: 45,
                                     position: "absolute",
                                     justifyContent: "center", top: -40, left: -5,
@@ -243,12 +243,12 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
 
 
-                <View style={{ flexDirection: "row", width: Dimensions.get('window').width, justifyContent: "space-around", marginTop: 10 }}>
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                <View style={{ flexDirection: "row",width: Dimensions.get('window').width/1.02, alignSelf:"center", justifyContent: "space-around", marginTop: 20 }}>
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
                         range:this.state.range, to: this.state.to, from: this.state.from, type: "Online"
                     })}>
@@ -257,7 +257,7 @@ class Demo extends Component {
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
+                                <Image source={require('../img/onlineSales.png')} style={{
                                     height: 45, width: 45,
                                     position: "absolute",
                                     justifyContent: "center", top: -40, left: -5,
@@ -270,16 +270,16 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=>this.props.navigation.navigate("TotalCustomers")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { width: "100%", marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
+                                <Image source={require('../img/totalCustomers.png')} style={{
                                     height: 45, width: 45,
                                     position: "absolute",
                                     justifyContent: "center", top: -40, left: -5,
@@ -292,16 +292,16 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
 
-                    <TouchableOpacity style={{ width: Dimensions.get("window").width / 3.3 }}
+                    <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={() => this.props.navigation.navigate("Wallet")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
+                                <Image source={require('../img/weazyPay.png')} style={{
                                     height: 45, width: 45,
                                     position: "absolute",
                                     justifyContent: "center", top: -40, left: -5,
@@ -314,7 +314,7 @@ class Demo extends Component {
                                 </Text>
                             </View>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
 
 
@@ -356,7 +356,7 @@ const style = StyleSheet.create({
     },
     gradientView1: {
         width: "100%",
-        height: 120,
+        height: 100,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,

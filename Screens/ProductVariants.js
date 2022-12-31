@@ -15,6 +15,7 @@ import { Picker } from '@react-native-picker/picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { AuthContext } from '../AuthContextProvider.js';
+import SelectDropdown from 'react-native-select-dropdown';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -22,6 +23,8 @@ const styles = require('../Components/Style.js');
 const order_cancel = [{ "id": "1", "name": "Low Driver Rating" }, { "id": "2", "name": "High delivery charge" }, { "id": "3", "name": "Not ready to order" }, { "id": "4", "name": "Driver asked to cancel" }, { "id": "5", "name": "Other reason" }];;
 
 const variant = []
+
+const addonsCount = ["Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 class ProductVariants extends Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -33,8 +36,8 @@ class ProductVariants extends Component {
       add_data: [],
       object: [],
       isLoading2: false,
-      variants_price:'',
-      variants_discounted_price:''
+      variants_price: '',
+      variants_discounted_price: ''
     }
   }
 
@@ -97,7 +100,7 @@ class ProductVariants extends Component {
         }
         else {
           if (this.props.route.params.refresh) {
-            this.props.navigation.navigate("Products", { refresh: true, active_cat:0});
+            this.props.navigation.navigate("Products", { refresh: true, active_cat: 0 });
           }
           else {
             this.props.navigation.goBack({ refresh: true });
@@ -110,8 +113,8 @@ class ProductVariants extends Component {
       }).catch((error) => {
         console.error(error);
       });
-   }
-  
+  }
+
 
   //for header left component
   renderLeftComponent() {
@@ -390,6 +393,7 @@ class ProductVariants extends Component {
           </View>
 
 
+
           <View style={{ backgroundColor: '#fff', padding: 15, borderRadius: 5, marginTop: 10 }}>
             <TouchableOpacity onPress={() => { this.show_addon() }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -436,6 +440,38 @@ class ProductVariants extends Component {
 
           </View>
 
+          {/* <View>
+            <SelectDropdown
+              data={addonsCount}
+              onSelect={(selectedCount, index) => {
+                if(selectedCount == "Unlimited"){
+                  this.setState({ add_count: 0 })
+                }
+                else{
+                  this.setState({ add_count: selectedCount })
+                }
+
+              }}
+              buttonTextAfterSelection={(selectedCount, index) => {
+                return selectedCount
+              }}
+              rowTextForSelection={(item, index) => {
+                return item
+              }}
+              renderDropdownIcon={() => {
+                return (
+                  <Icon
+                    name='chevron-down' type='ionicon' color='#000' size={20} />
+                )
+              }}
+              defaultButtonText="Select Maximum Add-On Count"
+              dropdownIconPosition="right"
+              buttonTextStyle={{
+                fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
+              }}
+              buttonStyle={style.buttonStyle}
+            />
+          </View> */}
 
           <RBSheet
             ref={ref => {
@@ -456,8 +492,13 @@ class ProductVariants extends Component {
 
 
           {(!this.state.isLoading2) ?
-            <TouchableOpacity onPress={() => this.update_product_variant()} style={{ alignSelf: 'center', padding: 10, borderWidth: 1, borderRadius: 5, borderColor: '#ececec', backgroundColor: 'rgba(233,149,6,1)', width: '80%', height: 50, marginTop: 30, marginBottom: 30 }}>
-              <Text style={{ color: '#fff', alignSelf: 'center', marginTop: 5, fontSize: 16 }}>Save & continue</Text>
+            <TouchableOpacity onPress={() => this.update_product_variant()} >
+              <LinearGradient
+                colors={['#5BC2C1', '#296E84']}
+                style={{ alignSelf: 'center', padding: 10, borderWidth: 1, borderRadius: 5, borderColor: '#ececec', backgroundColor: 'rgba(233,149,6,1)', width: '80%', height: 50, marginTop: 30, marginBottom: 30 }}
+              >
+                <Text style={{ color: '#fff', alignSelf: 'center', marginTop: 5, fontSize: 16 }}>Save & continue</Text>
+              </LinearGradient>
             </TouchableOpacity>
 
             :
@@ -559,13 +600,13 @@ class Addons extends Component {
             onPress={() => this.create_addon()}
             style={[style.buttonStyles, { marginTop: 20, width: '80%', borderRadius: 5, alignSelf: 'center' }]}>
             <LinearGradient
-              colors={['#EDA332', '#EDA332']}
+              colors={['#5BC2C1', '#296E84']}
               style={styles.signIn}>
               <Text style={[styles.textSignIn, { color: '#fff' }]}>
                 Create New</Text>
             </LinearGradient>
           </TouchableOpacity> :
-          <ActivityIndicator size="large" color="#EDA332" />
+          <ActivityIndicator size="large" color="#5BC2C1" />
         }
 
       </View>
@@ -611,7 +652,29 @@ const style = StyleSheet.create({
   fieldsTitle:
   {
     marginBottom: 5
-  }
+  },
+  buttonStyle: {
+    borderWidth: 1,
+    borderColor: "#d3d3d3",
+    color: "#fff",
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 5,
+    width: Dimensions.get("window").width / 1.1,
+    height: 40,
+    alignContent: 'center',
+    alignSelf: 'center',
+    fontSize: RFValue(11, 580),
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    elevation: 5,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    marginTop: 10,
+  },
 
 }
 )
