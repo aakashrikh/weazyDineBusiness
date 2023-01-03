@@ -76,7 +76,7 @@ class OtpVerify extends Component {
   //for first time otp
   event_call = (input) => {
     // alert(this.state.code)
-    if (input.length == 4) {
+    if (input.length == 6) {
       Keyboard.dismiss();
       if (input == "") {
         Toast.show("OTP is required!");
@@ -86,7 +86,7 @@ class OtpVerify extends Component {
         this.setState({ isLoading: true });
         var contact_no = this.props.route.params.contact_no;
 
-        fetch(global.vendor_api + 'otp-verification', {
+        fetch(global.vendor_api + 'staff-otp-verification', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -105,19 +105,19 @@ class OtpVerify extends Component {
               global.vendor = json.usr;
               global.token = json.token;
               global.msg = "Welcome"
-
+              console.warn(json)
               if (json.user_type == 'login') {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "done" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("done",json.data,json.token);
+                this.context.login("done",json.data,json.user,json.token);
                 global.msg = "Welcome Back"
               }
               else {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "steps" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("steps",json.data,json.token);
+                this.context.login("steps",json.data,json.user,json.token);
                 global.msg = "Welcome"
               }
             }
@@ -143,7 +143,7 @@ class OtpVerify extends Component {
       this.setState({ isLoading: true });
       var contact_no = this.props.route.params.contact_no;
 
-      fetch(global.vendor_api + 'otp-verification', {
+      fetch(global.vendor_api + 'staff-otp-verification', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -157,6 +157,7 @@ class OtpVerify extends Component {
       })
         .then((response) => response.json())
         .then((json) => {
+          console.warn(json)
           if (json.msg == 'ok') {
             OneSignal.sendTag("id", '' + json.usr);
             OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
@@ -167,13 +168,13 @@ class OtpVerify extends Component {
 
               const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "done" }
               AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-              this.context.login("done",json.data,json.token);
+              this.context.login("done",json.data,json.user,json.token);
             }
             else {
 
               const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "steps" }
               AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-              this.context.login("steps",json.data,json.token);
+              this.context.login("steps",json.data,json.user,json.token);
             }
           }
           else {
@@ -190,7 +191,7 @@ class OtpVerify extends Component {
 
   resend = () => {
     this.setState({ resend: false });
-    fetch(global.vendor_api + "mobile-verification", {
+    fetch(global.vendor_api + "staff-mobile-verification", {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -259,8 +260,8 @@ class OtpVerify extends Component {
                 keyboardType="numeric"
               /> */}
           <OTPInputView
-            style={{ width: '70%', height: 100, alignSelf: 'center', fontSize: 55 }}
-            pinCount={4}
+            style={{ width: '100%', height: 100, alignSelf: 'center', fontSize: 55,paddingHorizontal:20 }}
+            pinCount={6}
 
             code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
             onCodeChanged={code => { this.setState({ code }) }}

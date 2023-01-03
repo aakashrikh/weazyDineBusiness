@@ -36,7 +36,7 @@ class MobileLogin extends Component
             }  
             else{  
             this.setState({isLoading:true});
-            fetch(global.vendor_api+"mobile-verification", {
+            fetch(global.vendor_api+"staff-mobile-verification", {
                 method: 'POST',
                 headers: {
                 Accept: 'application/json',

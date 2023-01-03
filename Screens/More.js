@@ -156,7 +156,7 @@ class Buttons extends Component {
         <ScrollView>
           <Text style={[styles.h3,{marginLeft:10,marginTop:5}]}>Accounts</Text>
     
-
+          {/* add cover images */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
@@ -167,6 +167,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
+          {/* taxes an setup */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate("OtherCharges")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
@@ -177,6 +178,7 @@ class Buttons extends Component {
             </View>
           </TouchableOpacity>
 
+          {/* shop time */}
           <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
             <View style={style.questView}>
               <View style={{flexDirection: "row"}}>
@@ -193,6 +195,17 @@ class Buttons extends Component {
               <View style={{flexDirection: "row"}}>
               <Icon name="cash-outline" type='ionicon' size={25} color="#5BC2C1"/>
                 <Text style={style.texxt}>Online Payment Setup</Text>
+              </View>
+              <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
+            </View>
+          </TouchableOpacity>
+
+          {/* add staff account */}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("StaffAccount")}>
+            <View style={style.questView}>
+              <View style={{flexDirection: "row"}}>
+              <Icon name="people-outline" type='ionicon' size={25} color="#5BC2C1"/>
+                <Text style={style.texxt}>Manage Staff Account</Text>
               </View>
               <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25}/>
             </View>

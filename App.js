@@ -81,6 +81,10 @@ import Pusher from 'pusher-js';
 import PasswordLogin from './Screens/PasswordLogin';
 import Report from './Screens/Report';
 import TotalCustomers from './Screens/TotalCustomers';
+import StaffAccount from './Screens/StaffAccount';
+import AddStaffAccount from './Screens/AddStaffAccount';
+import EditStaffAccount from './Screens/EditStaffAccount';
+import AccessDenied from './Screens/AccessDenied';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -225,6 +229,7 @@ class App extends Component {
       netconnected: true,
       user: [],
       token: '',
+      role:[]
     }
   }
 
@@ -270,9 +275,9 @@ class App extends Component {
     }
   };
 
-  login = (step, user, token) => {
-    // console.log("hhh",user)
-    this.setState({ islogin: true, step: step, user: user, token: token });
+  login = (step, user, role, token) => {
+    console.log("hhh",role)
+    this.setState({ islogin: true, step: step, user: user, role:role, token: token });
     SplashScreen.hide();
 
     OneSignal.sendTag("id", '' + user.id);
@@ -324,7 +329,7 @@ class App extends Component {
           this.logout();
         }
         else {
-          this.login(json.step, json.data[0], token);
+          this.login(json.step, json.data[0],json.user, token);
 
           json.data.map(value => {
             // alert(value.category_type)
@@ -385,6 +390,7 @@ class App extends Component {
               <Stacks.Navigator screenOptions={{ headerShown: false }} >
                 {!this.state.islogin ? (
                   <>
+                  
                     <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
                     <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
                     {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
@@ -392,6 +398,7 @@ class App extends Component {
                   </>
                 )
                   :
+                  
                   (
                     (this.state.islogin && this.state.step == 'steps') ?
                       <>
@@ -401,9 +408,16 @@ class App extends Component {
 
 
                       </>
+
+                      :
+                      (this.state.islogin && this.state.role.role != 'owner') ?
+                      <>
+                        <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
+                      </>
                       :
                       // User is signed in  
                       <>
+                      
                         <Stacks.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
                         <Stacks.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
                         <Stacks.Screen name="ChangeSubCategory" component={ChangeSubCategory} options={{ headerShown: false }} />
@@ -457,6 +471,9 @@ class App extends Component {
                         <Stacks.Screen name="OrderDetails" component={OrderDetails} options={{ headerShown: false }} />
                         <Stacks.Screen name="Report" component={Report} options={{ headerShown: false }} />
                         <Stacks.Screen name="TotalCustomers" component={TotalCustomers} options={{ headerShown: false }} />
+                        <Stacks.Screen name="StaffAccount" component={StaffAccount} options={{ headerShown: false }} />
+                        <Stacks.Screen name="AddStaffAccount" component={AddStaffAccount} options={{ headerShown: false }} />
+                        <Stacks.Screen name="EditStaffAccount" component={EditStaffAccount} options={{ headerShown: false }} />
 
                       </>
                   )
