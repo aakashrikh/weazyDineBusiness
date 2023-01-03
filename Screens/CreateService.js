@@ -8,13 +8,20 @@ import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { launchCamera} from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import SelectDropdown from 'react-native-select-dropdown';
 import RadioForm from 'react-native-simple-radio-button';
 import { AuthContext } from '../AuthContextProvider.js';
+
+
+var radio_props = [
+    { label: 'Veg', value: 1 },
+    { label: 'Non-Veg', value: 0 }
+];
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -28,11 +35,6 @@ const options = {
     },
     quality: 0.5
 }
-
-var radio_props = [
-    { label: 'Veg', value: 1 },
-    { label: 'Non-Veg', value: 0 }
-];
 
 class CreateService extends Component {
     constructor(props) {
@@ -84,7 +86,6 @@ class Fields extends Component {
     static contextType = AuthContext;
     constructor(props) {
         super(props);
-
         this.state = {
             name: "",
             category: [],
@@ -102,8 +103,7 @@ class Fields extends Component {
             type: "product",
             height: 0,
             is_veg: 1,
-
-
+            tax: 0,
         };
     }
 
@@ -147,10 +147,13 @@ class Fields extends Component {
     }
 
     componentDidMount = async () => {
-        this.get_category()
+        console.warn(this.context.user.gstin);
+        this.setState({ tax: this.context.user.gst_percentage })
+        this.get_category();
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            this.get_category()
+            this.get_category();
         })
+
     }
 
 
@@ -190,9 +193,11 @@ class Fields extends Component {
     create = () => {
 
         let numberValidation = /^[0-9]+$/;
+        let taxValidation = /^[0-9]+$/;
+        let isTaxValid = taxValidation.test(this.state.tax);
         let isnumValid = numberValidation.test(this.state.market_price + this.state.our_price);
 
-        if (this.state.name == "" || this.state.market_price == "" || this.state.image == "" || this.state.our_price == "" || this.state.description == "") {
+        if (this.state.name == "" || this.state.image == "" || this.state.our_price == "" || this.state.description == "") {
             Toast.show("All fields are required !");
         }
         else if (this.state.category == "") {
@@ -202,14 +207,15 @@ class Fields extends Component {
             Toast.show("Category is required !");
         }
         else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+            Toast.show("Price contains numeric values only!");
         }
-        else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+        else if (!isTaxValid) {
+            Toast.show("Tax contains numeric values only!");
         }
         else if (this.state.description == "") {
             Toast.show("Description is required !");
         }
+
         else {
             this.setState({ isLoading: true });
             if (this.state.image != '') {
@@ -223,21 +229,23 @@ class Fields extends Component {
             var form = new FormData();
             form.append("product_name", this.state.name);
             form.append("vendor_category_id", this.state.c_id);
-            form.append("market_price", this.state.market_price);
+            // form.append("market_price", this.state.market_price);
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
             form.append("product_img", photo);
+            form.append("tax", this.state.tax);
             form.append("is_veg", this.state.is_veg);
             fetch(global.vendor_api + 'vendor_add_product', {
                 method: 'POST',
                 body: form,
                 headers: {
 
-                    'Authorization': this.context.token 
+                    'Authorization': this.context.token
                 },
             }).then((response) => response.json())
                 .then((json) => {
+                    console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);
@@ -245,7 +253,7 @@ class Fields extends Component {
                     else {
                         Toast.show(json.msg)
                         this.props.get_cat();
-                        this.props.get_product(0,1);
+                        this.props.get_product(0, 1);
 
                         this.props.navigation.navigate('ProductVariants', { product_id: json.data.id, variants: json.data.variants, addons: json.data.addons, refresh: true, });
                         // this.props.navigation.navigate(this.props.back,{refresh:true})
@@ -264,10 +272,11 @@ class Fields extends Component {
         this.setState({ selectedCategories });
     };
 
+
     render() {
-        const { selectedCategories } = this.state;
+
         return (
-            <View style={{ flex: 1, marginBottom: 15, }}>
+                <View style={{ flex: 1, marginBottom: 15, }}>
                 <View>
                     <Text style={style.fieldsTitle}>
                         Name
@@ -307,14 +316,14 @@ class Fields extends Component {
                 </View>
                 <View style={{ marginTop: 10 }}>
                     <Text style={style.fieldsTitle}>
-                         Price
+                        Price
                     </Text>
 
                     <TextInput
                         keyboardType="numeric"
                         returnKeyType='done'
-                        value={this.state.market_price}
-                        onChangeText={(e) => { this.setState({ market_price: e }) }}
+                        value={this.state.our_price}
+                        onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
@@ -322,7 +331,7 @@ class Fields extends Component {
 
                 </View>
 
-                <View>
+                {/* <View>
                     <Text style={style.fieldsTitle}>
                         Offer Price
                     </Text>
@@ -335,24 +344,23 @@ class Fields extends Component {
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
                     </Text>
-                </View>
+                </View> */}
 
+                <RadioForm
+                    formHorizontal={true}
+                    radio_props={radio_props}
+                    animation={false}
+                    selectedButtonColor="#5BC2C1"
+                    buttonColor="#5BC2C1"
+                    buttonSize={12}
+                    buttonOuterSize={25}
+                    initial={this.state.is_veg == 1 ? 0 : 1}
+                    onPress={(value) => { this.setState({ is_veg: value }) }}
+                    labelStyle={{ fontSize: RFValue(12, 580), marginRight: 30, fontWeight: 'bold' }}
+                    style={{ marginTop: 20, alignSelf: "center" }}
+                />
 
-                <View style={{ marginTop: 20, alignSelf: 'center' }}>
-                    <RadioForm
-                        formHorizontal={true}
-                        radio_props={radio_props}
-                        animation={true}
-                        initial={0}
-                        buttonColor={'#5BC2C1'}
-                        selectedButtonColor={'#5BC2C1'}
-                        labelHorizontal={false}
-                        labelStyle={{ marginRight: 10, marginLeft: 10 }}
-                        onPress={(value) => { this.setState({ is_veg: value }) }}
-                    />
-                </View>
-
-
+                {/* description */}
                 <View>
                     <Text style={style.fieldsTitle}>
                         Description <Text style={{ color: "grey" }}>(50words) </Text>
@@ -371,104 +379,123 @@ class Fields extends Component {
                     />
                 </View>
 
-                <View>
-
-                    <View style={{ flexDirection: "row", width: "100%" }}>
-
-
-                        <View style={{ width: "60%" }}>
+                {/* tax */}
+                {
+                    this.context.user.gstin != null ?
+                        <View>
                             <Text style={style.fieldsTitle}>
-                                Upload Image
+                                G.S.T. (in percentage)
                             </Text>
-                            <View style={{ flexDirection: "column" }}>
-
-                                {this.state.image == "" ?
-                                    <View style={{ flexDirection: "row", }}>
-                                        <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
-                                            <View style={style.add}>
-                                                <Icon name="add" size={35} color="#5BC2C1" />
-                                            </View>
-                                        </TouchableOpacity>
-                                    </View>
-                                    :
-                                    <View style={{ flexDirection: "row", }}>
-                                        <Image
-                                            source={{ uri: this.state.image }}
-                                            style={style.serviceImg} />
-                                        <Pressable onPress={() => this.RBSheet.open()} style={{ backgroundColor: "white", height: 28, right: 27, borderWidth: 1, borderRadius: 5, padding: 2 }} >
-                                            <Icon name="edit" size={20} />
-                                        </Pressable>
-                                    </View>
-                                }
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                {/* Bottom Sheet fot FAB */}
-                <RBSheet
-                    ref={ref => {
-                        this.RBSheet = ref;
-                    }}
-                    closeOnDragDown={true}
-                    closeOnPressMask={true}
-                    height={150}
-                    customStyles={{
-                        container: {
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20
-                        },
-                        wrapper: {
-                            // backgroundColor: "transparent",
-                            borderWidth: 1
-                        },
-                        draggableIcon: {
-                            backgroundColor: "grey"
-                        }
-                    }}
-                >
-                    {/* bottom sheet elements */}
-                    <View>
-
-                        {/* Bottom sheet View */}
-
-                        <View style={{ width: "100%", padding: 20 }}>
-                            <TouchableOpacity onPress={this.camera}>
-                                <Text style={style.iconPencil}>
-                                    <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25} />
-                                </Text>
-                                <Text style={style.Text}>Take a picture</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity onPress={this.gallery} >
-                                <Text style={style.iconPencil}>
-                                    <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25} />
-                                </Text>
-                                <Text style={style.Text}>Select from library</Text>
-                            </TouchableOpacity>
+                            <TextInput
+                                keyboardType="numeric"
+                                returnKeyType='done'
+                                value={this.state.tax}
+                                onChangeText={(e) => { this.setState({ tax: e }) }}
+                                style={[style.textInput, { paddingLeft: 30 }]} />
 
                         </View>
-
-
-                    </View>
-                </RBSheet>
-                {!this.state.isLoading ?
-                    <View>
-                        <TouchableOpacity
-                            onPress={() => this.create()}
-                            style={style.buttonStyles}>
-                            <LinearGradient
-                                colors={['#5BC2C1', '#296e84']}
-                                style={styles.signIn}>
-                                <Text style={[styles.textSignIn, { color: '#fff' }]}>
-                                    Create</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                    :
-                    <View style={style.loader}>
-                        <ActivityIndicator size={"large"} color="#5BC2C1" />
-                    </View>
+                        :
+                        <></>
                 }
+
+<View>
+
+<View style={{ flexDirection: "row", width: "100%" }}>
+
+
+    <View style={{ width: "60%" }}>
+        <Text style={style.fieldsTitle}>
+            Upload Image
+        </Text>
+        <View style={{ flexDirection: "column" }}>
+
+            {this.state.image == "" ?
+                <View style={{ flexDirection: "row", }}>
+                    <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
+                        <View style={style.add}>
+                            <Icon name="add" size={35} color="#5BC2C1" />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+                :
+                <View style={{ flexDirection: "row", }}>
+                    <Image
+                        source={{ uri: this.state.image }}
+                        style={style.serviceImg} />
+                    <Pressable onPress={() => this.RBSheet.open()} style={{ backgroundColor: "white", height: 28, right: 27, borderWidth: 1, borderRadius: 5, padding: 2 }} >
+                        <Icon name="edit" size={20} />
+                    </Pressable>
+                </View>
+            }
+        </View>
+    </View>
+</View>
+</View>
+{/* Bottom Sheet fot FAB */}
+<RBSheet
+ref={ref => {
+    this.RBSheet = ref;
+}}
+closeOnDragDown={true}
+closeOnPressMask={true}
+height={150}
+customStyles={{
+    container: {
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20
+    },
+    wrapper: {
+        // backgroundColor: "transparent",
+        borderWidth: 1
+    },
+    draggableIcon: {
+        backgroundColor: "grey"
+    }
+}}
+>
+{/* bottom sheet elements */}
+<View>
+
+    {/* Bottom sheet View */}
+
+    <View style={{ width: "100%", padding: 20 }}>
+        <TouchableOpacity onPress={this.camera}>
+            <Text style={style.iconPencil}>
+                <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25} />
+            </Text>
+            <Text style={style.Text}>Take a picture</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.gallery} >
+            <Text style={style.iconPencil}>
+                <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25} />
+            </Text>
+            <Text style={style.Text}>Select from library</Text>
+        </TouchableOpacity>
+
+    </View>
+
+
+</View>
+</RBSheet>
+{!this.state.isLoading ?
+<View>
+    <TouchableOpacity
+        onPress={() => this.create()}
+        style={style.buttonStyles}>
+        <LinearGradient
+            colors={['#5BC2C1', '#296e84']}
+            style={styles.signIn}>
+            <Text style={[styles.textSignIn, { color: '#fff' }]}>
+                Create</Text>
+        </LinearGradient>
+    </TouchableOpacity>
+</View>
+:
+<View style={style.loader}>
+    <ActivityIndicator size={"large"} color="#5BC2C1" />
+</View>
+}
             </View>
         )
     }
@@ -497,7 +524,7 @@ const style = StyleSheet.create({
     buttonStyles: {
         width: "35%",
         alignSelf: "center",
-        marginTop: 30,
+        marginTop: 50,
         marginRight: 5,
         marginBottom: Platform.OS === 'ios' ? 30 : 20,
     },
@@ -515,16 +542,15 @@ const style = StyleSheet.create({
     serviceImg: {
         height: 90,
         width: 90,
-
-        borderRadius: 10,
-        marginLeft: 20
+        marginLeft: 20,
+        borderRadius: 10
     },
     uploadButton: {
         // backgroundColor:"#5BC2C1",
         borderColor: "#5BC2C1",
-        paddingTop:2,
+        paddingTop: 2,
         borderWidth: 1,
-        width: 120,
+        width: 90,
         height: 30,
         justifyContent: "center",
         padding: 5,

@@ -24,7 +24,7 @@ const order_cancel = [{ "id": "1", "name": "Low Driver Rating" }, { "id": "2", "
 
 const variant = []
 
-const addonsCount = ["Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+const addonsCount = ["No free add-ons","Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 class ProductVariants extends Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -37,7 +37,8 @@ class ProductVariants extends Component {
       object: [],
       isLoading2: false,
       variants_price: '',
-      variants_discounted_price: ''
+      variants_discounted_price: '',
+      add_count: 0,
     }
   }
 
@@ -92,6 +93,7 @@ class ProductVariants extends Component {
         variants: this.state.v_data,
         addons: add,
         product_id: this.props.route.params.product_id,
+        max_product_addon: this.state.add_count
       })
     }).then((response) => response.json())
       .then((json) => {
@@ -440,11 +442,14 @@ class ProductVariants extends Component {
 
           </View>
 
-          {/* <View>
+          <View>
             <SelectDropdown
               data={addonsCount}
               onSelect={(selectedCount, index) => {
                 if(selectedCount == "Unlimited"){
+                  this.setState({ add_count: -1 })
+                }
+                else if(selectedCount == "No free add-ons"){
                   this.setState({ add_count: 0 })
                 }
                 else{
@@ -464,14 +469,14 @@ class ProductVariants extends Component {
                     name='chevron-down' type='ionicon' color='#000' size={20} />
                 )
               }}
-              defaultButtonText="Select Maximum Add-On Count"
+              defaultButtonText="Select Free Add-Ons Count"
               dropdownIconPosition="right"
               buttonTextStyle={{
                 fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
               }}
               buttonStyle={style.buttonStyle}
             />
-          </View> */}
+          </View>
 
           <RBSheet
             ref={ref => {

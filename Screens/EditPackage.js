@@ -37,17 +37,17 @@ const options = {
 }
 
 class EditPackage extends Component {
-   
+
     constructor(props) {
         super(props);
-        
+
         this.state = {
             // id:this.props.route.params.prod_id,
             id: '',
             data: this.props.route.params.data,
             category: this.props.route.params.category,
             image_upload: "",
-            image:""
+            image: ""
         }
     }
 
@@ -120,7 +120,8 @@ class Fields extends Component {
             height: 0,
             is_veg: this.props.data.is_veg,
             image_upload: "",
-            image:''
+            image: '',
+            tax: 0
         };
     }
 
@@ -196,7 +197,8 @@ class Fields extends Component {
         this.setState({ description: this.props.data.description })
         this.setState({ image: global.image_url + this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
-        this.setState({ is_veg: this.props.data.is_veg }); 
+        this.setState({ is_veg: this.props.data.is_veg });
+        this.setState({ tax: this.props.data.tax });
     }
 
     set_value = (index) => {
@@ -208,9 +210,11 @@ class Fields extends Component {
     create = () => {
         var form = new FormData();
         let numberValidation = /^[0-9]+$/;
+        let taxValidation = /^[0-9]+$/;
+        let isTaxValid = taxValidation.test(this.state.tax);
         let isnumValid = numberValidation.test(this.state.market_price + this.state.our_price);
 
-        if (this.state.name == "" || this.state.market_price == "" || this.state.our_price == "" || this.state.description == "") {
+        if (this.state.name == "" || this.state.our_price == "" || this.state.description == "") {
             Toast.show("All fields are required !");
         }
 
@@ -221,10 +225,10 @@ class Fields extends Component {
         //     Toast.show("Your price should be less than market price !");
         // }
         else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+            Toast.show("Price contains numeric values only!");
         }
-        else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+        else if (!isTaxValid) {
+            Toast.show("Tax contains numeric values only!");
         }
         else if (this.state.description == "") {
             Toast.show("Description is required !");
@@ -242,7 +246,8 @@ class Fields extends Component {
 
             form.append("product_name", this.state.name);
             form.append("vendor_category_id", this.state.c_id);
-            form.append("market_price", this.state.market_price);
+            // form.append("market_price", this.state.market_price);
+            form.append("tax", this.state.tax);
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
@@ -253,7 +258,7 @@ class Fields extends Component {
                 body: form,
                 headers: {
 
-                    'Authorization': this.context.token 
+                    'Authorization': this.context.token
                 },
             }).then((response) => response.json())
                 .then((json) => {
@@ -266,7 +271,7 @@ class Fields extends Component {
                         this.props.get_cat();
                         this.props.get_product(0);
 
-                        this.props.navigation.navigate("Products", { refresh: true,active_cat:0 })
+                        this.props.navigation.navigate("Products", { refresh: true, active_cat: 0 })
                     }
                     return json;
                 }).catch((error) => {
@@ -326,14 +331,14 @@ class Fields extends Component {
 
                 <View style={{ marginTop: 10 }}>
                     <Text style={style.fieldsTitle}>
-                        Market Price
+                        Price
                     </Text>
 
                     <TextInput
                         keyboardType="numeric"
                         returnKeyType='done'
-                        value={this.state.market_price}
-                        onChangeText={(e) => { this.setState({ market_price: e }) }}
+                        value={this.state.our_price}
+                        onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
@@ -342,7 +347,7 @@ class Fields extends Component {
                 </View>
 
 
-                <View>
+                {/* <View>
                     <Text style={style.fieldsTitle}>
                         Our Price
                     </Text>
@@ -355,7 +360,7 @@ class Fields extends Component {
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
                     </Text>
-                </View>
+                </View> */}
 
                 <RadioForm
                     formHorizontal={true}
@@ -388,10 +393,28 @@ class Fields extends Component {
                     />
                 </View>
 
+                {/* tax */}
+                {
+                    this.context.user.gstin != null ?
+                        <View>
+                            <Text style={style.fieldsTitle}>
+                                G.S.T. (in percentage)
+                            </Text>
+                            <TextInput
+                                keyboardType="numeric"
+                                returnKeyType='done'
+                                value={this.state.tax}
+                                onChangeText={(e) => { this.setState({ tax: e }) }}
+                                style={[style.textInput, { paddingLeft: 30 }]} />
+
+                        </View>
+                        :
+                        <></>
+                }
 
                 <View>
 
-                
+
 
                     <View style={{ flexDirection: "row", width: "100%" }}>
 

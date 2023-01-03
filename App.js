@@ -123,10 +123,10 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 
 //for local 
-// global.vendor_api = "http://3.108.227.189/weazy-dine-api/public/api/";
+global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 

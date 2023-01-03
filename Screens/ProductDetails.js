@@ -4,6 +4,7 @@ import { Icon, Header } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import { RFValue } from 'react-native-responsive-fontsize';
+import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-image";
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
@@ -13,6 +14,7 @@ class ProductDetails extends Component {
       super(props);
       this.state = {
       };
+      console.warn(this.props.route.params.data);
    }
 
    //for header left component
@@ -69,7 +71,12 @@ class ProductDetails extends Component {
                      {this.props.route.params.product_image == "" ?
                          <Image source={require('../img/logo/mp.png')} style={style.productImg} />
                         :
-                        <Image source={{ uri: global.image_url + this.props.route.params.data.product_img }} style={style.productImg} />
+                        <ProgressiveFastImage
+                                thumbnailSource={require('../img/logo/mp.png')}
+                                source={{ uri: global.image_url + this.props.route.params.data.product_img }}
+                                style={style.productImg}
+                            />
+                        
                   }  
                   </View>
 
@@ -77,12 +84,12 @@ class ProductDetails extends Component {
                      <Text style={style.text}>{this.props.route.params.data.product_name}</Text>
                      <Text style={[style.text, { fontSize: RFValue(10, 580) }]} numberOfLines={2}>{this.props.route.params.data.description}</Text>
                      <View style={{ flexDirection: "row" }}>
-                        <Text style={[style.text, {
+                        {/* <Text style={[style.text, {
                            fontSize: RFValue(12, 580),
                            textDecorationLine: 'line-through', textDecorationStyle: 'solid'
                         }]}>
-                           ₹ {this.props.route.params.data.market_price}</Text>
-                        <Text style={[style.text, { fontSize: RFValue(12, 580), paddingLeft: 20 }]}>₹ {this.props.route.params.data.our_price}</Text>
+                           ₹ {this.props.route.params.data.market_price}</Text> */}
+                        <Text style={[style.text, { fontSize: RFValue(12, 580),  }]}>₹ {this.props.route.params.data.our_price}</Text>
                      </View>
                   </View>
 
@@ -97,6 +104,26 @@ class ProductDetails extends Component {
 
 
                </View>
+               
+               {
+                  this.props.route.params.data.max_product_addons != 0?
+                  <View style={[style.viewBox, { flexDirection: "column" }]}>
+                        <Text style={style.text}>Maximum Free Add-Ons Count</Text>
+
+                        <Text style={[style.text, { fontSize: RFValue(12, 580),  }]}>
+                           {this.props.route.params.data.max_product_addons===-1? 
+                           "Unlimited" 
+                           :
+                           
+                           this.props.route.params.data.max_product_addons
+                           }
+                        </Text>
+                     </View>
+                     :
+                     <></>
+
+               }
+               
 
                {
                   this.props.route.params.data.variants.length > 0 ?

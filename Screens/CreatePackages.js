@@ -36,6 +36,7 @@ var radio_props = [
     { label: 'Non-Veg', value: 0 }
 ];
 
+
 class CreatePackages extends Component {
     static contextType = AuthContext;
     constructor(props) {
@@ -89,7 +90,6 @@ class Fields extends Component {
     static contextType = AuthContext;
     constructor(props) {
         super(props);
-
         this.state = {
             name: "",
             category: [],
@@ -107,7 +107,7 @@ class Fields extends Component {
             type: "package",
             height: 0,
             is_veg: 1,
-
+            tax: 0,
         };
     }
 
@@ -149,9 +149,10 @@ class Fields extends Component {
     }
 
     componentDidMount = async () => {
+        this.setState({ tax: this.context.user.gst_percentage })
         this.get_category()
         this.focusListener = this.props.navigation.addListener('focus', () => {
-            this.get_category()
+            this.get_category();
         })
     }
 
@@ -193,9 +194,11 @@ class Fields extends Component {
     create = () => {
 
         let numberValidation = /^[0-9]+$/;
+        let taxValidation = /^[0-9]+$/;
+        let isTaxValid = taxValidation.test(this.state.tax);
         let isnumValid = numberValidation.test(this.state.market_price + this.state.our_price);
 
-        if (this.state.name == "" || this.state.market_price == "" || this.state.image == "" || this.state.our_price == "" || this.state.description == "") {
+        if (this.state.name == ""  || this.state.image == "" || this.state.our_price == "" || this.state.description == "") {
             Toast.show("All fields are required !");
         }
         else if (this.state.category == "") {
@@ -205,10 +208,10 @@ class Fields extends Component {
             Toast.show("Category is required !");
         }
         else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+            Toast.show("Price contains numeric values only!");
         }
-        else if (!isnumValid) {
-            Toast.show("Price contains digits only!");
+        else if (!isTaxValid) {
+            Toast.show("Tax contains numeric values only!");
         }
         else if (this.state.description == "") {
             Toast.show("Description is required !");
@@ -226,7 +229,8 @@ class Fields extends Component {
             var form = new FormData();
             form.append("product_name", this.state.name);
             form.append("vendor_category_id", this.state.c_id);
-            form.append("market_price", this.state.market_price);
+            // form.append("market_price", this.state.market_price);
+            form.append("tax", this.state.tax);
             form.append("price", this.state.our_price);
             form.append("description", this.state.description);
             form.append("type", this.state.type);
@@ -264,10 +268,11 @@ class Fields extends Component {
         this.setState({ selectedCategories });
     };
 
+
     render() {
-        const { selectedCategories } = this.state;
+
         return (
-            <View style={{ flex: 1, marginBottom: 15, }}>
+                <View style={{ flex: 1, marginBottom: 15, }}>
                 <View>
                     <Text style={style.fieldsTitle}>
                         Name
@@ -314,8 +319,8 @@ class Fields extends Component {
                     <TextInput
                         keyboardType="numeric"
                         returnKeyType='done'
-                        value={this.state.market_price}
-                        onChangeText={(e) => { this.setState({ market_price: e }) }}
+                        value={this.state.our_price}
+                        onChangeText={(e) => { this.setState({ our_price: e }) }}
                         style={[style.textInput, { paddingLeft: 30 }]} />
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
@@ -323,7 +328,7 @@ class Fields extends Component {
 
                 </View>
 
-                <View>
+                {/* <View>
                     <Text style={style.fieldsTitle}>
                         Offer Price
                     </Text>
@@ -336,7 +341,7 @@ class Fields extends Component {
                     <Text style={{ left: 25, top: 55, position: "absolute" }} >
                         <MaterialCommunityIcons name="currency-inr" size={20} />
                     </Text>
-                </View>
+                </View> */}
 
                 <View>
                     <Text style={style.fieldsTitle}>
@@ -355,21 +360,41 @@ class Fields extends Component {
                     />
                 </View>
 
-                <View style={{ marginTop: 20, alignSelf: 'center' }}>
-                    <RadioForm
-                        formHorizontal={true}
-                        radio_props={radio_props}
-                        animation={true}
-                        initial={0}
-                        buttonColor={'#5BC2C1'}
-                        selectedButtonColor={'#5BC2C1'}
-                        labelHorizontal={false}
-                        labelStyle={{ marginRight: 20 }}
-                        onPress={(value) => { this.setState({ is_veg: value }) }}
-                    />
-                </View>
+                <RadioForm
+                    formHorizontal={true}
+                    radio_props={radio_props}
+                    animation={false}
+                    selectedButtonColor="#5BC2C1"
+                    buttonColor="#5BC2C1"
+                    buttonSize={12}
+                    buttonOuterSize={25}
+                    initial={0}
+                    onPress={(value) => { this.setState({ is_veg: value }) }}
+                    labelStyle={{ fontSize: RFValue(12, 580), marginRight: 30, fontWeight: 'bold' }}
+                    style={{ marginTop: 20, alignSelf: "center" }}
+                />
 
-                <View>
+            
+                {/* tax */}
+                {
+                    this.context.user.gstin != null ?
+                        <View>
+                            <Text style={style.fieldsTitle}>
+                                G.S.T. (in percentage)
+                            </Text>
+                            <TextInput
+                                keyboardType="numeric"
+                                returnKeyType='done'
+                                value={this.state.tax}
+                                onChangeText={(e) => { this.setState({ tax: e }) }}
+                                style={[style.textInput, { paddingLeft: 30 }]} />
+
+                        </View>
+                        :
+                        <></>
+                }
+
+<View>
                     <View style={{ flexDirection: "row", width: "100%" }}>
 
 
@@ -510,17 +535,17 @@ const style = StyleSheet.create({
         fontFamily: "Raleway-Medium"
     },
     serviceImg: {
-        height: 80,
-        width: 80,
+        height: 90,
+        width: 90,
         marginLeft: 20,
-        borderRadius: 5
+        borderRadius: 10
     },
     uploadButton: {
         // backgroundColor:"#5BC2C1",
         borderColor: "#5BC2C1",
         paddingTop: 2,
         borderWidth: 1,
-        width: 120,
+        width: 90,
         height: 30,
         justifyContent: "center",
         padding: 5,

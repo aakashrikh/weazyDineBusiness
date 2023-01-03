@@ -585,14 +585,14 @@ class Card extends Component {
                     {/* View for Price and offer */}
                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignSelf: "flex-end", marginTop: 8 }}>
                         <View style={{ flexDirection: "row" }}>
-                            <Text style={[styles.p, {
+                            {/* <Text style={[styles.p, {
                                 fontFamily: "Roboto-Regular", color: "grey", textDecorationLine: 'line-through',
                                 textDecorationStyle: 'solid'
                             }]}>
                                 {item.market_price}/-
-                            </Text>
+                            </Text> */}
                             <Text style={[styles.p, { marginLeft: 10, fontFamily: "Roboto-Bold" }]}>
-                                {item.our_price}/-
+                            ₹ {item.our_price}/-
                             </Text>
                         </View>
                     </View>
