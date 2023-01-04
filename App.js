@@ -122,12 +122,12 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
 // global.vendor_api = "https://beta-dine-api.weazy.in/api/";

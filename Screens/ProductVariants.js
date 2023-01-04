@@ -24,7 +24,9 @@ const order_cancel = [{ "id": "1", "name": "Low Driver Rating" }, { "id": "2", "
 
 const variant = []
 
-const addonsCount = ["No free add-ons","Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+const addonsCount = ["Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+
+const freeAddonsCount = ["No free add-ons", "Unlimited", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 class ProductVariants extends Component {
   static contextType = AuthContext;
   constructor(props) {
@@ -39,6 +41,7 @@ class ProductVariants extends Component {
       variants_price: '',
       variants_discounted_price: '',
       add_count: 0,
+      free_count: 0,
     }
   }
 
@@ -93,7 +96,8 @@ class ProductVariants extends Component {
         variants: this.state.v_data,
         addons: add,
         product_id: this.props.route.params.product_id,
-        max_product_addon: this.state.add_count
+        max_product_addon: this.state.add_count,
+        max_free_product_addon: this.state.free_count,
       })
     }).then((response) => response.json())
       .then((json) => {
@@ -442,41 +446,76 @@ class ProductVariants extends Component {
 
           </View>
 
-          <View>
-            <SelectDropdown
-              data={addonsCount}
-              onSelect={(selectedCount, index) => {
-                if(selectedCount == "Unlimited"){
-                  this.setState({ add_count: -1 })
-                }
-                else if(selectedCount == "No free add-ons"){
-                  this.setState({ add_count: 0 })
-                }
-                else{
-                  this.setState({ add_count: selectedCount })
-                }
+            
+              <View>
+                <SelectDropdown
+                  data={addonsCount}
+                  onSelect={(selectedCount, index) => {
+                    if (selectedCount == "Unlimited") {
+                      this.setState({ add_count: -1 })
+                    }
+                    else {
+                      this.setState({ add_count: selectedCount })
+                    }
 
-              }}
-              buttonTextAfterSelection={(selectedCount, index) => {
-                return selectedCount
-              }}
-              rowTextForSelection={(item, index) => {
-                return item
-              }}
-              renderDropdownIcon={() => {
-                return (
-                  <Icon
-                    name='chevron-down' type='ionicon' color='#000' size={20} />
-                )
-              }}
-              defaultButtonText="Select Free Add-Ons Count"
-              dropdownIconPosition="right"
-              buttonTextStyle={{
-                fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
-              }}
-              buttonStyle={style.buttonStyle}
-            />
-          </View>
+                  }}
+                  buttonTextAfterSelection={(selectedCount, index) => {
+                    return selectedCount
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item
+                  }}
+                  renderDropdownIcon={() => {
+                    return (
+                      <Icon
+                        name='chevron-down' type='ionicon' color='#000' size={20} />
+                    )
+                  }}
+                  defaultButtonText="Select Max Add-Ons Count"
+                  dropdownIconPosition="right"
+                  buttonTextStyle={{
+                    fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
+                  }}
+                  buttonStyle={style.buttonStyle}
+                />
+              </View>
+
+              <View>
+                <SelectDropdown
+                  data={freeAddonsCount}
+                  onSelect={(selectedCount, index) => {
+                    if (selectedCount == "Unlimited") {
+                      this.setState({ free_count: -1 })
+                    }
+                    else if (selectedCount == "No free add-ons") {
+                      this.setState({ free_count: 0 })
+                    }
+                    else {
+                      this.setState({ free_count: selectedCount })
+                    }
+
+                  }}
+                  buttonTextAfterSelection={(selectedCount, index) => {
+                    return selectedCount
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item
+                  }}
+                  renderDropdownIcon={() => {
+                    return (
+                      <Icon
+                        name='chevron-down' type='ionicon' color='#000' size={20} />
+                    )
+                  }}
+                  defaultButtonText="Select Free Add-Ons Count"
+                  dropdownIconPosition="right"
+                  buttonTextStyle={{
+                    fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
+                  }}
+                  buttonStyle={style.buttonStyle}
+                />
+              </View>
+
 
           <RBSheet
             ref={ref => {

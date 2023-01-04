@@ -37,7 +37,8 @@ class Home extends Component {
       gstin: "",
       image_loade: true,
       status: true,
-      // subscription:true
+      // subscription:true,
+      remove_last_slash_and_word: "",
     };
 
 
@@ -52,10 +53,23 @@ class Home extends Component {
     this.get_profile();
     this.get_cover();
     this.checkBankDetails();
+    var remove_last_slash_and_word = global.vendor_api
+      .split('/')
+      .slice(0, -2)
+      .join('/')
+      .concat('/');
+    this.setState({ remove_last_slash_and_word: remove_last_slash_and_word });
+    console.warn(remove_last_slash_and_word)
     this.focusListener = this.props.navigation.addListener('focus', () => {
       this.get_profile();
       this.get_cover();
       this.checkBankDetails();
+      var remove_last_slash_and_word = global.vendor_api
+        .split('/')
+        .slice(0, -2)
+        .join('/')
+        .concat('/');
+      this.setState({ remove_last_slash_and_word: remove_last_slash_and_word });
     })
 
 
@@ -189,8 +203,13 @@ class Home extends Component {
   //for right component
   renderRightComponent() {
     return (
-      <View style={{ padding: 5, right: 5, marginTop: 5 }}>
-        <TouchableOpacity style={{ backgroundColor: "#ececec", height: 30, width: 30, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+      <View style={{ padding: 5, right: 5, marginTop: 5, flexDirection: "row" }}>
+        <TouchableOpacity 
+        onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
+        style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}>
+          <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
+        </TouchableOpacity>
+        <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
           onPress={() => this.props.navigation.navigate("Notification")}>
           <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
         </TouchableOpacity>
