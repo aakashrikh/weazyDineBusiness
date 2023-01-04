@@ -26,10 +26,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>weazydine</string>
+			<string>http://pos.myweazy.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>weazydine</string>
+				<string>http://pos.myweazy.com</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>https://pos.myweazy.com</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>https://pos.myweazy.com</string>
 			</array>
 		</dict>
 	</array>

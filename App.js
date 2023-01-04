@@ -122,12 +122,12 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+ global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
 // global.vendor_api = "https://beta-dine-api.weazy.in/api/";
@@ -229,7 +229,7 @@ class App extends Component {
       netconnected: true,
       user: [],
       token: '',
-      role:[]
+      role:[{role:'owner',name:'admin'}]
     }
   }
 
@@ -248,7 +248,7 @@ class App extends Component {
     // }).catch(err => console.error('An error occurred', err));
 
     AsyncStorage.getItem('@auth_login', (err, result) => {
-      0
+      
       if (JSON.parse(result) != null) {
 
         // global.token = JSON.parse(result).token;
@@ -276,7 +276,6 @@ class App extends Component {
   };
 
   login = (step, user, role, token) => {
-    console.log("hhh",role)
     this.setState({ islogin: true, step: step, user: user, role:role, token: token });
     SplashScreen.hide();
 
@@ -287,8 +286,8 @@ class App extends Component {
     console.log(Pusher);
     window.Echo = new Echo({
       broadcaster: 'pusher',
-      // key: '714d1999a24b68c8bf87', // for production
-      key: 'b8ba8023ac2fc3612e90', //for testing
+      key: '714d1999a24b68c8bf87', // for production
+      // key: 'b8ba8023ac2fc3612e90', //for testing
       cluster: 'ap2',
       forceTLS: true,
       disableStats: true,
@@ -304,7 +303,7 @@ class App extends Component {
 
   logout = () => {
     this.setState({ islogin: false, token: '', user: [] });
-    SplashScreen.hide();
+   SplashScreen.hide();
   }
 
   get_profile = (token) => {
@@ -382,9 +381,9 @@ class App extends Component {
       return (<NoInternet />)
     }
     else {
+  
       return (
         <>
-
           <AuthContext.Provider value={{ login: this.login, logout: this.logout, user: this.state.user, token: this.state.token, getProfile: this.get_profile }}>
             <NavigationContainer linking={linking}>
               <Stacks.Navigator screenOptions={{ headerShown: false }} >
