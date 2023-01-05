@@ -46,7 +46,7 @@ class Orders extends Component {
         this.get_vendor_product(0, 1);
         this.focusListener = this.props.navigation.addListener('focus', () => {
 
-            this.get_vendor_product('', 1);
+            this.get_vendor_product("", 1);
             
         })
 
@@ -60,6 +60,7 @@ class Orders extends Component {
             var page = this.state.page + 1
             this.setState({ page: page })
             this.setState({ load_data: true });
+            console.warn(page)
             this.get_vendor_product(this.state.active_cat, page)
         }
     }

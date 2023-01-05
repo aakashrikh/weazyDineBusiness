@@ -219,3 +219,16 @@
                     </View>
                 }
             </View>
+
+
+
+load_more = () => {
+    var data_size = this.state.data.length
+    if (data_size > 9) {
+
+      var page = this.state.page + 1
+      this.setState({ page: page })
+      this.setState({ load_data: true });
+      this.get_vendor_product(this.state.active_cat, page)
+    }
+  }
