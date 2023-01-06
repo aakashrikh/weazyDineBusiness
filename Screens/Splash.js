@@ -35,7 +35,7 @@ class Splash extends Component{
             <View style={{flex:1,}}>
                
                    <View>
-                    <Image source={require('../img/logo/logo.png')} style={style.logo}/>
+                    <Image source={require('../img/logo/wd.png')} style={style.logo}/>
                     
                     </View>
                     <View style={{flexDirection:"column",position:"absolute",alignSelf:"center",bottom:30,}}>
@@ -44,7 +44,7 @@ class Splash extends Component{
                         
                         <View>
                         
-                        <Text style={style.text}>Made With <Image source={require('../img/heart.png')} style={style.image}/>
+                        <Text style={style.text}>Made With 
                          <Text> in India.</Text></Text>
                         </View>
                        
@@ -59,8 +59,8 @@ export default Splash;
 
 const style=StyleSheet.create({
     logo:{
-       height:180,
-       width:330,
+       height:150,
+       width:200,
        alignSelf:"center",
        marginRight:35,
        top:250

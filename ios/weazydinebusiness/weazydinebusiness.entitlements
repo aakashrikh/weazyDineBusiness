@@ -4,6 +4,10 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:pos.myweazy.com</string>
+	</array>
 	<key>com.apple.developer.user-fonts</key>
 	<array>
 		<string>app-usage</string>

@@ -73,7 +73,7 @@ class MobileLogin extends Component
         
         <View style ={styles.container}>
            <ScrollView>
-            <View style={{flex:1,marginTop:30}}>
+            <View style={{flex:1,marginTop:50}}>
 
             <Image source={require("../img/logo/mp.png")} 
             style={{height:40,width:40,alignSelf:"flex-start",margin:5,marginLeft:20}}/>

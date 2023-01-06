@@ -85,6 +85,7 @@ import StaffAccount from './Screens/StaffAccount';
 import AddStaffAccount from './Screens/AddStaffAccount';
 import EditStaffAccount from './Screens/EditStaffAccount';
 import AccessDenied from './Screens/AccessDenied';
+import Splash from './Screens/Splash';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -122,12 +123,12 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+ global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
 // global.vendor_api = "https://beta-dine-api.weazy.in/api/";
@@ -277,6 +278,7 @@ class App extends Component {
 
   login = (step, user, role, token) => {
     this.setState({ islogin: true, step: step, user: user, role:role, token: token });
+    this.setState({ isloading: false });
     SplashScreen.hide();
 
     OneSignal.sendTag("id", '' + user.id);
@@ -303,6 +305,7 @@ class App extends Component {
 
   logout = () => {
     this.setState({ islogin: false, token: '', user: [] });
+    this.setState({ isloading: false });
    SplashScreen.hide();
   }
 
@@ -377,10 +380,14 @@ class App extends Component {
   }
 
   render() {
-    if (!this.state.netconnected) {
-      return (<NoInternet />)
+    if(this.state.isloading){
+        return (<Splash/>)
     }
-    else {
+    else{
+      if (!this.state.netconnected) {
+        return (<NoInternet />)
+      }
+      else {
   
       return (
         <>
@@ -486,6 +493,7 @@ class App extends Component {
       );
 
     }
+  }
 
   }
 }

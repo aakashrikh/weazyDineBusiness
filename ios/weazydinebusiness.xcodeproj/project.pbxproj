@@ -32,6 +32,7 @@
 		E910442428C5014C0059A3E6 /* Roboto-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E910442328C5014C0059A3E6 /* Roboto-SemiBold.ttf */; };
 		E945751828C5375C009C4C0F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FAF1A68108700A75B9A /* AppDelegate.m */; };
 		E945751928C53764009C4C0F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		E97CF1742967707600F8CF40 /* weazydinebusiness.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 076FCC5B2842430400C94292 /* weazydinebusiness.entitlements */; };
 		E9986EA1290ED21100A34C24 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FE746BD6EF993438B5BDD32F /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5328F3B6666262CCB0765276 /* libPods-OneSignalNotificationServiceExtension.a */; };
 /* End PBXBuildFile section */
@@ -538,6 +539,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97CF1742967707600F8CF40 /* weazydinebusiness.entitlements in Resources */,
 				079C0D5928E825BB0090AFE3 /* Poppins-Bold.ttf in Resources */,
 				079C0D5828E81B4C0090AFE3 /* Poppins-SemiBold.ttf in Resources */,
 				079C0D5728E81B020090AFE3 /* Poppins-Medium.ttf in Resources */,
@@ -916,7 +918,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -928,7 +930,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -951,7 +953,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
 				INFOPLIST_FILE = weazydinebusiness/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Weazy DIne";
@@ -961,7 +963,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
