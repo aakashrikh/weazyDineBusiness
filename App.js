@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Linking, Platform, StatusBar, SafeAreaView
+  Image, Linking, Platform, StatusBar, SafeAreaView,PermissionsAndroid
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -87,6 +87,7 @@ import EditStaffAccount from './Screens/EditStaffAccount';
 import AccessDenied from './Screens/AccessDenied';
 import Splash from './Screens/Splash';
 
+import Permissions from 'react-native-permissions';
 LogBox.ignoreLogs(['Setting a timer']);
 
 //OneSignal Init Code
@@ -123,12 +124,12 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
 // global.vendor_api = "https://beta-dine-api.weazy.in/api/";
@@ -234,7 +235,24 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () =>  {
+
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    );
+
+
+  //   requestNotifications().then(({status, settings}) => {
+  //  console.warn(settings);
+  //   });
+    // checkNotifications().then(({status, settings}) => {
+    //  alert(status);
+    // });
+
+
+    // const granted = await PermissionsAndroid.request(
+    //   PermissionsAndroid.PERMISSIONS.NOTIFICATIONS,
+    // );
 
     NetInfo.addEventListener(state => {
       this.handleConnectivityChange(state.isConnected);

@@ -1,6 +1,8 @@
 package com.weazydinebusiness;
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import com.onesignal.OneSignal;
+
 import org.devio.rn.splashscreen.SplashScreen;
 //import org.cboy.rn.splashscreen.SplashScreen;
 
@@ -14,9 +16,7 @@ public class MainActivity extends ReactActivity {
       SplashScreen.show(this);  // here
    // }
 
-
-
-
+//    OneSignal.promptForPushNotifications();
     super.onCreate(savedInstanceState);
   }
   /**

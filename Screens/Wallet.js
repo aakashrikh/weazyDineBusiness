@@ -78,7 +78,7 @@ class Wallet extends Component {
                     // {
                     //   this.setState({data:[] , isLoading:false})
                     // }
-                    this.setState({ data: this.state.data.concat(obj) });
+                    this.setState({ data: [...this.state.data, ...obj] });
                     this.setState({ wallet: json.wallet });
                     // this.props.navigation.navigate("More")
 
