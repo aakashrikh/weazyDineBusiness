@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Linking, Platform, StatusBar, SafeAreaView,PermissionsAndroid
+  Image, Linking, Platform, PermissionsAndroid,Text
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -10,7 +10,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import linking from './Components/Linking';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from "@react-native-community/netinfo";
-//Import screens 
+import OneSignal from 'react-native-onesignal';
+
 import MobileLogin from './Screens/MobileLogin';
 import OtpVerify from './Screens/OtpVerify';
 import CreateShopProfile from './Screens/CreateShopProfile';
@@ -21,6 +22,7 @@ import TopTab from './Components/TopTab';
 import More from './Screens/More';
 import Profile from './Screens/Profile';
 import PrivacyPolicy from './Screens/PrivacyPolicy';
+
 import ContactUs from './Screens/ContactUs';
 import AboutUs from './Screens/AboutUs';
 import Answers from './Screens/Answers';
@@ -28,6 +30,8 @@ import CreateOffers from './Screens/CreateOffers';
 import CreatePackages from './Screens/CreatePackages';
 import CreateService from './Screens/CreateService';
 import AddCategory from './Screens/AddCategory';
+
+
 import Comments from './Screens/Comments';
 import MultipleImage from './Screens/MultipleImage';
 import EditOffer from './Screens/EditOffer';
@@ -36,12 +40,14 @@ import EditService from './Screens/EditService';
 import AddPackageCategory from './Screens/AddPackageCategory';
 import NewPost from './Components/NewPost';
 import ChangeLocation from './Screens/ChangeLocation';
-import OneSignal from 'react-native-onesignal';
+
 import EditComment from './Screens/EditComment';
 import OfferProduct from './Screens/OfferProduct';
 import CategoryChange from './Screens/CategoryChange';
 import SingleFeed from './Screens/SingleFeed';
 import Notifications from './Screens/Notifications';
+
+
 import Answer1 from './Screens/Answer1';
 import Answer2 from './Screens/Answer2';
 import Answer3 from './Screens/Answer3';
@@ -52,7 +58,7 @@ import ChangeSubCategory from './Screens/ChangeSubCategory';
 import ShopTiming from './Screens/ShopTiming';
 import { AuthContext } from './AuthContextProvider';
 import ChangeShopTime from './Screens/ChangeShopTime';
-import SplashScreen from 'react-native-splash-screen';
+
 import NoInternet from './Screens/NoInternet';
 import VendorReviews from './Screens/VendorReviews';
 import EditCategory from './Screens/EditCategory';
@@ -75,7 +81,7 @@ import PaymentSuccessful from './Screens/PaymentSuccessful';
 import PaymentFailed from './Screens/PaymentFailed';
 import Orders from './Screens/Orders';
 import OrderDetails from './Screens/OrderDetails';
-import { LogBox } from 'react-native';
+
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import PasswordLogin from './Screens/PasswordLogin';
@@ -87,7 +93,9 @@ import EditStaffAccount from './Screens/EditStaffAccount';
 import AccessDenied from './Screens/AccessDenied';
 import Splash from './Screens/Splash';
 
+import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions';
+import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
 
 //OneSignal Init Code
@@ -140,6 +148,7 @@ global.login_data = true
 global.msg = "Welcome"
 
 global.shareLink = "https://myweazy.com";
+
 
 
 class TabNav extends Component {
@@ -235,24 +244,11 @@ class App extends Component {
     }
   }
 
-  componentDidMount = async () =>  {
+  componentDidMount = async()=> {
 
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATION,
     );
-
-
-  //   requestNotifications().then(({status, settings}) => {
-  //  console.warn(settings);
-  //   });
-    // checkNotifications().then(({status, settings}) => {
-    //  alert(status);
-    // });
-
-
-    // const granted = await PermissionsAndroid.request(
-    //   PermissionsAndroid.PERMISSIONS.NOTIFICATIONS,
-    // );
 
     NetInfo.addEventListener(state => {
       this.handleConnectivityChange(state.isConnected);
@@ -517,3 +513,5 @@ class App extends Component {
 }
 
 export default codePush(App);
+
+//export default App;

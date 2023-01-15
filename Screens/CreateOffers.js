@@ -14,7 +14,6 @@ import moment  from 'moment';
 import Toast from 'react-native-simple-toast';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { ActivityIndicator } from 'react-native-paper';
-import MultiSelect from 'react-native-multiple-select';
 import { AuthContext } from '../AuthContextProvider.js';
 // import Categories from './Categories.js';
 

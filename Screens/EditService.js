@@ -6,8 +6,7 @@ import {
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
-import MultiSelect from 'react-native-multiple-select';
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";

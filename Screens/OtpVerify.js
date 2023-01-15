@@ -6,16 +6,13 @@ import {
   Image, ActivityIndicator, Keyboard
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LinearGradient from 'react-native-linear-gradient';
 import { Text } from 'react-native-elements';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import OneSignal from 'react-native-onesignal';
 import CountDown from 'react-native-countdown-component';
 import { AuthContext } from '../AuthContextProvider';
 import RNOtpVerify from 'react-native-otp-verify';
-import DeviceInfo from 'react-native-device-info';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
 
 //Global StyleSheet Import
@@ -37,12 +34,12 @@ class OtpVerify extends Component {
 
   componentDidMount() {
 
-    if (Platform.OS == "android") {
-      this.getHash();
-      RNOtpVerify.getOtp()
-        .then(p => RNOtpVerify.addListener(this.otpHandler))
-        .catch(p => console.log(p));
-    }
+    // if (Platform.OS == "android") {
+    //   this.getHash();
+    //   RNOtpVerify.getOtp()
+    //     .then(p => RNOtpVerify.addListener(this.otpHandler))
+    //     .catch(p => console.log(p));
+    // }
 
   }
 
@@ -58,7 +55,7 @@ class OtpVerify extends Component {
     if (message != undefined) {
       const otp = /(\d{4})/g.exec(message)[1];
       this.setState({ code: otp })
-      this.event_call(otp);
+      // this.event_call(otp);
       //   RNOtpVerify.removeListener();
       Keyboard.dismiss();
     }
