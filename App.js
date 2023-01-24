@@ -92,6 +92,7 @@ import AddStaffAccount from './Screens/AddStaffAccount';
 import EditStaffAccount from './Screens/EditStaffAccount';
 import AccessDenied from './Screens/AccessDenied';
 import Splash from './Screens/Splash';
+import Offers from './Screens/Offers';
 
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions';
@@ -132,8 +133,13 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
+<<<<<<< Updated upstream
 //  global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
+=======
+ global.vendor_api = "https://dine-api.weazy.in/api/";
+global.qr_link = "https://dine-api.weazy.in"
+>>>>>>> Stashed changes
 
 
 //for local 
@@ -263,7 +269,7 @@ class App extends Component {
     // }).catch(err => console.error('An error occurred', err));
 
     AsyncStorage.getItem('@auth_login', (err, result) => {
-      
+
       if (JSON.parse(result) != null) {
 
         // global.token = JSON.parse(result).token;
@@ -402,7 +408,7 @@ class App extends Component {
         return (<NoInternet />)
       }
       else {
-  
+
       return (
         <>
           <AuthContext.Provider value={{ login: this.login, logout: this.logout, user: this.state.user, token: this.state.token, getProfile: this.get_profile }}>
@@ -410,7 +416,7 @@ class App extends Component {
               <Stacks.Navigator screenOptions={{ headerShown: false }} >
                 {!this.state.islogin ? (
                   <>
-                  
+
                     <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
                     <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
                     {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
@@ -418,7 +424,7 @@ class App extends Component {
                   </>
                 )
                   :
-                  
+
                   (
                     (this.state.islogin && this.state.step == 'steps') ?
                       <>
@@ -437,7 +443,7 @@ class App extends Component {
                       :
                       // User is signed in  
                       <>
-                      
+
                         <Stacks.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
                         <Stacks.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
                         <Stacks.Screen name="ChangeSubCategory" component={ChangeSubCategory} options={{ headerShown: false }} />
@@ -494,6 +500,7 @@ class App extends Component {
                         <Stacks.Screen name="StaffAccount" component={StaffAccount} options={{ headerShown: false }} />
                         <Stacks.Screen name="AddStaffAccount" component={AddStaffAccount} options={{ headerShown: false }} />
                         <Stacks.Screen name="EditStaffAccount" component={EditStaffAccount} options={{ headerShown: false }} />
+                        <Stacks.Screen name="Offers" component={Offers} options={{ headerShown: false }} />
 
                       </>
                   )
@@ -514,4 +521,11 @@ class App extends Component {
 
 export default codePush(App);
 
+<<<<<<< Updated upstream
 //export default App;
+=======
+
+
+
+
+>>>>>>> Stashed changes

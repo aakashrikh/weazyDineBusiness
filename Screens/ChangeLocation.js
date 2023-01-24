@@ -173,9 +173,9 @@ class Map extends Component {
 
 
   fetch_location = (lati, longi) => {
-    console.warn(lati,longi)
     Geocoder.init(global.google_key);
     Geocoder.from(lati, longi).then(json => {
+      console.warn("aaa",json)
   
       this.setState({address:json.results[0].formatted_address })
       global.latitude=this.state.latitude,
@@ -211,8 +211,9 @@ class Map extends Component {
           {
              this.setState({ postal_code: values.long_name })
           }
-
+          
         });
+        console.warn("bb",data)
        
 
     }).catch(error => console.warn(error));

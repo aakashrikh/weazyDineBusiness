@@ -203,18 +203,8 @@ class Buttons extends Component {
           }
         }>
           <ScrollView>
-            <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>Accounts</Text>
 
-            {/* add cover images */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
-              <View style={style.questView}>
-                <View style={{ flexDirection: "row" }}>
-                  <Icon name="camera-outline" type='ionicon' size={25} color="#5BC2C1" />
-                  <Text style={style.texxt}>Add  Covers Pictures</Text>
-                </View>
-                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
-              </View>
-            </TouchableOpacity>
+            <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>Setup</Text>
 
             {/* taxes an setup */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate("OtherCharges")}>
@@ -222,17 +212,6 @@ class Buttons extends Component {
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="apps-outline" type='ionicon' size={25} color="#5BC2C1" />
                   <Text style={style.texxt}>Tax & Charges Setup</Text>
-                </View>
-                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
-              </View>
-            </TouchableOpacity>
-
-            {/* shop time */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
-              <View style={style.questView}>
-                <View style={{ flexDirection: "row" }}>
-                  <Icon name="time-outline" type='ionicon' size={25} color="#5BC2C1" />
-                  <Text style={style.texxt}>Update Store Timing</Text>
                 </View>
                 <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
               </View>
@@ -255,6 +234,42 @@ class Buttons extends Component {
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="people-outline" type='ionicon' size={25} color="#5BC2C1" />
                   <Text style={style.texxt}>Manage Staff Account</Text>
+                </View>
+                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
+              </View>
+            </TouchableOpacity>
+
+            {/* offers setup */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Offers")}>
+              <View style={style.questView}>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="people-outline" type='ionicon' size={25} color="#5BC2C1" />
+                  <Text style={style.texxt}>Offers Setup</Text>
+                </View>
+                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
+              </View>
+            </TouchableOpacity>
+
+            <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>Accounts</Text>
+
+            {/* add cover images */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("MultipleImage")}>
+              <View style={style.questView}>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="camera-outline" type='ionicon' size={25} color="#5BC2C1" />
+                  <Text style={style.texxt}>Add  Covers Pictures</Text>
+                </View>
+                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
+              </View>
+            </TouchableOpacity>
+
+
+            {/* shop time */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("ChangeShopTime")}>
+              <View style={style.questView}>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="time-outline" type='ionicon' size={25} color="#5BC2C1" />
+                  <Text style={style.texxt}>Update Store Timing</Text>
                 </View>
                 <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
               </View>
@@ -283,7 +298,6 @@ class Buttons extends Component {
                 <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
               </View>
             </TouchableOpacity>
-
 
             {/* privacy policy */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Terms & Conditions", url: "https://weazydine.com/termsandconditions.html" })}>
@@ -318,16 +332,6 @@ class Buttons extends Component {
               </View>
             </TouchableOpacity>
 
-            {/* Contact us */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactUs")}>
-              <View style={style.questView}>
-                <View style={{ flexDirection: "row" }}>
-                  <Icon name="headset-outline" type='ionicon' size={25} color="#5BC2C1" />
-                  <Text style={style.texxt}>Support</Text>
-                </View>
-                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
-              </View>
-            </TouchableOpacity>
 
             {/* Subscription */}
             {/* <TouchableOpacity onPress={
@@ -363,6 +367,19 @@ class Buttons extends Component {
                             style={{height:20,width:20,alignSelf:"center"}}/>                        
                         </View>
                     </TouchableOpacity> */}
+
+            <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>More</Text>
+
+            {/* Contact us */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("ContactUs")}>
+              <View style={style.questView}>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="headset-outline" type='ionicon' size={25} color="#5BC2C1" />
+                  <Text style={style.texxt}>Support</Text>
+                </View>
+                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
+              </View>
+            </TouchableOpacity>
 
             {/* logout */}
             <TouchableOpacity onPress={() => this.logOut()}>

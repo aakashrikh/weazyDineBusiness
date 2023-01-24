@@ -126,16 +126,20 @@ class OtherCharges extends Component {
             gstin = "";
             Toast.show("GSTIN is required!");
         }
-        else if (this.state.gst || this.state.gstper == "") {
+        else if (this.state.gst && this.state.gstper == "") {
             gst_percentage = 0;
-            // Toast.show("GST Percentage is required!");
+
+            Toast.show("GST Percentage is required!");
         }
-        else if (this.state.sc && this.state.scamount == "") {
-            Toast.show("Service Charge is required!");
-            service_charge = 0;
-        }
+        // else if (this.state.sc && this.state.scamount == "") {
+        //     Toast.show("Service Charge is required!");
+        //     alert(gstin)
+        //     service_charge = 0;
+        // }
         else if (!isValid) {
             Toast.show("GST format is not valid!");
+
+            alert(gstin)
         }
         else {
             this.setState({ table_load: true });
@@ -154,6 +158,7 @@ class OtherCharges extends Component {
                 })
             }).then((response) => response.json())
                 .then((json) => {
+                    console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

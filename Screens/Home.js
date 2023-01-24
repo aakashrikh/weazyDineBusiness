@@ -204,9 +204,9 @@ class Home extends Component {
   renderRightComponent() {
     return (
       <View style={{ padding: 5, right: 5, marginTop: 5, flexDirection: "row" }}>
-        <TouchableOpacity 
-        onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
-        style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}>
+        <TouchableOpacity
+          onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
+          style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}>
           <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
         </TouchableOpacity>
         <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
@@ -265,7 +265,7 @@ class Home extends Component {
                         width: 45,
                         height: 45,
                         marginTop: 2,
-                        marginLeft:10
+                        marginLeft: 10
                       }
                     } />
                 </View>
@@ -273,16 +273,16 @@ class Home extends Component {
                   <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
                   <Text>Welcome to WeazyDine</Text>
                 </View>
-                <TouchableOpacity 
-        onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
-        style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: -25, }}>
-          <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
-        </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
+                  style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: -25, }}>
+                  <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
+                </TouchableOpacity>
 
-        <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
-          onPress={() => this.props.navigation.navigate("Notification")}>
-          <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
-        </TouchableOpacity>
+                <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+                  onPress={() => this.props.navigation.navigate("Notification")}>
+                  <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
+                </TouchableOpacity>
               </View>
 
 

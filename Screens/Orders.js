@@ -41,6 +41,7 @@ class Orders extends Component {
             // prod_id:''
         }
     }
+    
     componentDidMount = () => {
 
         this.get_vendor_product(0, 1);

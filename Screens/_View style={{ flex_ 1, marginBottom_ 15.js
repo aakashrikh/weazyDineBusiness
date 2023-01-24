@@ -232,3 +232,93 @@ load_more = () => {
       this.get_vendor_product(this.state.active_cat, page)
     }
   }
+
+
+
+
+
+
+
+  {this.state.discount_type === 'fixed' ? (
+    this.state.discount === '' ? (
+      <></>
+    ) : (
+      <p>
+        Flat ₹{this.state.discount} off on all orders
+        {this.state.minimum_order_value === '' ? (
+          <></>
+        ) : (
+          <span>
+            {' '}
+            above ₹{this.state.minimum_order_value}
+          </span>
+        )}
+      </p>
+    )
+  ) : this.state.discount === '' ? (
+    <></>
+  ) : (
+    <p>
+      {this.state.discount}% off on all orders
+      {this.state.minimum_order_value === '' ? (
+        <></>
+      ) : (
+        <span>
+          {' '}
+          above ₹{this.state.minimum_order_value}
+        </span>
+      )}
+      {this.state.maximum_discount === '' ? (
+        <></>
+      ) : (
+        <span>
+          {' '}
+          upto ₹{this.state.maximum_discount}
+        </span>
+      )}
+    </p>
+  )}
+
+
+
+
+
+  {this.state.status ? (
+    this.state.discount === '' ? (
+      <></>
+    ) : (
+      <Text>
+        Flat ₹{this.state.discount} off on all orders
+        {this.state.minimum_order_value === '' ? (
+          <></>
+        ) : (
+          <Text>
+            {' '}
+            above ₹{this.state.minimum_order_value}
+          </Text>
+        )}
+      </Text>
+    )
+  ) : this.state.discount === '' ? (
+    <></>
+  ) : (
+    <Text>
+      {this.state.discount}% off on all orders
+      {this.state.minimum_order_value === '' ? (
+        <></>
+      ) : (
+        <Text>
+          {' '}
+          above ₹{this.state.minimum_order_value}
+        </Text>
+      )}
+      {this.state.maximum_discount === '' ? (
+        <></>
+      ) : (
+        <Text>
+          {' '}
+          upto ₹{this.state.maximum_discount}
+        </Text>
+      )}
+    </Text>
+  )}

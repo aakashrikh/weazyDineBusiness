@@ -36,15 +36,30 @@ class Offers extends Component {
             latitude: 1,
             longitude: 1,
             load_more: false,
-            page: 1
+            page: 1,
+            total_sales_generated: 0,
+            total_uses: 0,
+
         }
     }
 
+    //for header left component
     renderLeftComponent() {
         return (
-            <View style={{ width: win.width }} >
-                <Text style={[styles.h3]}>Offers</Text>
+            <View style={{ top: 5 }}>
+                <Icon type="ionicon" name="arrow-back-outline"
+                    onPress={() => { this.props.navigation.goBack() }} />
             </View>
+        )
+    }
+
+    //for header center component
+    renderCenterComponent() {
+        return (
+            <View>
+                <Text style={[style.text, { fontFamily: "Raleway-SemiBold" }]}>Offers</Text>
+            </View>
+
         )
     }
 
@@ -61,13 +76,12 @@ class Offers extends Component {
         if (data_size > 9) {
             var page = this.state.page + 1
             this.setState({ page: page })
-            this.get_vendor_offer1()
         }
     }
 
     // Fetching offers
     get_vendor_offer = () => {
-        fetch(global.vendor_api + 'get_vendor_offers_vendor', {
+        fetch(global.vendor_api + 'fetch_offers', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -75,14 +89,15 @@ class Offers extends Component {
                 'Authorization': this.context.token
             },
             body: JSON.stringify({
-                page: 0
             })
         }).then((response) => response.json())
             .then((json) => {
                 if (!json.status) {
+
                 }
                 else {
                     if (json.data.length >= 0) {
+                        this.setState({ data: json.data })
                         json.data.map((value, key) => {
                             const object = this.state.object;
 
@@ -95,7 +110,7 @@ class Offers extends Component {
 
                             this.setState({ object });
                         })
-                        this.setState({ data: json.data })
+
                     }
                 }
                 return json;
@@ -106,53 +121,7 @@ class Offers extends Component {
             });
     }
 
-    get_vendor_offer1 = () => {
-        var page = this.state.page + 1;
-        this.setState({ page: page, load_more: true });
-        fetch(global.vendor_api + 'get_vendor_offers_vendor', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': this.context.token
-            },
-            body: JSON.stringify({
-                page: page
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                if (!json.status) {
-                }
-                else {
-                    if (json.data.length > 0) {
-                        json.data.map((value, key) => {
-                            const object = this.state.object;
-
-                            if (value.status == 'active') {
-                                object[value.id] = true;
-                            }
-                            else {
-                                object[value.id] = false;
-                            }
-
-                            this.setState({ object });
-                        })
-                        var obj = json.data;
-                        var joined = this.state.data.concat(obj);
-                        this.setState({ data: joined })
-                    }
-                }
-                return json;
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false, load_more: false })
-            });
-    }
-
-    // Function to active/Inactive Offers
     toggle = (id) => {
-        // alert(id)
         const object = this.state.object;
         if (object[id] == true) {
             object[id] = false;
@@ -163,35 +132,39 @@ class Offers extends Component {
             var status = "active"
         }
         this.setState({ object });
-        fetch(global.vendor_api + 'update_status_product_offer', {
+        fetch(global.vendor_api + 'update_offer_status', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': this.context.token
+                Accept: 'application/json',
+                Authorization: this.context.token,
             },
             body: JSON.stringify({
-                action_id: id,
-                type: 'offer',
-                status: status
-            })
-        }).then((response) => response.json())
+                status: status,
+                id: id,
+            }),
+        })
+            .then((response) => response.json())
             .then((json) => {
-                if (!json.status) {
-
+                if (json.status == true) {
+                    Toast.show('Offer status updated successfully');
+                    this.get_vendor_offer();
+                } else {
+                    Toast.show('Something went wrong');
                 }
-
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-                this.get_vendor_offer();
+            })
+            .catch((error) => {
+                Toast.show(error.message);
+            })
+            .finally(() => {
+                this.setState({ isloading: false });
             });
+    };
 
-    }
 
     // Alert to delete 
-    alertFunc = () => {
+    alertFunc = (id) => {
+
         Alert.alert(
             "",
             "Are you sure you want to delete this Offer?",
@@ -201,92 +174,47 @@ class Offers extends Component {
                     onPress: () => console.log("Cancel Pressed"),
                     style: "cancel"
                 },
-                { text: "OK", onPress: () => this.delete_product() }
+                { text: "OK", onPress: () => this.delete_offer(id) }
             ]
         )
-        this.RBSheet.close()
     }
-    
+
     //   Delete product function
-    delete_product = () => {
-        //   alert(this.state.prod_id)
-        fetch(global.vendor_api + 'update_status_product_offer', {
+    delete_offer = (id) => {
+        fetch(global.vendor_api + 'delete_offer', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': this.context.token
+                Accept: 'application/json',
+                'Authorization': this.context.token,
             },
             body: JSON.stringify({
-                action_id: this.state.prod_id,
-                type: 'offer',
-                status: "delete"
-            })
-        }).then((response) => response.json())
+                offer_id: id,
+            }),
+        })
+            .then((response) => response.json())
             .then((json) => {
-                if (!json.status) {
+                if (json.status) {
+                    this.get_vendor_offer();
+                    Toast.show("Offer deleted successfully")
                 }
                 else {
-                    Toast.show("Offer deleted")
-                    this.get_vendor_offer()
+                    Toast.show("Something went wrong")
                 }
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-    }
-
-    //   Edit offer function
-    editNavigation = () => {
-        this.props.navigation.navigate("EditOffer",
-            {
-                data: this.state.id,
-                // category:this.props.category
             })
-        this.RBSheet.close()
-    }
-
-    myShare = async (title, content, url) => {
-        const shareOptions = {
-            title: title,
-            message: title + content,
-            url: url,
-        }
-        try {
-            const ShareResponse = await Share.open(shareOptions);
-            const { isInstalled } = await Share.isPackageInstalled(
-                "com.weazydinebusiness"
-            );
-
-            if (isInstalled) {
-                await Share.myShare(shareOptions);
-            } else {
-                Alert.alert(
-                    "Whatsapp not installed",
-                    "Whatsapp not installed, please install.",
-                    [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-                );
-            }
-
-        } catch (error) {
-            console.log("Error=>", error)
-        }
-    }
-
-    // Function to open Bottom sheet 
-    sheet = (id) => {
-        this.setState({ id: id })
-        this.RBSheet.open();
-        this.setState({ prod_id: id.id })
-    }
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+            });
+    };
 
     //   Particular offer card for flatlist
     offerCard = ({ item }) => (
         <View>
-            <Pressable onPress={() => this.props.navigation.navigate("OfferProduct", { offer: item })} >
+            <Pressable >
                 <View style={{ flexDirection: "row", width: "100%", marginTop: 5 }}>
-               
+
 
 
                     {/* View for Content */}
@@ -298,23 +226,15 @@ class Offers extends Component {
                             <View style={{ width: 250, marginLeft: 10 }} >
                                 {/* type heading */}
                                 <Text numberOfLines={1} style={[styles.small, {
-                                    top: 10, fontSize: RFValue(10.66, 580),
+                                    top: 10, fontSize: RFValue(10, 580),
                                     marginLeft: 0, color: "#000",
-                                    marginLeft: 5, fontFamily: "Raleway-Bold"
+                                    marginLeft: 5, fontFamily: "Montserrat-Bold"
                                 }]}>
-                                    {item.offer_name}</Text>
+                                    {item.offer_code}</Text>
 
-                                {/* description */}
-                                <Text numberOfLines={3} style={[styles.small, {
-                                    top: 10, fontSize: RFValue(9, 580),
-                                    marginLeft: 5
-                                }]}>
-                                    {item.offer_description}</Text>
-
-                                <Text style={[styles.smallHeading, { top: 10, marginLeft: 5 }]}>
-                                    Expires on : {item.start_to}
-
-                                </Text>
+                                <Text style={[styles.small, {
+                                    marginLeft: 5, marginTop: 10, fontFamily: "Montserrat-Regular"
+                                }]}>{item.offer_name}</Text>
 
                             </View>
 
@@ -322,90 +242,45 @@ class Offers extends Component {
                             <View style={{ margin: 5, marginTop: 10, flexDirection: "row" }}>
                                 <View style={{ marginRight: 10 }} >
                                     <Switch
-                                        trackColor={{ false: "#d3d3d3", true: "#EDA332" }}
+                                        trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
                                         thumbColor={this.state.isOn[item.id] ? "white" : "white"}
-                                        value={this.state.object[item.id]}
+                                        value={this.state.object[item.id] ? true : false}
                                         onValueChange={() => this.toggle(item.id)}
                                     />
                                 </View>
 
                                 <Text style={{ marginRight: 10 }}>
-                                    <Icon type="ionicon" name="ellipsis-vertical" onPress={() => this.sheet(item)} size={22} />
+                                    <Icon type="ionicon" name="trash-outline" onPress={() => this.alertFunc(item.id)} size={22}
+                                        color="red" />
                                 </Text>
                             </View>
 
+                            
+
                         </View>
-                        <View style={{ flexDirection: "row", alignSelf: "flex-end", justifyContent: "space-evenly" }}>
-                            <Text style={{
-                                fontFamily: "Montserrat-Bold",
-                                fontSize: RFValue(11, 580), position: "absolute", right: 40, bottom: 0
-                            }}>
-                                {item.offer}% Off</Text>
-
-                            {/* <View style={{ right: 10 }}>
-                                <Icon name="share-social-outline"
-                                    onPress={() => this.myShare("Checkout this offer |\n", item.offer_name + "- ", "\n" + global.shareLink + '/offerView/' + item.id)}
-                                    type="ionicon" size={20} />
-                            </View> */}
-                        </View>
-
-                        {/* Bottom Sheet for edit or delete options */}
-
-                        <RBSheet
-                            ref={ref => { this.RBSheet = ref; }}
-                            closeOnDragDown={true}
-                            closeOnPressMask={true}
-                            height={170}
-                            customStyles={{
-                                container: {
-                                    borderTopRightRadius: 20,
-                                    borderTopLeftRadius: 20,
-                                },
-                                draggableIcon: {
-                                    backgroundColor: ""
-                                }
-                            }}
-                        >
-                            {/* bottom sheet elements */}
-                            <View >
-                                {/* new container search view */}
-                                <View>
-                                    {/* to share */}
-                                    <View style={{ flexDirection: "row", padding: 10 }}>
-                                        <TouchableOpacity style={{ flexDirection: "row" }}
-                                            onPress={() => this.editNavigation()}>
-                                            <View style={{
-                                                backgroundColor: "#f5f5f5",
-                                                height: 40, width: 40, alignItems: "center", justifyContent: "center", borderRadius: 50
-                                            }}>
-                                                <Icon type="ionicon" name="create-outline" />
-                                            </View>
-                                            <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}>
-                                                Edit</Text>
-                                        </TouchableOpacity>
+                        <View style={{justifyContent:"space-between", flexDirection:"row", paddingHorizontal:10}}>
+                                    <View>
+                                    <Text style={[styles.small, {
+                                        top: 10, fontSize: RFValue(10, 580),
+                                        marginLeft: 0, color: "#000",
+                                        marginLeft: 5, fontFamily: "Montserrat-Bold"
+                                    }]}>Time Used</Text>
+                                    <Text style={[styles.small, {
+                                    alignSelf:"center", marginTop: 10, fontFamily: "Montserrat-SemiBold"}]}>{this.state.total_uses}</Text>
                                     </View>
 
-
-
-                                    {/* to report */}
-                                    <View style={{ flexDirection: "row", padding: 10 }}>
-
-
-                                        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.alertFunc()
-                                        }>
-                                            <View style={{
-                                                backgroundColor: "#f5f5f5",
-                                                height: 40, width: 40, justifyContent: "center", borderRadius: 50
-                                            }} >
-                                                <Icon type="ionicon" name="trash-bin" />
-                                            </View>
-                                            <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}
-                                            >Delete</Text>
-                                        </TouchableOpacity>
+                                    <View>
+                                    <Text style={[styles.small, {
+                                        top: 10, fontSize: RFValue(10, 580),
+                                        marginLeft: 0, color: "#000",
+                                        marginLeft: 5, fontFamily: "Montserrat-Bold"
+                                    }]}>Total Sales Generated</Text>
+                                    <Text style={[styles.small, {
+                                    alignSelf:"center", marginTop: 10, fontFamily: "Montserrat-SemiBold"}]}>
+                                        ₹ {this.state.total_sales_generated}</Text>
                                     </View>
+                                    
                                 </View>
-                            </View>
-                        </RBSheet>
                     </View>
 
                 </View>
@@ -420,6 +295,7 @@ class Offers extends Component {
                     <Header
                         statusBarProps={{ barStyle: 'dark-content' }}
                         leftComponent={this.renderLeftComponent()}
+                        centerComponent={this.renderCenterComponent()}
                         ViewComponent={LinearGradient} // Don't forget this!
                         linearGradientProps={{
                             colors: ['#fff', '#fff'],
@@ -427,43 +303,34 @@ class Offers extends Component {
                         backgroundColor="#ffffff"
                     />
                 </View>
-            
 
-                    {!this.state.isloading ?
-                        [
-                            (this.state.data.length > 0) ?
-                                <FlatList
-                                    navigation={this.props.navigation}
-                                    showsVerticalScrollIndicator={false}
-                                    data={this.state.data}
-                                    renderItem={this.offerCard}
-                                    keyExtractor={item => item.id}
-                                    onEndReachedThreshold={0.5}
-                                    onEndReached={() => this.load_more()}
-                                />
-                                :
-                                <View style={{ alignSelf: "center", flex: 1, marginTop: 150 }}>
-                                    <Image source={require("../img/nooffers.png")}
-                                        style={{ width: 300, height: 300 }} />
-                                    <Text style={[styles.h3, { top: 20, alignSelf: "center" }]}>
-                                        No offers found
-                                    </Text>
-                                </View>
-                        ]
-                        :
-                        <View>
-                            <Loaders />
-                        </View>
-                    }
-                    {this.state.load_more ?
-                        <View style={style.loader}>
-                            <ActivityIndicator size="small" color="#EDA332" />
-                        </View>
-                        :
-                        <View>
-                        </View>}
-       
 
+                {!this.state.isloading ?
+                    [
+                        (this.state.data.length > 0) ?
+                            <FlatList
+                                navigation={this.props.navigation}
+                                showsVerticalScrollIndicator={false}
+                                data={this.state.data}
+                                renderItem={this.offerCard}
+                                keyExtractor={item => item.id}
+                                onEndReachedThreshold={0.5}
+                                onEndReached={() => this.load_more()}
+                            />
+                            :
+                            <View style={{ alignSelf: "center", flex: 1, marginTop: 150 }}>
+                                <Image source={require("../img/nooffers.png")}
+                                    style={{ width: 300, height: 300 }} />
+                                <Text style={[styles.h3, { top: 20, alignSelf: "center" }]}>
+                                    No offers found
+                                </Text>
+                            </View>
+                    ]
+                    :
+                    <View>
+                        <Loaders />
+                    </View>
+                }
 
                 <View>
                     <TouchableOpacity style={style.fab}
@@ -476,7 +343,7 @@ class Offers extends Component {
         )
     }
 }
-export default Offers
+export default Offers;
 
 class Loaders extends Component {
     render() {
@@ -484,12 +351,14 @@ class Loaders extends Component {
             <View>
                 <SkeletonPlaceholder>
                     <View>
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} /> 
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} />     
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} /> 
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} />  
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} /> 
-                   <View style={{height:90,width:"95%",marginTop:10,borderRadius:10,alignSelf:"center"}} />           
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
+                        <View style={{ height: 90, width: "95%", marginTop: 10, borderRadius: 10, alignSelf: "center" }} />
                     </View>
                 </SkeletonPlaceholder>
 
@@ -537,7 +406,7 @@ const style = StyleSheet.create({
 
     },
     fab: {
-        backgroundColor: "#EDA332",
+        backgroundColor: "#5BC2C1",
         borderRadius: 100,
         height: 50,
         width: 50,
@@ -556,4 +425,10 @@ const style = StyleSheet.create({
         elevation: 5,
         backgroundColor: "#fbf9f9", width: 30, height: 30, borderRadius: 50, padding: 5, alignSelf: "center"
     },
+    text: {
+        fontFamily: "Roboto-Bold",
+        // fontSize:20,
+        fontSize: RFValue(14.5, 580),
+        margin: 5,
+    }
 })

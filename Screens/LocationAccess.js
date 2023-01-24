@@ -76,93 +76,88 @@ class Map extends Component {
     this.locationGet();
   }
 
-  locationGet = async () => 
-  {
+  locationGet = async () => {
     RNLocation.configure({
       distanceFilter: 5.0
     })
-    this.setState({app_location:false})
-    if(Platform.OS === 'android')
-    {
+    this.setState({ app_location: false })
+    if (Platform.OS === 'android') {
       try {
-          //  this.locationOn();
-      
-            const granted = await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            );
-      
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              Geolocation.getCurrentPosition(
-                (info) => {
-                  // console.warn("info", info);
-                  this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
-      
-                  this.fetch_location(this.state.latitude, this.state.longitude);
-                  // console.warn(info.coords.latitude);
-                  // alert(this.state.latitude, this.state.longitude)
-                },
-                (error) => {
-                  this.enable_device_location();
-                  // this.setState({ latitude: 30.3165, longitude:78.0322 })
-                  // // See error code charts below.
-                  // this.fetch_location(30.3165, 78.0322);
-                }
-              );
+        //  this.locationOn();
+
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        );
+
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          Geolocation.getCurrentPosition(
+            (info) => {
+              // console.warn("info", info);
+              this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
+
+              this.fetch_location(this.state.latitude, this.state.longitude);
+              // console.warn(info.coords.latitude);
+              // alert(this.state.latitude, this.state.longitude)
+            },
+            (error) => {
+              this.enable_device_location();
+              // this.setState({ latitude: 30.3165, longitude:78.0322 })
+              // // See error code charts below.
+              // this.fetch_location(30.3165, 78.0322);
             }
-        else
-        {
-          this.setState({ latitude: 30.3165, longitude:78.0322 })
+          );
+        }
+        else {
+          this.setState({ latitude: 30.3165, longitude: 78.0322 })
           this.fetch_location(30.3165, 78.0322);
         }
-          }
-          catch (err) {
-            console.warn(err)
-          }
-        }
-      
-    
-      else
-      {
-        Geolocation.getCurrentPosition(
+      }
+      catch (err) {
+        console.warn(err)
+      }
+    }
+
+
+    else {
+      Geolocation.getCurrentPosition(
         (info) => {
-          var latitude=info.coords.latitude;
-          var longitude=info.coords.longitude;
-          global.latitude=latitude;
-          global.longitude=longitude;
+          var latitude = info.coords.latitude;
+          var longitude = info.coords.longitude;
+          global.latitude = latitude;
+          global.longitude = longitude;
           this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
-          this.fetch_location(this.state.latitude,this.state.longitude);
+          this.fetch_location(this.state.latitude, this.state.longitude);
         },
         (error) => {
           // See error code charts below.
           console.log(error.code, error.message);
         },
         // { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
+      );
     }
-}
+  }
 
-  enable_device_location = () =>
-  {
-      RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
-          interval: 1000,
-          fastInterval: 5000,
-        })
-          .then((data) => {
-            this.locationGet();
-            // The user has accepted to enable the location services
-            // data can be :
-            //  - "already-enabled" if the location services has been already enabled
-            //  - "enabled" if user has clicked on OK button in the popup
-          })
-          .catch((err) => {
-            // The user has not accepted to enable the location services or something went wrong during the process
-            // "err" : { "code" : "ERR00|ERR01|ERR02|ERR03", "message" : "message"}
-            // codes :
-            //  - ERR00 : The user has clicked on Cancel button in the popup
-            //  - ERR01 : If the Settings change are unavailable
-            //  - ERR02 : If the popup has failed to open
-            //  - ERR03 : Internal error
-          });
+  enable_device_location = () => {
+    RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+      interval: 1000,
+      fastInterval: 5000,
+    })
+      .then((data) => {
+        this.locationGet();
+        // The user has accepted to enable the location services
+        // data can be :
+        //  - "already-enabled" if the location services has been already enabled
+        //  - "enabled" if user has clicked on OK button in the popup
+      })
+      .catch((err) => {
+        // The user has not accepted to enable the location services or something went wrong during the process
+        // "err" : { "code" : "ERR00|ERR01|ERR02|ERR03", "message" : "message"}
+        // codes :
+        //  - ERR00 : The user has clicked on Cancel button in the popup
+        //  - ERR01 : If the Settings change are unavailable
+        //  - ERR02 : If the popup has failed to open
+        //  - ERR03 : Internal error
+      });
   }
 
 
@@ -182,10 +177,12 @@ class Map extends Component {
       }
     } else {
 
-      this.setState({ latitude: data.latitude,
-        longitude: data.longitude, });
-      this.fetch_location(data.latitude,data.longitude);
-      this.setState({pin:true})
+      this.setState({
+        latitude: data.latitude,
+        longitude: data.longitude,
+      });
+      this.fetch_location(data.latitude, data.longitude);
+      this.setState({ pin: true })
     }
 
   }
@@ -211,49 +208,44 @@ class Map extends Component {
   fetch_location = (lati, longi) => {
     Geocoder.init(global.google_key);
     Geocoder.from(lati, longi).then(json => {
-  
-      this.setState({address:json.results[0].formatted_address })
-      global.latitude=this.state.latitude,
-      global.longitude=this.state.longitude
+console.warn(json)
+      this.setState({ address: json.results[0].formatted_address })
+      global.latitude = this.state.latitude,
+        global.longitude = this.state.longitude
       // this.locationOn();
       var addressComponent = json.results[1].address_components[1].long_name;
-    global.address=json.results[0].formatted_address;
-      var results=json;
-        var data=json.results[0].address_components;
-        data.map((values,index)=>
-        {
-          if(values.types[0]=="locality")
-          { 
-             global.city=values.long_name ;
-             this.setState({ city: values.long_name })
-          }
-          if(values.types[0] == "neighborhood")
-          {
-            this.setState({landmark: values.long_name })
-            global.landmark=values.long_name ;
-          }
-          if(values.types[0] == "political")
-          {
-            this.setState({ landmark: values.long_name })
-          }
+      global.address = json.results[0].formatted_address;
+      var results = json;
+      var data = json.results[0].address_components;
+      data.map((values, index) => {
+        if (values.types[0] == "locality") {
+          global.city = values.long_name;
+          this.setState({ city: values.long_name })
+        }
+        if (values.types[0] == "neighborhood") {
+          this.setState({ landmark: values.long_name })
+          global.landmark = values.long_name;
+        }
+        if (values.types[0] == "political") {
+          this.setState({ landmark: values.long_name })
+        }
 
-          if(values.types[0] == "administrative_area_level_1")
-          {
-            global.state=values.long_name ;
-             this.setState({ state: values.long_name })
-          }
-          if(values.types[0] == "postal_code")
-          {
-             this.setState({ postal_code: values.long_name })
-          }
+        if (values.types[0] == "administrative_area_level_1") {
+          global.state = values.long_name;
+          this.setState({ state: values.long_name })
+        }
+        if (values.types[0] == "postal_code") {
+          this.setState({ postal_code: values.long_name })
+        }
 
-        });
-       
+      });
+
 
     }).catch(error => console.warn(error));
   }
 
   update_data = () => {
+    console.warn(this.state.postal_code)
     this.setState({ isloading: true })
     this.props.navigation.navigate("LocationDetails",
       {
