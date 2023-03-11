@@ -133,20 +133,18 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
-<<<<<<< Updated upstream
 //  global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
-=======
- global.vendor_api = "https://dine-api.weazy.in/api/";
+
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 global.qr_link = "https://dine-api.weazy.in"
->>>>>>> Stashed changes
 
 
 //for local 
-global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
 
 //for demo 
-// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -305,7 +303,6 @@ class App extends Component {
     OneSignal.sendTag("account_type", "vendor-bmguj1sfd77232927ns");
 
     window.Pusher = Pusher;
-    console.log(Pusher);
     window.Echo = new Echo({
       broadcaster: 'pusher',
       key: '714d1999a24b68c8bf87', // for production
@@ -330,7 +327,6 @@ class App extends Component {
   }
 
   get_profile = (token) => {
-    console.log(global.vendor_api + 'get_vendor_profile');
     fetch(global.vendor_api + 'get_vendor_profile', {
       method: 'POST',
       headers: {
@@ -521,11 +517,3 @@ class App extends Component {
 
 export default codePush(App);
 
-<<<<<<< Updated upstream
-//export default App;
-=======
-
-
-
-
->>>>>>> Stashed changes

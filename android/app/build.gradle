@@ -216,7 +216,7 @@ dependencies {
     implementation project(':react-native-community-geolocation')
     implementation 'com.android.support:multidex:2.0.1'
     implementation project(':react-native-code-push')
-    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
+//    implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-otp-verify')
