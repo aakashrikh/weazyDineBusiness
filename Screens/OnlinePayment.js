@@ -266,7 +266,7 @@ class OnlinePayment extends Component {
                                        inputContainerStyle={{
                                           width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
                                        }}
-                                       keyboardType="numeric"
+                                       keyboardType="default"
                                        containerStyle={style.inputText}
                                        style={{ fontFamily: "Raleway-Medium" }}
                                     />
@@ -281,7 +281,7 @@ class OnlinePayment extends Component {
                                        inputContainerStyle={{
                                           width: Dimensions.get("window").width / 1.05, borderColor: 'transparent',
                                        }}
-                                       keyboardType="numeric"
+                                       keyboardType="default"
                                        containerStyle={style.inputText}
                                        style={{ fontFamily: "Raleway-Medium" }}
                                     />

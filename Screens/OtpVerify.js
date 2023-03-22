@@ -14,6 +14,7 @@ import CountDown from 'react-native-countdown-component';
 import { AuthContext } from '../AuthContextProvider';
 import RNOtpVerify from 'react-native-otp-verify';
 import OTPInputView from '@twotalltotems/react-native-otp-input'
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 
 //Global StyleSheet Import
 const style = require('../Components/Style.js');
@@ -98,7 +99,7 @@ class OtpVerify extends Component {
           .then((response) => response.json())
           .then((json) => {
             if (json.msg == 'ok') {
-          
+
               global.vendor = json.usr;
               global.token = json.token;
               global.msg = "Welcome"
@@ -107,14 +108,14 @@ class OtpVerify extends Component {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "done" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("done",json.data,json.user,json.token);
+                this.context.login("done", json.data, json.user, json.token);
                 global.msg = "Welcome Back"
               }
               else {
 
                 const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "steps" }
                 AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-                this.context.login("steps",json.data,json.user,json.token);
+                this.context.login("steps", json.data, json.user, json.token);
                 global.msg = "Welcome"
               }
             }
@@ -165,13 +166,13 @@ class OtpVerify extends Component {
 
               const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "done" }
               AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-              this.context.login("done",json.data,json.user,json.token);
+              this.context.login("done", json.data, json.user, json.token);
             }
             else {
 
               const data = { 'token': json.token, 'vendor_id': json.usr, "use_type": "steps" }
               AsyncStorage.setItem('@auth_login', JSON.stringify(data));
-              this.context.login("steps",json.data,json.user,json.token);
+              this.context.login("steps", json.data, json.user, json.token);
             }
           }
           else {
@@ -197,7 +198,7 @@ class OtpVerify extends Component {
       body: JSON.stringify({
         contact: this.props.route.params.contact_no,
         verification_type: "vendor",
-        request_type:'resend'
+        request_type: 'resend'
       })
     }).then((response) => response.json())
       .then((json) => {
@@ -257,7 +258,7 @@ class OtpVerify extends Component {
                 keyboardType="numeric"
               /> */}
           <OTPInputView
-            style={{ width: '100%', height: 100, alignSelf: 'center', fontSize: 55,paddingHorizontal:20 }}
+            style={{ width: '100%', height: 100, alignSelf: 'center', fontSize: 55, paddingHorizontal: 20 }}
             pinCount={6}
 
             code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
@@ -291,7 +292,7 @@ class OtpVerify extends Component {
               {!this.state.resend ?
                 <View style={{ flexDirection: "row", marginTop: -20, alignSelf: "center" }}>
                   <Text style={[styles.p, { marginTop: 10 }]}>Request OTP in</Text>
-                  <CountDown
+                  {/* <CountDown
                     style={{ marginTop: 10 }}
                     // size={30}
                     until={30}
@@ -302,7 +303,27 @@ class OtpVerify extends Component {
                     timeToShow={['M', 'S']}
                     timeLabels={{ m: null, s: null }}
                     showSeparator
-                  />
+                  /> */}
+
+                  <View style={{ marginLeft: 10, }}>
+                    <CountdownCircleTimer
+                      isPlaying
+                      duration={30}
+                      colors={['#296E84', '#F7B801', '#A30000', '#A30000']}
+                      colorsTime={[30, 20, 10, 0]}
+                      onComplete={() => this.setState({ resend: true })}
+                      size={40}
+                      strokeLinecap="round"
+                      strokeWidth={2}
+                    >
+                      {({ remainingTime, animatedColor }) => (
+                        <Text style={{ color: '#5BC2C1', fontSize: RFValue(10, 580) }}>
+                          {remainingTime}
+                        </Text>
+                      )}
+                    </CountdownCircleTimer>
+                  </View>
+
                 </View>
                 :
                 <View style={{ alignSelf: "center", marginTop: -32 }}>
@@ -330,7 +351,7 @@ const styles = StyleSheet.create({
   image: {
     height: 300,
     width: 250,
-    marginTop:-10,
+    marginTop: -10,
     justifyContent: "center",
     alignSelf: "center"
   },

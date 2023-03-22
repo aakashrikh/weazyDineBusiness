@@ -94,6 +94,11 @@ import AccessDenied from './Screens/AccessDenied';
 import Splash from './Screens/Splash';
 import Offers from './Screens/Offers';
 
+import TabTop from './Screens/TabTop';
+import MyCategories from './Screens/MyCategories';
+import Services from './Screens/Services';
+import Packages from './Screens/Packages';
+
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions';
 import { LogBox } from 'react-native';
@@ -224,7 +229,7 @@ class TabNav extends Component {
 
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Dine-In" component={Tables} />
-        <Tab.Screen name="Products" component={TopTab} />
+        <Tab.Screen name="Products" component={TopTab}/>
         <Tab.Screen name="Orders" component={Orders} />
         {/* <Tab.Screen name="Offers" component={Offers} /> */}
         <Tab.Screen name="More" component={More} />
@@ -497,6 +502,10 @@ class App extends Component {
                         <Stacks.Screen name="AddStaffAccount" component={AddStaffAccount} options={{ headerShown: false }} />
                         <Stacks.Screen name="EditStaffAccount" component={EditStaffAccount} options={{ headerShown: false }} />
                         <Stacks.Screen name="Offers" component={Offers} options={{ headerShown: false }} />
+
+                        {/* <Stacks.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} props={this.props}/>
+      <Stacks.Screen name="Service" component={Services} options={{title:"Menu"}} props={this.props}/>
+      <Stacks.Screen name="Package" component={Packages} options={{title:"Combos"}} props={this.props}/>  */}
 
                       </>
                   )

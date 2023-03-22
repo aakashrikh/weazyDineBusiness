@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Platform, Dimensions, TouchableOpacity,
-    ActivityIndicator, Switch
+    ActivityIndicator, Switch, ScrollView
 } from 'react-native';
 import { Input, Icon, Header } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,7 +33,7 @@ class OtherCharges extends Component {
             gstin: '',
             gstper: '',
             scamount: '',
-            gst_type:''
+            gst_type: ''
         };
 
     }
@@ -47,6 +47,7 @@ class OtherCharges extends Component {
             </View>
         )
     }
+
     //for header center component
     renderCenterComponent() {
         return (
@@ -95,7 +96,7 @@ class OtherCharges extends Component {
                     this.setState({ scamount: value.service_charge })
                     this.setState({ gstper: value.gst_percentage })
                     this.setState({ gst_type: value.gst_type })
-                    
+
 
 
                 }
@@ -154,7 +155,7 @@ class OtherCharges extends Component {
                     gstin: gstin,
                     gst_percentage: gst_percentage,
                     service_charge: service_charge,
-                    gst_type:this.state.gst_type
+                    gst_type: this.state.gst_type
                 })
             }).then((response) => response.json())
                 .then((json) => {
@@ -178,6 +179,7 @@ class OtherCharges extends Component {
         }
 
     }
+
     update_toggle = () => {
         if (this.state.gst) {
             this.setState({ gst: false })
@@ -215,123 +217,124 @@ class OtherCharges extends Component {
                         backgroundColor="#ffffff"
                     />
                 </View>
-                <View style={{ marginBottom: 10, marginTop: 10, borderRadius: 20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{
-                        width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
-                        shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
-                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5
-                    }}>
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <Text style={[styles.h3, { width: '80%' }]}>GST</Text>
+                <ScrollView>
+                    <View style={{ marginBottom: 10, marginTop: 10, borderRadius: 20, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
+                        <View style={{
+                            width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
+                            shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
+                            shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5
+                        }}>
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                                <Text style={[styles.h3, { width: '80%' }]}>GST</Text>
 
-                            <Switch
-                                trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
-                                thumbColor={"white"}
-                                value={this.state.gst}
-                                onValueChange={() => this.update_toggle()}
-                            />
-                        </View>
-                        {(this.state.gst) ?
-                            <View>
-                                <View style={{ paddingLeft: 10, marginTop: 20 }}>
-                                    <Text style={style.fieldsText}>GSTIN </Text>
-                                    <Input
-
-                                        placeholder='GSTIN / GST Number'
-                                        style={style.inputText}
-                                        value={this.state.gstin}
-                                        autoCapitalize={true}
-                                        returnKeyType='done'
-                                        onChangeText={(e) => { this.setState({ gstin: e }) }}
-                                        inputContainerStyle={{
-                                            width: Dimensions.get("window").width / 1.3,
-                                        }} />
-                                </View>
-
-                                <View style={{ paddingLeft: 10, marginTop: 10 }}>
-                                    <Text style={style.fieldsText}>GST Percentage</Text>
-                                    <Input
-                                        placeholder='GST %'
-                                        style={style.inputText}
-                                        value={this.state.gstper.toString()}
-                                        keyboardType="numeric"
-                                        returnKeyType='done'
-                                        onChangeText={(e) => { this.setState({ gstper: e }) }}
-                                        inputContainerStyle={{
-                                            width: Dimensions.get("window").width / 1.3,
-                                        }} />
-                                </View>
-
-                                <View style={{ marginTop: 20, alignSelf: 'center' }}>
-                    <RadioForm
-                        formHorizontal={true}
-                        radio_props={radio_props}
-                        animation={true}
-                        initial={this.state.gst_type == "inclusive" ? 0 : 1}
-                        buttonColor={'#5BC2C1'}
-                        selectedButtonColor={'#5BC2C1'}
-                        labelHorizontal={false}
-                        labelStyle={{ marginRight: 10, marginLeft: 10 }}
-                        onPress={(value) => { 
-                            this.setState({ gst_type: value }) }}
-                    />
-                </View>
+                                <Switch
+                                    trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
+                                    thumbColor={"white"}
+                                    value={this.state.gst}
+                                    onValueChange={() => this.update_toggle()}
+                                />
                             </View>
-                            :
-                            <></>
-                        }
+                            {(this.state.gst) ?
+                                <View>
+                                    <View style={{ paddingLeft: 10, marginTop: 20 }}>
+                                        <Text style={style.fieldsText}>GSTIN </Text>
+                                        <Input
+
+                                            placeholder='GSTIN / GST Number'
+                                            style={style.inputText}
+                                            value={this.state.gstin}
+                                            autoCapitalize={true}
+                                            returnKeyType='done'
+                                            onChangeText={(e) => { this.setState({ gstin: e }) }}
+                                            inputContainerStyle={{
+                                                width: Dimensions.get("window").width / 1.3,
+                                            }} />
+                                    </View>
+
+                                    <View style={{ paddingLeft: 10, marginTop: 10 }}>
+                                        <Text style={style.fieldsText}>GST Percentage</Text>
+                                        <Input
+                                            placeholder='GST %'
+                                            style={style.inputText}
+                                            value={this.state.gstper.toString()}
+                                            keyboardType="numeric"
+                                            returnKeyType='done'
+                                            onChangeText={(e) => { this.setState({ gstper: e }) }}
+                                            inputContainerStyle={{
+                                                width: Dimensions.get("window").width / 1.3,
+                                            }} />
+                                    </View>
+
+                                    <View style={{ marginTop: 20, alignSelf: 'center' }}>
+                                        <RadioForm
+                                            formHorizontal={true}
+                                            radio_props={radio_props}
+                                            animation={true}
+                                            initial={this.state.gst_type == "inclusive" ? 0 : 1}
+                                            buttonColor={'#5BC2C1'}
+                                            selectedButtonColor={'#5BC2C1'}
+                                            labelHorizontal={false}
+                                            labelStyle={{ marginRight: 10, marginLeft: 10 }}
+                                            onPress={(value) => {
+                                                this.setState({ gst_type: value })
+                                            }}
+                                        />
+                                    </View>
+                                </View>
+                                :
+                                <></>
+                            }
+
+                        </View>
+
+
 
                     </View>
 
+                    <View style={{ borderRadius: 10, borderTopWidth: 1, borderColor: "#d3d3d3", paddingBottom: 10 }}>
+                        <View style={{
+                            width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
+                            shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
+                            shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, marginTop: 20
+                        }}>
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                                <Text style={[styles.h3, { width: '80%' }]}>Service Charge</Text>
 
-
-                </View>
-
-                <View style={{ flex: 1, borderRadius: 10, borderTopWidth: 1, borderColor: "#d3d3d3" }}>
-                    <View style={{
-                        width: '95%', backgroundColor: '#fff', alignSelf: 'center', padding: 10,
-                        shadowColor: "#000", backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000", borderRadius: 5,
-                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 4, elevation: 5, marginTop: 20
-                    }}>
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <Text style={[styles.h3, { width: '80%' }]}>Service Charge</Text>
-
-                            <Switch
-                                trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
-                                thumbColor={"white"}
-                                value={this.state.sc}
-                                onValueChange={() => this.update_toggle2()}
-                            />
-                        </View>
-                        {(this.state.sc) ?
-                            <View>
-                                <View style={{ paddingLeft: 10, marginTop: 10 }}>
-                                    <Text style={style.fieldsText}>Server Charge Percentage</Text>
-                                    <Input
-                                        placeholder='Service Charge %'
-                                        style={style.inputText}
-                                        value={this.state.scamount.toString()}
-                                        keyboardType="numeric"
-                                        returnKeyType='done'
-                                        onChangeText={(e) => { this.setState({ scamount: e }) }}
-                                        inputContainerStyle={{
-                                            width: Dimensions.get("window").width / 1.3,
-                                        }} />
-                                </View>
+                                <Switch
+                                    trackColor={{ false: "#d3d3d3", true: '#5BC2C1' }}
+                                    thumbColor={"white"}
+                                    value={this.state.sc}
+                                    onValueChange={() => this.update_toggle2()}
+                                />
                             </View>
-                            :
-                            <></>
-                        }
+                            {(this.state.sc) ?
+                                <View>
+                                    <View style={{ paddingLeft: 10, marginTop: 10 }}>
+                                        <Text style={style.fieldsText}>Server Charge Percentage</Text>
+                                        <Input
+                                            placeholder='Service Charge %'
+                                            style={style.inputText}
+                                            value={this.state.scamount.toString()}
+                                            keyboardType="numeric"
+                                            returnKeyType='done'
+                                            onChangeText={(e) => { this.setState({ scamount: e }) }}
+                                            inputContainerStyle={{
+                                                width: Dimensions.get("window").width / 1.3,
+                                            }} />
+                                    </View>
+                                </View>
+                                :
+                                <></>
+                            }
+
+                        </View>
+
+
 
                     </View>
 
-
-
-                </View>
-
-
-                {(!this.state.table_load) ?
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0 }}>
+                    {(!this.state.table_load) ?
+                    <View style={{ width: '100%', height: 50, backgroundColor: '#fff', marginTop:50}}>
                         <TouchableOpacity
                             // onPress={this.send_otp}
                             onPress={() => { this.update_profile() }}
@@ -352,6 +355,10 @@ class OtherCharges extends Component {
                         <ActivityIndicator size={"large"} color="#5BC2C1" />
                     </View>
                 }
+                </ScrollView>
+
+
+                
             </View>
         )
     }

@@ -38,22 +38,24 @@ class Report extends Component {
             wallet: 0,
             to: new Date(),
             from: new Date(),
-            range: "Today",
+            range: this.props.route.params.range,
             allData: [],
-                total_earnning: 0,
-                orders: 0,
-                shop_visit: 0,
-                customer: 0,
-                cashsale: 0,
-                online: 0,
-                weazypay: 0,
-            
+            total_earnning: 0,
+            orders: 0,
+            shop_visit: 0,
+            customer: 0,
+            cashsale: 0,
+            online: 0,
+            weazypay: 0,
+            method:this.props.route.params.method
+
         }
 
     }
 
     componentDidMount() {
-        this.fetch_order(1);
+        console.warn(this.state.range,this.state.method)
+        this.fetch_order(1, this.state.range,this.state.method);
     }
 
     //for header left component
@@ -118,7 +120,8 @@ class Report extends Component {
 
     // }
 
-    fetch_order = (page_id,range) => {
+    fetch_order = (page_id, range,method) => {
+        console.warn(page_id, range,method)
         fetch(global.vendor_api + 'fetch_sales_reports', {
             method: 'POST',
             headers: {
@@ -131,6 +134,10 @@ class Report extends Component {
                 range: range,
                 start_date: this.state.from,
                 end_date: this.state.to,
+                method: method,
+                page_length: 50,
+                staff_id: 0
+
             }),
         })
             .then((response) => response.json())
@@ -140,7 +147,7 @@ class Report extends Component {
                     if (page_id == 1) {
                         this.setState({ data: [], isLoading: false });
                         this.setState({
-                            total_earnning: 0, orders: 0, shop_visit: 0, customer: 0, cashsale: 0, online: 0, weazypay: 0, 
+                            total_earnning: 0, orders: 0, shop_visit: 0, customer: 0, cashsale: 0, online: 0, weazypay: 0,
                         })
                     }
                 } else {
@@ -223,89 +230,92 @@ class Report extends Component {
                     backgroundColor="#ffffff"
                 />
                 <SelectDropdown
-                        data={sort}
-                        onSelect={(selectedRange, index) => {
-                            // this.setState({ range: selectedRange })
-                            if(selectedRange == "Today"){
-                                this.fetch_order(1,"today")
-                            }
-                            else if(selectedRange == "Yesterday"){
-                                this.fetch_order(1,"yesterday")
-                            }
-                            else if(selectedRange == "This Week"){
-                                this.fetch_order(1,"thisweek")
-                            }
-                            else if(selectedRange == "Last Week"){
-                                this.fetch_order(1,"lastweek")
-                            }
-                            else if(selectedRange == "Last Month"){
-                                this.fetch_order(1,"lastmonth")
-                            }
-                            else if(selectedRange == "This Month"){
-                                this.fetch_order(1,"thismonth")
-                            }
-                            else if(selectedRange == "Lifetime"){
-                                this.fetch_order(1,"lifetime")
-                            }
-                        }}
-                        buttonTextAfterSelection={(selectedRange, index) => {
-                            return selectedRange
-                        }}
-                        rowTextForSelection={(item, index) => {
-                            return item
-                        }}
-                        buttonTextStyle={{
-                            fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
-                        }}
-                        buttonStyle={style.buttonStyle}
-                        defaultButtonText="Today"
-                        renderDropdownIcon={() => {
-                            return (
-                                <Icon
-                                    name='chevron-down' type='ionicon' color='#000' size={20} />
-                            )
-                        }}
-                        dropdownIconPosition="right"
-                    />
+                    data={sort}
+                    onSelect={(selectedRange, index) => {
+                        // this.setState({ range: selectedRange })
+                        if (selectedRange == "Today") {
+                            this.fetch_order(1, "today")
+                        }
+                        else if (selectedRange == "Yesterday") {
+                            this.fetch_order(1, "yesterday")
+                        }
+                        else if (selectedRange == "This Week") {
+                            this.fetch_order(1, "thisweek")
+                        }
+                        else if (selectedRange == "Last Week") {
+                            this.fetch_order(1, "lastweek")
+                        }
+                        else if (selectedRange == "Last Month") {
+                            this.fetch_order(1, "lastmonth")
+                        }
+                        else if (selectedRange == "This Month") {
+                            this.fetch_order(1, "thismonth")
+                        }
+                        else if (selectedRange == "Lifetime") {
+                            this.fetch_order(1, "lifetime")
+                        }
+                    }}
+                    buttonTextAfterSelection={(selectedRange, index) => {
+                        return selectedRange
+                    }}
+                    rowTextForSelection={(item, index) => {
+                        return item
+                    }}
+                    buttonTextStyle={{
+                        fontFamily: "Raleway-Medium", fontSize: RFValue(12, 580), color: "#000"
+                    }}
+                    buttonStyle={style.buttonStyle}
+                    defaultButtonText="Today"
+                    renderDropdownIcon={() => {
+                        return (
+                            <Icon
+                                name='chevron-down' type='ionicon' color='#000' size={20} />
+                        )
+                    }}
+                    dropdownIconPosition="right"
+                />
 
                 {this.state.isLoading ?
                     <></>
                     :
                     <View>
                         <View style={{
-                            flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 20,
-                            width: Dimensions.get('window').width,marginTop:10
+                            flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10,
+                            width: Dimensions.get('window').width, marginTop: 10, alignItems: "center"
                         }}>
                             <View style={{
-                                backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Total Sales</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.total_earnning}</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.total_earnning}</Text>
                             </View>
                             <View style={{
-                                backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Cash Sales</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.cashsale}</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.cashsale}</Text>
                             </View>
                         </View>
 
-                        <View style={{ flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 20, marginTop: 10 }}>
+                        <View style={{
+                            flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10,
+                            marginTop: 10, alignItems: "center"
+                        }}>
                             <View style={{
-                                backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Online Sales</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.online}</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.online}</Text>
                             </View>
                             <View style={{
-                                backgroundColor: '#fff', padding: 20, borderRadius: 15, borderWidth: 1,
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
                                 width: "47%", alignItems: "center"
                             }}>
                                 <Text style={styles.h4}>Weazy Pay</Text>
-                                <Text style={{ fontSize: 30 }}>₹ {this.state.weazypay}</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.weazypay}</Text>
                             </View>
                         </View>
                     </View>}

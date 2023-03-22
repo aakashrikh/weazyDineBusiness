@@ -229,7 +229,7 @@ class Home extends Component {
               {
                 width: 35,
                 height: 35,
-                // marginTop:-5
+                marginTop:10
               }
             } />
         </View>

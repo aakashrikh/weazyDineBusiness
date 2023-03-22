@@ -129,7 +129,6 @@ class Demo extends Component {
                     <SelectDropdown
                         data={sort}
                         onSelect={(selectedRange, index) => {
-                            // this.setState({ range: selectedRange })
                             if(selectedRange == "Today"){
                                 this.get_vendor_data("today")
                             }
@@ -151,7 +150,9 @@ class Demo extends Component {
                             else if(selectedRange == "Lifetime"){
                                 this.get_vendor_data("lifetime")
                             }
+                            this.setState({ range: selectedRange })
                         }}
+
                         buttonTextAfterSelection={(selectedRange, index) => {
                             return selectedRange
                         }}
@@ -199,7 +200,7 @@ class Demo extends Component {
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Total"
+                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Total", method: "all"
                     })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
@@ -223,7 +224,7 @@ class Demo extends Component {
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Cash"
+                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Cash", method:"cash"
                     })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
@@ -250,7 +251,7 @@ class Demo extends Component {
                 <View style={{ flexDirection: "row",width: Dimensions.get('window').width/1.02, alignSelf:"center", justifyContent: "space-around", marginTop: 20 }}>
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
                     onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Online"
+                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Online", method:"upi",
                     })}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
