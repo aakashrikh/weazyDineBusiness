@@ -110,7 +110,7 @@ class ShopTiming extends Component {
             .then((json) => {
                 if (json.status) {
 
-                    this.props.navigation.navigate("VerificationDone")
+                    this.props.navigation.navigate("UploadLogo")
 
                 }
                 return json;
@@ -189,7 +189,7 @@ class ShopTiming extends Component {
             <View style={styles.container}>
                 <ScrollView>
                     <Text style={[styles.h4, { alignSelf: "center", fontFamily: "Roboto-Medium", marginTop: 40 }]}>
-                        Step 2 of 2
+                        Step 2 of 4
                     </Text>
 
                     {/* heading */}

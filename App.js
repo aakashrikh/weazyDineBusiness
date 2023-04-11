@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Image, Linking, Platform, PermissionsAndroid,Text
+  Image, Linking, Platform, PermissionsAndroid, Text
 } from 'react-native';
 import { Icon } from "react-native-elements";
 import codePush from "react-native-code-push";
@@ -93,6 +93,9 @@ import EditStaffAccount from './Screens/EditStaffAccount';
 import AccessDenied from './Screens/AccessDenied';
 import Splash from './Screens/Splash';
 import Offers from './Screens/Offers';
+import UploadLogo from './Screens/UploadLogo';
+import ChooseSubCategory from './Screens/ChooseSubCategory';
+import Feeds from './Screens/Feeds';
 
 import TabTop from './Screens/TabTop';
 import MyCategories from './Screens/MyCategories';
@@ -102,6 +105,7 @@ import Packages from './Screens/Packages';
 import SplashScreen from 'react-native-splash-screen';
 import Permissions from 'react-native-permissions';
 import { LogBox } from 'react-native';
+import ChooseCategories from './Screens/ChooseCategory';
 LogBox.ignoreLogs(['Setting a timer']);
 
 //OneSignal Init Code
@@ -112,9 +116,9 @@ OneSignal.setAppId("49e49fa7-d31e-42d9-b1d5-536c4d3758cc");
 
 //Prompt for push on iOS
 // if (Platform.OS === 'ios') {
-  OneSignal.promptForPushNotificationsWithUserResponse((response) => {
-    console.log("Prompt response:", response);
-  });
+OneSignal.promptForPushNotificationsWithUserResponse((response) => {
+  console.log("Prompt response:", response);
+});
 // }
 
 //Method for handling notifications received while app in foreground
@@ -146,10 +150,10 @@ global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-// global.vendor_api = "http://3.108.209.160/weazy-dine-api/public/api/";
+global.vendor_api = "http://192.168.1.30:8000/api/";
 
 //for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -229,7 +233,7 @@ class TabNav extends Component {
 
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Dine-In" component={Tables} />
-        <Tab.Screen name="Products" component={TopTab}/>
+        <Tab.Screen name="Products" component={TopTab} />
         <Tab.Screen name="Orders" component={Orders} />
         {/* <Tab.Screen name="Offers" component={Offers} /> */}
         <Tab.Screen name="More" component={More} />
@@ -249,11 +253,11 @@ class App extends Component {
       netconnected: true,
       user: [],
       token: '',
-      role:[{role:'owner',name:'admin'}]
+      role: [{ role: 'owner', name: 'admin' }]
     }
   }
 
-  componentDidMount = async()=> {
+  componentDidMount = async () => {
 
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATION,
@@ -300,7 +304,8 @@ class App extends Component {
   };
 
   login = (step, user, role, token) => {
-    this.setState({ islogin: true, step: step, user: user, role:role, token: token });
+    console.warn(role)
+    this.setState({ islogin: true, step: step, user: user, role: role, token: token });
     this.setState({ isloading: false });
     SplashScreen.hide();
 
@@ -328,7 +333,7 @@ class App extends Component {
   logout = () => {
     this.setState({ islogin: false, token: '', user: [] });
     this.setState({ isloading: false });
-   SplashScreen.hide();
+    SplashScreen.hide();
   }
 
   get_profile = (token) => {
@@ -352,7 +357,7 @@ class App extends Component {
           this.logout();
         }
         else {
-          this.login(json.step, json.data[0],json.user, token);
+          this.login(json.step, json.data[0], json.user, token);
 
           json.data.map(value => {
             // alert(value.category_type)
@@ -401,125 +406,129 @@ class App extends Component {
   }
 
   render() {
-    if(this.state.isloading){
-        return (<Splash/>)
+    if (this.state.isloading) {
+      return (<Splash />)
     }
-    else{
+    else {
       if (!this.state.netconnected) {
         return (<NoInternet />)
       }
       else {
 
-      return (
-        <>
-          <AuthContext.Provider value={{ login: this.login, logout: this.logout, user: this.state.user, token: this.state.token, getProfile: this.get_profile }}>
-            <NavigationContainer linking={linking}>
-              <Stacks.Navigator screenOptions={{ headerShown: false }} >
-                {!this.state.islogin ? (
-                  <>
+        return (
+          <>
+            <AuthContext.Provider value={{ login: this.login, logout: this.logout, user: this.state.user, token: this.state.token, getProfile: this.get_profile }}>
+              <NavigationContainer linking={linking}>
+                <Stacks.Navigator screenOptions={{ headerShown: false }} >
+                  {!this.state.islogin ? (
+                    <>
 
-                    <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
-                    <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
-                    {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
+                      <Stacks.Screen options={{ headerShown: false }} name="MobileLogin" component={MobileLogin} />
+                      <Stacks.Screen name="OtpVerify" component={OtpVerify} options={{ headerShown: false }} />
+                      {/* <Stacks.Screen options={{headerShown: false}} name="PasswordLogin" component={PasswordLogin}/> */}
 
-                  </>
-                )
-                  :
-
-                  (
-                    (this.state.islogin && this.state.step == 'steps') ?
-                      <>
-                        <Stacks.Screen name="CreateShopProfile" component={CreateShopProfile} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ShopTiming" component={ShopTiming} options={{ headerShown: false }} />
-                        <Stacks.Screen name="VerificationDone" component={VerificationDone} options={{ headerShown: false }} />
-
-
-                      </>
-
-                      :
-                      (this.state.islogin && this.state.role.role != 'owner') ?
-                      <>
-                        <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
-                      </>
-                      :
-                      // User is signed in  
-                      <>
-
-                        <Stacks.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ChangeSubCategory" component={ChangeSubCategory} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ChangeShopTime" component={ChangeShopTime} options={{ headerShown: false }} />
-                        <Stacks.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ContactUs" component={ContactUs} options={{ headerShown: false }} />
-                        <Stacks.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answers" component={Answers} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answer1" component={Answer1} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answer2" component={Answer2} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answer3" component={Answer3} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answer4" component={Answer4} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Answer5" component={Answer5} options={{ headerShown: false }} />
-                        <Stacks.Screen name="CreateOffers" component={CreateOffers} options={{ headerShown: false }} />
-                        <Stacks.Screen name="CreateService" component={CreateService} options={{ headerShown: false }} />
-                        <Stacks.Screen name="CreatePackages" component={CreatePackages} options={{ headerShown: false }} />
-                        <Stacks.Screen name="AddCategory" component={AddCategory} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Comments" component={Comments} options={{ headerShown: false }} />
-                        <Stacks.Screen name="MultipleImage" component={MultipleImage} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ChangeLocation" component={ChangeLocation} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditCategory" component={EditCategory} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditService" component={EditService} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditPackage" component={EditPackage} options={{ headerShown: false }} />
-                        <Stacks.Screen name="AddPackageCategory" component={AddPackageCategory} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditOffer" component={EditOffer} options={{ headerShown: false }} />
-                        <Stacks.Screen name="NewPost" component={NewPost} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditComment" component={EditComment} options={{ headerShown: false }} />
-                        <Stacks.Screen name="OfferProduct" component={OfferProduct} options={{ headerShown: false }} />
-                        <Stacks.Screen name="SingleFeed" component={SingleFeed} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Notification" component={Notifications} options={{ headerShown: false }} />
-                        <Stacks.Screen name="CategoryChange" component={CategoryChange} options={{ headerShown: false }} />
-                        <Stacks.Screen name="VendorReviews" component={VendorReviews} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ListingDashboardItems" component={ListingDashboardItems} options={{ headerShown: false }} />
-                        <Stacks.Screen name="TopDeals" component={TopDeals} options={{ headerShown: false }} />
-                        <Stacks.Screen name="VerifyVoucher" component={VerifyVoucher} options={{ headerShown: false }} />
-                        <Stacks.Screen name="VoucherDetails" component={VoucherDetails} options={{ headerShown: false }} />
-                        <Stacks.Screen name="CashbackHistory" component={CashbackHistory} options={{ headerShown: false }} />
-                        <Stacks.Screen name="TableView" component={TableView} options={{ headerShown: false }} />
-                        <Stacks.Screen name="OtherCharges" component={OtherCharges} options={{ headerShown: false }} />
-                        <Stacks.Screen name="GenerateBill" component={GenerateBill} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ProductVariants" component={ProductVariants} options={{ headerShown: false }} />
-                        <Stacks.Screen name="AddCover" component={AddCover} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
-                        <Stacks.Screen name="OnlinePayment" component={OnlinePayment} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ProductDetails" component={ProductDetails} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Subscription" component={Subscription} options={{ headerShown: false }} />
-                        <Stacks.Screen name="ChoosePaymentType" component={ChoosePaymentType} options={{ headerShown: false }} />
-                        <Stacks.Screen name="PaymentSuccessful" component={PaymentSuccessful} options={{ headerShown: false }} />
-                        <Stacks.Screen name="PaymentFailed" component={PaymentFailed} options={{ headerShown: false }} />
-                        <Stacks.Screen name="OrderDetails" component={OrderDetails} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Report" component={Report} options={{ headerShown: false }} />
-                        <Stacks.Screen name="TotalCustomers" component={TotalCustomers} options={{ headerShown: false }} />
-                        <Stacks.Screen name="StaffAccount" component={StaffAccount} options={{ headerShown: false }} />
-                        <Stacks.Screen name="AddStaffAccount" component={AddStaffAccount} options={{ headerShown: false }} />
-                        <Stacks.Screen name="EditStaffAccount" component={EditStaffAccount} options={{ headerShown: false }} />
-                        <Stacks.Screen name="Offers" component={Offers} options={{ headerShown: false }} />
-
-                        {/* <Stacks.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} props={this.props}/>
-      <Stacks.Screen name="Service" component={Services} options={{title:"Menu"}} props={this.props}/>
-      <Stacks.Screen name="Package" component={Packages} options={{title:"Combos"}} props={this.props}/>  */}
-
-                      </>
+                    </>
                   )
-                }
-              </Stacks.Navigator>
-            </NavigationContainer>
-          </AuthContext.Provider>
+                    :
 
-        </>
+                    (
+                      (this.state.islogin && this.state.step == 'steps') ?
+                        <>
+                          <Stacks.Screen name="CreateShopProfile" component={CreateShopProfile} options={{ headerShown: false }} />
+                          <Stacks.Screen name="ShopTiming" component={ShopTiming} options={{ headerShown: false }} />
+                          <Stacks.Screen name="VerificationDone" component={VerificationDone} options={{ headerShown: false }} />
+                          <Stacks.Screen name="UploadLogo" component={UploadLogo} options={{ headerShown: false }} />
+                          <Stacks.Screen name="ChooseCategories" component={ChooseCategories} options={{ headerShown: false }} />
+                          <Stacks.Screen name="ChooseSubCategories" component={ChooseSubCategory} options={{ headerShown: false }} />
 
-      );
 
+                        </>
+
+                        :
+                        (this.state.islogin && this.state.role.role != 'owner') ?
+                          <>
+                            <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
+                          </>
+                          :
+                          // User is signed in  
+                          <>
+
+                            <Stacks.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Profile" component={Profile} options={{ he741074107aderShown: false }} />
+                            <Stacks.Screen name="ChangeSubCategory" component={ChangeSubCategory} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ChangeShopTime" component={ChangeShopTime} options={{ headerShown: false }} />
+                            <Stacks.Screen name="AboutUs" component={AboutUs} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ContactUs" component={ContactUs} options={{ headerShown: false }} />
+                            <Stacks.Screen name="PrivacyPolicy" component={PrivacyPolicy} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answers" component={Answers} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answer1" component={Answer1} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answer2" component={Answer2} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answer3" component={Answer3} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answer4" component={Answer4} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Answer5" component={Answer5} options={{ headerShown: false }} />
+                            <Stacks.Screen name="CreateOffers" component={CreateOffers} options={{ headerShown: false }} />
+                            <Stacks.Screen name="CreateService" component={CreateService} options={{ headerShown: false }} />
+                            <Stacks.Screen name="CreatePackages" component={CreatePackages} options={{ headerShown: false }} />
+                            <Stacks.Screen name="AddCategory" component={AddCategory} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Comments" component={Comments} options={{ headerShown: false }} />
+                            <Stacks.Screen name="MultipleImage" component={MultipleImage} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ChangeLocation" component={ChangeLocation} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditCategory" component={EditCategory} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditService" component={EditService} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditPackage" component={EditPackage} options={{ headerShown: false }} />
+                            <Stacks.Screen name="AddPackageCategory" component={AddPackageCategory} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditOffer" component={EditOffer} options={{ headerShown: false }} />
+                            <Stacks.Screen name="NewPost" component={NewPost} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditComment" component={EditComment} options={{ headerShown: false }} />
+                            <Stacks.Screen name="OfferProduct" component={OfferProduct} options={{ headerShown: false }} />
+                            <Stacks.Screen name="SingleFeed" component={SingleFeed} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Notification" component={Notifications} options={{ headerShown: false }} />
+                            <Stacks.Screen name="CategoryChange" component={CategoryChange} options={{ headerShown: false }} />
+                            <Stacks.Screen name="VendorReviews" component={VendorReviews} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ListingDashboardItems" component={ListingDashboardItems} options={{ headerShown: false }} />
+                            <Stacks.Screen name="TopDeals" component={TopDeals} options={{ headerShown: false }} />
+                            <Stacks.Screen name="VerifyVoucher" component={VerifyVoucher} options={{ headerShown: false }} />
+                            <Stacks.Screen name="VoucherDetails" component={VoucherDetails} options={{ headerShown: false }} />
+                            <Stacks.Screen name="CashbackHistory" component={CashbackHistory} options={{ headerShown: false }} />
+                            <Stacks.Screen name="TableView" component={TableView} options={{ headerShown: false }} />
+                            <Stacks.Screen name="OtherCharges" component={OtherCharges} options={{ headerShown: false }} />
+                            <Stacks.Screen name="GenerateBill" component={GenerateBill} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ProductVariants" component={ProductVariants} options={{ headerShown: false }} />
+                            <Stacks.Screen name="AddCover" component={AddCover} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Wallet" component={Wallet} options={{ headerShown: false }} />
+                            <Stacks.Screen name="OnlinePayment" component={OnlinePayment} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ProductDetails" component={ProductDetails} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Subscription" component={Subscription} options={{ headerShown: false }} />
+                            <Stacks.Screen name="ChoosePaymentType" component={ChoosePaymentType} options={{ headerShown: false }} />
+                            <Stacks.Screen name="PaymentSuccessful" component={PaymentSuccessful} options={{ headerShown: false }} />
+                            <Stacks.Screen name="PaymentFailed" component={PaymentFailed} options={{ headerShown: false }} />
+                            <Stacks.Screen name="OrderDetails" component={OrderDetails} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Report" component={Report} options={{ headerShown: false }} />
+                            <Stacks.Screen name="TotalCustomers" component={TotalCustomers} options={{ headerShown: false }} />
+                            <Stacks.Screen name="StaffAccount" component={StaffAccount} options={{ headerShown: false }} />
+                            <Stacks.Screen name="AddStaffAccount" component={AddStaffAccount} options={{ headerShown: false }} />
+                            <Stacks.Screen name="EditStaffAccount" component={EditStaffAccount} options={{ headerShown: false }} />
+                            <Stacks.Screen name="Offers" component={Offers} options={{ headerShown: false }} />
+                            <Stacks.Screen name='Feeds' component={Feeds} options={{ headerShown: false }} />
+
+                            {/* <Stacks.Screen name="MyCategory" component={MyCategories} options={{title:"Categories"}} props={this.props}/>
+                            <Stacks.Screen name="Service" component={Services} options={{title:"Menu"}} props={this.props}/>
+                            <Stacks.Screen name="Package" component={Packages} options={{title:"Combos"}} props={this.props}/>  */}
+
+                          </>
+                    )
+                  }
+                </Stacks.Navigator>
+              </NavigationContainer>
+            </AuthContext.Provider>
+
+          </>
+
+        );
+
+      }
     }
-  }
 
   }
 }

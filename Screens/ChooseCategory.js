@@ -24,7 +24,7 @@ class ChooseCategories extends Component{
                 <ScrollView>
                     <View style={[styles.header,{marginTop:0,alignSelf:"center"}]}>
                     <Text style={[styles.h4,{alignSelf:"center",fontFamily:"Roboto-Medium",marginTop:40}]}>
-                    Step 5 of 6
+                    Step 4 of 4
                     </Text>    
                       
                         {/* heading */}
@@ -490,7 +490,7 @@ class CategoriesSelect extends Component{
                         onPress={()=>this.submit()}
                         style={[style.buttonStyles,]}>
                         <LinearGradient 
-                            colors={['#326bf3', '#0b2654']}
+                            colors={['#5BC2C1', '#296e84']}
                             style={[styles.signIn]}>
 
                             <Text style={[styles.textSignIn, {color:'#fff'}]}>
@@ -501,7 +501,7 @@ class CategoriesSelect extends Component{
                         </View>
                         :
                         <View style={[style.loader,{marginTop:-5}]}>
-                        <ActivityIndicator size={'large'} color="#326bf3" />
+                        <ActivityIndicator size={'large'} color="#5BC2C1" />
                         </View>
                     }
             </View>

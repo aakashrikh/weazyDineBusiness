@@ -71,6 +71,8 @@ class OtpVerify extends Component {
     this.input1.setValue(this.state.inputText);
   };
 
+
+
   //for first time otp
   event_call = (input) => {
     // alert(this.state.code)

@@ -105,7 +105,7 @@ renderLeftComponent(){
         return (
             <View style={{ top: 10 }}>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("Feeds")} >
-                    <Icon type="ionicon" name="checkmark-sharp" size={25} color="#326bf3" />
+                    <Icon type="ionicon" name="checkmark-sharp" size={25} color="#5BC2C1" />
                 </TouchableOpacity>
                 {/* <Icon type="ionicon" name="checkmark-sharp" size={25} color="#326bf3"
                 onPress={()=>this.go()}/> */}
@@ -242,7 +242,7 @@ renderLeftComponent(){
                                 style={style.serviceImg}/> */}
                             <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.gallery()}>
                                 <View style={style.add}>
-                                    <Icon name="add" size={35} color="#326bf3" />
+                                    <Icon name="add" size={35} color="#5BC2C1" />
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -257,7 +257,7 @@ renderLeftComponent(){
                             onPress={() => this.post()}
                             style={[style.buttonStyles,]}>
                             <LinearGradient
-                                colors={['#326BF3', '#0b2564']}
+                                colors={['#5BC2C1', '#296e84']}
                                 style={styles.signIn}>
 
                                 <Text style={[styles.textSignIn, { color: '#fff' }]}>

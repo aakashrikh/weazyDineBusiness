@@ -204,6 +204,17 @@ class Buttons extends Component {
         }>
           <ScrollView>
 
+            {/* feeds */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Feeds")}>
+              <View style={style.questView}>
+                <View style={{ flexDirection: "row" }}>
+                  <Icon name="reader-outline" type='ionicon' size={25} color="#5BC2C1" />
+                  <Text style={style.texxt}>Feeds</Text>
+                </View>
+                <Icon name="chevron-forward-outline" type='ionicon' color="#222222" size={25} />
+              </View>
+            </TouchableOpacity>
+
             <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>Setup</Text>
 
             {/* taxes an setup */}

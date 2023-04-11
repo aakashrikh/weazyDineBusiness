@@ -50,9 +50,10 @@ class UploadLogo extends Component{
         let path = response.assets.map(path => {
           return (
             this.setState({image: path.uri})
-          );
+            );
         });
-         this.setState({image:path.uri})
+        console.warn(this.state.image)
+        //  this.setState({image:path.uri})
         this.RBSheet.close();
       }
     });
@@ -101,8 +102,8 @@ class UploadLogo extends Component{
                         .then((json)  => {
                             if(json.status)
                             {
-                                Toast.show("Profile picture uploaded!")
-                                this.props.navigation.navigate("UploadCovers")
+                                Toast.show("Shop picture uploaded!")
+                                this.props.navigation.navigate("ChooseCategories")
                             }
                            return json;    
                        }).catch((error) => {  
@@ -116,23 +117,9 @@ class UploadLogo extends Component{
         return(
             <View style={styles.container}>
                 {/* heading */}
-                <TouchableOpacity
-                            onPress={()=>{this.props.navigation.navigate("UploadCovers");}}
-                            style={[styles.buttonStyles,{marginTop:25}]}>
-                                <LinearGradient 
-                                    colors={['#326bf3', '#0b2654']}
-                                    style={{height:30,width:55,borderRadius:5,justifyContent:"center",
-                                    alignSelf:"center",
-                                    margin:10,
-                                    alignSelf:"flex-end"}}>
-
-                                    <Text style={{
-                                    color:'#fff',alignSelf:"center",fontSize:RFValue(11, 580)}}>Skip</Text>
-                                    
-                                </LinearGradient>
-                            </TouchableOpacity>
+                
                 <Text style={[styles.h4,{alignSelf:"center",fontFamily:"Roboto-Medium",marginTop:20}]}>
-                    Step 3 of 6
+                    Step 3 of 4
                     </Text>    
 
                 {/* heading */}
@@ -141,11 +128,11 @@ class UploadLogo extends Component{
                     
                  <View style={{marginTop:100}}>
                     {this.state.image=="" ?
-                    <View style={{height:220,width:220,padding:5,borderWidth:3,borderColor:'#ececec',alignSelf:'center',borderRadius:5}}>
-                    <Image source={require("../img/shop.png")} style={{width:220,height:160,left:-10,top:20}}/>
+                    <View style={{height:240,width:"70%",padding:5,borderWidth:3,borderColor:'#ececec',alignSelf:'center',borderRadius:5,alignItems:"center"}}>
+                    <Image source={require("../img/uploadLogo.png")} style={{width:250,height:220}}/>
                     </View>
                 :
-                <View style={{height:220,width:220,padding:5,borderWidth:3,borderColor:'#ececec',alignSelf:'center',borderRadius:5}}>
+                <View style={{height:240,width:"70%",padding:5,borderWidth:3,borderColor:'#ececec',alignSelf:'center',borderRadius:5}}>
                 <Image source={{uri:this.state.image}} style={style.image} />
                 </View>
                 }
@@ -170,7 +157,7 @@ class UploadLogo extends Component{
             onPress={()=>this.RBSheet.open()}
             style={[styles.buttonStyles,{bottom:100,position:'absolute',alignSelf:"center",width: "65%",}]}>
                 <LinearGradient 
-                    colors={['#326bf3', '#0b2654']}
+                     colors={['#5BC2C1', '#296e84']}
                     style={[styles.signIn]}>
 
                     <Text style={[styles.textSignIn, {
@@ -186,7 +173,7 @@ class UploadLogo extends Component{
                 onPress={()=>this.upload_image()}
                 style={[styles.buttonStyles,{top:70,position:'absolute',alignSelf:"center",width: "65%",}]}>
                     <LinearGradient 
-                        colors={['#326bf3', '#0b2654']}
+                         colors={['#5BC2C1', '#296e84']}
                         style={[styles.signIn]}>
 
                         <Text style={[styles.textSignIn, {
@@ -201,7 +188,7 @@ class UploadLogo extends Component{
                 </View>
                 :
                 <View style={style.loader} >
-                <ActivityIndicator size="large" color="#326bf3" />
+                <ActivityIndicator size="large" color="#5BC2C1" />
                 </View>
                         }
                 </View> }
@@ -239,14 +226,14 @@ class UploadLogo extends Component{
                             <View style={{width:"100%",padding:20}}>
                             <TouchableOpacity onPress={this.camera}>
                                         <Text style={style.iconPencil}>
-                                            <Icon name='camera' type="ionicon" color={'#0077c0'} size={25}/>
+                                            <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25}/>
                                         </Text>
                                         <Text style={style.Text}>Take a picture</Text>
                                         </TouchableOpacity>
 
                                         <TouchableOpacity onPress={this.gallery} > 
                                         <Text style={style.iconPencil}>
-                                            <Icon name='folder' type="ionicon" color={'#0077c0'} size={25}/>
+                                            <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25}/>
                                         </Text>
                                         <Text style={style.Text}>Select from library</Text>
                                         </TouchableOpacity>
@@ -270,8 +257,8 @@ const style=StyleSheet.create({
         margin:10
     },
     image:{
-        height:200,
-        width:200,
+        width:250,
+        height:220,
         borderRadius:20,
         // borderWidth:1,
         borderColor:"#000",

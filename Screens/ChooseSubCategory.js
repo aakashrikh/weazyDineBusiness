@@ -222,7 +222,7 @@ class CategoriesSelect extends Component{
                                          }
                                          else{
                                              Toast.show(json.msg)
-                                                  this.props.navigation.navigate("EnableLocation")
+                                                  this.props.navigation.navigate("VerificationDone")
                                             // this.props.navigation.navigate("Home")
                                          }
                                         return json;    
@@ -405,7 +405,7 @@ class CategoriesSelect extends Component{
                         onPress={()=>this.submit()}
                         style={[style.buttonStyles,]}>
                         <LinearGradient 
-                            colors={['#326bf3', '#0b2654']}
+                            colors={['#5BC2C1', '#296e84']}
                             style={[styles.signIn]}>
 
                             <Text style={[styles.textSignIn, {color:'#fff'}]}>
@@ -416,7 +416,7 @@ class CategoriesSelect extends Component{
                         </View>
                         :
                         <View style={style.loader}>
-                        <ActivityIndicator size={'large'} color="#326bf3" />
+                        <ActivityIndicator size={'large'} color="#5BC2C1" />
                         </View>
                     }
             </View>

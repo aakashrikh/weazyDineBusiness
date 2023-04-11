@@ -104,12 +104,14 @@ class CreateShopProfile extends Component {
         // let nameValidation=/^[a-zA-Z" "]+$/;
         // let isValid=nameValidation.test(this.state.name);        
         this.setState({ msg: "" });
-        if (this.state.name == "" || this.state.shopDescription == "") {
+        if (this.state.name == "" || this.state.shopName == "" || this.state.shopDescription == "") {
             Toast.show("All fields are required !");
         }
-
-        else if (this.state.name == "") {
+        else if (this.state.shopName == "") {
             Toast.show("Enter your Shop name!");
+        }
+        else if(this.state.name == ""){
+            Toast.show("Enter your name!");
         }
         // else if(!isValid)
         // {
@@ -131,6 +133,7 @@ class CreateShopProfile extends Component {
                 body: JSON.stringify({
                     email: mail,
                     name: name,
+                    shop_name: shopName,
                     description: shopDescription,
                     whatsapp:this.state.whatsapp_number,
                     website:this.state.website
@@ -179,7 +182,7 @@ class CreateShopProfile extends Component {
                     {/* <Steps /> */}
 
                     <Text style={[styles.h4, { alignSelf: "center", fontFamily: "Roboto-Medium", marginTop: 40 }]}>
-                        Step 1 of 2
+                        Step 1 of 4
                     </Text>
 
                     {/* heading */}
@@ -187,12 +190,31 @@ class CreateShopProfile extends Component {
 
                     {/* View for fields */}
                     <View>
-                        <View style={{ paddingLeft: 10, marginTop: 20 }}>
-                            <Text style={style.fieldsText}>Shop Name*</Text>
+
+                    <View style={{ paddingLeft: 10, marginTop: 20 }}>
+                            <Text style={style.fieldsText}>Name*</Text>
                             <Input
                                 maxLength={60}
                                 value={this.state.name}
                                 onChangeText={(e) => { this.setState({ name: e }) }}
+                                style={{
+                                    fontSize: RFValue(11, 580),
+                                    color: "black",
+                                    borderWidth:1,
+                                    borderRadius:5,
+                                    borderColor:'#5d5d5d',
+                                    marginTop:10,
+                                }}
+                                inputContainerStyle={{
+                                    width: Dimensions.get("window").width / 1.12,
+                                }} />
+                        </View>
+                        <View style={{ paddingLeft: 10}}>
+                            <Text style={style.fieldsText}>Shop Name*</Text>
+                            <Input
+                                maxLength={60}
+                                value={this.state.shopName}
+                                onChangeText={(e) => { this.setState({ shopName: e }) }}
                                 style={{
                                     fontSize: RFValue(11, 580),
                                     color: "black",

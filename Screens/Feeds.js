@@ -103,9 +103,11 @@ class Feeds extends Component{
     //for header left component
     renderLeftComponent(){
         return(
-        <View style={{width:win.width}} >
-            <Text style={[styles.h3,]}>Feeds</Text> 
-        </View>
+          <View style={{ width: win.width, flexDirection: "row", paddingBottom: 5, }} >
+          <Icon name="arrow-back-outline" type="ionicon"
+              onPress={() => this.props.navigation.goBack()} style={{ top: 2.5 }} />
+          <Text style={[styles.h3, { paddingLeft: 15, bottom: 1 }]}>Feeds </Text>
+      </View>
         )
     }
 
@@ -347,7 +349,7 @@ const style=StyleSheet.create({
         bottom: 15,
         right: 10,
         height: 50,
-        backgroundColor: '#326bf3',
+        backgroundColor: '#5BC2C1',
         borderRadius: 100,
    
 }

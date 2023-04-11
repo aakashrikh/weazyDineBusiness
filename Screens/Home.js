@@ -392,6 +392,7 @@ class Home extends Component {
               </>
             }
 
+            
             {/* Component for business and flat discounts */}
             <Demo navigation={this.props.navigation} />
 
