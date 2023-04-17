@@ -11,6 +11,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from "react-native-simple-toast";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AuthContext } from '../AuthContextProvider.js';
 // import CategoriesSelect from '../Components/CategoriesSelect';
 
 //Global StyleSheet Import
@@ -122,6 +123,7 @@ const style=StyleSheet.create({
 
 var  main_category_id=[]
 class CategoriesSelect extends Component{
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -207,7 +209,7 @@ class CategoriesSelect extends Component{
                        headers: {    
                            Accept: 'application/json',  
                              'Content-Type': 'application/json',
-                             'Authorization':global.token  
+                             'Authorization':this.context.token
                             }, 
                              body: JSON.stringify({   
                                 category_id: main_category_id, 

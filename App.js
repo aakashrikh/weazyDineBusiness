@@ -150,10 +150,10 @@ global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
-global.vendor_api = "http://192.168.1.30:8000/api/";
+// global.vendor_api = "http://192.168.1.30:8000/api/";
 
 //for demo 
-// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""
 
@@ -445,7 +445,7 @@ class App extends Component {
                         </>
 
                         :
-                        (this.state.islogin && this.state.role.role != 'owner') ?
+                        (this.state.islogin && this.state.role.staff_role != 'owner') ?
                           <>
                             <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
                           </>

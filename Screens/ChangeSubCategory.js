@@ -18,7 +18,6 @@ import { AuthContext } from '../AuthContextProvider.js';
 const styles = require('../Components/Style.js');
 
 class ChangeSubCategory extends Component{
-    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -123,6 +122,7 @@ const style=StyleSheet.create({
 
 var  main_category_id=[]
 class CategoriesSelect extends Component{
+    static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -224,7 +224,7 @@ class CategoriesSelect extends Component{
                                          }
                                          else{
                                              Toast.show(json.msg)
-                                                  this.props.navigation.navigate("More")
+                                                  this.props.navigation.navigate("Home",{screen:"More"})
                                             // this.props.navigation.navigate("Home")
                                          }
                                         return json;    
@@ -378,7 +378,7 @@ class CategoriesSelect extends Component{
                         onPress={()=>this.submit()}
                         style={[style.buttonStyles,]}>
                         <LinearGradient 
-                            colors={['#326bf3', '#0b2654']}
+                           colors={['#5BC2C1', '#296E84']}
                             style={[styles.signIn]}>
 
                             <Text style={[styles.textSignIn, {color:'#fff'}]}>
@@ -389,7 +389,7 @@ class CategoriesSelect extends Component{
                         </View>
                         :
                         <View style={style.loader}>
-                        <ActivityIndicator size={'large'} color="#326bf3" />
+                        <ActivityIndicator size={'large'} color="#296E84" />
                         </View>
                     }
             </View>
