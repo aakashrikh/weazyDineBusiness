@@ -10,6 +10,9 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import Toast from "react-native-simple-toast";
 import { RFValue } from 'react-native-responsive-fontsize';
+import { AuthContext } from '../AuthContextProvider.js';
+
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -24,6 +27,8 @@ const options = {
     quality: 0.5
 }
 class NewPost extends Component {
+
+    static contextType = AuthContext;
 
     constructor(props) {
         super(props);
@@ -79,27 +84,29 @@ class NewPost extends Component {
         })
     }
 
+    componentDidMount() {
+        console.warn("New Post", global.vendor)
+    }
 
     //for header left component
-          //for header left component
-renderLeftComponent(){
-    return(
-      <View style={{top:5}}>
-        <Icon type="ionicon" name="arrow-back-outline"
-        onPress={()=>{this.props.navigation.goBack()}}/> 
-      </View>
-    )
-  }
-  //for header center component
-  renderCenterComponent()
-  {
-  return(
-  <View>
-  <Text style={style.text}>New Post</Text>
-  </View>
-  
-  )
-  }
+    renderLeftComponent() {
+        return (
+            <View style={{ top: 5 }}>
+                <Icon type="ionicon" name="arrow-back-outline"
+                    onPress={() => { this.props.navigation.goBack() }} />
+            </View>
+        )
+    }
+
+    //for header center component
+    renderCenterComponent() {
+        return (
+            <View>
+                <Text style={style.text}>New Post</Text>
+            </View>
+
+        )
+    }
 
     renderRightComponent() {
         return (
@@ -112,6 +119,7 @@ renderLeftComponent(){
             </View>
         )
     }
+
     post = () => {
         if (this.state.description == "") {
             Toast.show("Please write something to post")
@@ -136,7 +144,7 @@ renderLeftComponent(){
                 method: 'POST',
                 body: form,
                 headers: {
-                    'Authorization': global.token
+                    'Authorization': this.context.token
                 },
             }).then((response) => response.json())
                 .then((json) => {
@@ -145,8 +153,8 @@ renderLeftComponent(){
                         Toast.show("Failed to post");
                     }
                     else {
-                       // console.warn("Sddd",json.last_added_data);
-                        this.props.navigation.navigate("Feeds",{last_feed:json.last_added_data})
+                        // console.warn("Sddd",json.last_added_data);
+                        this.props.navigation.navigate("Feeds", { last_feed: json.last_added_data })
                     }
                     return json;
                 }).catch((error) => {
@@ -162,18 +170,18 @@ renderLeftComponent(){
         return (
             <View style={styles.container}>
                 <View>
-                <Header 
-                statusBarProps={{ barStyle: 'dark-content' }}
-                centerComponent={this.renderCenterComponent()}
-                leftComponent={this.renderLeftComponent()}
-                ViewComponent={LinearGradient} // Don't forget this!
-                linearGradientProps={{
-                colors: ['white', 'white'],
-                start: { x: 0, y: 0.5 },
-                end: { x: 1, y: 0.5 },
-                
-                }}
-                />
+                    <Header
+                        statusBarProps={{ barStyle: 'dark-content' }}
+                        centerComponent={this.renderCenterComponent()}
+                        leftComponent={this.renderLeftComponent()}
+                        ViewComponent={LinearGradient} // Don't forget this!
+                        linearGradientProps={{
+                            colors: ['white', 'white'],
+                            start: { x: 0, y: 0.5 },
+                            end: { x: 1, y: 0.5 },
+
+                        }}
+                    />
                 </View>
 
                 <View style={{
@@ -181,7 +189,7 @@ renderLeftComponent(){
                     height: 0.5, top: 5
                 }}></View>
 
-                <View style={{ flexDirection: 'row', top: 10,paddingBottom:90,borderWidth:1,borderColor:"#d3d3d3",width:"98%",alignSelf:"center",borderRadius:10 }}>
+                <View style={{ flexDirection: 'row', top: 10, paddingBottom: 90, borderWidth: 1, borderColor: "#d3d3d3", width: "98%", alignSelf: "center", borderRadius: 10 }}>
 
                     <Image source={{ uri: global.pic }} style={style.image} />
                     <TextInput
@@ -225,7 +233,7 @@ renderLeftComponent(){
 
                 {this.state.image == "" ?
                     null :
-                    <View style={{ flexDirection: "row",alignSelf:"center",width:"100%",paddingHorizontal:20, }}>
+                    <View style={{ flexDirection: "row", alignSelf: "center", width: "100%", paddingHorizontal: 20, }}>
                         <Image
                             source={{ uri: this.state.image }}
                             style={{ height: 250, width: "100%", borderRadius: 5, marginTop: 40, alignSelf: "center" }} />
@@ -267,7 +275,7 @@ renderLeftComponent(){
                     </View>
                     :
                     <View style={style.loader}>
-                        <ActivityIndicator size={"large"} color="#326bf3" />
+                        <ActivityIndicator size={"large"} color="#296E84" />
                     </View>
                 }
             </View>

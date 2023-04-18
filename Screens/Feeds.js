@@ -11,6 +11,9 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImagePicker from "react-native-image-crop-picker";
 import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { AuthContext } from '../AuthContextProvider';
+
+
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
@@ -25,7 +28,7 @@ const options = {
 
 
 class Feeds extends Component{
-
+static contextType = AuthContext;
     constructor(props){
         super(props);
         this.state={
@@ -58,7 +61,7 @@ class Feeds extends Component{
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Authorization':global.token 
+            'Authorization':this.context.token
           },
           body: JSON.stringify({
               page:page,
@@ -71,7 +74,7 @@ class Feeds extends Component{
             console.warn(json)
             if(json.data.length>0){    
               this.setState({data:json.data})
-                this.setState({feed_content:json.data[0].feed_content})
+              this.setState({feed_content:json.data[0].feed_content})
             // var obj=json.data;
             // var joined = this.state.data.concat(obj);
             // this.setState({ data: joined }) 
