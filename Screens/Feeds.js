@@ -267,7 +267,7 @@ class AddPost extends Component{
             <Pressable 
             onPress={()=>{this.props.navigation.navigate("NewPost")}}
             // onPress={()=>this.RBSheet.open()}
-             >
+            >
                 <Icon name="add-outline" 
                 size={28}
                 color='white' 

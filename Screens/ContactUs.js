@@ -77,7 +77,7 @@ class SupportView extends Component{
             <View style={{backgroundColor:"#fff",flexDirection:"row",borderTopWidth:2,borderColor:"#f5f5f5", padding:10}}>
                     <View style={style.leftView}>
                 <Text style={[style.heading,{color:"#5BC2C1"}]}>Welcome to</Text>
-                <Text style={[style.heading,{color:"#1F449B"}]}>
+                <Text style={[style.heading,{color:"#296E84"}]}>
                  Customer Support</Text>
                  <Text style={styles.p}>
                 Please get in touch and we will be happy to help you.
@@ -185,7 +185,7 @@ export default ContactUs;
 
 const style=StyleSheet.create({
     heading:{
-        color:"#1F449B",
+        color:"#296E84",
         // fontSize:20,
         fontSize:RFValue(14.5, 580),
         fontFamily:"Raleway-SemiBold",

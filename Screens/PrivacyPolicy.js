@@ -105,6 +105,6 @@ const style=StyleSheet.create({
 IndicatorStyle: {
    alignItems: "center",
    justifyContent: "center",
-   marginTop:-800,
+   marginTop:-450,
  }
 })
