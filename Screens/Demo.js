@@ -126,7 +126,7 @@ class Demo extends Component {
                 <View style={{ flexDirection: "row", width: Dimensions.get("window").width / 1.1, alignItems:"center", justifyContent: "space-between" }}>
                     <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Overview</Text>
 
-                    <SelectDropdown
+                    {/* <SelectDropdown
                         data={sort}
                         onSelect={(selectedRange, index) => {
                             if(selectedRange == "Today"){
@@ -171,7 +171,7 @@ class Demo extends Component {
                             )
                         }}
                         dropdownIconPosition="right"
-                    />
+                    /> */}
 
                 </View>
                 {/* total orders */}

@@ -3,7 +3,7 @@ import { FlatList, TouchableOpacity } from 'react-native';
 import {
     View, Alert,
     StyleSheet, Pressable,
-    Image, Text
+    Image, Text, Dimensions
 } from 'react-native';
 import { Icon, Header } from 'react-native-elements'
 import Toast from 'react-native-simple-toast';
@@ -104,7 +104,19 @@ class StaffAccount extends Component {
     }
 
     detailsCard = ({ item }) => (
-        <View style={{ paddingHorizontal: 20, paddingVertical: 12, flexDirection: "row", justifyContent: "space-between", borderWidth: 1, marginTop: 5, borderColor: "#d3d3d3", width: "97%", alignSelf: "center", borderRadius: 10, alignItems: "center" }}>
+        <View style={{flexDirection: "row",
+        marginHorizontal: 10,
+        marginBottom: 10,
+        padding: 10,
+        marginTop: 10,
+        backgroundColor: '#fff',
+        alignSelf: 'center',
+        justifyContent: 'space-between',
+        width: Dimensions.get('window').width / 1.08,
+        borderRadius: 10,
+        shadowRadius: 50,
+        shadowOffset: { width: 1, height: 1 },
+        elevation: 4,}}>
             <View style={{ width: "70%" }}>
                 <Text style={styles.h4} numberOfLines={2}>{item.staff_name}</Text>
                 <Text style={[styles.h5, { fontFamily: "Raleway-Bold" }]} >{item.staff_role}</Text>

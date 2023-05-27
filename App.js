@@ -145,7 +145,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 //  global.vendor_api = "https://dine-api.weazy.in/api/";
 //global.qr_link = "https://dine-api.weazy.in"
 
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+// global.vendor_api = "https://dine-api.weazy.in/api/";
 global.qr_link = "https://dine-api.weazy.in"
 
 
@@ -304,7 +304,7 @@ class App extends Component {
   };
 
   login = (step, user, role, token) => {
-    console.warn(role)
+    console.warn(user)
     this.setState({ islogin: true, step: step, user: user, role: role, token: token });
     this.setState({ isloading: false });
     SplashScreen.hide();
@@ -445,13 +445,13 @@ class App extends Component {
                         </>
 
                         :
-                        (this.state.islogin && this.state.role.staff_role != 'owner') ?
-                          <>
-                            <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
-                          </>
-                          :
-                          // User is signed in  
-                          <>
+                        // (this.state.islogin && this.state.role.staff_role != 'owner') ?
+                        //   <>
+                        //     <Stacks.Screen name="AccessDenied" component={AccessDenied} options={{ headerShown: false }} />
+                        //   </>
+                        //   :
+                          // User is signed in 
+                            <>
 
                             <Stacks.Screen name="TabNav" component={TabNav} options={{ headerShown: false }} />
                             <Stacks.Screen name="Profile" component={Profile} options={{ he741074107aderShown: false }} />

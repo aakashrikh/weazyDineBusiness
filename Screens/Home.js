@@ -39,6 +39,7 @@ class Home extends Component {
       status: true,
       // subscription:true,
       remove_last_slash_and_word: "",
+      profile_image:true,
     };
 
 
@@ -133,6 +134,7 @@ class Home extends Component {
 
             if (value.profile_pic == "" || value.profile_pic == null) {
               this.setState({ image_loade: false })
+              this.setState({ profile_image:false})
             }
             this.setState({ id: value.id })
             this.setState({ name: value.name, gstin: value.gstin })
@@ -354,6 +356,43 @@ class Home extends Component {
               </>
             }
 
+            {/* for profile photo */}
+            {/* for cover photo */}
+            {this.state.isloading ?
+              <SkeletonPlaceholder>
+                <View style={[style.viewBox, { height: 80 }]} />
+              </SkeletonPlaceholder>
+              :
+              <>
+                {(!this.state.profile_image) ?
+                  <TouchableOpacity style={{
+                    width: Dimensions.get('window').width / 1.05, backgroundColor: '#fff', alignSelf: 'center', shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 4,
+                    elevation: 5, marginTop: 20, borderRadius: 10, padding: 10
+                  }} onPress={() => { this.props.navigation.navigate("Profile") }} >
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                      <View style={{ width: '20%', paddingTop: 5, }}>
+                        <Image source={require('../img/image.png')} style={{ width: 50, height: 50, marginLeft: 10, marginTop: 10 }} />
+                      </View>
+                      <View style={{ width: '80%', paddingTop: 10, paddingBottom: 10 }}>
+                        <Text style={{ fontSize: RFValue(12, 580), fontFamily: "Roboto-Bold" }}>Upload Your Shop Profile Picture</Text>
+                        <Text style={{ fontSize: RFValue(10, 580), fontFamily: "Roboto-Regular", marginTop: 2 }}>Upload a profile picture for your shop that will make it more appealing to potential customers</Text>
+
+                      </View>
+
+                    </View>
+
+                  </TouchableOpacity>
+                  :
+                  <></>
+                }
+              </>
+            }
 
             {/* for cover photo */}
             {this.state.isloading ?

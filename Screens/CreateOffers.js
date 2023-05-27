@@ -342,12 +342,12 @@ class CreateOffers extends Component {
                                 this.state.discount === '' ? (
                                     <></>
                                 ) : (
-                                    <Text>
+                                    <Text style={[styles.h6,{marginLeft:20, marginTop:5, color:"#296e84", fontFamily:"Roboto-SemiBold"}]}>
                                         Flat ₹{this.state.discount} off on all orders
                                         {this.state.minimum_order_value === '' ? (
                                             <></>
                                         ) : (
-                                            <Text>
+                                            <Text >
                                                 {' '}
                                                 above ₹{this.state.minimum_order_value}
                                             </Text>
@@ -357,7 +357,7 @@ class CreateOffers extends Component {
                             ) : this.state.discount === '' ? (
                                 <></>
                             ) : (
-                                <Text>
+                                <Text style={[styles.h6,{marginLeft:20, marginTop:5, color:"#296e84", fontFamily:"Roboto-SemiBold"}]}>
                                     {this.state.discount}% off on all orders
                                     {this.state.minimum_order_value === '' ? (
                                         <></>

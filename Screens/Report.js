@@ -121,7 +121,6 @@ class Report extends Component {
     // }
 
     fetch_order = (page_id, range,method) => {
-        console.warn(page_id, range,method)
         fetch(global.vendor_api + 'fetch_sales_reports', {
             method: 'POST',
             headers: {
@@ -142,7 +141,7 @@ class Report extends Component {
         })
             .then((response) => response.json())
             .then((json) => {
-                console.warn(json);
+                console.warn("gg", this.state.from,this.state.to, );
                 if (!json.status) {
                     if (page_id == 1) {
                         this.setState({ data: [], isLoading: false });
@@ -153,11 +152,11 @@ class Report extends Component {
                 } else {
                     var obj = json.data.data;
                     this.setState({ data: this.state.data.concat(obj) });
-                    console.warn(this.state.data);
+                    console.warn("sss",this.state.data);
                     this.setState({
                         total_earnning: json.total_earnning,
                         online: json.online,
-                        cashSale: json.cashsale,
+                        cashsale: json.cashsale,
                         weazypay: json.weazypay,
                     });
 
@@ -279,7 +278,29 @@ class Report extends Component {
                     <></>
                     :
                     <View>
-                        <View style={{
+
+                        {
+                            (this.props.route.params.type == "Cash") ?
+                            <View style={{
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
+                                width: "47%", alignItems: "center", marginLeft: 20
+                            }}>
+                                <Text style={styles.h4}>Cash Sales</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.cashsale}</Text>
+                            </View>
+                            :
+                            (this.props.route.params.type == "Online") ?
+                            <View style={{
+                                backgroundColor: '#fff', padding: 10, borderRadius: 15, borderWidth: 1,
+                                width: "47%", alignItems: "center", marginLeft: 20
+                            }}>
+                                <Text style={styles.h4}>Online Sales</Text>
+                                <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.total_earnning}</Text>
+                            </View>
+                            :
+                            
+                        <View>
+                            <View style={{
                             flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 10,
                             width: Dimensions.get('window').width, marginTop: 10, alignItems: "center"
                         }}>
@@ -318,7 +339,10 @@ class Report extends Component {
                                 <Text style={{ fontSize: RFValue(18, 580) }}>₹ {this.state.weazypay}</Text>
                             </View>
                         </View>
-                    </View>}
+                        </View>
+    }
+                    </View>
+                }
 
                 {(!this.state.isLoading) ?
                     [

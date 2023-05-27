@@ -622,7 +622,7 @@ const style = StyleSheet.create({
     image: {
         width: 120,
         height: 120,
-        borderRadius: 50,
+        borderRadius: 100,
         alignSelf: "center"
     },
     camIcon: {

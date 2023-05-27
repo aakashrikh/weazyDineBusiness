@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import {Icon} from "react-native-elements"
 import LinearGradient from 'react-native-linear-gradient';
-// import MapView, {Marker,  PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, {Marker,  PROVIDER_GOOGLE } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Geolocation from '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
@@ -284,12 +284,12 @@ class Map extends Component {
         {
           (this.state.latitude != '' && this.state.longitude != '') ?
             <View style={{ height: "70%" }}>
-              {/* <MapView
+              <MapView
                 // provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={style.map}
                 onRegionChangeComplete={this.onRegionChange}
                 region={{ latitude: this.state.latitude, longitude: this.state.longitude, latitudeDelta: this.state.latitudeDelta, longitudeDelta: this.state.longitudeDelta }}
-              > */}
+              >
                 {/* <MapView.Marker
           coordinate={{latitude: this.state.latitude,
           longitude: this.state.longitude}}
@@ -297,7 +297,7 @@ class Map extends Component {
           description={"description"}
        /> */}
    
-              {/* </MapView> */}
+              </MapView>
             {this.state.pin ?
               <View style={{    
                 zIndex: 3,
