@@ -123,7 +123,7 @@ class Demo extends Component {
 
 
                 {/* Business */}
-                <View style={{ flexDirection: "row", width: Dimensions.get("window").width / 1.1, alignItems:"center", justifyContent: "space-between" }}>
+                <View style={{ flexDirection: "row", width: Dimensions.get("window").width / 1.1, alignItems: "center", justifyContent: "space-between" }}>
                     <Text style={[styles.h3, { paddingTop: 10, fontWeight: 'bold', marginLeft: 15 }]}>Overview</Text>
 
                     {/* <SelectDropdown
@@ -175,23 +175,23 @@ class Demo extends Component {
 
                 </View>
                 {/* total orders */}
-                <View style={{ flexDirection: "row", width: Dimensions.get('window').width/1.02, alignSelf:"center", justifyContent: "space-around", marginTop: 30 }}>
+                <View style={{ flexDirection: "row", width: Dimensions.get('window').width / 1.02, alignSelf: "center", justifyContent: "space-around", marginTop: 30 }}>
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                        onPress={() => this.props.navigation.navigate("CashbackHistory")}>
+                        <Image source={require('../img/order.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/order.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Total Orders
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.orders}
                                 </Text>
                             </View>
@@ -199,23 +199,24 @@ class Demo extends Component {
                     </Pressable>
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Total", method: "all"
-                    })}>
+                        onPress={() => this.props.navigation.navigate("Report", {
+                            range: this.state.range, to: this.state.to, from: this.state.from, type: "Total", method: "all"
+                        })}>
+                        <Image source={require('../img/totalSales.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { width: "100%", marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/totalSales.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
+
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Total Sales
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.total_earnning.toFixed(2)}
                                 </Text>
                             </View>
@@ -223,23 +224,23 @@ class Demo extends Component {
                     </Pressable>
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Cash", method:"cash"
-                    })}>
+                        onPress={() => this.props.navigation.navigate("Report", {
+                            range: this.state.range, to: this.state.to, from: this.state.from, type: "Cash", method: "cash"
+                        })}>
+                        <Image source={require('../img/cashSales.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/cashSales.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Cash Sales
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.cashsale.toFixed(2)}
                                 </Text>
                             </View>
@@ -248,25 +249,26 @@ class Demo extends Component {
                 </View>
 
 
-                <View style={{ flexDirection: "row",width: Dimensions.get('window').width/1.02, alignSelf:"center", justifyContent: "space-around", marginTop: 20 }}>
+                <View style={{ flexDirection: "row", width: Dimensions.get('window').width / 1.02, alignSelf: "center", justifyContent: "space-around", marginTop: 20 }}>
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={()=> this.props.navigation.navigate("Report",{
-                        range:this.state.range, to: this.state.to, from: this.state.from, type: "Online", method:"upi",
-                    })}>
+                        onPress={() => this.props.navigation.navigate("Report", {
+                            range: this.state.range, to: this.state.to, from: this.state.from, type: "Online", method: "upi",
+                        })}>
+                        <Image source={require('../img/onlineSales.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/onlineSales.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
+
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Online Sales
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.online.toFixed(2)}
                                 </Text>
                             </View>
@@ -274,21 +276,22 @@ class Demo extends Component {
                     </Pressable>
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={()=>this.props.navigation.navigate("TotalCustomers")}>
+                        onPress={() => this.props.navigation.navigate("TotalCustomers")}>
+                        <Image source={require('../img/totalCustomers.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { width: "100%", marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/totalCustomers.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
+
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Total Customer
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.customer}
                                 </Text>
                             </View>
@@ -296,21 +299,22 @@ class Demo extends Component {
                     </Pressable>
 
                     <Pressable style={{ width: Dimensions.get("window").width / 3.3 }}
-                    onPress={() => this.props.navigation.navigate("Wallet")}>
+                        onPress={() => this.props.navigation.navigate("Wallet")}>
+                        <Image source={require('../img/weazyPay.png')} style={{
+                            height: 45, width: 45,
+                            position: "absolute",
+                            justifyContent: "center", left: 15, zIndex: 1
+                        }} />
                         <LinearGradient
                             start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                             colors={['#5BC2C1', '#296e84']}
                             style={[style.gradientView1, { marginTop: 20 }]}>
                             <View>
-                                <Image source={require('../img/weazyPay.png')} style={{
-                                    height: 45, width: 45,
-                                    position: "absolute",
-                                    justifyContent: "center", top: -40, left: -5,
-                                }} />
+
                                 <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", marginTop: 20, fontSize: RFValue(11, 580) }}>
                                     Weazy Pay
                                 </Text>
-                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize:RFValue(12,580), marginBottom: 10 }}>
+                                <Text style={{ color: '#fff', fontFamily: "Roboto-Bold", alignSelf: "center", fontSize: RFValue(12, 580), marginBottom: 10 }}>
                                     {item.weazypay.toFixed(2)}
                                 </Text>
                             </View>
@@ -393,8 +397,8 @@ const style = StyleSheet.create({
         elevation: 5,
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        right:-10,
-        top:5
+        right: -10,
+        top: 5
     },
 
 })

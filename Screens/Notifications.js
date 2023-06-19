@@ -90,10 +90,12 @@ class Notifications extends Component{
         this.fetch_notifications
     }
   }
+
   componentDidMount()
   {
       this.fetch_notifications();
   }
+
   renderItem =({item})=>(
     <View >
     <View style={{flexDirection:"row",width:"100%",padding:10,borderBottomWidth:1,borderColor:"#d3d3d3"}}>

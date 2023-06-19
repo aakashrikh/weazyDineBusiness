@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Text, View,
-    StyleSheet, Image, Linking, StatusBar,
+    StyleSheet, Image, Linking, StatusBar, Modal,
     Dimensions, TouchableOpacity, FlatList, ActivityIndicator, Platform
 } from 'react-native';
 import { Icon, Header, Input } from 'react-native-elements';
@@ -11,14 +11,14 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { AuthContext } from '../AuthContextProvider.js';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Modal from 'react-native-modal';
+// import Modal from 'react-native-modal';
 import SelectDropdown from 'react-native-select-dropdown';
 
 //Global StyleSheet Import
 const styles = require('../Components/Style.js');
 
-const capacity = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
-"11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23", "24", "25"];
+const capacity = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "23", "24", "25"];
 
 class Tables extends Component {
 
@@ -33,7 +33,7 @@ class Tables extends Component {
             data: [],
             table_load: false,
             interval: '',
-            capacity:"4",
+            capacity: "4",
             dinein_name: '',
             modalVisible: false,
         };
@@ -123,8 +123,8 @@ class Tables extends Component {
                     if (json.data.length > 0) {
                         this.setState({ data: json.data })
                     }
-                    
-                    console.warn("data",this.state.data)
+
+                    console.warn("data", this.state.data)
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
                     //     // this.get_profile();
@@ -204,11 +204,11 @@ class Tables extends Component {
                     </View>
 
                     <View style={{ width: "30%", alignItems: "center", justifyContent: "center" }}>
-                       
-                       <View style={{flexDirection:"row",padding:5}}>
-                        <Icon name="people-outline" type='ionicon' size={20}/>
-                        <Text style={{fontFamily:"Roboto-Bold", fontSize:RFValue(12,580), paddingLeft:5}}>{item.capacity}</Text>
-                       </View>
+
+                        <View style={{ flexDirection: "row", padding: 5 }}>
+                            <Icon name="people-outline" type='ionicon' size={20} />
+                            <Text style={{ fontFamily: "Roboto-Bold", fontSize: RFValue(12, 580), paddingLeft: 5 }}>{item.capacity}</Text>
+                        </View>
                         <TouchableOpacity onPress={() => { Linking.openURL(global.qr_link + item.qr_link) }}
                             style={{ backgroundColor: "#5BC2C1", padding: 5, paddingTop: 2, paddingHorizontal: 10, flexDirection: "row", borderRadius: 5 }}>
                             <Text style={{ color: "#fff", fontSize: RFValue(12, 580), fontFamily: "Raleway-Bold", marginTop: Platform.OS == "ios" ? 3 : 0 }}>View QR</Text>
@@ -218,104 +218,25 @@ class Tables extends Component {
                 </TouchableOpacity>
                 :
                 <View>
-                    
-                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} style={[style.viewBox,
-                { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#5BC2C1', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={{ width: 60, height: 60, backgroundColor: '#296E84', borderRadius: 5 }}>
-                            <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
-                        </View>
-                        <View style={{ marginLeft: 20 }}>
-                            <Text style={[styles.h3, { color: '#eee' }]}>{item.table_name}</Text>
-                            <Text style={[styles.h5, { color: '#eee', fontSize: RFValue(12, 580), textTransform: "capitalize" }]}>{item.table_status}</Text>
 
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} style={[style.viewBox,
+                    { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#5BC2C1', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ width: 60, height: 60, backgroundColor: '#296E84', borderRadius: 5 }}>
+                                <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
+                            </View>
+                            <View style={{ marginLeft: 20 }}>
+                                <Text style={[styles.h3, { color: '#eee' }]}>{item.table_name}</Text>
+                                <Text style={[styles.h5, { color: '#eee', fontSize: RFValue(12, 580), textTransform: "capitalize" }]}>{item.table_status}</Text>
+
+                            </View>
                         </View>
-                    </View>
-                </TouchableOpacity>
+                    </TouchableOpacity>
                 </View>
 
             }
 
-            <Modal
-                // animationType="slide"
-                transparent={true}
-                visible={this.state.modalVisible}
-                onBackdropPress={() => {
-                    this.setState({ modalVisible: false });
-                }}>
-                <View style={style.centeredView}>
-                    <View style={style.modalView}>
-                        <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}
-                            style={{ alignSelf: "flex-end", }}>
-                            <Icon name="close-circle-outline" size={30} type="ionicon" />
-                        </TouchableOpacity>
 
-                        <Text style={[styles.p, { fontFamily: "Poppins-SemiBold" }]}>New Dine-In Name <Text style={[styles.h6, { fontFamily: "Poppins-Medium" }]}>(Name will be auto generated if not filled.)</Text> </Text>
-                        <Input
-                            onChangeText={e => {
-                                this.setState({ dinein_name: e });
-                            }}
-                            placeholder="Enter Here"
-                            maxLength={10}
-                            inputContainerStyle={{
-                                // width: Dimensions.get('window').width / 1.05,
-                                borderColor: 'transparent',
-                            }}
-                            keyboardType="default"
-                            style={{
-                                fontFamily: 'Poppins-SemiBold',
-                                fontSize: RFValue(11, 580),
-                                color: "grey",
-
-                            }}
-                            containerStyle={[style.inputText, {
-                                borderRadius: 10, marginTop: 10,
-                                marginBottom: 10,
-                            }]}
-                        />
-
-                        <Text style={[styles.p, { fontFamily: "Poppins-SemiBold", alignSelf: "flex-start", paddingLeft: 25 }]}>Sitting</Text>
-
-                        <SelectDropdown
-                            data={capacity}
-                            onSelect={(selectedCapacity, index) => {
-                                this.setState({ capacity: selectedCapacity })
-                            }}
-                            buttonTextAfterSelection={(selectedCapacity, index) => {
-                                return selectedCapacity
-                            }}
-                            rowTextForSelection={(item, index) => {
-                                return item
-                            }}
-                            defaultValue={this.state.capacity}
-                            buttonTextStyle={{
-                                fontFamily: "Montserrat-Medium", fontSize: RFValue(12, 580), color: "#000",
-                                position: "absolute", right: 10, top: 10
-                            }}
-                            buttonStyle={style.inputText}
-                            renderDropdownIcon={() => {
-                                return (
-                                    <Icon name="chevron-down" type="ionicon" />
-                                )
-                            }}
-
-                        />
-
-                        <TouchableOpacity
-                            onPress={() => this.add()}
-                            style={[style.buttonStyles, { marginTop: 20 }]}>
-                            <LinearGradient
-                                colors={['#5BC2C1', '#296E84']}
-                                style={[styles.signIn]}>
-
-                                <Text style={[styles.textSignIn, { color: '#fff' }]}>
-                                    Add Table</Text>
-
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
         </>
 
     )
@@ -364,6 +285,87 @@ class Tables extends Component {
                         :
                         <Loaders />
                     }
+
+                    <Modal
+                        // animationType="slide"
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onBackdropPress={() => {
+                            this.setState({ modalVisible: false });
+                        }}>
+                        <View style={style.centeredView}>
+                            <View style={style.modalView}>
+                                <TouchableOpacity onPress={() => this.setState({ modalVisible: false })}
+                                    style={{ alignSelf: "flex-end", }}>
+                                    <Icon name="close-circle-outline" size={30} type="ionicon" />
+                                </TouchableOpacity>
+
+                                <Text style={[styles.p, { fontFamily: "Poppins-SemiBold" }]}>New Dine-In Name <Text style={[styles.h6, { fontFamily: "Poppins-Medium" }]}>(Name will be auto generated if not filled.)</Text> </Text>
+                                <Input
+                                    onChangeText={e => {
+                                        this.setState({ dinein_name: e });
+                                    }}
+                                    placeholder="Enter Here"
+                                    maxLength={10}
+                                    inputContainerStyle={{
+                                        // width: Dimensions.get('window').width / 1.05,
+                                        borderColor: 'transparent',
+                                    }}
+                                    keyboardType="default"
+                                    style={{
+                                        fontFamily: 'Poppins-SemiBold',
+                                        fontSize: RFValue(11, 580),
+                                        color: "grey",
+
+                                    }}
+                                    containerStyle={[style.inputText, {
+                                        borderRadius: 10, marginTop: 10,
+                                        marginBottom: 10,
+                                    }]}
+                                />
+
+                                <Text style={[styles.p, { fontFamily: "Poppins-SemiBold", alignSelf: "flex-start", paddingLeft: 25 }]}>Sitting</Text>
+
+                                <SelectDropdown
+                                    data={capacity}
+                                    onSelect={(selectedCapacity, index) => {
+                                        this.setState({ capacity: selectedCapacity })
+                                    }}
+                                    buttonTextAfterSelection={(selectedCapacity, index) => {
+                                        return selectedCapacity
+                                    }}
+                                    rowTextForSelection={(item, index) => {
+                                        return item
+                                    }}
+                                    defaultValue={this.state.capacity}
+                                    buttonTextStyle={{
+                                        fontFamily: "Montserrat-Medium", fontSize: RFValue(12, 580), color: "#000",
+                                        position: "absolute", right: 10, top: 10
+                                    }}
+                                    buttonStyle={[style.inputText, { shadowOpacity: 0 }]}
+                                    renderDropdownIcon={() => {
+                                        return (
+                                            <Icon name="chevron-down" type="ionicon" />
+                                        )
+                                    }}
+
+                                />
+
+                                <TouchableOpacity
+                                    onPress={() => this.add()}
+                                    style={[style.buttonStyles, { marginTop: 20 }]}>
+                                    <LinearGradient
+                                        colors={['#5BC2C1', '#296E84']}
+                                        style={[styles.signIn]}>
+
+                                        <Text style={[styles.textSignIn, { color: '#fff' }]}>
+                                            Add Table</Text>
+
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
                 </View>
             </SafeAreaProvider>
         )
