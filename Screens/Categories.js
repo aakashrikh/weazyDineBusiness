@@ -23,10 +23,17 @@ class Categories extends Component{
         })
     }
 
-
-    get_category=()=>{
-            fetch(global.vendor_api+'get_category_vendor?vendor_id='+global.vendor_id, {
-            method: 'GET',
+    get_category = () => {
+        fetch(global.vendor_api + 'fetch_vendor_category'
+            , {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': this.context.token
+                },
+                body: JSON.stringify({
+                })
             })
             .then((response) => response.json())
             .then((json) => {
@@ -36,7 +43,7 @@ class Categories extends Component{
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false });
+                this.setState({ isLoading: false })
             });
     }
     
@@ -48,7 +55,7 @@ class Categories extends Component{
             return(
                 <TouchableOpacity style={style.catButton}>
                     <Text style={style.catButtonText}>
-                    {cat.name}
+                    {cat.name}fff
                     </Text>
             </TouchableOpacity>
             )

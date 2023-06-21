@@ -158,9 +158,18 @@ class Fields extends Component {
 
 
     get_category = () => {
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + global.vendor, {
-            method: 'GET',
-        })
+        console.warn(this.context.user.id)
+        fetch(global.vendor_api + 'fetch_vendor_category'
+            , {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': this.context.token
+                },
+                body: JSON.stringify({
+                })
+            })
             .then((response) => response.json())
             .then((json) => {
                 if (json.status) {
@@ -181,7 +190,7 @@ class Fields extends Component {
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false });
+                this.setState({ isloading: false })
             });
     }
 
@@ -276,7 +285,7 @@ class Fields extends Component {
     render() {
 
         return (
-                <View style={{ flex: 1, marginBottom: 15, }}>
+            <View style={{ flex: 1, marginBottom: 15, }}>
                 <View>
                     <Text style={style.fieldsTitle}>
                         Name
@@ -391,111 +400,111 @@ class Fields extends Component {
                                 returnKeyType='done'
                                 value={this.state.tax}
                                 onChangeText={(e) => { this.setState({ tax: e }) }}
-                                style={[style.textInput, { paddingLeft: 30 }]} />
+                                style={[style.textInput, { paddingLeft: 5 }]} />
 
                         </View>
                         :
                         <></>
                 }
 
-<View>
+                <View>
 
-<View style={{ flexDirection: "row", width: "100%" }}>
+                    <View style={{ flexDirection: "row", width: "100%" }}>
 
 
-    <View style={{ width: "60%" }}>
-        <Text style={style.fieldsTitle}>
-            Upload Image
-        </Text>
-        <View style={{ flexDirection: "column" }}>
+                        <View style={{ width: "60%" }}>
+                            <Text style={style.fieldsTitle}>
+                                Upload Image
+                            </Text>
+                            <View style={{ flexDirection: "column" }}>
 
-            {this.state.image == "" ?
-                <View style={{ flexDirection: "row", }}>
-                    <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
-                        <View style={style.add}>
-                            <Icon name="add" size={35} color="#5BC2C1" />
+                                {this.state.image == "" ?
+                                    <View style={{ flexDirection: "row", }}>
+                                        <TouchableOpacity style={{ width: 80, height: 80 }} onPress={() => this.RBSheet.open()}>
+                                            <View style={style.add}>
+                                                <Icon name="add" size={35} color="#5BC2C1" />
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                    :
+                                    <View style={{ flexDirection: "row", }}>
+                                        <Image
+                                            source={{ uri: this.state.image }}
+                                            style={style.serviceImg} />
+                                        <Pressable onPress={() => this.RBSheet.open()} style={{ backgroundColor: "white", height: 28, right: 27, borderWidth: 1, borderRadius: 5, padding: 2 }} >
+                                            <Icon name="edit" size={20} />
+                                        </Pressable>
+                                    </View>
+                                }
+                            </View>
                         </View>
-                    </TouchableOpacity>
+                    </View>
                 </View>
-                :
-                <View style={{ flexDirection: "row", }}>
-                    <Image
-                        source={{ uri: this.state.image }}
-                        style={style.serviceImg} />
-                    <Pressable onPress={() => this.RBSheet.open()} style={{ backgroundColor: "white", height: 28, right: 27, borderWidth: 1, borderRadius: 5, padding: 2 }} >
-                        <Icon name="edit" size={20} />
-                    </Pressable>
-                </View>
-            }
-        </View>
-    </View>
-</View>
-</View>
-{/* Bottom Sheet fot FAB */}
-<RBSheet
-ref={ref => {
-    this.RBSheet = ref;
-}}
-closeOnDragDown={true}
-closeOnPressMask={true}
-height={150}
-customStyles={{
-    container: {
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
-    },
-    wrapper: {
-        // backgroundColor: "transparent",
-        borderWidth: 1
-    },
-    draggableIcon: {
-        backgroundColor: "grey"
-    }
-}}
->
-{/* bottom sheet elements */}
-<View>
+                {/* Bottom Sheet fot FAB */}
+                <RBSheet
+                    ref={ref => {
+                        this.RBSheet = ref;
+                    }}
+                    closeOnDragDown={true}
+                    closeOnPressMask={true}
+                    height={150}
+                    customStyles={{
+                        container: {
+                            borderTopLeftRadius: 20,
+                            borderTopRightRadius: 20
+                        },
+                        wrapper: {
+                            // backgroundColor: "transparent",
+                            borderWidth: 1
+                        },
+                        draggableIcon: {
+                            backgroundColor: "grey"
+                        }
+                    }}
+                >
+                    {/* bottom sheet elements */}
+                    <View>
 
-    {/* Bottom sheet View */}
+                        {/* Bottom sheet View */}
 
-    <View style={{ width: "100%", padding: 20 }}>
-        <TouchableOpacity onPress={this.camera}>
-            <Text style={style.iconPencil}>
-                <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25} />
-            </Text>
-            <Text style={style.Text}>Take a picture</Text>
-        </TouchableOpacity>
+                        <View style={{ width: "100%", padding: 20 }}>
+                            <TouchableOpacity onPress={this.camera}>
+                                <Text style={style.iconPencil}>
+                                    <Icon name='camera' type="ionicon" color={'#5BC2C1'} size={25} />
+                                </Text>
+                                <Text style={style.Text}>Take a picture</Text>
+                            </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.gallery} >
-            <Text style={style.iconPencil}>
-                <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25} />
-            </Text>
-            <Text style={style.Text}>Select from library</Text>
-        </TouchableOpacity>
+                            <TouchableOpacity onPress={this.gallery} >
+                                <Text style={style.iconPencil}>
+                                    <Icon name='folder' type="ionicon" color={'#5BC2C1'} size={25} />
+                                </Text>
+                                <Text style={style.Text}>Select from library</Text>
+                            </TouchableOpacity>
 
-    </View>
+                        </View>
 
 
-</View>
-</RBSheet>
-{!this.state.isLoading ?
-<View>
-    <TouchableOpacity
-        onPress={() => this.create()}
-        style={style.buttonStyles}>
-        <LinearGradient
-            colors={['#5BC2C1', '#296e84']}
-            style={styles.signIn}>
-            <Text style={[styles.textSignIn, { color: '#fff' }]}>
-                Create</Text>
-        </LinearGradient>
-    </TouchableOpacity>
-</View>
-:
-<View style={style.loader}>
-    <ActivityIndicator size={"large"} color="#5BC2C1" />
-</View>
-}
+                    </View>
+                </RBSheet>
+                {!this.state.isLoading ?
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => this.create()}
+                            style={style.buttonStyles}>
+                            <LinearGradient
+                                colors={['#5BC2C1', '#296e84']}
+                                style={styles.signIn}>
+                                <Text style={[styles.textSignIn, { color: '#fff' }]}>
+                                    Create</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+                    :
+                    <View style={style.loader}>
+                        <ActivityIndicator size={"large"} color="#5BC2C1" />
+                    </View>
+                }
             </View>
         )
     }

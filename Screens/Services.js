@@ -48,7 +48,7 @@ class Services extends Component {
             this.get_vendor_product(0, 1);
             if (this.props.route.params != undefined) {
                 this.get_category();
-                this.get_vendor_product(0,1);
+                this.get_vendor_product(0, 1);
                 this.setState({ active_cat: this.props.route.params.active_cat })
             }
         })
@@ -124,35 +124,37 @@ class Services extends Component {
     }
 
     get_category = () => {
-        // this.setState({isloading:true})
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + +this.context.user.id
+        fetch(global.vendor_api + 'fetch_vendor_category'
             , {
-                method: 'GET',
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': this.context.token
+                },
+                body: JSON.stringify({
+                })
             })
             .then((response) => response.json())
             .then((json) => {
-
                 if (json.status) {
                     if (json.data.length > 0) {
-
                         this.setState({ category: json.data });
-
                     }
-
                 }
                 else {
-                    this.setState({ isloading: false, })
+                    this.setState({ category: [] });
                 }
                 return json;
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                // this.get_vendor_product()
+                this.setState({ isloading: false })
             });
     }
 
     filter = (id) => {
-// alert(id,1)
+        // alert(id,1)
         this.setState({ isloading: true })
         this.get_vendor_product(id, 1);
         this.setState({ active_cat: id })
@@ -200,8 +202,6 @@ class Services extends Component {
             });
     }
 
-
-
     render() {
 
         return (
@@ -242,7 +242,7 @@ class Services extends Component {
                                 <View style={{ paddingTop: 120, alignItems: "center" }}>
                                     <View style={{ alignSelf: "center" }}>
                                         <Image source={require("../img/no-product.webp")}
-                                            style={{ width: 300, height: 250 }}  />
+                                            style={{ width: 300, height: 250 }} />
                                         <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
                                             No Products Found!
                                         </Text>
@@ -270,7 +270,7 @@ class Services extends Component {
 
                 {/* fab button */}
                 <View>
-                    {(this.state.category.length==0) ?
+                    {(this.state.category.length == 0) ?
                         <TouchableOpacity style={style.fab}
                             onPress={() => this.props.navigation.navigate("AddCategory", { get_cat: this.get_category })}>
                             <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{ alignSelf: "center" }} />
@@ -372,7 +372,7 @@ class Categories extends Component {
                                             onPress={() => this.props.filter(cat.id)}>
                                             <View style={[style.catButton, { backgroundColor: "#5BC2C1" }]}>
                                                 <Text style={[style.catButtonText, { color: "#fff" }]}>
-                                                {cat.name}
+                                                    {cat.name}
                                                 </Text>
                                             </View>
                                         </TouchableOpacity>
@@ -456,6 +456,7 @@ class Card extends Component {
     }
 
     editNavigation = () => {
+        console.warn("catres", this.props.category)
         this.props.navigation.navigate("EditService",
             {
                 data: this.state.id,
@@ -519,7 +520,7 @@ class Card extends Component {
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
-                                    
+
                                 />
                             </View>
 
@@ -592,7 +593,7 @@ class Card extends Component {
                                 {item.market_price}/-
                             </Text> */}
                             <Text style={[styles.p, { marginLeft: 10, fontFamily: "Roboto-Bold" }]}>
-                            ₹ {item.our_price}/-
+                                ₹ {item.our_price}/-
                             </Text>
                         </View>
                     </View>
@@ -646,12 +647,12 @@ const style = StyleSheet.create({
         height: 80,
         width: 80,
         // borderWidth:0.2,
-         borderRadius:5,
+        borderRadius: 5,
         borderColor: "black",
         margin: 10,
         marginTop: -10,
         marginLeft: 10,
-        zIndex:-10
+        zIndex: -10
     },
     contentView: {
         flexDirection: "column",

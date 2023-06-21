@@ -124,31 +124,34 @@ class Packages extends Component {
             });
     }
 
+
     get_category = () => {
-        // this.setState({isloading:true})
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + global.vendor
+        fetch(global.vendor_api + 'fetch_vendor_category'
             , {
-                method: 'GET',
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': this.context.token
+                },
+                body: JSON.stringify({
+                })
             })
             .then((response) => response.json())
             .then((json) => {
-
                 if (json.status) {
                     if (json.data.length > 0) {
-
                         this.setState({ category: json.data });
-
                     }
-
                 }
                 else {
-                    this.setState({ isloading: false, category: "" })
+                    this.setState({ isloading: false, category: [] })
                 }
                 return json;
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                // this.get_vendor_product()
+                this.setState({ isloading: false })
             });
     }
 
@@ -519,7 +522,7 @@ class Card extends Component {
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
-                                    style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
+                                    // style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
                                 />
                             </View>
 

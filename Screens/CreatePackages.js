@@ -156,11 +156,19 @@ class Fields extends Component {
         })
     }
 
-
     get_category = () => {
-        fetch(global.vendor_api + 'get_category_vendor?vendor_id=' + global.vendor, {
-            method: 'GET',
-        })
+        console.warn(this.context.user.id)
+        fetch(global.vendor_api + 'fetch_vendor_category'
+            , {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': this.context.token
+                },
+                body: JSON.stringify({
+                })
+            })
             .then((response) => response.json())
             .then((json) => {
                 if (json.status) {
@@ -181,7 +189,7 @@ class Fields extends Component {
             })
             .catch((error) => console.error(error))
             .finally(() => {
-                this.setState({ isLoading: false });
+                this.setState({ isloading: false })
             });
     }
 
@@ -387,7 +395,7 @@ class Fields extends Component {
                                 returnKeyType='done'
                                 value={this.state.tax}
                                 onChangeText={(e) => { this.setState({ tax: e }) }}
-                                style={[style.textInput, { paddingLeft: 30 }]} />
+                                style={[style.textInput, { paddingLeft: 5 }]} />
 
                         </View>
                         :
