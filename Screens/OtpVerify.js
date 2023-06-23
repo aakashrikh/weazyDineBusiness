@@ -101,7 +101,7 @@ class OtpVerify extends Component {
           .then((response) => response.json())
           .then((json) => {
             if (json.msg == 'ok') {
-console.warn(json.usr)
+              console.warn(json.usr)
               global.vendor = json.usr;
               global.token = json.token;
               global.msg = "Welcome"

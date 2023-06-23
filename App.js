@@ -11,6 +11,10 @@ import linking from './Components/Linking';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import NetInfo from "@react-native-community/netinfo";
 import OneSignal from 'react-native-onesignal';
+import SplashScreen from 'react-native-splash-screen';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
 
 import MobileLogin from './Screens/MobileLogin';
 import OtpVerify from './Screens/OtpVerify';
@@ -30,7 +34,6 @@ import CreateOffers from './Screens/CreateOffers';
 import CreatePackages from './Screens/CreatePackages';
 import CreateService from './Screens/CreateService';
 import AddCategory from './Screens/AddCategory';
-
 
 import Comments from './Screens/Comments';
 import MultipleImage from './Screens/MultipleImage';
@@ -54,15 +57,16 @@ import Answer3 from './Screens/Answer3';
 import Answer4 from './Screens/Answer4';
 import Answer5 from './Screens/Answer5';
 import Loading from './Screens/Loading';
+
 import ChangeSubCategory from './Screens/ChangeSubCategory';
 import ShopTiming from './Screens/ShopTiming';
 import { AuthContext } from './AuthContextProvider';
 import ChangeShopTime from './Screens/ChangeShopTime';
-
 import NoInternet from './Screens/NoInternet';
 import VendorReviews from './Screens/VendorReviews';
 import EditCategory from './Screens/EditCategory';
 import ListingDashboardItems from './Screens/ListingDashboardItems';
+
 import TopDeals from './Screens/TopDeals';
 import VerifyVoucher from './Screens/VerifyVoucher';
 import VoucherDetails from './Screens/VoucherDetails';
@@ -72,6 +76,7 @@ import OtherCharges from './Screens/OtherCharges';
 import TableView from './Screens/TableView';
 import ProductVariants from './Screens/ProductVariants';
 import GenerateBill from './Screens/GenerateBill';
+
 import Wallet from './Screens/Wallet';
 import OnlinePayment from './Screens/OnlinePayment';
 import ProductDetails from './Screens/ProductDetails';
@@ -82,8 +87,7 @@ import PaymentFailed from './Screens/PaymentFailed';
 import Orders from './Screens/Orders';
 import OrderDetails from './Screens/OrderDetails';
 
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+
 import PasswordLogin from './Screens/PasswordLogin';
 import Report from './Screens/Report';
 import TotalCustomers from './Screens/TotalCustomers';
@@ -96,16 +100,9 @@ import Offers from './Screens/Offers';
 import UploadLogo from './Screens/UploadLogo';
 import ChooseSubCategory from './Screens/ChooseSubCategory';
 import Feeds from './Screens/Feeds';
-
-import TabTop from './Screens/TabTop';
-import MyCategories from './Screens/MyCategories';
-import Services from './Screens/Services';
-import Packages from './Screens/Packages';
-
-import SplashScreen from 'react-native-splash-screen';
-import Permissions from 'react-native-permissions';
-import { LogBox } from 'react-native';
 import ChooseCategories from './Screens/ChooseCategory';
+
+import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Setting a timer']);
 
 //OneSignal Init Code
@@ -142,17 +139,17 @@ const Stacks = createStackNavigator();
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
- global.vendor_api = "https://dine-api.weazy.in/api/";
+//  global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.qr_link = "https://dine-api.weazy.in"
 
-global.vendor_api = "https://dine-api.weazy.in/api/";
+// global.vendor_api = "https://dine-api.weazy.in/api/";
 global.qr_link = "https://dine-api.weazy.in"
 
 
 //for local 
 // global.vendor_api = "http://192.168.1.30:8000/api/";
 
-//for demo 
+// for demo 
 global.vendor_api = "https://beta-dine-api.weazy.in/api/";
 global.image_url = "";
 global.qr_link = ""

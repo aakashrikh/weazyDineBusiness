@@ -323,7 +323,7 @@ class OnlinePayment extends Component {
                                     <Text style={style.fieldsText}>Bank IFSC Code</Text>
                                     <Input
                                        value={this.state.bankName}
-                                       placeholder="Enter Bank ISFC Code"
+                                       placeholder="Enter Bank IFSC Code"
                                        autoCapitalize="characters"
                                        onChangeText={(e) => { this.setState({ bankIFSC: e }) }}
                                        inputContainerStyle={{
