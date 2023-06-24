@@ -226,17 +226,18 @@ class Services extends Component {
                     {/* Particular Card Component */}
                     {!this.state.isloading ?
                         <>
-                            {(this.state.data != "") ?
-                                <Card navigation={this.props.navigation}
-                                    data={this.state.data}
-                                    category={this.state.category}
-                                    load_more={this.load_more}
-                                    load_data={this.state.load_data}
-                                    toggle={this.toggle}
-                                    get_category={this.get_category}
-                                    get_vendor_product={this.get_vendor_product}
-                                    object={this.state.object}
-                                />
+                            {
+                               (this.state.data.length > 0) ?
+                               <Card navigation={this.props.navigation}
+                               data={this.state.data}
+                               category={this.state.category}
+                               load_more={this.load_more}
+                               load_data={this.state.load_data}
+                               toggle={this.toggle}
+                               get_category={this.get_category}
+                               get_vendor_product={this.get_vendor_product}
+                               object={this.state.object}
+                           />
 
                                 :
                                 <View style={{ paddingTop: 120, alignItems: "center" }}>
@@ -480,9 +481,9 @@ class Card extends Component {
                 {/* View for Image */}
                 <View style={{ width: "27%" }}>
                     {item.is_veg ?
-                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
                         :
-                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
                     }
                     {
                         item.product_img == "" ?

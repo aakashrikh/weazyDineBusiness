@@ -48,7 +48,7 @@ class Packages extends Component {
             // this.get_vendor_product(0, 1);
             if (this.props.route.params != undefined) {
                 this.get_category();
-                this.get_vendor_product(0,1);
+                this.get_vendor_product(0, 1);
                 this.setState({ active_cat: this.props.route.params.active_cat })
             }
         })
@@ -246,7 +246,7 @@ class Packages extends Component {
                                 <View style={{ paddingTop: 120, alignItems: "center" }}>
                                     <View style={{ alignSelf: "center" }}>
                                         <Image source={require("../img/no-product.webp")}
-                                            style={{ width: 300, height: 250 }}  />
+                                            style={{ width: 300, height: 250 }} />
                                         <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
                                             No Combos Found!
                                         </Text>
@@ -274,7 +274,7 @@ class Packages extends Component {
 
                 {/* fab button */}
                 <View>
-                    {(this.state.category.length ==0) ?
+                    {(this.state.category.length == 0) ?
                         <TouchableOpacity style={style.fab}
                             onPress={() => this.props.navigation.navigate("AddCategory", { get_cat: this.get_category })}>
                             <Icon name="add-outline" color="#fff" size={25} type="ionicon" style={{ alignSelf: "center" }} />
@@ -482,9 +482,9 @@ class Card extends Component {
                 {/* View for Image */}
                 <View style={{ width: "27%" }}>
                     {item.is_veg ?
-                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
                         :
-                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
                     }
                     {
                         item.product_img == "" ?
@@ -522,7 +522,7 @@ class Card extends Component {
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
                                     value={this.props.object[item.id]}
                                     onValueChange={() => this.props.toggle(item.id)}
-                                    // style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
+                                // style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
                                 />
                             </View>
 
@@ -595,7 +595,7 @@ class Card extends Component {
                                 {item.market_price}/-
                             </Text> */}
                             <Text style={[styles.p, { marginLeft: 10, fontFamily: "Roboto-Bold" }]}>
-                            ₹ {item.our_price}/-
+                                ₹ {item.our_price}/-
                             </Text>
                         </View>
                     </View>
@@ -663,12 +663,12 @@ const style = StyleSheet.create({
         height: 80,
         width: 80,
         // borderWidth:0.2,
-         borderRadius:5,
+        borderRadius: 5,
         borderColor: "black",
         margin: 10,
         marginTop: -10,
         marginLeft: 10,
-        zIndex:-10
+        zIndex: -10
     },
     contentView: {
         flexDirection: "column",
