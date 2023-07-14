@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-    Text,View,
-    StyleSheet,Image,Dimensions,
-    TouchableOpacity,Pressable,PermissionsAndroid,ActivityIndicator
+  Text, View,
+  StyleSheet, Image, Dimensions,
+  TouchableOpacity, Pressable, PermissionsAndroid, ActivityIndicator
 } from 'react-native';
-import {Icon} from "react-native-elements"
+import { Icon } from "react-native-elements"
 import LinearGradient from 'react-native-linear-gradient';
-import MapView, {Marker,  PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Geolocation from '@react-native-community/geolocation';
 navigator.geolocation = require('@react-native-community/geolocation');
@@ -18,26 +18,26 @@ import { AuthContext } from '../AuthContextProvider.js';
 const styles = require('../Components/Style.js');
 
 const latitudeDelta = 0.015;
-const longitudeDelta=0.0121;
+const longitudeDelta = 0.0121;
 
 const win = Dimensions.get('window');
 
 
 
-class ChangeLocation extends Component{
-    constructor(props){
-        super(props);
-    }
+class ChangeLocation extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    render(){
-        return(
-            <View style={style.container}>
-                {/* Component call for map */}
-                <Map navigation={this.props.navigation}
-                state={this.props.state}/>
-            </View>
-        )
-}
+  render() {
+    return (
+      <View style={style.container}>
+        {/* Component call for map */}
+        <Map navigation={this.props.navigation}
+          state={this.props.state} />
+      </View>
+    )
+  }
 }
 export default ChangeLocation;
 
@@ -62,10 +62,10 @@ class Map extends Component {
       postal_code: "",
       area: "",
       state: "",
-      landmark:'',
+      landmark: '',
       object: {},
       home: '',
-      pin:true
+      pin: true
     }
 
   }
@@ -73,90 +73,91 @@ class Map extends Component {
   //Current location
   componentDidMount = async () => {
     // console.warn('hellloooo')
-   this.locationGet();
+    this.locationGet();
   }
 
- 
 
-  locationGet = async() => 
-  {
+
+  locationGet = async () => {
     // RNLocation.configure({
     //   distanceFilter: 5.0
     // })
-    this.setState({app_location:false})
-    if(Platform.OS === 'android')
-    {
-      try{
-            // this.locationOn();
-      
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    this.setState({ app_location: false })
+    if (Platform.OS === 'android') {
+      try {
+        // this.locationOn();
+
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        );
+
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          Geolocation.getCurrentPosition(
+            (info) => {
+
+              this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
+
+              this.fetch_location(this.state.latitude, this.state.longitude);
+              // console.warn(info.coords.latitude);
+              // alert(this.state.latitude, this.state.longitude)
+            },
+            (error) => {
+
+              // See error code charts below.
+              console.log(error.code, error.message);
+            },
           );
-      
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            Geolocation.getCurrentPosition(
-              (info) => {
-                
-                this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
-                
-                this.fetch_location(this.state.latitude, this.state.longitude);
-                // console.warn(info.coords.latitude);
-                // alert(this.state.latitude, this.state.longitude)
-              },
-              (error) => {
-               
-                // See error code charts below.
-                console.log(error.code, error.message);
-              },
-            );
-          }
-        }
-        catch(err){
-          console.warn(err)
         }
       }
-      else
-      {
-        Geolocation.getCurrentPosition(
+      catch (err) {
+        console.warn(err)
+      }
+    }
+    else {
+      Geolocation.getCurrentPosition(
         (info) => {
-          var latitude=info.coords.latitude;
-          var longitude=info.coords.longitude;
-          global.latitude=latitude;
-          global.longitude=longitude;
+          var latitude = info.coords.latitude;
+          var longitude = info.coords.longitude;
+          global.latitude = latitude;
+          global.longitude = longitude;
           this.setState({ latitude: info.coords.latitude, longitude: info.coords.longitude })
-          this.fetch_location(this.state.latitude,this.state.longitude);
+          this.fetch_location(this.state.latitude, this.state.longitude);
         },
         (error) => {
           // See error code charts below.
           console.log(error.code, error.message);
         },
         // { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-        );
+      );
     }
-}
+  }
 
   onRegionChange = (data, details) => {
 
     if (Platform.OS === 'android') {
       if (details.isGesture) {
-        this.setState({ latitude: data.latitude,
-          longitude: data.longitude, });
-        
-        this.fetch_location(data.latitude,data.longitude);;
-        this.setState({pin:true})
+        this.setState({
+          latitude: data.latitude,
+          longitude: data.longitude,
+        });
+
+        this.fetch_location(data.latitude, data.longitude);;
+        this.setState({ pin: true })
       }
     } else {
-      this.setState({ latitude: data.latitude,
-        longitude: data.longitude, });
-      this.fetch_location(data.latitude,data.longitude);
-      this.setState({pin:true})
+      this.setState({
+        latitude: data.latitude,
+        longitude: data.longitude,
+      });
+      this.fetch_location(data.latitude, data.longitude);
+      this.setState({ pin: true })
     }
-    
+
   }
 
   // For location search
   search_location = (data, details) => {
-    this.setState({pin:false})
+    this.setState({ pin: false })
     // alert(details.address_components[0].long_name)
     this.setState({ landmark: details.address_components[0].long_name })
     this.setState({ city: details.address_components[2].long_name })
@@ -166,7 +167,7 @@ class Map extends Component {
       latitude: details.geometry.location.lat,
       longitude: details.geometry.location.lng,
     });
-    this.setState({address:data.description });
+    this.setState({ address: data.description });
 
     this.setState({ latitude: this.state.latitude, longitude: this.state.longitude })
   }
@@ -175,89 +176,82 @@ class Map extends Component {
   fetch_location = (lati, longi) => {
     Geocoder.init(global.google_key);
     Geocoder.from(lati, longi).then(json => {
-      console.warn("aaa",json)
-  
-      this.setState({address:json.results[0].formatted_address })
-      global.latitude=this.state.latitude,
-      global.longitude=this.state.longitude
+      console.warn("aaa", json)
+
+      this.setState({ address: json.results[0].formatted_address })
+      global.latitude = this.state.latitude,
+        global.longitude = this.state.longitude
 
       var addressComponent = json.results[1].address_components[1].long_name;
-    global.address=json.results[0].formatted_address;
-      var results=json;
-        var data=json.results[0].address_components;
-        data.map((values,index)=>
-        {
-          if(values.types[0]=="locality")
-          { 
-             global.city=values.long_name ;
-             this.setState({ city: values.long_name })
-          }
-          if(values.types[0] == "neighborhood")
-          {
-            this.setState({landmark: values.long_name })
-            global.landmark=values.long_name ;
-          }
-          if(values.types[0] == "political")
-          {
-            this.setState({ landmark: values.long_name })
-          }
+      global.address = json.results[0].formatted_address;
+      var results = json;
+      var data = json.results[0].address_components;
+      data.map((values, index) => {
+        if (values.types[0] == "locality") {
+          global.city = values.long_name;
+          this.setState({ city: values.long_name })
+        }
+        if (values.types[0] == "neighborhood") {
+          this.setState({ landmark: values.long_name })
+          global.landmark = values.long_name;
+        }
+        if (values.types[0] == "political") {
+          this.setState({ landmark: values.long_name })
+        }
 
-          if(values.types[0] == "administrative_area_level_1")
-          {
-            global.state=values.long_name ;
-             this.setState({ state: values.long_name })
-          }
-          if(values.types[0] == "postal_code")
-          {
-             this.setState({ postal_code: values.long_name })
-          }
-          
-        });
-        console.warn("bb",data)
-       
+        if (values.types[0] == "administrative_area_level_1") {
+          global.state = values.long_name;
+          this.setState({ state: values.long_name })
+        }
+        if (values.types[0] == "postal_code") {
+          this.setState({ postal_code: values.long_name })
+        }
+
+      });
+      console.warn("bb", data)
+
 
     }).catch(error => console.warn(error));
   }
 
-  update_data = () =>
-  { 
-    this.setState({isloading:true})
-    fetch(global.vendor_api+'update_store_location', { 
+  update_data = () => {
+    this.setState({ isloading: true })
+    fetch(global.vendor_api + 'update_store_location', {
       method: 'POST',
-        headers: {    
-            Accept: 'application/json',  
-              'Content-Type': 'application/json',
-              'Authorization':this.context.token  
-             }, 
-              body: JSON.stringify({ 
-                 latitude:this.state.latitude, 
-                 longitude:this.state.longitude, 
-                 area:this.state.landmark,
-                 city:this.state.city,
-                 state:this.state.state,
-                 address:this.state.address,
-                 pincode:this.state.postal_code
-                 
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': this.context.token
+      },
+      body: JSON.stringify({
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        area: this.state.landmark,
+        city: this.state.city,
+        state: this.state.state,
+        address: this.state.address,
+        pincode: this.state.postal_code
 
-                      })}).then((response) => response.json())
-                      .then((json) => {
-                          console.warn(json)
-                          if(!json.status)
-                          {
-                              var msg=json.msg;
-                              Toast.show(msg);
-                          }
-                          else{
-                              Toast.show(json.msg)
-                              this.props.navigation.navigate("More")
-                              
-                          }
-                         return json;    
-                     }).catch((error) => {  
-                             console.error(error);   
-                          }).finally(() => {
-                             this.setState({isloading:false})
-                          });
+
+      })
+    }).then((response) => response.json())
+      .then((json) => {
+        console.warn(json)
+        if (!json.status) {
+          var msg = json.msg;
+          Toast.show(msg);
+        }
+        else {
+          Toast.show(json.msg)
+          this.props.navigation.navigate("More")
+
+        }
+        return json;
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        this.setState({ isloading: false })
+      });
 
 
     // this.props.navigation.navigate("More",
@@ -296,25 +290,26 @@ class Map extends Component {
           title={"title"}
           description={"description"}
        /> */}
-   
+
               </MapView>
-            {this.state.pin ?
-              <View style={{    
-                zIndex: 3,
-                position: 'absolute',
-                marginTop: -37,
-                marginLeft: -11,
-                left: '50%',
-                top: '50%'}} >
-                <Image source={require('../img/pin.png')}
-                  style={{ height: 35, width: 35, }} />
-              </View>
-              :
-              null
+              {this.state.pin ?
+                <View style={{
+                  zIndex: 3,
+                  position: 'absolute',
+                  marginTop: -37,
+                  marginLeft: -11,
+                  left: '50%',
+                  top: '50%'
+                }} >
+                  <Image source={require('../img/pin.png')}
+                    style={{ height: 35, width: 35, }} />
+                </View>
+                :
+                null
               }
             </View>
             :
-            <View style={{marginTop:200,alignItems:"center"}}>
+            <View style={{ marginTop: 200, alignItems: "center" }}>
               <ActivityIndicator size="large" color="#5BC2C1" />
               <Text style={style.h4}>
                 Locating...
@@ -327,43 +322,43 @@ class Map extends Component {
           <Icon type="ionicon" name="arrow-back-outline" size={20} />
         </Pressable>
 
-        
+
 
         <GooglePlacesAutocomplete
-  placeholder='Enter Location'
-  minLength={2}
-  autoFocus={true}
-  returnKeyType={'default'}
-  fetchDetails={true}
- 
-  onPress={(data, details = null) => 
-      { this.search_location(data, details)
-  }}
+          placeholder='Enter Location'
+          minLength={2}
+          autoFocus={true}
+          returnKeyType={'default'}
+          fetchDetails={true}
 
-query={{
-  key: global.google_key,
-language: 'en',
-}}
-styles={{
-  container: {
-    borderRadius: 10,
-    position: "absolute",
-    top: 40,
-    left: 68,
-    width: "80%",
-    alignSelf: "center",
-    fontFamily: "Raleway-Regular",
-    shadowColor: 'grey',
-    // shadowOpacity: 1.5,
-    elevation: 1,
-    // shadowRadius: 10,
-    color: "#000",
-    // shadowOffset: { width:1, height: 1 },
-  }
-}}
+          onPress={(data, details = null) => {
+            this.search_location(data, details)
+          }}
 
-/>
-       
+          query={{
+            key: global.google_key,
+            language: 'en',
+          }}
+          styles={{
+            container: {
+              borderRadius: 10,
+              position: "absolute",
+              top: 80,
+              left: 68,
+              width: "80%",
+              alignSelf: "center",
+              fontFamily: "Raleway-Regular",
+              shadowColor: 'grey',
+              // shadowOpacity: 1.5,
+              elevation: 1,
+              // shadowRadius: 10,
+              color: "#000",
+              // shadowOffset: { width:1, height: 1 },
+            }
+          }}
+
+        />
+
 
         <View style={style.bottomContainer}>
 
@@ -395,23 +390,23 @@ styles={{
                     >{this.state.address}</Text>
                   </View>
                   {!this.state.isloading ?
-                  <Pressable
-                    onPress={() => this.update_data()}
-                    style={style.confirmbutton}>
-                    <LinearGradient
-                      colors={['#5BC2C1', '#296e84']}
-                      style={styles.signIn}>
+                    <Pressable
+                      onPress={() => this.update_data()}
+                      style={style.confirmbutton}>
+                      <LinearGradient
+                        colors={['#5BC2C1', '#296e84']}
+                        style={styles.signIn}>
 
-                      <Text style={[styles.textSignIn, { color: '#fff' }]}>
-                        CONFIRM LOCATION</Text>
+                        <Text style={[styles.textSignIn, { color: '#fff' }]}>
+                          CONFIRM LOCATION</Text>
 
 
-                    </LinearGradient>
-                  </Pressable>
-                :
-                <View style={style.loader}>
-                <ActivityIndicator size={"large"} color="#5BC2C1"  />
-                </View>
+                      </LinearGradient>
+                    </Pressable>
+                    :
+                    <View style={style.loader}>
+                      <ActivityIndicator size={"large"} color="#5BC2C1" />
+                    </View>
                   }
                 </View>
                 :
@@ -450,23 +445,23 @@ const style = StyleSheet.create({
     // flex:0.7
   },
   buttonorange: {
-      minWidth: '80%',
-      marginBottom: 5,
-      backgroundColor: "#ffa46e",
-      borderRadius: 10,
-      height: 50,
-      justifyContent: "center",
-      alignSelf: "center",
-      top:10
-      
+    minWidth: '80%',
+    marginBottom: 5,
+    backgroundColor: "#ffa46e",
+    borderRadius: 10,
+    height: 50,
+    justifyContent: "center",
+    alignSelf: "center",
+    top: 10
+
   },
   bottomContainer: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     backgroundColor: "white",
     position: "absolute",
-    bottom: 0, 
-  //   flex:0.5,
+    bottom: 0,
+    //   flex:0.5,
     height: "30%"
   },
   text: {
@@ -485,7 +480,7 @@ const style = StyleSheet.create({
   },
   backIcon: {
     position: "absolute",
-    top: 40,
+    top: 80,
     backgroundColor: "white",
     borderRadius: 50,
     left: 10,
@@ -496,7 +491,7 @@ const style = StyleSheet.create({
   },
   select: {
     // fontSize:14,
-    fontSize:14,
+    fontSize: 14,
     color: "grey",
     fontFamily: "Raleway-SemiBold",
     padding: 10
@@ -514,12 +509,12 @@ const style = StyleSheet.create({
     fontSize: 13,
     fontFamily: "Raleway-SemiBold",
   },
-  loader:{
-    shadowOffset:{width:50,height:50},
-    marginTop:30,
-    marginBottom:5,
-    shadowRadius:50,
-    elevation:5,
-    backgroundColor:"#fff",width:40,height:40,borderRadius:50,padding:5,alignSelf:"center"
-},
+  loader: {
+    shadowOffset: { width: 50, height: 50 },
+    marginTop: 30,
+    marginBottom: 5,
+    shadowRadius: 50,
+    elevation: 5,
+    backgroundColor: "#fff", width: 40, height: 40, borderRadius: 50, padding: 5, alignSelf: "center"
+  },
 });
