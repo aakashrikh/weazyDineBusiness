@@ -127,6 +127,9 @@ class ChangeShopTime extends Component {
           this.props.navigation.navigate("More")
 
         }
+        else{
+          console.log(json);
+        }
         return json;
       }).catch((error) => {
         console.error(error);

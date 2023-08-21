@@ -137,6 +137,7 @@ const Tab = createBottomTabNavigator();
 const Stacks = createStackNavigator();
 
 global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
+// global.google_key = "AIzaSyAb52gzLmGK62in6hPYwulzvjK6xho5sk8";
 
 //for production
  global.vendor_api = "https://dine-api.weazy.in/api/";
@@ -312,8 +313,8 @@ class App extends Component {
     window.Pusher = Pusher;
     window.Echo = new Echo({
       broadcaster: 'pusher',
-      key: '714d1999a24b68c8bf87', // for production
-      // key: 'b8ba8023ac2fc3612e90', //for testing
+      // key: '714d1999a24b68c8bf87', // for production
+      key: 'b8ba8023ac2fc3612e90', //for testing
       cluster: 'ap2',
       forceTLS: true,
       disableStats: true,

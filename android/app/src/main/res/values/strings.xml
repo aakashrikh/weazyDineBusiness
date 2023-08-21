@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">Weazy Dine</string>
     <string name="google_map_key">AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc</string>
+    <!-- <string name="google_map_key">AIzaSyAb52gzLmGK62in6hPYwulzvjK6xho5sk8</string> -->
 
 <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
 <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
 
     <!-- Production -->
-     <string moduleConfig="true" name="CodePushDeploymentKey">kBUi9h1c7PDTuhRgmSlm4KqL7Tgtuh3OFcOXx</string>
+     <!-- <string moduleConfig="true" name="CodePushDeploymentKey">kBUi9h1c7PDTuhRgmSlm4KqL7Tgtuh3OFcOXx</string> -->
 
      <!-- Beta -->
-     <!-- <string moduleConfig="true" name="CodePushDeploymentKey">DICl4SjjVqNtIAhTuWkdvwPuv3X3TFRogM5hy</string> -->
+     <string moduleConfig="true" name="CodePushDeploymentKey">DICl4SjjVqNtIAhTuWkdvwPuv3X3TFRogM5hy</string>
 </resources>

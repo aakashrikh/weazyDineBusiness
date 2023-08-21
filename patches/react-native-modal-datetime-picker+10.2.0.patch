@@ -1,0 +1,54 @@
+diff --git a/node_modules/react-native-modal-datetime-picker/src/Modal.js b/node_modules/react-native-modal-datetime-picker/src/Modal.js
+index 6e5f95d..aaba6e7 100644
+--- a/node_modules/react-native-modal-datetime-picker/src/Modal.js
++++ b/node_modules/react-native-modal-datetime-picker/src/Modal.js
+@@ -36,25 +36,44 @@ export class Modal extends Component {
+   animVal = new Animated.Value(0);
+   _isMounted = false;
+ 
++  // componentDidMount() {
++  //   this._isMounted = true;
++  //   if (this.state.isVisible) {
++  //     this.show();
++  //   }
++  //   DeviceEventEmitter.addListener(
++  //     "didUpdateDimensions",
++  //     this.handleDimensionsUpdate
++  //   );
++  // }
++
++  // componentWillUnmount() {
++  //   DeviceEventEmitter.removeListener(
++  //     "didUpdateDimensions",
++  //     this.handleDimensionsUpdate
++  //   );
++  //   this._isMounted = false;
++  // }
++
++  subscription = null;
++
+   componentDidMount() {
+     this._isMounted = true;
+     if (this.state.isVisible) {
+       this.show();
+     }
+-    DeviceEventEmitter.addListener(
++    this.subscription = DeviceEventEmitter.addListener(
+       "didUpdateDimensions",
+       this.handleDimensionsUpdate
+     );
+   }
+ 
+   componentWillUnmount() {
+-    DeviceEventEmitter.removeListener(
+-      "didUpdateDimensions",
+-      this.handleDimensionsUpdate
+-    );
++    this.subscription?.remove()
+     this._isMounted = false;
+   }
+ 
++
+   componentDidUpdate(prevProps: ModalPropsType) {
+     if (this.props.isVisible && !prevProps.isVisible) {
+       this.show();

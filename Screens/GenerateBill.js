@@ -104,6 +104,7 @@ class GenerateBill extends Component {
             });
     }
 
+   
 
 
     render() {
@@ -135,7 +136,7 @@ class GenerateBill extends Component {
                         </View>
 
                         <View style={{ paddingRight: 20, marginTop: 10 }}>
-                            <Text style={[style.text,{fontFamily:"Roboto-Bold"}]}>₹ {this.props.route.params.bill.total_amount}</Text>
+                            <Text style={[style.text, { fontFamily: "Roboto-Bold" }]}>₹ {this.props.route.params.bill.total_amount}</Text>
                         </View>
                     </View>
 
@@ -152,11 +153,11 @@ class GenerateBill extends Component {
                                 onPress={(value) => {
                                     this.setState({ payment: value })
                                 }}
-                                labelStyle={{ fontSize: RFValue(13, 580), margin:10,marginTop:0,marginBottom:0 }}
+                                labelStyle={{ fontSize: RFValue(13, 580), margin: 10, marginTop: 0, marginBottom: 0 }}
                             />
                         </View>
 
-                     
+
 
 
                     </View>
@@ -164,7 +165,9 @@ class GenerateBill extends Component {
 
                 <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0 }}>
                     <TouchableOpacity
-                        onPress={() => { this.mark_complete() }}
+                        onPress={() => {
+                            this.mark_complete()
+                        }}
                         style={[styles.buttonStyle, { bottom: 10 }]}>
                         <LinearGradient
                             colors={['rgba(233,149,6,1)', 'rgba(233,149,6,1)']}

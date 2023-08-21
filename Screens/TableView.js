@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Text, View,
     StyleSheet, Image, TextInput, ActivityIndicator,
-    ScrollView, Dimensions, TouchableOpacity, FlatList, Alert, Linking, Platform
+    ScrollView, Dimensions, TouchableOpacity, FlatList, Alert, Linking, Platform, Button
 } from 'react-native';
 import { Icon, Header, Input } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +18,9 @@ import Modal from "react-native-modal";
 import RadioForm from 'react-native-simple-radio-button';
 import { AuthContext } from '../AuthContextProvider.js';
 import Counter from 'react-native-counters';
+import EscPosPrinter, { getPrinterSeriesByName } from 'react-native-esc-pos-printer';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
 
 
 //Global StyleSheet Import
@@ -65,7 +68,8 @@ class TableView extends Component {
             product_quantity: "",
             edit_cart_id: "",
             edit_quantity: "",
-            update_product_quantity_buttonLoading: false
+            update_product_quantity_buttonLoading: false,
+            selectedPrinter: null
         };
 
     }
@@ -119,6 +123,7 @@ class TableView extends Component {
                 else {
                     if (json.data.length > 0) {
                         this.setState({ data: json.data[0] })
+                     
                         this.setState({ cart: json.data[0].cart })
                     }
                     else {
@@ -534,6 +539,159 @@ class TableView extends Component {
     };
 
 
+    // testPrint = async () => {
+    //     alert('test')
+    //     try {
+    //         const printers = await EscPosPrinter.discover()
+
+    //         const printer = printers[0]
+
+    //         await EscPosPrinter.init({
+    //             target: printer.target,
+    //             seriesName: getPrinterSeriesByName(printer.name),
+    //             language: 'EPOS2_LANG_EN',
+    //         })
+
+    //         const printing = new EscPosPrinter.printing();
+
+    //         const status = await printing
+    //             .initialize()
+    //             .align('center')
+    //             .size(3, 3)
+    //             .line('DUDE!')
+    //             .smooth(true)
+    //             .line('DUDE!')
+    //             .smooth(false)
+    //             .size(1, 1)
+    //             .text('is that a ')
+    //             .bold()
+    //             .underline()
+    //             .text('printer?')
+    //             .newline()
+    //             .bold()
+    //             .underline()
+    //             .align('left')
+    //             .text('Left')
+    //             .newline()
+    //             .align('right')
+    //             .text('Right')
+    //             .newline()
+    //             .size(1, 1)
+    //             .textLine(48, {
+    //                 left: 'Cheesburger',
+    //                 right: '3 EUR',
+    //                 gapSymbol: '_',
+    //             })
+    //             .newline()
+    //             .textLine(48, {
+    //                 left: 'Chickenburger',
+    //                 right: '1.5 EUR',
+    //                 gapSymbol: '.',
+    //             })
+    //             .newline()
+    //             .size(2, 2)
+    //             .textLine(48, { left: 'Happy Meal', right: '7 EUR' })
+    //             .newline()
+    //             .align('left')
+    //             .text('Left')
+    //             .newline()
+
+    //             .align('right')
+    //             .text('Right')
+    //             .newline()
+
+    //             .align('center')
+    //             .image(require('../img/cashSales.png'), {
+    //                 width: 75,
+    //                 halftone: 'EPOS2_HALFTONE_THRESHOLD',
+    //             })
+
+    //             .image({ uri: base64Image }, { width: 75 })
+    //             .image(
+    //                 {
+    //                     uri:
+    //                         'https://raw.githubusercontent.com/tr3v3r/react-native-esc-pos-printer/main/ios/store.png',
+    //                 },
+    //                 { width: 75 }
+    //             )
+    //             .barcode({
+    //                 value: 'Test123',
+    //                 type: 'EPOS2_BARCODE_CODE93',
+    //                 width: 2,
+    //                 height: 50,
+    //                 hri: 'EPOS2_HRI_BELOW',
+    //             })
+    //             .qrcode({
+    //                 value: 'Test123',
+    //                 level: 'EPOS2_LEVEL_M',
+    //                 width: 5,
+    //             })
+    //             .cut()
+    //             .send();
+
+    //         console.log('Success:', status)
+
+    //     } catch (e) {
+    //         console.log('Error:', e)
+    //     }
+    // }
+
+    // @NOTE iOS Only
+  selectPrinter = async () => {
+    const selectedPrinter = await RNPrint.selectPrinter({ x: 100, y: 100 })
+    this.setState({ selectedPrinter })
+  }
+
+  // @NOTE iOS Only
+  silentPrint = async () => {
+    if (!this.state.selectedPrinter) {
+      alert('Must Select Printer First')
+    }
+
+    const jobName = await RNPrint.print({
+      printerURL: this.state.selectedPrinter.url,
+      html: '<h1>Silent Print</h1>'
+    })
+
+  }
+
+  async printHTML() {
+    await RNPrint.print({
+      html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>'
+    })
+  }
+
+  async printPDF() {
+    const results = await RNHTMLtoPDF.convert({
+      html: '<h1>Custom converted PDF Document</h1>',
+      fileName: 'test',
+      base64: true,
+    })
+
+    await RNPrint.print({ filePath: results.filePath })
+  }
+
+  async printRemotePDF() {
+    console.warn(global.vendor_api+this.state.data.order_code+'/bill.pdf')
+    await RNPrint.print({ filePath: global.vendor_api+this.state.data.order_code+'/bill.pdf' })
+  }
+
+  customOptions = () => {
+    return (
+      <View>
+        {this.state.selectedPrinter &&
+          <View>
+            <Text>{`Selected Printer Name: ${this.state.selectedPrinter.name}`}</Text>
+            <Text>{`Selected Printer URI: ${this.state.selectedPrinter.url}`}</Text>
+          </View>
+        }
+      <Button onPress={this.selectPrinter} title="Select Printer" />
+      <Button onPress={this.silentPrint} title="Silent Print" />
+    </View>
+
+    )
+  }
+
     render() {
         const { modalVisible } = this.state;
         return (
@@ -707,10 +865,14 @@ class TableView extends Component {
                 </ScrollView>
 
                 <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
-
+                {/* {Platform.OS === 'ios' && this.customOptions()} */}
                     {(this.state.cart.length > 0) ?
                         <TouchableOpacity
-                            onPress={() => this.genrate_bill()}
+                            onPress={() => 
+                                // this.genrate_bill()
+                            // this.testPrint()
+                            this.printRemotePDF()
+                            }
                             style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
                             <LinearGradient
                                 colors={['#5BC2C1', '#296E84']}
