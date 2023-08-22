@@ -39,7 +39,7 @@ class Home extends Component {
       status: true,
       // subscription:true,
       remove_last_slash_and_word: "",
-      profile_image:true,
+      profile_image: true,
     };
 
 
@@ -134,7 +134,7 @@ class Home extends Component {
 
             if (value.profile_pic == "" || value.profile_pic == null) {
               this.setState({ image_loade: false })
-              this.setState({ profile_image:false})
+              this.setState({ profile_image: false })
             }
             this.setState({ id: value.id })
             this.setState({ name: value.name, gstin: value.gstin })
@@ -231,12 +231,14 @@ class Home extends Component {
               {
                 width: 35,
                 height: 35,
-                marginTop:10
+                marginTop: 10
               }
             } />
         </View>
         <View style={{ width: Dimensions.get('window').width / 1.02, padding: 5, left: 0 }}>
-          <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+          <Text numberOfLines={1}
+            style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>
+            {this.context.user.shop_name} </Text>
           <Text>Welcome to WeazyDine</Text>
         </View>
       </View>
@@ -251,44 +253,76 @@ class Home extends Component {
         <View style={[styles.container, { backgroundColor: "#fff" }]}>
 
           {Platform.OS == 'ios' ?
-            <>
+            // <>
 
 
-              <View style={{
-                flexDirection: 'row', borderBottomColor: '#ececec',
-                borderBottomWidth: 1, marginTop: 10
-              }}>
-                <View>
-                  <Image source={
-                    require('../img/logo/mp.png')
-                  }
-                    style={
-                      {
-                        width: 45,
-                        height: 45,
-                        marginTop: 2,
-                        marginLeft: 10
-                      }
-                    } />
+            //   <View style={{
+            //     flexDirection: 'row', borderBottomColor: '#ececec',
+            //     borderBottomWidth: 1, marginTop: 10, justifyContent:"space-between"
+            //   }}>
+            //     <View style={{flexDirection:"row"}}>
+            //       <Image source={
+            //         require('../img/logo/mp.png')
+            //       }
+            //         style={
+            //           {
+            //             width: 45,
+            //             height: 45,
+            //             marginTop: 2,
+            //             marginLeft: 10
+            //           }
+            //         } />
+            //       <View style={{ width: Dimensions.get('window').width / 1.6, padding: 5, left: 0 }}>
+            //         <Text numberOfLines={1} style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.shop_name} </Text>
+            //         <Text>Welcome to WeazyDine</Text>
+            //       </View>
+            //     </View>
+
+            //     <View style={{flexDirection:"row",marginRight:20, backgroundColor:"red"}}>
+            //     <TouchableOpacity
+            //       onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
+            //       style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: -25, }}>
+            //       <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
+            //     </TouchableOpacity>
+
+            //     <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+            //       onPress={() => this.props.navigation.navigate("Notification")}>
+            //       <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
+            //     </TouchableOpacity>
+            //     </View>
+            //   </View>
+
+
+            // </>
+            <View style={{ width: Dimensions.get('window').width, flexDirection: "row", justifyContent: "space-between" }}>
+            
+            {/* view for shop logo and shop name */}
+            <View style={{ flexDirection: "row", width: "70%", marginTop:5 }}>
+                <View style={{width:"22%"}}>
+                  <Image source={require('../img/logo/mp.png')}
+                    style={{ width:42, height: 42, marginTop: 2, marginLeft: 10 }} />
                 </View>
-                <View style={{ width: Dimensions.get('window').width / 1.45, padding: 5, left: 0 }}>
-                  <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.name} </Text>
+
+                <View style={{ left: 0, width:"78%" }}>
+                  <Text numberOfLines={1} style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.shop_name} </Text>
                   <Text>Welcome to WeazyDine</Text>
                 </View>
+              </View>
+
+              {/* view for notification button and QR scan */}
+              <View style={{ flexDirection: "row", justifyContent: "center", width: "30%",alignItems:"center"}}>
                 <TouchableOpacity
                   onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
-                  style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: -25, }}>
+                  style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", }}>
                   <Icon name='qr-code-outline' type='ionicon' size={20} color='#5BC2C1' />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+                <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, marginLeft: 7, justifyContent: "center", }}
                   onPress={() => this.props.navigation.navigate("Notification")}>
                   <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
                 </TouchableOpacity>
               </View>
-
-
-            </>
+            </View>
             :
             <>
 
@@ -431,7 +465,7 @@ class Home extends Component {
               </>
             }
 
-            
+
             {/* Component for business and flat discounts */}
             <Demo navigation={this.props.navigation} />
 

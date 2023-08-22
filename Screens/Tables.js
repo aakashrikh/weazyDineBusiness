@@ -123,8 +123,6 @@ class Tables extends Component {
                     if (json.data.length > 0) {
                         this.setState({ data: json.data })
                     }
-
-                    console.warn("data", this.state.data)
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
                     //     // this.get_profile();

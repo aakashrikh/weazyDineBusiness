@@ -69,6 +69,7 @@ class TableView extends Component {
             edit_cart_id: "",
             edit_quantity: "",
             update_product_quantity_buttonLoading: false,
+            printBillModal: false,
             selectedPrinter: null
         };
 
@@ -78,8 +79,7 @@ class TableView extends Component {
     componentDidMount() {
         //   this.RBSheet.open();
         console.log(this.props.route.params.table_uu_id)
-        this.fetch_table_order()
-
+        this.fetch_table_order();
     }
 
     add_split_amount = (amount, index) => {
@@ -123,7 +123,7 @@ class TableView extends Component {
                 else {
                     if (json.data.length > 0) {
                         this.setState({ data: json.data[0] })
-                     
+
                         this.setState({ cart: json.data[0].cart })
                     }
                     else {
@@ -307,7 +307,6 @@ class TableView extends Component {
         }).then((response) => response.json())
             .then((json) => {
                 if (!json.status) {
-                    console.warn(json)
                     var msg = json.message;
                     Toast.show(msg);
                     //  clearInterval(myInterval);
@@ -315,7 +314,8 @@ class TableView extends Component {
                 else {
                     this.setState({ modalVisible: false });
                     Toast.show("Order Complete!")
-                    this.props.navigation.navigate('Dine-In');
+                    // this.props.navigation.navigate('Dine-In');
+                    this.setState({ printBillModal: true })
 
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();
@@ -336,6 +336,7 @@ class TableView extends Component {
                 this.setState({ isloading: false, isButtonLoading: false })
             });
     }
+
 
     fetch_table_vendors = () => {
         fetch(global.vendor_api + 'fetch_table_vendors', {
@@ -637,60 +638,66 @@ class TableView extends Component {
     // }
 
     // @NOTE iOS Only
-  selectPrinter = async () => {
-    const selectedPrinter = await RNPrint.selectPrinter({ x: 100, y: 100 })
-    this.setState({ selectedPrinter })
-  }
-
-  // @NOTE iOS Only
-  silentPrint = async () => {
-    if (!this.state.selectedPrinter) {
-      alert('Must Select Printer First')
+    selectPrinter = async () => {
+        const selectedPrinter = await RNPrint.selectPrinter({ x: 100, y: 100 })
+        this.setState({ selectedPrinter })
     }
 
-    const jobName = await RNPrint.print({
-      printerURL: this.state.selectedPrinter.url,
-      html: '<h1>Silent Print</h1>'
-    })
-
-  }
-
-  async printHTML() {
-    await RNPrint.print({
-      html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>'
-    })
-  }
-
-  async printPDF() {
-    const results = await RNHTMLtoPDF.convert({
-      html: '<h1>Custom converted PDF Document</h1>',
-      fileName: 'test',
-      base64: true,
-    })
-
-    await RNPrint.print({ filePath: results.filePath })
-  }
-
-  async printRemotePDF() {
-    console.warn(global.vendor_api+this.state.data.order_code+'/bill.pdf')
-    await RNPrint.print({ filePath: global.vendor_api+this.state.data.order_code+'/bill.pdf' })
-  }
-
-  customOptions = () => {
-    return (
-      <View>
-        {this.state.selectedPrinter &&
-          <View>
-            <Text>{`Selected Printer Name: ${this.state.selectedPrinter.name}`}</Text>
-            <Text>{`Selected Printer URI: ${this.state.selectedPrinter.url}`}</Text>
-          </View>
+    // @NOTE iOS Only
+    silentPrint = async () => {
+        if (!this.state.selectedPrinter) {
+            alert('Must Select Printer First')
         }
-      <Button onPress={this.selectPrinter} title="Select Printer" />
-      <Button onPress={this.silentPrint} title="Silent Print" />
-    </View>
 
-    )
-  }
+        const jobName = await RNPrint.print({
+            printerURL: this.state.selectedPrinter.url,
+            html: '<h1>Silent Print</h1>'
+        })
+
+    }
+
+    async printHTML() {
+        await RNPrint.print({
+            html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>'
+        })
+    }
+
+    async printPDF() {
+        const results = await RNHTMLtoPDF.convert({
+            html: '<h1>Custom converted PDF Document</h1>',
+            fileName: 'test',
+            base64: true,
+        })
+
+        await RNPrint.print({ filePath: results.filePath })
+    }
+
+    async printRemotePDF() {
+        // console.warn(global.vendor_api + this.state.data.order_code + '/bill.pdf')
+        await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/bill.pdf' })
+        this.billPrint();
+    }
+
+    billPrint = () => {
+        this.setState({printBillModal:false});
+        this.props.navigation.navigate('Dine-In');
+    }
+
+    customOptions = () => {
+        return (
+            <View>
+                {this.state.selectedPrinter &&
+                    <View>
+                        <Text>{`Selected Printer Name: ${this.state.selectedPrinter.name}`}</Text>
+                        <Text>{`Selected Printer URI: ${this.state.selectedPrinter.url}`}</Text>
+                    </View>
+                }
+                <Button onPress={this.selectPrinter} title="Select Printer" />
+                <Button onPress={this.silentPrint} title="Silent Print" />
+            </View>
+
+        )
+    }
 
     render() {
         const { modalVisible } = this.state;
@@ -865,13 +872,13 @@ class TableView extends Component {
                 </ScrollView>
 
                 <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
-                {/* {Platform.OS === 'ios' && this.customOptions()} */}
+                    {/* {Platform.OS === 'ios' && this.customOptions()} */}
                     {(this.state.cart.length > 0) ?
                         <TouchableOpacity
-                            onPress={() => 
-                                // this.genrate_bill()
-                            // this.testPrint()
-                            this.printRemotePDF()
+                            onPress={() =>
+                                this.genrate_bill()
+                                // this.testPrint()
+                                // this.printRemotePDF()
                             }
                             style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
                             <LinearGradient
@@ -1192,7 +1199,38 @@ class TableView extends Component {
                     </View>
                 </Modal>
 
+                {/* modal for print bill */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.printBillModal}
+                    onBackdropPress={() => {
+                        this.setState({ printBillModal: false })
+                    }}
+                >
+                    <View style={[style.centeredView, {
+                        width: Dimensions.get('window').width / 1.1
+                    }]}>
+                        <View style={[style.modalView, { width: Dimensions.get('window').width / 1.1, }]}>
+                            <Text style={styles.h4}>
+                                Want to print the receipt?
+                            </Text>
 
+                            <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 20, width: Dimensions.get('window').width / 1.1 }}>
+                                <TouchableOpacity style={{ backgroundColor: "#F83030", width: 100, padding: 10, borderRadius: 5, alignItems: "center" }}
+                                    onPress={() => this.billPrint()}>
+                                    <Text style={[styles.h4, { color: "#fff" }]}>No</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ backgroundColor: "#437E14", width: 100, padding: 10, borderRadius: 5, alignItems: "center" }}
+                                    onPress={() => this.printRemotePDF()}>
+                                    <Text style={[styles.h4, { color: "#fff" }]}>Yes</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+                    </View>
+                </Modal>
             </View>
         )
     }
@@ -1318,11 +1356,14 @@ const style = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 5,
         flexDirection: "row",
-        shadowColor: 'grey',
-        shadowOpacity: 1.5,
         elevation: 2,
-        shadowRadius: 10,
-        shadowOffset: { width: 1, height: 1 },
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
     }
 
 })

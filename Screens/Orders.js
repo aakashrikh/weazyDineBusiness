@@ -61,7 +61,6 @@ class Orders extends Component {
             var page = this.state.page + 1
             this.setState({ page: page })
             this.setState({ load_data: true });
-            console.warn(page)
             this.get_vendor_product(this.state.active_cat, page)
         }
     }

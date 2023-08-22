@@ -224,37 +224,40 @@ class Services extends Component {
 
                 <ScrollView style={{ flex: 1 }}>
                     {/* Particular Card Component */}
-                    {!this.state.isloading ?
+                    {this.state.isloading ?
                         <>
-                            {
-                               (this.state.data.length > 0) ?
-                               <Card navigation={this.props.navigation}
-                               data={this.state.data}
-                               category={this.state.category}
-                               load_more={this.load_more}
-                               load_data={this.state.load_data}
-                               toggle={this.toggle}
-                               get_category={this.get_category}
-                               get_vendor_product={this.get_vendor_product}
-                               object={this.state.object}
-                           />
+                            <View >
+                                <Loaders />
+                            </View>
 
-                                :
-                                <View style={{ paddingTop: 120, alignItems: "center" }}>
-                                    <View style={{ alignSelf: "center" }}>
-                                        <Image source={require("../img/no-product.webp")}
-                                            style={{ width: 300, height: 250 }} />
-                                        <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
-                                            No Products Found!
-                                        </Text>
-                                    </View>
-                                </View>
-                            }
                         </>
                         :
-                        <View >
-                            <Loaders />
-                        </View>
+                        <>
+                            {
+                                (this.state.data.length > 0) ?
+                                    <Card navigation={this.props.navigation}
+                                        data={this.state.data}
+                                        category={this.state.category}
+                                        load_more={this.load_more}
+                                        load_data={this.state.load_data}
+                                        toggle={this.toggle}
+                                        get_category={this.get_category}
+                                        get_vendor_product={this.get_vendor_product}
+                                        object={this.state.object}
+                                    />
+
+                                    :
+                                    <View style={{ paddingTop: 120, alignItems: "center" }}>
+                                        <View style={{ alignSelf: "center" }}>
+                                            <Image source={require("../img/no-product.webp")}
+                                                style={{ width: 300, height: 250 }} />
+                                            <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
+                                                No Products Found!
+                                            </Text>
+                                        </View>
+                                    </View>
+                            }
+                        </>
                     }
 
 
