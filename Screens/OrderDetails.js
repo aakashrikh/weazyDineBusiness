@@ -12,6 +12,8 @@ import moment from 'moment';
 import Modal from 'react-native-modal';
 import { AuthContext } from '../AuthContextProvider.js';
 import Counter from 'react-native-counters';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNPrint from 'react-native-print';
 
 //Global Style Import
 const styles = require('../Components/Style.js');
@@ -28,7 +30,8 @@ class OrderDetails extends Component {
       load_data: false,
       mark_complete_buttonLoading: false,
       time: 5,
-      transactions: []
+      transactions: [],
+      order_status: '',
     };
   }
 
@@ -49,8 +52,8 @@ class OrderDetails extends Component {
   //for header center component
   renderCenterComponent() {
     return (
-      <View>
-        <Text style={style.text}>Order #{this.state.data.order_code}</Text>
+      <View style={{width:Dimensions.get('window').width/1.5, alignItems:"center"}}>
+        <Text numberOfLines={1} style={style.text}>Order #{this.state.data.order_code}</Text>
       </View>
     );
   }
@@ -92,6 +95,7 @@ class OrderDetails extends Component {
             user: json.data[0].user,
             transactions: json.data[0].transactions,
             isLoading: false,
+            order_status: json.data[0].order_status
           });
 
 
@@ -141,6 +145,11 @@ class OrderDetails extends Component {
       });
   };
 
+  async printRemotePDF() {
+    console.warn(global.vendor_api + this.state.data.order_code + '/bill.pdf')
+    await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/bill.pdf' })
+}
+
   render() {
     return (
       <View style={styles.container}>
@@ -156,8 +165,24 @@ class OrderDetails extends Component {
         />
 
         <ScrollView>
+
+          {
+            this.state.order_status == "completed" ?
+              <View style={{ alignSelf: "center" }}>
+                <TouchableOpacity onPress={() => this.printRemotePDF()}
+                style={{ flexDirection: "row", width:120, justifyContent:"space-evenly" }}>
+                  <Icon name="receipt-outline" type="ionicon" size={25} color='#296e84'/>
+                  <Text style={[styles.h4,{color:"#296e84"}]}>Print Bill</Text>
+                </TouchableOpacity>
+              </View>
+              :
+              <></>
+          }
+
+
           <View
             style={{
+              marginTop: 10,
               flexDirection: 'row',
               paddingHorizontal: 10,
               width: '100%',
@@ -171,6 +196,8 @@ class OrderDetails extends Component {
               <Text>{moment(this.state.data.created_at).format('llll')}</Text>
             </View>
           </View>
+
+
 
           {this.state.isLoading ? (
             <Loader />
@@ -744,17 +771,17 @@ class Card extends Component {
                       marginTop: 40,
                     }}>
                     <TouchableOpacity
-                    style={[style.acceptButton, { width: '50%', backgroundColor: 'transparent' }]}
+                      style={[style.acceptButton, { width: '50%', backgroundColor: 'transparent' }]}
                       onPress={() =>
                         this.props.change_order_status('out for delivery')
                       }>
-                        <LinearGradient
+                      <LinearGradient
                         colors={['#5BC2C1', '#296e84']}
-                        style={[style.acceptButton,{width:'100%',}]}
-                        >
+                        style={[style.acceptButton, { width: '100%', }]}
+                      >
 
-                      <Text style={style.buttonText}>Out for Delivery</Text>
-                        </LinearGradient>
+                        <Text style={style.buttonText}>Out for Delivery</Text>
+                      </LinearGradient>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -796,13 +823,13 @@ class Card extends Component {
                         onPress={() =>
                           this.props.change_order_status('completed')
                         }>
-                          <LinearGradient
+                        <LinearGradient
                           style={style.acceptButton}
                           colors={['#5BC2C1', '#296e84']}
-                          >
+                        >
 
-                        <Text style={style.buttonText}>Completed</Text>
-                          </LinearGradient>
+                          <Text style={style.buttonText}>Completed</Text>
+                        </LinearGradient>
                       </TouchableOpacity>
                     </View>
                   )
@@ -834,15 +861,15 @@ class Card extends Component {
                     marginTop: 40,
                   }}>
                   <TouchableOpacity
-                    style={[style.acceptButton,{width:'50%',backgroundColor:'transparent'}]}
+                    style={[style.acceptButton, { width: '50%', backgroundColor: 'transparent' }]}
                     onPress={() => this.props.change_order_status('completed')}>
-                      <LinearGradient
+                    <LinearGradient
                       colors={['#5BC2C1', '#296e84']}
-                      style={[style.acceptButton,{width:'100%'}]}
-                      >
+                      style={[style.acceptButton, { width: '100%' }]}
+                    >
 
-                    <Text style={style.buttonText}>Completed</Text>
-                      </LinearGradient>
+                      <Text style={style.buttonText}>Completed</Text>
+                    </LinearGradient>
                   </TouchableOpacity>
                 </View>
               )}
