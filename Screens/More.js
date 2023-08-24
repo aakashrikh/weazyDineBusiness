@@ -311,7 +311,7 @@ class Buttons extends Component {
             <Text style={[styles.h3, { marginLeft: 10, marginTop: 5 }]}>Legal</Text>
 
             {/* About us */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "About Us", url: "https://weazydine.com/about-us.html" })}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "About Us", url: "https://weazydine.com/aboutus-weazy-dine" })}>
               <View style={style.questView}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="alert-circle-outline" type='ionicon' size={25} color="#5BC2C1" />
@@ -322,7 +322,7 @@ class Buttons extends Component {
             </TouchableOpacity>
 
             {/* privacy policy */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Terms & Conditions", url: "https://weazydine.com/termsandconditions.html" })}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Terms & Conditions", url: "https://weazydine.com/term-of-use-weazydine" })}>
               <View style={style.questView}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="settings-outline" type='ionicon' size={25} color="#5BC2C1" />
@@ -332,7 +332,7 @@ class Buttons extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Privacy Policy", url: "https://weazydine.com/privacy-policy.html" })}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Privacy Policy", url: "https://weazydine.com/privacy-policy-weazydine" })}>
               <View style={style.questView}>
                 <View style={{ flexDirection: "row" }}>
                   <Icon name="lock-closed-outline" type='ionicon' size={25} color="#5BC2C1" />
@@ -342,7 +342,7 @@ class Buttons extends Component {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Refunds And Cancellation", url: "https://weazydine.com/refund.html" })}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("PrivacyPolicy", { title: "Refunds And Cancellation", url: "https://weazydine.com/refund-cancellation-weazy-dine" })}>
               <View style={style.questView}>
                 <View style={
                   { flexDirection: "row" }
