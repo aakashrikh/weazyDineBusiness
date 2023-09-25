@@ -363,7 +363,7 @@ class OtherCharges extends Component {
         )
     }
 }
-
+                                                       
 
 export default OtherCharges;
 

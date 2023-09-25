@@ -314,8 +314,8 @@ class TableView extends Component {
                 else {
                     this.setState({ modalVisible: false });
                     Toast.show("Order Complete!")
-                    // this.props.navigation.navigate('Dine-In');
-                    this.setState({ printBillModal: true })
+                    this.props.navigation.navigate('Dine-In');
+                    // this.setState({ printBillModal: true })
 
                     // let myInterval = setInterval(() => {
                     //     this.fetch_table_vendors();

@@ -52,7 +52,7 @@ class OrderDetails extends Component {
   //for header center component
   renderCenterComponent() {
     return (
-      <View style={{width:Dimensions.get('window').width/1.5, alignItems:"center"}}>
+      <View style={{ width: Dimensions.get('window').width / 1.5, alignItems: "center" }}>
         <Text numberOfLines={1} style={style.text}>Order #{this.state.data.order_code}</Text>
       </View>
     );
@@ -148,7 +148,7 @@ class OrderDetails extends Component {
   async printRemotePDF() {
     console.warn(global.vendor_api + this.state.data.order_code + '/bill.pdf')
     await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/bill.pdf' })
-}
+  }
 
   render() {
     return (
@@ -166,7 +166,8 @@ class OrderDetails extends Component {
 
         <ScrollView>
 
-          {
+          {/* print bill */}
+          {/* {
             this.state.order_status == "completed" ?
               <View style={{ alignSelf: "center" }}>
                 <TouchableOpacity onPress={() => this.printRemotePDF()}
@@ -177,7 +178,7 @@ class OrderDetails extends Component {
               </View>
               :
               <></>
-          }
+          } */}
 
 
           <View
