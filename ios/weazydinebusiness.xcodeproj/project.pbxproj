@@ -36,6 +36,7 @@
 		E97CF1742967707600F8CF40 /* weazydinebusiness.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 076FCC5B2842430400C94292 /* weazydinebusiness.entitlements */; };
 		E9986EA1290ED21100A34C24 /* OneSignalNotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 070AFCCE285333C200FC6962 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E9C4D7C02A289216000C814E /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1625747334054AB9BD8A1C7F /* Montserrat-Medium.ttf */; };
+		E9DF48B12AC8166300FF348F /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9DF48B02AC8166300FF348F /* AppCenter-Config.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,8 +173,8 @@
 		DD14EDA713885D5F799C6B0F /* Pods-weazydinebusiness.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weazydinebusiness.debug.xcconfig"; path = "Target Support Files/Pods-weazydinebusiness/Pods-weazydinebusiness.debug.xcconfig"; sourceTree = "<group>"; };
 		E451B11FEF3C45C39282943D /* Raleway-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Regular.ttf"; path = "../assets/fonts/Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		E910442328C5014C0059A3E6 /* Roboto-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-SemiBold.ttf"; path = "../assets/fonts/Roboto-SemiBold.ttf"; sourceTree = "<group>"; };
-		E943122F285798E3006DF940 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "../../AppCenter-Config.plist"; sourceTree = "<group>"; };
 		E9B91C5828C8B25200746186 /* OneSignalNotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		E9DF48B02AC8166300FF348F /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		EC806C83791F481394AE5D14 /* Raleway-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Italic.ttf"; path = "../assets/fonts/Raleway-Italic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EE29CFB0171441D997A9EB0A /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -291,7 +292,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				E943122F285798E3006DF940 /* AppCenter-Config.plist */,
+				E9DF48B02AC8166300FF348F /* AppCenter-Config.plist */,
 				076FCD6A28424E0000C94292 /* Raleway-Bold.ttf */,
 				13B07FAE1A68108700A75B9A /* weazydinebusiness */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -557,6 +558,7 @@
 				E910442428C5014C0059A3E6 /* Roboto-SemiBold.ttf in Resources */,
 				076FCD6928424DA200C94292 /* Roboto-Regular.ttf in Resources */,
 				076FCD6828424D0100C94292 /* Raleway-SemiBold.ttf in Resources */,
+				E9DF48B12AC8166300FF348F /* AppCenter-Config.plist in Resources */,
 				076FCD6728424C6D00C94292 /* Raleway-Light.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
