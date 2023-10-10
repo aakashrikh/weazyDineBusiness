@@ -1,4 +1,4 @@
-import {StyleSheet } from 'react-native';
+import {Dimensions, StyleSheet } from 'react-native';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 module.exports =  StyleSheet.create({
@@ -110,6 +110,19 @@ module.exports =  StyleSheet.create({
       fontSize:RFValue(14.5,580),
       fontFamily:"Roboto-Regular",
     },
+    inputText: {
+      marginTop: 15,
+      width: Dimensions.get('window').width / 1.1,
+      height: 50,
+      alignSelf: 'center',
+      borderRadius: 5,
+      backgroundColor: "#fff",
+      shadowColor: '#000',
+      elevation: 4,
+      shadowOffset: { width: -2, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+    },
     card:{
       backgroundColor:"#fff",
       height:215
@@ -123,5 +136,52 @@ module.exports =  StyleSheet.create({
     fontSize:12,
     fontFamily:"Raleway-Medium",
     color:"#000"
+  },
+  box: {
+    flexDirection: "row",
+    backgroundColor: '#fff',
+    height: 70,
+    shadowColor: 'grey',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 5,
+  },
+  box1: {
+    flexDirection: "row",
+    backgroundColor: '#fff',
+    height: 70,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 5,
+    borderWidth: 2,
+    borderColor: "#5BC2C1"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    width: Dimensions.get('window').width / 1.1,
+    backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 15,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   });

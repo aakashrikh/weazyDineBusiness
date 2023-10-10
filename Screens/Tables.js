@@ -188,8 +188,18 @@ class Tables extends Component {
     (
         <>
             {(item.table_status == 'active') ?
-                <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} style={[style.viewBox,
-                { marginTop: 10, padding: 10, backgroundColor: '#fff', width: Dimensions.get('window').width / 1.05, marginBottom: 2, alignSelf: 'center', borderRadius: 5, flexDirection: "row" }]}>
+                <TouchableOpacity
+                    onPress={() => item.table_status == "active" ? this.props.navigation.navigate("AddOrder", {
+                        table_uu_id: item.table_uu_id,
+                        order_method_type: 2
+                    }) :
+                        this.props.navigation.navigate("OrdersDetailsPos", {
+                            table_uu_id: item.table_uu_id, table_url: global.qr_link + item.qr_link
+                        })}
+                    // onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} 
+
+                    style={[style.viewBox,
+                    { marginTop: 10, padding: 10, backgroundColor: '#fff', width: Dimensions.get('window').width / 1.05, marginBottom: 2, alignSelf: 'center', borderRadius: 5, flexDirection: "row" }]}>
                     <View style={{ width: "20%" }}>
                         <View style={{ width: 60, height: 60, backgroundColor: '#5BC2C1', borderRadius: 5 }}>
                             <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>
@@ -217,8 +227,19 @@ class Tables extends Component {
                 :
                 <View>
 
-                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} style={[style.viewBox,
-                    { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#5BC2C1', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
+                    <TouchableOpacity
+
+                        onPress={() => item.table_status == "active" ? this.props.navigation.navigate("AddOrder", {
+                            table_uu_id: item.table_uu_id,
+                            order_method_type: 2
+                        }) :
+                            this.props.navigation.navigate("OrdersDetailsPos", {
+                                table_uu_id: item.table_uu_id, table_url: global.qr_link + item.qr_link
+                            })}
+                        // onPress={() => { this.props.navigation.navigate('TableView', { table_uu_id: item.table_uu_id, table_name: item.table_name, table_url: global.qr_link + item.qr_link }) }} 
+
+                        style={[style.viewBox,
+                        { width: Dimensions.get('window').width / 1.05, marginTop: 10, padding: 10, backgroundColor: '#5BC2C1', alignSelf: 'center', borderRadius: 5, marginBottom: 2 }]}>
                         <View style={{ flexDirection: 'row' }}>
                             <View style={{ width: 60, height: 60, backgroundColor: '#296E84', borderRadius: 5 }}>
                                 <Text style={{ fontSize: 45, alignSelf: 'center', color: '#eee' }}>T</Text>

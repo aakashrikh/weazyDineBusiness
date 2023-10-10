@@ -15,9 +15,9 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 #import <CodePush/CodePush.h>
-#import "AppCenterReactNative.h"
-#import "AppCenterReactNativeAnalytics.h"
-#import "AppCenterReactNativeCrashes.h"
+//#import "AppCenterReactNative.h"
+//#import "AppCenterReactNativeAnalytics.h"
+//#import "AppCenterReactNativeCrashes.h"
 
 
 static void InitializeFlipper(UIApplication *application) {
@@ -37,9 +37,9 @@ static void InitializeFlipper(UIApplication *application) {
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   
-  [AppCenterReactNative register];
-  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
-  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
+//  [AppCenterReactNative register];
+//  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+//  [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
   
   
 // add this line using the api key obtained from Google Console

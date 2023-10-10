@@ -215,6 +215,11 @@ class Home extends Component {
           onPress={() => this.props.navigation.navigate("Notification")}>
           <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
         </TouchableOpacity>
+
+        <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+          onPress={() => this.props.navigation.navigate("AddOrder")}>
+          <Image source={require('../img/mpos.png')} style={{ height: 25, width: 25, alignSelf: "center" }} />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -295,22 +300,22 @@ class Home extends Component {
 
             // </>
             <View style={{ width: Dimensions.get('window').width, flexDirection: "row", justifyContent: "space-between" }}>
-            
-            {/* view for shop logo and shop name */}
-            <View style={{ flexDirection: "row", width: "70%", marginTop:5 }}>
-                <View style={{width:"22%"}}>
+
+              {/* view for shop logo and shop name */}
+              <View style={{ flexDirection: "row", width: "60%", marginTop: 5 }}>
+                <View style={{ width: "22%" }}>
                   <Image source={require('../img/logo/mp.png')}
-                    style={{ width:42, height: 42, marginTop: 2, marginLeft: 10 }} />
+                    style={{ width: 42, height: 42, marginTop: 2, marginLeft: 10 }} />
                 </View>
 
-                <View style={{ left: 0, width:"78%" }}>
+                <View style={{ left: 0, width: "78%" }}>
                   <Text numberOfLines={1} style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>{this.context.user.shop_name} </Text>
                   <Text>Welcome to WeazyDine</Text>
                 </View>
               </View>
 
               {/* view for notification button and QR scan */}
-              <View style={{ flexDirection: "row", justifyContent: "center", width: "30%",alignItems:"center"}}>
+              <View style={{ flexDirection: "row", justifyContent: "center", width: "40%", alignItems: "center" }}>
                 <TouchableOpacity
                   onPress={() => Linking.openURL(this.state.remove_last_slash_and_word + "qr-shop/" + this.context.user.id)}
                   style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", }}>
@@ -320,6 +325,11 @@ class Home extends Component {
                 <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, marginLeft: 7, justifyContent: "center", }}
                   onPress={() => this.props.navigation.navigate("Notification")}>
                   <Icon name='notifications' type='ionicon' size={20} color='#5BC2C1' />
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ backgroundColor: "#ececec", height: 35, width: 35, borderRadius: 50, justifyContent: "center", marginLeft: 5, }}
+                  onPress={() => this.props.navigation.navigate("AddOrder")}>
+                  <Image source={require('../img/mpos.png')} style={{ height: 25, width: 25, alignSelf: "center" }} />
                 </TouchableOpacity>
               </View>
             </View>

@@ -74,6 +74,12 @@
 		<string>We are using your location for accurate results</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>We need your library access for uploading the profile image.</string>
+
+		<key>NSBluetoothAlwaysUsageDescription</key>
+		<string>We need your bluetooth access to connect printer.</string>
+
+		<key>NSBluetoothPeripheralUsageDescription</key>
+		<string>We need your bluetooth access to connect printer.</string>
 		<key>UIAppFonts</key>
 		<array>
 			<string>AntDesign.ttf</string>
