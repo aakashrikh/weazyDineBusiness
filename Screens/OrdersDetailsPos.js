@@ -323,6 +323,8 @@ class OrdersDetailsPos extends Component {
                 else {
                     this.setState({ modalVisible: false });
                     Toast.show("Order Complete!");
+                    this.printRemotePDF();
+
                     this.props.navigation.navigate('Dine-In');
                     // this.setState({ printBillModal: true })
 
@@ -643,7 +645,7 @@ class OrdersDetailsPos extends Component {
     };
 
     async printRemotePDF() {
-        // console.warn(global.vendor_api + this.state.data.order_code + '/bill.pdf')
+        console.warn(global.vendor_api + this.state.data.order_code + '/bill.pdf')
         await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/bill.pdf' })
         this.billPrint();
     }

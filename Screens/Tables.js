@@ -143,8 +143,6 @@ class Tables extends Component {
 
     }
 
-
-
     add = () => {
         if (this.state.capacity == '') {
             Toast.show("Please enter capacity")
@@ -305,6 +303,8 @@ class Tables extends Component {
                         <Loaders />
                     }
 
+
+                    {/* Modal to add new table */}
                     <Modal
                         // animationType="slide"
                         transparent={true}

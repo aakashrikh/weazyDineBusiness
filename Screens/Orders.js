@@ -1,21 +1,14 @@
+import moment from 'moment';
 import React, { Component } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
-import {
-    View, Alert,
-    StyleSheet, Switch,
-    Image, Text, Dimensions,
-} from 'react-native';
-import { Icon } from 'react-native-elements'
+import { Alert, Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Header, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import RBSheet from "react-native-raw-bottom-sheet";
-import Toast from 'react-native-simple-toast';
-import { RFValue } from 'react-native-responsive-fontsize';
+import LinearGradient from 'react-native-linear-gradient';
 import { ActivityIndicator } from 'react-native-paper';
+import { RFValue } from 'react-native-responsive-fontsize';
+import Toast from 'react-native-simple-toast';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import ProgressiveFastImage from "@freakycoder/react-native-progressive-fast-image";
 import { AuthContext } from '../AuthContextProvider.js';
-import moment from 'moment'
-import * as Animatable from 'react-native-animatable';
 //Global Style Import
 const styles = require('../Components/Style.js');
 
@@ -23,499 +16,519 @@ const win = Dimensions.get('window');
 
 
 class Orders extends Component {
-    static contextType = AuthContext;
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: '',
-            active_cat: 0,
-            // vendor_category_id:0,
-            isloading: true,
-            isLoading: false,
-            object: {},
-            select: {},
-            last_select: '',
-            load_data: false,
-            page: 1,
-            category: []
-            // prod_id:''
-        }
+  static contextType = AuthContext;
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      active_cat: 0,
+      // vendor_category_id:0,
+      isloading: true,
+      isLoading: false,
+      object: {},
+      select: {},
+      last_select: '',
+      load_data: false,
+      page: 1,
+      category: []
+      // prod_id:''
     }
-    
-    componentDidMount = () => {
+  }
 
-        this.get_vendor_product(0, 1);
-        this.focusListener = this.props.navigation.addListener('focus', () => {
+  //for header left component
+  renderLeftComponent() {
+    return (
+      <View >
+        <View style={{ width: Dimensions.get('window').width / 1.02, left: 0 }}>
+          <Text style={[styles.h3, { color: '#222', fontSize: RFValue(16, 580), marginTop: 10, fontWeight: 'bold', alignSelf: "flex-start" }]}>Orders</Text>
+        </View>
+      </View>
+    )
+  }
 
-            this.get_vendor_product("", 1);
-            
-        })
 
+  componentDidMount = () => {
+
+    this.get_vendor_product(0, 1);
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+
+      this.get_vendor_product("", 1);
+
+    })
+
+  }
+
+  // function to load data while scrolling
+  load_more = () => {
+    console.log("load more")
+    var data_size = this.state.data.length
+    if (data_size > 9) {
+
+      var page = this.state.page + 1
+      this.setState({ page: page })
+      this.setState({ load_data: true });
+      this.get_vendor_product(this.state.active_cat, page)
     }
+  }
 
-    // function to load data while scrolling
-    load_more = () => {
-        var data_size = this.state.data.length
-        if (data_size > 9) {
-
-            var page = this.state.page + 1
-            this.setState({ page: page })
-            this.setState({ load_data: true });
-            this.get_vendor_product(this.state.active_cat, page)
-        }
-    }
-
-    get_vendor_product = (status, page) => {
-        fetch(global.vendor_api + 'get_orders_vendor', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: this.context.token
-            },
-            body: JSON.stringify({
-              page: page,
-              status: status,
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                if (!json.status) {
-                    if (page == 1) {
-                        this.setState({ data: [] })
-                    }
-                }
-                else {
-                    if (json.data.data.length > 0) {
-                        var obj = json.data.data;
-                        json.data.data.map((value, key) => {
-                            const object = this.state.object;
-
-                            if (value.status == 'active') {
-                                object[value.id] = true;
-                            }
-                            else {
-                                object[value.id] = false;
-                            }
-
-                            this.setState({ object });
-                        })
-                        if (page == 1) {
-                            this.setState({ data: obj })
-                        }
-                        else {
-                            this.setState({ data: [...this.state.data, ...obj] })
-                            
-                        }
-                    }
-                    else {
-
-                    }
-
-                }
-                this.setState({ isloading: false, load_data: false })
-                return json;
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-    }
-
-    filter = (id) => {
-
-        this.setState({ isloading: true })
-        this.get_vendor_product(id, 1);
-        this.setState({ active_cat: id })
-    }
-
-    toggle = (id) => {
-        // alert(id)
-        const object = this.state.object;
-        if (object[id] == true) {
-            object[id] = false;
-            var status = "inactive"
+  get_vendor_product = (status, page) => {
+    fetch(global.vendor_api + 'get_orders_vendor', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: this.context.token
+      },
+      body: JSON.stringify({
+        page: page,
+        status: status,
+      })
+    }).then((response) => response.json())
+      .then((json) => {
+        if (!json.status) {
+          if (page == 1) {
+            this.setState({ data: [] })
+          }
         }
         else {
-            object[id] = true;
-            var status = "active"
+          if (json.data?.data?.length > 0) {
+            var obj = json.data.data;
+            // json.data.data.map((value, key) => {
+            //     const object = this.state.object;
+
+            //     if (value.status == 'active') {
+            //         object[value.id] = true;
+            //     }
+            //     else {
+            //         object[value.id] = false;
+            //     }
+
+            //     this.setState({ object });
+            // })
+            if (page == 1) {
+              this.setState({ data: obj })
+            }
+            else {
+              this.setState({ data: [...this.state.data, ...obj] })
+            }
+          }
+          else {
+
+          }
+
         }
-        this.setState({ object });
-        fetch(global.vendor_api + 'update_status_product_offer', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': this.context.token
-            },
-            body: JSON.stringify({
-                action_id: id,
-                type: 'product',
-                status: status
-            })
-        }).then((response) => response.json())
-            .then((json) => {
+        this.setState({ isloading: false, load_data: false })
+        return json;
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        this.setState({ isloading: false })
+      });
+  }
 
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
+  filter = (id) => {
 
-                }
-                else {
-                    //   Toast.show("jhsd")
-                }
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
+    this.setState({ isloading: true })
+    this.get_vendor_product(id, 1);
+    this.setState({ active_cat: id })
+  }
+
+  toggle = (id) => {
+    // alert(id)
+    const object = this.state.object;
+    if (object[id] == true) {
+      object[id] = false;
+      var status = "inactive"
     }
+    else {
+      object[id] = true;
+      var status = "active"
+    }
+    this.setState({ object });
+    fetch(global.vendor_api + 'update_status_product_offer', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': this.context.token
+      },
+      body: JSON.stringify({
+        action_id: id,
+        type: 'product',
+        status: status
+      })
+    }).then((response) => response.json())
+      .then((json) => {
+
+        if (!json.status) {
+          var msg = json.msg;
+          // Toast.show(msg);
+
+        }
+        else {
+          //   Toast.show("jhsd")
+        }
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        this.setState({ isloading: false })
+      });
+  }
 
 
 
-    render() {
+  render() {
 
-        return (
-            <View style={[styles.container]}>
-                {/* Component for  Filter Services */}
+    return (
+      <View style={[styles.container]}>
+        {/* Component for  Filter Services */}
+        <View>
+          <Header
+            statusBarProps={{ barStyle: 'dark-content' }}
+            leftComponent={this.renderLeftComponent()}
+            ViewComponent={LinearGradient} // Don't forget this!
+            linearGradientProps={{
+              colors: ['#fff', '#fff'],
+            }}
+            backgroundColor="#ffffff"
+          />
+        </View>
 
-                <View style={{ borderBottomWidth: 1, borderColor: "#dedede", paddingVertical: 0 }}>
-                
-                    <View style={{ flexDirection: 'row', padding: 10 }}>
-                    <OrderType
-              navigation={this.props.navigation}
-              filter={this.filter}
-              active_cat={this.state.active_cat}
-              fetch_order={this.fetch_order}
-            />
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <OrderType
+            navigation={this.props.navigation}
+            filter={this.filter}
+            active_cat={this.state.active_cat}
+            fetch_order={this.fetch_order}
+          />
 
-                    </View>
+        </View>
+
+        <ScrollView style={{ flex: 1 }}>
+          {/* Particular Card Component */}
+          {!this.state.isloading ?
+            <>
+              {(this.state.data.length > 0) ?
+                <Card navigation={this.props.navigation}
+                  data={this.state.data}
+                  category={this.state.category}
+                  load_more={this.load_more}
+                  load_data={this.state.load_data}
+                  toggle={this.toggle}
+                  get_category={this.get_category}
+                  get_vendor_product={this.get_vendor_product}
+                  object={this.state.object}
+                />
+
+                :
+                <View style={{ paddingTop: 120, alignItems: "center" }}>
+                  <View style={{ alignSelf: "center" }}>
+                    <Image source={require("../img/no-product.webp")}
+                      style={{ width: 300, height: 250 }} />
+                    <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
+                      No Products Found!
+                    </Text>
+                  </View>
                 </View>
-
-                <ScrollView style={{ flex: 1}}>
-                    {/* Particular Card Component */}
-                    {!this.state.isloading ?
-                        <>
-                            {(this.state.data != "") ?
-                                <Card navigation={this.props.navigation}
-                                    data={this.state.data}
-                                    category={this.state.category}
-                                    load_more={this.load_more}
-                                    load_data={this.state.load_data}
-                                    toggle={this.toggle}
-                                    get_category={this.get_category}
-                                    get_vendor_product={this.get_vendor_product}
-                                    object={this.state.object}
-                                />
-
-                                :
-                                <View style={{ paddingTop: 120, alignItems: "center" }}>
-                                    <View style={{ alignSelf: "center" }}>
-                                        <Image source={require("../img/no-product.webp")}
-                                            style={{ width: 300, height: 250 }} />
-                                        <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
-                                            No Products Found!
-                                        </Text>
-                                    </View>
-                                </View>
-                            }
-                        </>
-                        :
-                        <View >
-                            <Loaders />
-                        </View>
-                    }
-
-
-                    {(this.state.load_data) ?
-                        <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
-                            <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
-                            <Text style={styles.p}>Please wait...</Text>
-                        </View>
-                        :
-                        <View></View>
-                    }
-
-                </ScrollView>
-
-                {/* fab button */}
-              
-
+              }
+            </>
+            :
+            <View >
+              <Loaders />
             </View>
+          }
 
-        )
-    }
+
+          {(this.state.load_data) ?
+            <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
+              <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
+              <Text style={styles.p}>Please wait...</Text>
+            </View>
+            :
+            <View></View>
+          }
+
+        </ScrollView>
+
+        {/* fab button */}
+
+
+      </View>
+
+    )
+  }
 }
 
 export default Orders;
 
 class Loaders extends Component {
-    render() {
-        return (
-            <View>
-                <SkeletonPlaceholder >
-                    <View style={{ flexDirection: "row", marginTop: 20 }}>
-                        <View style={{ marginLeft: 5 }}>
-                            <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
-                        </View>
-
-                        <View>
-                            <View style={{ flexDirection: "row", }}>
-                                <View>
-                                    <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
-                                    <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
-                                </View>
-                                <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
-                                <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
-                            </View>
-                            <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
-                                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                            </View>
-                        </View>
-
-
-
-                    </View>
-
-
-                </SkeletonPlaceholder>
-
+  render() {
+    return (
+      <View>
+        <SkeletonPlaceholder >
+          <View style={{ flexDirection: "row", marginTop: 20 }}>
+            <View style={{ marginLeft: 5 }}>
+              <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
             </View>
-        )
-    }
+
+            <View>
+              <View style={{ flexDirection: "row", }}>
+                <View>
+                  <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
+                  <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
+                </View>
+                <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
+                <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
+              </View>
+              <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
+                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+              </View>
+            </View>
+
+
+
+          </View>
+
+
+        </SkeletonPlaceholder>
+
+      </View>
+    )
+  }
 }
 
 class OrderType extends Component {
   render() {
     return (
-      <View style={{marginTop:30}}>
-         <Text style={[styles.h3,{ color: '#222', fontSize: RFValue(16, 580), fontWeight: 'bold', alignSelf: "flex-start" }]}>Orders </Text>
-       
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-       
-      
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly',marginTop:10}}>
-          {this.props.active_cat != '' ? (
-            <TouchableOpacity onPress={() => this.props.filter('')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>All</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>All</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+      <View style={{}}>
 
-          {this.props.active_cat != 'placed' ? (
-            <TouchableOpacity onPress={() => this.props.filter('placed')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Pending</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('placed')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Pending
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
 
-          {this.props.active_cat != 'confirmed' ? (
-            <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Confirmed</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Confirmed
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 
-          {this.props.active_cat != 'in_process' ? (
-            <TouchableOpacity onPress={() => this.props.filter('in_process')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>In Process</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('in_process')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  In Process
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
 
-          {this.props.active_cat != 'processed' ? (
-            <TouchableOpacity onPress={() => this.props.filter('processed')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Processed</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('processed')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Processed
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 5 }}>
+            {this.props.active_cat != '' ? (
+              <TouchableOpacity onPress={() => this.props.filter('')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>All</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>All</Text>
+                </View>
+              </TouchableOpacity>
+            )}
 
-          {this.props.active_cat != 'out for delivery' ? (
-            <TouchableOpacity
-              onPress={() => this.props.filter('out for delivery')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Out for Delivery</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              onPress={() => this.props.filter('out for delivery')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Out for Delivery
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+            {this.props.active_cat != 'placed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('placed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Pending</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('placed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Pending
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
 
-          {this.props.active_cat != 'completed' ? (
-            <TouchableOpacity onPress={() => this.props.filter('completed')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Completed</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('completed')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Completed
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
+            {this.props.active_cat != 'confirmed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Confirmed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Confirmed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
 
-          {this.props.active_cat != 'cancelled' ? (
-            <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
-              <View style={style.catButton}>
-                <Text style={style.catButtonText}>Cancelled</Text>
-              </View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
-              <View style={[style.catButton, {backgroundColor: '#5BC2C1'}]}>
-                <Text style={[style.catButtonText, {color: '#fff'}]}>
-                  Cancelled
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        </View>
-      </ScrollView>
+            {this.props.active_cat != 'in_process' ? (
+              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>In Process</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    In Process
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'processed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('processed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Processed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('processed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Processed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'out for delivery' ? (
+              <TouchableOpacity
+                onPress={() => this.props.filter('out for delivery')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Out for Delivery</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => this.props.filter('out for delivery')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Out for Delivery
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'completed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('completed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Completed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('completed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Completed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'cancelled' ? (
+              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Cancelled</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Cancelled
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </View>
+        </ScrollView>
       </View>
     );
   }
 }
 
 class Card extends Component {
-    static contextType = AuthContext;
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOn: false,
-            isOff: true,
-            object: {},
-            id: [],
-            prod_id: '',
+  static contextType = AuthContext;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOn: false,
+      isOff: true,
+      object: {},
+      id: [],
+      prod_id: '',
+    }
+  }
+
+
+  alertFunc = () => {
+    this.RBSheet.close()
+    Alert.alert(
+      "",
+      "Are you sure you want to delete this Menu?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => this.delete_product() }
+      ]
+    )
+  }
+
+  delete_product = () => {
+    fetch(global.vendor_api + 'update_status_product_offer', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': this.context.token
+      },
+      body: JSON.stringify({
+        action_id: this.state.prod_id,
+        type: 'product',
+        status: "delete"
+      })
+    }).then((response) => response.json())
+      .then((json) => {
+        if (!json.status) {
+          var msg = json.msg;
+          // Toast.show(msg);
+
         }
-    }
+        else {
+          Toast.show("Product deleted")
+          this.props.get_vendor_product(0, 1)
+        }
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        this.setState({ isloading: false })
+      });
+    this.props.get_vendor_product(0, 1)
+    this.props.get_category()
+  }
 
+  editNavigation = () => {
+    this.props.navigation.navigate("EditService",
+      {
+        data: this.state.id,
+        category: this.props.category,
+        get_cat: this.props.get_category,
+        get_vendor_product: this.props.get_vendor_product
+      })
+    this.RBSheet.close()
+  }
 
-    alertFunc = () => {
-        this.RBSheet.close()
-        Alert.alert(
-            "",
-            "Are you sure you want to delete this Menu?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.delete_product() }
-            ]
-        )
-    }
+  sheet = (id) => {
+    this.setState({ id: id })
+    this.RBSheet.open();
+    this.setState({ prod_id: id.id })
 
-    delete_product = () => {
-        fetch(global.vendor_api + 'update_status_product_offer', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': this.context.token
-            },
-            body: JSON.stringify({
-                action_id: this.state.prod_id,
-                type: 'product',
-                status: "delete"
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
+  }
 
-                }
-                else {
-                    Toast.show("Product deleted")
-                    this.props.get_vendor_product(0, 1)
-                }
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-        this.props.get_vendor_product(0, 1)
-        this.props.get_category()
-    }
-
-    editNavigation = () => {
-        this.props.navigation.navigate("EditService",
-            {
-                data: this.state.id,
-                category: this.props.category,
-                get_cat: this.props.get_category,
-                get_vendor_product: this.props.get_vendor_product
-            })
-        this.RBSheet.close()
-    }
-
-    sheet = (id) => {
-        this.setState({ id: id })
-        this.RBSheet.open();
-        this.setState({ prod_id: id.id })
-
-    }
-
-    productCard = ({item}) => (
-      <View>
-      <TouchableOpacity  onPress={() =>
+  productCard = ({ item }) => (
+    <View>
+      <TouchableOpacity onPress={() =>
         this.props.navigation.navigate('OrderDetails', {
           id: item.order_code,
-        } )}  style={style.card}>
+        })} style={style.card}>
         <View
           style={{
             flexDirection: 'row',
@@ -523,16 +536,16 @@ class Card extends Component {
             padding: 5,
             justifyContent: 'space-evenly',
           }}>
-          <View style={{width: '40%'}}>
+          <View style={{ width: '40%' }}>
             <Text style={style.heading}>{item.order_code}</Text>
           </View>
-          <View style={{width: '60%'}}>
+          <View style={{ width: '60%' }}>
             <Text style={style.heading}>
               {moment(item.created_at).format('llll')}
             </Text>
           </View>
         </View>
-        <View style={{flexDirection: 'row', width: '100%'}}>
+        <View style={{ flexDirection: 'row', width: '100%' }}>
           {/* View for Content */}
           <View style={style.contentView}>
             {item.channel == 'website' ? (
@@ -549,13 +562,13 @@ class Card extends Component {
               <Text style={style.heading}>Order from {item.channel}</Text>
             )}
             {/* View for name and heart */}
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               {/* Text View */}
-              <View style={{width: 200}}>
-                <Text style={[styles.h4, {top: 10, textTransform: 'capitalize'}]}>
-                  {(item.user != undefined ) ?item.user.name : 'Guest'}
-  
-                
+              <View style={{ width: 200 }}>
+                <Text style={[styles.h4, { top: 10, textTransform: 'capitalize' }]}>
+                  {(item.user != undefined) ? item.user.name : 'Guest'}
+
+
                   {/* {item.user.name} */}
                 </Text>
                 <Text
@@ -570,34 +583,34 @@ class Card extends Component {
                 </Text>
               </View>
               <View
+                style={{
+                  margin: 5,
+                  marginTop: 20,
+                  marginLeft: Platform.OS == 'ios' ? -30 : -20,
+                }}>
+                <View
                   style={{
-                    margin: 5,
-                    marginTop: 20,
-                    marginLeft: Platform.OS == 'ios' ? -30 : -20,
+                    marginRight: 10,
+                    backgroundColor: '#f2f2f2',
+                    padding: 5,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    borderRadius: 5,
                   }}>
-                  <View
-                    style={{
-                      marginRight: 10,
-                      backgroundColor: '#f2f2f2',
-                      padding: 5,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      borderRadius: 5,
-                    }}>
-  
-              {item.order_type != 'TakeAway' && item.order_type != 'Delivery' ? (
-               
+
+                  {item.order_type != 'TakeAway' && item.order_type != 'Delivery' ? (
+
                     <Text
                       style={{
                         fontSize: RFValue(10, 580),
                         color: '#222',
                         fontWeight: 'bold',
                       }}>
-                      Dine-In 
+                      Dine-In
                     </Text>
-             
-              ) : (
-               
+
+                  ) : (
+
                     <Text
                       style={{
                         fontSize: RFValue(10, 580),
@@ -606,15 +619,15 @@ class Card extends Component {
                       }}>
                       {item.order_type}
                     </Text>
-                
-              )}
+
+                  )}
+                </View>
               </View>
-              </View>
-              
+
             </View>
           </View>
         </View>
-  
+
         <View
           style={{
             height: 1,
@@ -623,102 +636,102 @@ class Card extends Component {
             alignSelf: 'center',
           }}
         />
-  
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           {/* for order status */}
           {item.order_status == 'placed' ? (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="#5BC2C1"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
                   styles.smallHeading,
-                  {marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ff9933'},
+                  { marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ff9933' },
                 ]}>
                 Pending
               </Text>
             </View>
           ) : item.order_status == 'confirmed' ? (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="#EDA332"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
                   styles.smallHeading,
-                  {marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#EDA332'},
+                  { marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#EDA332' },
                 ]}>
                 Confirmed
               </Text>
             </View>
           ) : item.order_status == 'in_process' ? (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="#ffdf00"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
                   styles.smallHeading,
-                  {marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ffdf00'},
+                  { marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ffdf00' },
                 ]}>
                 In Process
               </Text>
             </View>
           ) : item.order_status == 'cancelled' ? (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="red"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
                   styles.smallHeading,
-                  {marginTop: Platform.OS == 'ios' ? 4 : 1, color: 'red'},
+                  { marginTop: Platform.OS == 'ios' ? 4 : 1, color: 'red' },
                 ]}>
                 Cancelled
               </Text>
             </View>
           ) : item.order_status == 'processed' ? (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="#ffdf00"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
                   styles.smallHeading,
-                  {marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ffdf00'},
+                  { marginTop: Platform.OS == 'ios' ? 4 : 1, color: '#ffdf00' },
                 ]}>
                 Processed
               </Text>
             </View>
           ) : (
-            <View style={{flexDirection: 'row', paddingTop: 5}}>
+            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
               <Icon
                 name="ellipse"
                 type="ionicon"
                 size={15}
                 color="green"
-                style={{margin: 5}}
+                style={{ margin: 5 }}
               />
               <Text
                 style={[
@@ -733,7 +746,7 @@ class Card extends Component {
               </Text>
             </View>
           )}
-  
+
           {/* {item.order_status == 'in_process' ? (
             <Animatable.View
               style={{flexDirection: 'row', paddingTop: 10}}
@@ -784,9 +797,9 @@ class Card extends Component {
           ) : (
             <></>
           )} */}
-  
+
           {/* details button */}
-          <View style={{paddingTop: 5, paddingVertical: 5}}>
+          <View style={{ paddingTop: 5, paddingVertical: 5 }}>
             {/* <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate('OrderDetails', {
@@ -819,29 +832,31 @@ class Card extends Component {
           </View>
         </View>
       </TouchableOpacity>
+    </View>
+  );
+
+
+  render() {
+    return (
+      <View>
+        {/* {details} */}
+        <FlatList
+          navigation={this.props.navigation}
+          showsVerticalScrollIndicator={false}
+          data={this.props.data}
+          renderItem={this.productCard}
+          keyExtractor={item => item.id}
+          onEndReachedThreshold={0.75}
+          onEndReached={() =>{this.props.load_more()}}
+        />
+
+
       </View>
-    );
-
-
-    render() {
-        return (
-            <View>
-                {/* {details} */}
-                <FlatList
-                    navigation={this.props.navigation}
-                    showsVerticalScrollIndicator={false}
-                    data={this.props.data}
-                    renderItem={this.productCard}
-                    keyExtractor={item => item.id}
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => this.props.load_more()}
-                />
-
-
-            </View>
-        )
-    }
+    )
+  }
 }
+
+
 const style = StyleSheet.create({
   card: {
     backgroundColor: '#fff',

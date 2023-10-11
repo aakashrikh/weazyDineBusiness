@@ -13,7 +13,7 @@ import Toast from 'react-native-simple-toast';
 import { AuthContext } from '../AuthContextProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-
+import RNPrint from 'react-native-print';
 
 
 
@@ -62,6 +62,8 @@ class CartPos extends Component {
             is_buttonloding: false,
             notes: "",
             islanding: false,
+            isloading: false,
+            order_code: ""
 
         }
         console.warn("check_product_cart", this.props.route.params.table_uu_id);
@@ -283,16 +285,16 @@ class CartPos extends Component {
                 {/* View for Image */}
                 <View style={{ width: "18%" }}>
                     {item.product.is_veg == 1 ?
-                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, position:"absolute",zIndex:1, top:10, left:10}} />
                         :
-                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15 }} />
+                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, position:"absolute",zIndex:1, top:10, left:10 }} />
                     }
                     {
                         item.product.product_img == "" ?
-                            <Image source={require('../img/logo/mp.png')} style={{ width: 50, height: 50, marginTop: 10 }} />
+                            <Image source={require('../img/logo/mp.png')} style={{ width: 55, height: 55, marginTop: 10, }} />
                             :
 
-                            <Image source={{ uri: item.product.product_img }} style={{ width: 50, height: 50, marginTop: 10 }} />
+                            <Image source={{ uri: item.product.product_img }} style={{ width: 50, height: 50, marginTop: 10, marginLeft:10 }} />
 
                     }
 
@@ -495,6 +497,11 @@ class CartPos extends Component {
             });
     };
 
+    async printRemotePDF() {
+        console.warn(global.vendor_api + this.state.order_code + '/bill.pdf')
+        await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/bill.pdf' })
+    }
+
     place_order = (payment_method) => {
         this.setState({ is_buttonloding: true });
         console.warn(this.state.payment_method);
@@ -542,14 +549,18 @@ class CartPos extends Component {
                     var msg = json.msg;
                     Toast.show(msg);
                 } else {
+                    this.setState({order_code: json.data[0].order_code})
                     Toast.show('Order Placed');
                     this.clear_cart_main();
+
+                   
                     this.setState({ payment_step: 0, name: "", contact: "", splitModalVisible: false, modalVisibleName: false, modalVisible: false, generateModalVisible: false });
                     {
                         this.state.order_method_type == 2 ?
 
                             this.props.navigation.navigate('TabNav', { screen: 'Dine-In' })
                             :
+                            this.printRemotePDF();
                             this.props.navigation.navigate('OrderDetailsUpdatesPos', { id: json.data[0].order_code });
                     }
                 }
@@ -1064,7 +1075,7 @@ class CartPos extends Component {
                                                 :
                                                 <TouchableOpacity
                                                     onPress={() => {
-                                                        this.setState({ splitModalVisible: false }, this.place_order())
+                                                        this.setState({ splitModalVisible: false }, this.setState({ payment_method: "offline-cash" }), this.place_order("offline-cash"))
                                                     }}>
                                                     <LinearGradient
                                                         colors={['#5BC2C1', '#296E84']}
@@ -1237,6 +1248,7 @@ const style = StyleSheet.create({
         shadowOffset: { height: 5, width: 5 },
         elevation: 5,
         shadowColor: "grey",
-        paddingLeft: 10
+        paddingLeft: 10,
+        color:"#5d5d5d"
     }
 })
