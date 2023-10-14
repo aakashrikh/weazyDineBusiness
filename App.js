@@ -149,7 +149,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 //for production
  global.vendor_api = "https://dine-api.weazy.in/api/";
-// global.qr_link = "https://dine-api.weazy.in"
+global.qr_link = "https://dine-api.weazy.in"
 
 // global.vendor_api = "https://dine-api.weazy.in/api/";
 // global.qr_link = "https://dine-api.weazy.in"
@@ -160,8 +160,8 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 
 // for demo 
 // global.vendor_api = "https://beta-dine-api.weazy.in/api/";
-global.image_url = "";
-global.qr_link = ""
+// global.image_url = "";
+// global.qr_link = ""
 
 global.login_data = true
 global.msg = "Welcome"

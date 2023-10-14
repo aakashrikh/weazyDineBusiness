@@ -925,10 +925,11 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
 				ENABLE_BITCODE = NO;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = weazydinebusiness/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Weazy DIne";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -959,9 +960,11 @@
 				CODE_SIGN_ENTITLEMENTS = weazydinebusiness/weazydinebusiness.entitlements;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 46ZS9MFJG5;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "i386 arm64";
 				INFOPLIST_FILE = weazydinebusiness/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Weazy DIne";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

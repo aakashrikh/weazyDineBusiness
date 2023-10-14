@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { Component } from 'react';
-import { Alert, Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, FlatList, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,6 +9,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import Toast from 'react-native-simple-toast';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { AuthContext } from '../AuthContextProvider.js';
+import debounce from 'lodash/debounce';
 //Global Style Import
 const styles = require('../Components/Style.js');
 
@@ -19,20 +20,21 @@ class Orders extends Component {
   static contextType = AuthContext;
   constructor(props) {
     super(props);
+    this.onEndReachedCalledDuringMomentum = true;
     this.state = {
       data: [],
       active_cat: 0,
       // vendor_category_id:0,
       isloading: true,
-      isLoading: false,
       object: {},
       select: {},
       last_select: '',
-      load_data: false,
+      load_more:false,
       page: 1,
-      category: []
+      category: [],
       // prod_id:''
     }
+
   }
 
   //for header left component
@@ -56,18 +58,21 @@ class Orders extends Component {
 
     })
 
+
   }
 
-  // function to load data while scrolling
-  load_more = () => {
-    console.log("load more")
-    var data_size = this.state.data.length
-    if (data_size > 9) {
 
-      var page = this.state.page + 1
-      this.setState({ page: page })
-      this.setState({ load_data: true });
-      this.get_vendor_product(this.state.active_cat, page)
+  // create a load more function for pagination
+  load_more
+   = () => {
+    if(this.state.data.length>19)
+    {
+      this.setState({ page: this.state.page + 1, load_more: true })
+      this.get_vendor_product(this.state.active_cat, this.state.page + 1);
+       console.log(this.state.page,this.state.data.length)
+    }
+    else{
+      this.setState({load_more:false})
     }
   }
 
@@ -93,31 +98,16 @@ class Orders extends Component {
         else {
           if (json.data?.data?.length > 0) {
             var obj = json.data.data;
-            // json.data.data.map((value, key) => {
-            //     const object = this.state.object;
-
-            //     if (value.status == 'active') {
-            //         object[value.id] = true;
-            //     }
-            //     else {
-            //         object[value.id] = false;
-            //     }
-
-            //     this.setState({ object });
-            // })
             if (page == 1) {
               this.setState({ data: obj })
             }
             else {
-              this.setState({ data: [...this.state.data, ...obj] })
+              this.setState({ data: [...this.state.data, ...obj]});
             }
-          }
-          else {
-
           }
 
         }
-        this.setState({ isloading: false, load_data: false })
+        this.setState({ isloading:false,load_more:false})
         return json;
       }).catch((error) => {
         console.error(error);
@@ -173,354 +163,6 @@ class Orders extends Component {
       }).finally(() => {
         this.setState({ isloading: false })
       });
-  }
-
-
-
-  render() {
-
-    return (
-      <View style={[styles.container]}>
-        {/* Component for  Filter Services */}
-        <View>
-          <Header
-            statusBarProps={{ barStyle: 'dark-content' }}
-            leftComponent={this.renderLeftComponent()}
-            ViewComponent={LinearGradient} // Don't forget this!
-            linearGradientProps={{
-              colors: ['#fff', '#fff'],
-            }}
-            backgroundColor="#ffffff"
-          />
-        </View>
-
-        <View style={{ flexDirection: 'row', padding: 10 }}>
-          <OrderType
-            navigation={this.props.navigation}
-            filter={this.filter}
-            active_cat={this.state.active_cat}
-            fetch_order={this.fetch_order}
-          />
-
-        </View>
-
-        <ScrollView style={{ flex: 1 }}>
-          {/* Particular Card Component */}
-          {!this.state.isloading ?
-            <>
-              {(this.state.data.length > 0) ?
-                <Card navigation={this.props.navigation}
-                  data={this.state.data}
-                  category={this.state.category}
-                  load_more={this.load_more}
-                  load_data={this.state.load_data}
-                  toggle={this.toggle}
-                  get_category={this.get_category}
-                  get_vendor_product={this.get_vendor_product}
-                  object={this.state.object}
-                />
-
-                :
-                <View style={{ paddingTop: 120, alignItems: "center" }}>
-                  <View style={{ alignSelf: "center" }}>
-                    <Image source={require("../img/no-product.webp")}
-                      style={{ width: 300, height: 250 }} />
-                    <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
-                      No Products Found!
-                    </Text>
-                  </View>
-                </View>
-              }
-            </>
-            :
-            <View >
-              <Loaders />
-            </View>
-          }
-
-
-          {(this.state.load_data) ?
-            <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
-              <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
-              <Text style={styles.p}>Please wait...</Text>
-            </View>
-            :
-            <View></View>
-          }
-
-        </ScrollView>
-
-        {/* fab button */}
-
-
-      </View>
-
-    )
-  }
-}
-
-export default Orders;
-
-class Loaders extends Component {
-  render() {
-    return (
-      <View>
-        <SkeletonPlaceholder >
-          <View style={{ flexDirection: "row", marginTop: 20 }}>
-            <View style={{ marginLeft: 5 }}>
-              <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
-            </View>
-
-            <View>
-              <View style={{ flexDirection: "row", }}>
-                <View>
-                  <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
-                  <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
-                </View>
-                <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
-                <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
-              </View>
-              <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
-                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
-              </View>
-            </View>
-
-
-
-          </View>
-
-
-        </SkeletonPlaceholder>
-
-      </View>
-    )
-  }
-}
-
-class OrderType extends Component {
-  render() {
-    return (
-      <View style={{}}>
-
-
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 5 }}>
-            {this.props.active_cat != '' ? (
-              <TouchableOpacity onPress={() => this.props.filter('')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>All</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>All</Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'placed' ? (
-              <TouchableOpacity onPress={() => this.props.filter('placed')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Pending</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('placed')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Pending
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'confirmed' ? (
-              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Confirmed</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Confirmed
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'in_process' ? (
-              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>In Process</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    In Process
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'processed' ? (
-              <TouchableOpacity onPress={() => this.props.filter('processed')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Processed</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('processed')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Processed
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'out for delivery' ? (
-              <TouchableOpacity
-                onPress={() => this.props.filter('out for delivery')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Out for Delivery</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => this.props.filter('out for delivery')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Out for Delivery
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'completed' ? (
-              <TouchableOpacity onPress={() => this.props.filter('completed')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Completed</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('completed')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Completed
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-
-            {this.props.active_cat != 'cancelled' ? (
-              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
-                <View style={style.catButton}>
-                  <Text style={style.catButtonText}>Cancelled</Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
-                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
-                  <Text style={[style.catButtonText, { color: '#fff' }]}>
-                    Cancelled
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
-class Card extends Component {
-  static contextType = AuthContext;
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOn: false,
-      isOff: true,
-      object: {},
-      id: [],
-      prod_id: '',
-    }
-  }
-
-
-  alertFunc = () => {
-    this.RBSheet.close()
-    Alert.alert(
-      "",
-      "Are you sure you want to delete this Menu?",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => this.delete_product() }
-      ]
-    )
-  }
-
-  delete_product = () => {
-    fetch(global.vendor_api + 'update_status_product_offer', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': this.context.token
-      },
-      body: JSON.stringify({
-        action_id: this.state.prod_id,
-        type: 'product',
-        status: "delete"
-      })
-    }).then((response) => response.json())
-      .then((json) => {
-        if (!json.status) {
-          var msg = json.msg;
-          // Toast.show(msg);
-
-        }
-        else {
-          Toast.show("Product deleted")
-          this.props.get_vendor_product(0, 1)
-        }
-      }).catch((error) => {
-        console.error(error);
-      }).finally(() => {
-        this.setState({ isloading: false })
-      });
-    this.props.get_vendor_product(0, 1)
-    this.props.get_category()
-  }
-
-  editNavigation = () => {
-    this.props.navigation.navigate("EditService",
-      {
-        data: this.state.id,
-        category: this.props.category,
-        get_cat: this.props.get_category,
-        get_vendor_product: this.props.get_vendor_product
-      })
-    this.RBSheet.close()
-  }
-
-  sheet = (id) => {
-    this.setState({ id: id })
-    this.RBSheet.open();
-    this.setState({ prod_id: id.id })
-
   }
 
   productCard = ({ item }) => (
@@ -835,27 +477,278 @@ class Card extends Component {
     </View>
   );
 
+  render() {
 
+    return (
+      <View style={[styles.container]}>
+        {/* Component for  Filter Services */}
+        <View>
+          <Header
+            statusBarProps={{ barStyle: 'dark-content' }}
+            leftComponent={this.renderLeftComponent()}
+            ViewComponent={LinearGradient} // Don't forget this!
+            linearGradientProps={{
+              colors: ['#fff', '#fff'],
+            }}
+            backgroundColor="#ffffff"
+          />
+        </View>
+
+        <View style={{ flexDirection: 'row', padding: 10 }}>
+          <OrderType
+            navigation={this.props.navigation}
+            filter={this.filter}
+            active_cat={this.state.active_cat}
+            fetch_order={this.fetch_order}
+          />
+
+        </View>
+{/* 
+        <ScrollView style={{ flex: 1 }}> */}
+          {/* Particular Card Component */}
+          {
+          !this.state.isloading ?
+            <>
+              {(this.state.data.length > 0) ?
+                <FlatList
+                  navigation={this.props.navigation}
+                  showsVerticalScrollIndicator={false}
+                  data={this.state.data}
+                  renderItem={this.productCard}
+                  keyExtractor={item => item.id}
+                  onEndReachedThreshold={0.8}
+                  
+                  onEndReached={()=>{
+                    if(this.state.load_more==false)
+                    {
+                      this.load_more()
+                    }
+                  }
+                  }
+                 
+                />
+
+                :
+                <View style={{ paddingTop: 120, alignItems: "center" }}>
+                  <View style={{ alignSelf: "center" }}>
+                    <Image source={require("../img/no-product.webp")}
+                      style={{ width: 300, height: 250 }} />
+                    <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
+                      No Orders Found!
+                    </Text>
+                  </View>
+                </View>
+              }
+            </>
+            :
+            <View >
+              <Loaders />
+            </View>
+          }
+
+
+          {(this.state.load_more) ?
+            <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
+              <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
+              <Text style={styles.p}>Please wait...</Text>
+            </View>
+            :
+            <View></View>
+          }
+
+        {/* </ScrollView> */}
+
+        {/* fab button */}
+
+
+      </View>
+
+    )
+  }
+}
+
+export default Orders;
+
+class Loaders extends Component {
   render() {
     return (
       <View>
-        {/* {details} */}
-        <FlatList
-          navigation={this.props.navigation}
-          showsVerticalScrollIndicator={false}
-          data={this.props.data}
-          renderItem={this.productCard}
-          keyExtractor={item => item.id}
-          onEndReachedThreshold={0.75}
-          onEndReached={() =>{this.props.load_more()}}
-        />
+        <SkeletonPlaceholder >
+          <View style={{ flexDirection: "row", marginTop: 20 }}>
+            <View style={{ marginLeft: 5 }}>
+              <View style={{ width: win.width / 3.5, height: 110, borderRadius: 10 }} />
+            </View>
 
+            <View>
+              <View style={{ flexDirection: "row", }}>
+                <View>
+                  <View style={{ width: 150, height: 15, marginLeft: 10, top: 5 }} />
+                  <View style={{ width: 250, height: 20, marginLeft: 10, top: 10 }} />
+                </View>
+                <View style={{ height: 20, width: 35, right: 60, bottom: 5 }}></View>
+                <View style={{ height: 20, width: 20, right: 50, bottom: 5 }}></View>
+              </View>
+              <View style={{ flexDirection: "row", alignSelf: "flex-end", left: -35, marginRight: 20, marginTop: 15 }}>
+                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+                <View style={{ width: 50, height: 15, marginLeft: 10, top: 15 }} />
+              </View>
+            </View>
+
+
+
+          </View>
+
+
+        </SkeletonPlaceholder>
 
       </View>
     )
   }
 }
 
+class OrderType extends Component {
+  render() {
+    return (
+      <View style={{}}>
+
+
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 5 }}>
+            {this.props.active_cat != '' ? (
+              <TouchableOpacity onPress={() => this.props.filter('')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>All</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>All</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'placed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('placed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Pending</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('placed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Pending
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'confirmed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Confirmed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('confirmed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Confirmed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'in_process' ? (
+              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>In Process</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('in_process')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    In Process
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'processed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('processed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Processed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('processed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Processed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'out for delivery' ? (
+              <TouchableOpacity
+                onPress={() => this.props.filter('out for delivery')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Out for Delivery</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => this.props.filter('out for delivery')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Out for Delivery
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'completed' ? (
+              <TouchableOpacity onPress={() => this.props.filter('completed')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Completed</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('completed')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Completed
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+
+            {this.props.active_cat != 'cancelled' ? (
+              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
+                <View style={style.catButton}>
+                  <Text style={style.catButtonText}>Cancelled</Text>
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => this.props.filter('cancelled')}>
+                <View style={[style.catButton, { backgroundColor: '#5BC2C1' }]}>
+                  <Text style={[style.catButtonText, { color: '#fff' }]}>
+                    Cancelled
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+}
 
 const style = StyleSheet.create({
   card: {

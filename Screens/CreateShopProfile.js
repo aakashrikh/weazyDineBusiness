@@ -142,8 +142,7 @@ class CreateShopProfile extends Component {
             }).then((response) => response.json())
                 .then((json) => {
                     if (!json.status) {
-
-                        Toast.show(json.errors[0])
+                        Toast.show(json.msg)
 
                     }
                     else {
