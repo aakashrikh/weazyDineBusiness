@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   Text, View, ScrollView, Dimensions,
-  StyleSheet, TouchableOpacity, FlatList, Platform
+  StyleSheet, TouchableOpacity, FlatList, Platform, Alert
 } from "react-native";
 import { Header, Icon, SearchBar } from "react-native-elements";
 import LinearGradient from "react-native-linear-gradient";
@@ -76,6 +76,23 @@ class AddOrder extends Component {
     )
   }
 
+  renderRightComponent() {
+    return (
+      <View style={{ top: 5 }}>
+        {
+          this.state.cart.length > 0 ?
+            <TouchableOpacity style={[style.addCart, { marginTop: 0, width: 70, marginRight: 0 }]} onPress={() => this.clear_cart()}>
+              <Text style={[style.addCartText, { fontSize: RFValue(9, 580) }]}>
+                Clear Cart
+              </Text>
+            </TouchableOpacity>
+            : null
+        }
+
+      </View>
+    )
+  }
+
   componentWillUnmount() {
     this.setState({
       table_uu_id: "",
@@ -100,7 +117,7 @@ class AddOrder extends Component {
         order_method_type: this.props.route.params.order_method_type
       })
     }
-    else{
+    else {
       this.setState({
         table_uu_id: "",
         order_method_type: 0
@@ -115,7 +132,7 @@ class AddOrder extends Component {
         })
         // alert(this.props.route.params.order_method_type)
       }
-      else{
+      else {
         this.setState({
           table_uu_id: "",
           order_method_type: 0
@@ -174,6 +191,106 @@ class AddOrder extends Component {
   };
 
 
+  clear_cart = () => {
+
+    Alert.alert(
+      'Clear Cart',
+      'Are you sure you want to clear cart?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => this.clear_cart_main(),
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  clear_cart_main = () => {
+    this.setState({ cart: [], check_product_cart: [] });
+
+    var data = {
+      "cart": [],
+      "final_price": 0,
+      "taxes": 0,
+      "subTotal": 0,
+      "check_product_cart": []
+    }
+
+    AsyncStorage.setItem('cart_and_final', JSON.stringify(data));
+
+
+  }
+
+  update_cart = (index, quantity, type) => {
+    var final_price = this.state.subTotal;
+    var tax = this.state.taxes;
+    var ff_cart = this.state.cart;
+
+
+    var obj = this.state.check_product_cart;
+
+    if (obj[ff_cart[index]] != undefined) {
+      if (type == "add") {
+        obj[ff_cart[index].product_id] = obj[ff_cart[index].product_id] + 1;
+      }
+      else {
+        obj[ff_cart[index].product_id] = obj[ff_cart[index].product_id] - 1;
+      }
+    }
+    else {
+      obj[ff_cart[index].product_id] = obj[ff_cart[index].product_id] - 1;
+    }
+
+
+    var price = (ff_cart[index].price / ff_cart[index].quantity).toFixed(2);
+    final_price = final_price - ff_cart[index].price + price * quantity;
+
+    var product_price = ff_cart[index].price / ff_cart[index].quantity;
+    var product_tax = parseFloat(product_price * (ff_cart[index].product.tax / 100)).toFixed(2);
+
+    tax =
+      parseFloat(tax) -
+      parseFloat(product_tax) +
+      (parseFloat(price) * parseFloat(quantity)) * (ff_cart[index].product.tax / 100);
+
+
+    if (quantity == 0) {
+
+
+      ff_cart.splice(index, 1);
+    }
+    else {
+
+      ff_cart[index].tax = (parseFloat(price) * parseFloat(quantity)) * (ff_cart[index].product.tax / 100);
+      ff_cart[index].quantity = quantity;
+      ff_cart[index].price = (price * quantity).toFixed(2);
+
+    }
+
+    this.setState({
+      subTotal: final_price.toFixed(2),
+      taxes: tax.toFixed(2),
+      grandTotal: Math.round(final_price + tax),
+    });
+
+    var data = {
+      "cart": ff_cart,
+      "final_price": Math.round(final_price + tax),
+      "taxes": tax.toFixed(2),
+      "subTotal": final_price.toFixed(2),
+      "check_product_cart": obj
+    }
+
+    AsyncStorage.setItem('cart_and_final', JSON.stringify(data));
+
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -181,6 +298,7 @@ class AddOrder extends Component {
           statusBarProps={{ barStyle: 'dark-content' }}
           centerComponent={this.renderCenterComponent()}
           leftComponent={this.renderLeftComponent()}
+          rightComponent={this.renderRightComponent()}
           ViewComponent={LinearGradient} // Don't forget this!
           linearGradientProps={{
             colors: ['white', 'white'],
@@ -267,6 +385,8 @@ class AddOrder extends Component {
                 <>
                   {
                     this.state.category.length > 0 ?
+                    
+                     <>
                       <FlatList
                         numColumns={3}
                         data={this.state.category}
@@ -274,6 +394,9 @@ class AddOrder extends Component {
                         keyExtractor={item => item.id}
                         style={{ marginBottom: Platform.OS === "ios" ? 20 : 10 }}
                       />
+      
+                     </>
+
                       :
                       <></>
                   }
@@ -365,5 +488,22 @@ const style = StyleSheet.create({
     marginRight: 10,
     alignItems: "center",
     marginTop: 15
-  }
+  },
+  addCart: {
+    backgroundColor: "#5BC2C1",
+    borderRadius: 5,
+    width: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 35,
+    alignSelf: "flex-end",
+    marginRight: 30,
+    marginTop: -30
+
+  },
+  addCartText: {
+    color: "#fff",
+    fontSize: RFValue(10, 580),
+    fontFamily: "Poppins-SemiBold"
+  },
 })  

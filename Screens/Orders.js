@@ -63,8 +63,7 @@ class Orders extends Component {
 
 
   // create a load more function for pagination
-  load_more
-   = () => {
+  load_more  = () => {
     if(this.state.data.length>19)
     {
       this.setState({ page: this.state.page + 1, load_more: true })

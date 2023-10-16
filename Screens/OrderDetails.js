@@ -150,6 +150,11 @@ class OrderDetails extends Component {
     await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/bill.pdf' })
   }
 
+  async printKOT() {
+    console.warn(global.vendor_api + this.state.data.order_code + '/kot.pdf')
+    await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/kot.pdf',  preview: false,})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -180,7 +185,13 @@ class OrderDetails extends Component {
               <></>
           } */}
 
-
+          <View style={{ alignSelf: "center" }}>
+            <TouchableOpacity onPress={() => this.printKOT()}
+              style={{ flexDirection: "row", width: 120, justifyContent: "space-evenly" }}>
+              <Icon name="receipt-outline" type="ionicon" size={25} color='#296e84' />
+              <Text style={[styles.h4, { color: "#296e84" }]}>Print KOT</Text>
+            </TouchableOpacity>
+          </View>
           <View
             style={{
               marginTop: 10,

@@ -63,7 +63,9 @@ class CartPos extends Component {
             notes: "",
             islanding: false,
             isloading: false,
-            order_code: ""
+            order_code: "",
+            dineInOrderModalVisible: false,
+            takeAwayOrderModalVisible: false,
 
         }
         console.warn("check_product_cart", this.props.route.params.table_uu_id);
@@ -285,16 +287,16 @@ class CartPos extends Component {
                 {/* View for Image */}
                 <View style={{ width: "18%" }}>
                     {item.product.is_veg == 1 ?
-                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, position:"absolute",zIndex:1, top:10, left:10}} />
+                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, position: "absolute", zIndex: 1, top: 10, left: 10 }} />
                         :
-                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, position:"absolute",zIndex:1, top:10, left:10 }} />
+                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, position: "absolute", zIndex: 1, top: 10, left: 10 }} />
                     }
                     {
                         item.product.product_img == "" ?
                             <Image source={require('../img/logo/mp.png')} style={{ width: 55, height: 55, marginTop: 10, }} />
                             :
 
-                            <Image source={{ uri: item.product.product_img }} style={{ width: 50, height: 50, marginTop: 10, marginLeft:10 }} />
+                            <Image source={{ uri: item.product.product_img }} style={{ width: 50, height: 50, marginTop: 10, marginLeft: 10 }} />
 
                     }
 
@@ -502,6 +504,11 @@ class CartPos extends Component {
         await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/bill.pdf' })
     }
 
+    async printKOT() {
+        console.warn(global.vendor_api + this.state.order_code + '/kot.pdf')
+        await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/kot.pdf',  preview: false,})
+      }
+
     place_order = (payment_method) => {
         this.setState({ is_buttonloding: true });
         console.warn(this.state.payment_method);
@@ -549,19 +556,20 @@ class CartPos extends Component {
                     var msg = json.msg;
                     Toast.show(msg);
                 } else {
-                    this.setState({order_code: json.data[0].order_code})
+                    this.setState({ order_code: json.data[0].order_code })
                     Toast.show('Order Placed');
                     this.clear_cart_main();
 
-                   
+
                     this.setState({ payment_step: 0, name: "", contact: "", splitModalVisible: false, modalVisibleName: false, modalVisible: false, generateModalVisible: false });
                     {
                         this.state.order_method_type == 2 ?
-
-                            this.props.navigation.navigate('TabNav', { screen: 'Dine-In' })
+                            this.setState({ dineInOrderModalVisible: true })
+                            // this.props.navigation.navigate('TabNav', { screen: 'Dine-In' })
                             :
-                            this.printRemotePDF();
-                            this.props.navigation.navigate('OrderDetailsUpdatesPos', { id: json.data[0].order_code });
+                            this.setState({  takeAwayOrderModalVisible: true })
+                        //     this.printRemotePDF();
+                        // this.props.navigation.navigate('OrderDetailsUpdatesPos', { id: json.data[0].order_code });
                     }
                 }
                 this.setState({ is_buttonloding: false });
@@ -1094,6 +1102,140 @@ class CartPos extends Component {
                     </View>
                 </Modal>
 
+                {/* modal for dine in Order  */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.dineInOrderModalVisible}
+                    // visible={true}
+                    onBackdropPress={() => {
+                        this.setState({ dineInOrderModalVisible: false });
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+
+                            <TouchableOpacity style={{ alignSelf: "flex-end" }}
+                                onPress={() => this.setState({ dineInOrderModalVisible: false })}>
+                                <Icon name="close-circle-outline" size={25} color="#000" type='ionicon' />
+                            </TouchableOpacity>
+
+                            <View>
+                                <Text style={[styles.h3, { alignSelf: "center" }]}>
+                                    Order Complete
+                                </Text>
+                                <Text style={[styles.p, { alignSelf: "center" }]}>
+                                    Your Order has been placed successfully.
+                                </Text>
+                                <Image source={require('../img/success.png')}
+                                    style={{ height: 100, width: 100, alignSelf: "center", marginTop: 20 }} />
+
+                                <View style={{flexDirection:"row", justifyContent:"space-evenly"}}>
+                                    <TouchableOpacity onPress={()=> {this.setState({dineInOrderModalVisible:false}), this.printKOT()}}>
+                                        <LinearGradient
+                                            colors={['#5BC2C1', '#296E84']}
+                                            style={[{
+                                                borderRadius: 10, alignSelf: 'center',
+                                                padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20
+                                            }]}>
+                                            <Text style={[styles.h4, { alignSelf: "center", color: "#ffffff" }]}>
+                                                Print KOT
+                                            </Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={()=> {this.setState({dineInOrderModalVisible:false}),  this.props.navigation.navigate('OrderDetailsUpdatesPos', { id:this.state.order_code })}}>
+                                        <LinearGradient
+                                            colors={['#5BC2C1', '#296E84']}
+                                            style={[{
+                                                borderRadius: 10, alignSelf: 'center',
+                                                padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20
+                                            }]}>
+                                            <Text style={[styles.h4, { alignSelf: "center", color: "#ffffff" }]}>
+                                                View Table Order
+                                            </Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+
+                        </View>
+                    </View>
+                </Modal>
+
+                 {/* modal for Takeaway Order  */}
+                 <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.takeAwayOrderModalVisible}
+                    // visible={true}
+                    onBackdropPress={() => {
+                        this.setState({ takeAwayOrderModalVisible: false });
+                    }}>
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+
+                            <TouchableOpacity style={{ alignSelf: "flex-end" }}
+                                onPress={() => this.setState({ takeAwayOrderModalVisible: false })}>
+                                <Icon name="close-circle-outline" size={25} color="#000" type='ionicon' />
+                            </TouchableOpacity>
+
+                            <View>
+                                <Text style={[styles.h3, { alignSelf: "center" }]}>
+                                    Order Complete
+                                </Text>
+                                <Text style={[styles.p, { alignSelf: "center" }]}>
+                                    Your Order has been placed successfully.
+                                </Text>
+                                <Image source={require('../img/success.png')}
+                                    style={{ height: 100, width: 100, alignSelf: "center", marginTop: 20 }} />
+
+                                <View style={{flexDirection:"row",width:"100%", justifyContent:"space-evenly"}}>
+                                    <TouchableOpacity onPress={()=> {this.setState({takeAwayOrderModalVisible:false}), this.printKOT()}}>
+                                        <LinearGradient
+                                            colors={['#5BC2C1', '#296E84']}
+                                            style={[{
+                                                borderRadius: 10, alignSelf: 'center',
+                                                padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20
+                                            }]}>
+                                            <Text style={[styles.h5, { alignSelf: "center", color: "#ffffff" }]}>
+                                                Print KOT
+                                            </Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={()=> {this.setState({takeAwayOrderModalVisible:false}), this.printRemotePDF()}}>
+                                        <LinearGradient
+                                            colors={['#5BC2C1', '#296E84']}
+                                            style={[{
+                                                borderRadius: 10, alignSelf: 'center',
+                                                padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20
+                                            }]}>
+                                            <Text style={[styles.h5, { alignSelf: "center", color: "#ffffff" }]}>
+                                                Print Receipt
+                                            </Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={()=> {this.setState({takeAwayOrderModalVisible:false}), this.props.navigation.navigate('OrderDetailsUpdatesPos', { id:this.state.order_code })}}>
+                                        <LinearGradient
+                                            colors={['#5BC2C1', '#296E84']}
+                                            style={[{
+                                                borderRadius: 10, alignSelf: 'center',
+                                                padding: 10, borderRadius: 5, paddingLeft: 10, paddingRight: 10, marginTop: 20
+                                            }]}>
+                                            <Text style={[styles.h5, { alignSelf: "center", color: "#ffffff" }]}>
+                                                View Table Order
+                                            </Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+
+                                </View>
+                            </View>
+
+                        </View>
+                    </View>
+                </Modal>
+
             </View>
         )
     }
@@ -1249,6 +1391,6 @@ const style = StyleSheet.create({
         elevation: 5,
         shadowColor: "grey",
         paddingLeft: 10,
-        color:"#5d5d5d"
+        color: "#5d5d5d"
     }
 })

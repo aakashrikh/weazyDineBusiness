@@ -57,13 +57,14 @@ class Services extends Component {
 
     // function to load data while scrolling
     load_more = () => {
-        var data_size = this.state.data.length
-        if (data_size > 9) {
-            var page = this.state.page + 1
-            this.setState({ page: page })
-            this.setState({ load_data: true });
-            this.get_vendor_product(this.state.active_cat, page)
+        if (this.state.data.length > 19) {
+            this.setState({ page: this.state.page + 1, load_data: true })
+            this.get_vendor_product(this.state.active_cat, this.state.page + 1)
         }
+        else {
+            this.setState({ load_data: false })
+        }
+
     }
 
     get_vendor_product = (category_id, page) => {
@@ -77,7 +78,8 @@ class Services extends Component {
             body: JSON.stringify({
                 vendor_category_id: category_id,
                 product_type: 'product',
-                page: page
+                page: page,
+                page_length: 20
             })
         }).then((response) => response.json())
             .then((json) => {
@@ -87,7 +89,7 @@ class Services extends Component {
                     }
                 }
                 else {
-                    if (json.data.data.length > 0) {
+                    if (json.data?.data?.length > 0) {
                         var obj = json.data.data;
                         json.data.data.map((value, key) => {
                             const object = this.state.object;

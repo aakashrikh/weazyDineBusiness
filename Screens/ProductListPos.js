@@ -11,16 +11,17 @@ import LinearGradient from 'react-native-linear-gradient';
 import RadioForm from "react-native-simple-radio-button";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
+import RadioButtonRN from 'radio-buttons-react-native';
 
 
 //Global Style Import
 const styles = require('../Components/Style.js');
 
 var radio_props = [
-    {label: 'param1 + hhh', value: 0 },
-    {label: 'param2', value: 1 }
-  ];
-   
+    { label: 'param1 + hhh', value: 0 },
+    { label: 'param2', value: 1 }
+];
+
 
 class ProductListPos extends Component {
 
@@ -587,7 +588,7 @@ class ProductListPos extends Component {
                                             Select Variant
                                         </Text>
 
-                                        <RadioForm
+                                        {/* <RadioForm
                                             radio_props={item.variants.map(
                                                 (item, index) => {
                                                     return { label: (item.variants_name +" "+ "( + Rs." + item.variants_discounted_price +")"), value: item.id }
@@ -598,12 +599,33 @@ class ProductListPos extends Component {
                                             buttonColor="#5BC2C1"
                                             buttonSize={12}
                                             buttonOuterSize={25}
-                                            initial={this.state.variantType}
-                                            onPress={(value) => { this.setState({ variantType: value }) }}
+                                            initial={item.variants.map(
+                                                (item, index) => {
+                                                    if (index == 0) {
+                                                        return index;
+                                                    }
+                                                }
+                                            )}
+                                            onPress={(value) => { this.setState({ variantType: value}) , console.warn(this.state.variantType) }}
                                             labelStyle={{ fontSize: RFValue(12, 580), marginRight: 10, fontWeight: 'bold' }}
                                             style={{ marginTop: 20, marginLeft: 20 }}
-                                        />
+                                        /> */}
 
+                                        <RadioButtonRN
+                                            data={item.variants.map(
+                                                (item, index) => {
+                                                    return { label: (item.variants_name + " " + "( + Rs." + item.variants_discounted_price + ")"), value: item.id }
+                                                }
+                                            )}
+                                            initial={1}
+                                            selectedBtn={(e) => { e.value, this.setState({ variantType: e.value }) }}
+                                            circleSize={10}
+                                            cirleActiveColor="#296e84"
+                                            boxStyle={{ width: Dimensions.get("window").width / 1.05, alignSelf: "center", marginTop: 10 }}
+                                            activeColor={"#296e84"}
+                                            textStyle={{ fontSize: RFValue(12, 580), marginRight: 10, fontWeight: 'bold' }}
+                                            animationTypes={['shake']}
+                                        />
                                     </View>
                                     :
                                     <></>

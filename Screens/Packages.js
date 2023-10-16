@@ -107,7 +107,22 @@ class Packages extends Component {
                             this.setState({ data: obj })
                         }
                         else {
-                            this.setState({ data: [...this.state.data, ...obj] })
+                            this.setState({ data: [...this.state.data, ...obj],isloading: false
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            })
                         }
                         console.warn(this.state.data)
                     }
@@ -226,11 +241,10 @@ class Packages extends Component {
                     </View>
                 </View>
 
-                <ScrollView style={{ flex: 1 }}>
                     {/* Particular Card Component */}
                     {!this.state.isloading ?
                         <>
-                            {(this.state.data != "") ?
+                            {(this.state.data.length > 0) ?
                                 <Card navigation={this.props.navigation}
                                     data={this.state.data}
                                     category={this.state.category}
@@ -269,8 +283,6 @@ class Packages extends Component {
                         :
                         <View></View>
                     }
-
-                </ScrollView>
 
                 {/* fab button */}
                 <View>
