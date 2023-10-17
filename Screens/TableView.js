@@ -679,7 +679,7 @@ class TableView extends Component {
     }
 
     billPrint = () => {
-        this.setState({printBillModal:false});
+        this.setState({ printBillModal: false });
         this.props.navigation.navigate('Dine-In');
     }
 
@@ -871,28 +871,34 @@ class TableView extends Component {
 
                 </ScrollView>
 
-                <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
-                    {/* {Platform.OS === 'ios' && this.customOptions()} */}
-                    {(this.state.cart.length > 0) ?
-                        <TouchableOpacity
-                            onPress={() =>
-                                this.genrate_bill()
-                                // this.testPrint()
-                                // this.printRemotePDF()
-                            }
-                            style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
-                            <LinearGradient
-                                colors={['#5BC2C1', '#296E84']}
-                                style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>
+                <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
 
-                                <Text style={[styles.textSignIn, {
-                                    color: '#fff'
-                                }]}>Generate Bill</Text>
+                  
+                    <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
+                        {/* {Platform.OS === 'ios' && this.customOptions()} */}
 
-                            </LinearGradient>
-                        </TouchableOpacity> :
-                        <></>
-                    }
+                        
+                        {(this.state.cart.length > 0) ?
+                            <TouchableOpacity
+                                onPress={() =>
+                                    this.genrate_bill()
+                                    // this.testPrint()
+                                    // this.printRemotePDF()
+                                }
+                                style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
+                                <LinearGradient
+                                    colors={['#5BC2C1', '#296E84']}
+                                    style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>
+
+                                    <Text style={[styles.textSignIn, {
+                                        color: '#fff'
+                                    }]}>Generate Bill</Text>
+
+                                </LinearGradient>
+                            </TouchableOpacity> :
+                            <></>
+                        }
+                    </View>
                 </View>
 
                 {/* Bottom Sheet for Camera */}
@@ -1136,6 +1142,12 @@ class TableView extends Component {
                     <View style={[style.centeredView, {
                         width: Dimensions.get('window').width / 1.1
                     }]}>
+
+                        <TouchableOpacity style={{ alignSelf: "flex-end" }}
+                            onPress={() => this.setState({ updateOrderModal: false })}>
+                            <Icon name="close-circle-outline" size={25} color="#000" type='ionicon' />
+                        </TouchableOpacity>
+
                         <View style={[style.modalView, { width: Dimensions.get('window').width / 1.1, }]}>
                             <Text style={styles.h4}>
                                 Edit Quantity of {this.state.product_name}

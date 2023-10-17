@@ -501,12 +501,14 @@ class CartPos extends Component {
 
     async printRemotePDF() {
         console.warn(global.vendor_api + this.state.order_code + '/bill.pdf')
-        await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/bill.pdf' })
+        await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/bill.pdf' });
+        this.props.navigation.navigate('Dine-In');
     }
 
     async printKOT() {
         console.warn(global.vendor_api + this.state.order_code + '/kot.pdf')
         await RNPrint.print({ filePath: global.vendor_api + this.state.order_code + '/kot.pdf',  preview: false,})
+        this.props.navigation.navigate('Dine-In');
       }
 
     place_order = (payment_method) => {

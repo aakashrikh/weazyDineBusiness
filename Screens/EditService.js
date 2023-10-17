@@ -194,7 +194,7 @@ class Fields extends Component {
         this.setState({ market_price: this.props.data.market_price })
         this.setState({ our_price: this.props.data.our_price })
         this.setState({ description: this.props.data.description })
-        this.setState({ image: global.image_url + this.props.data.product_img })
+        this.setState({ image:this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
         this.setState({ is_veg: this.props.data.is_veg });
         this.setState({ tax: this.props.data.tax });

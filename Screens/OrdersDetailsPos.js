@@ -650,8 +650,12 @@ class OrdersDetailsPos extends Component {
         this.billPrint();
     }
 
+    async printKOT() {
+        await RNPrint.print({ filePath: global.vendor_api + this.state.data.order_code + '/kot.pdf' })
+    }
+
     billPrint = () => {
-        this.setState({printBillModal:false});
+        this.setState({ printBillModal: false });
         this.props.navigation.navigate('Dine-In');
     }
 
@@ -863,10 +867,10 @@ class OrdersDetailsPos extends Component {
                                         width: Dimensions.get('window').width / 1.05, alignSelf: "center", marginTop: 10, marginBottom: 5, padding: 10, backgroundColor: '#fff',
                                         shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, alignItems: "center", shadowRadius: 4, elevation: 5, borderRadius: 10, justifyContent: "space-between"
                                     }}>
-                                        <View  style={[
-                                                    style.detailsView,
-                                                    { paddingVertical: 0, paddingBottom: 10 },
-                                                ]}>
+                                        <View style={[
+                                            style.detailsView,
+                                            { paddingVertical: 0, paddingBottom: 10 },
+                                        ]}>
                                             <Text style={styles.h4}>Item Total</Text>
                                             <Text style={styles.h4}>₹ {this.state.data.order_amount}</Text>
                                         </View>
@@ -936,25 +940,39 @@ class OrdersDetailsPos extends Component {
 
                 </ScrollView>
 
-                <View style={{ width: '100%', height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
+                {(this.state.cart.length > 0) ?
+                <View style={{ width: '100%',flexDirection:"row", justifyContent:"space-evenly", height: 50, backgroundColor: '#fff', position: 'absolute', bottom: 0, zIndex: 1 }}>
+                    <TouchableOpacity 
+                    onPress={()=> this.printKOT()}
+                    style={{width:"50%", bottom: Platform.OS == "ios" ? 30 : 10 }}>   
+                        <LinearGradient
+                            colors={['#5BC2C1', '#296E84']}
+                            style={[styles.signIn, { borderRadius: 10, width:"80%",  alignSelf: 'center' }]}>
+                            <Text style={[styles.textSignIn, {
+                                color: '#fff'
+                            }]}>Print KOT</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
 
-                    {(this.state.cart.length > 0) ?
+                   
                         <TouchableOpacity
                             onPress={() => this.genrate_bill()}
-                            style={[styles.buttonStyle, { bottom: Platform.OS == "ios" ? 30 : 10 }]}>
+                            style={{width:"50%", bottom: Platform.OS == "ios" ? 30 : 10 }}>
                             <LinearGradient
                                 colors={['#5BC2C1', '#296E84']}
-                                style={[styles.signIn, { borderRadius: 10, width: '80%', alignSelf: 'center' }]}>
+                                style={[styles.signIn, { borderRadius: 10, width:"80%",alignSelf: 'center' }]}>
 
                                 <Text style={[styles.textSignIn, {
                                     color: '#fff'
                                 }]}>Generate Bill</Text>
 
                             </LinearGradient>
-                        </TouchableOpacity> :
-                        <></>
-                    }
+                        </TouchableOpacity> 
+                    
                 </View>
+                :
+                <></>
+                            }
 
                 {/* Bottom Sheet for Camera */}
                 <RBSheet
@@ -1054,7 +1072,7 @@ class OrdersDetailsPos extends Component {
                         </View>
                     </Modal>
                 </View>
-                
+
                 {/* modal for print bill */}
                 <Modal
                     animationType="slide"

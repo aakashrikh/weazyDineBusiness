@@ -60,7 +60,7 @@ class Home extends Component {
       .join('/')
       .concat('/');
     this.setState({ remove_last_slash_and_word: remove_last_slash_and_word });
-    console.warn(remove_last_slash_and_word)
+    // console.warn(remove_last_slash_and_word)
     this.focusListener = this.props.navigation.addListener('focus', () => {
       this.get_profile();
       this.get_cover();

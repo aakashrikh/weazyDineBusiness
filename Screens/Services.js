@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import {
     View, Alert,
@@ -21,22 +21,26 @@ const styles = require('../Components/Style.js');
 const win = Dimensions.get('window');
 
 
-class Services extends Component {
+class Services extends PureComponent {
     static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
+            data: [],
             active_cat: 0,
             // vendor_category_id:0,
             isloading: true,
-            isLoading: false,
             object: {},
             select: {},
             last_select: '',
             load_data: false,
             page: 1,
-            category: []
+            category: [],
+            isOn: false,
+            isOff: true,
+            object: {},
+            id: [],
+            prod_id: '',
             // prod_id:''
         }
     }
@@ -57,9 +61,10 @@ class Services extends Component {
 
     // function to load data while scrolling
     load_more = () => {
-        if (this.state.data.length > 19) {
+        if (this.state.data.length > 9) {
             this.setState({ page: this.state.page + 1, load_data: true })
             this.get_vendor_product(this.state.active_cat, this.state.page + 1)
+            console.log("load more")
         }
         else {
             this.setState({ load_data: false })
@@ -79,7 +84,7 @@ class Services extends Component {
                 vendor_category_id: category_id,
                 product_type: 'product',
                 page: page,
-                page_length: 20
+                page_length: 10
             })
         }).then((response) => response.json())
             .then((json) => {
@@ -109,10 +114,6 @@ class Services extends Component {
                         else {
                             this.setState({ data: [...this.state.data, ...obj] })
                         }
-                        // console.warn(this.state.data)
-                    }
-                    else {
-
                     }
 
                 }
@@ -204,6 +205,209 @@ class Services extends Component {
             });
     }
 
+    alertFunc = () => {
+        this.RBSheet.close()
+        Alert.alert(
+            "",
+            "Are you sure you want to delete this Menu?",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "OK", onPress: () => this.delete_product() }
+            ]
+        )
+    }
+
+    delete_product = () => {
+        fetch(global.vendor_api + 'update_status_product_offer', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': this.context.token
+            },
+            body: JSON.stringify({
+                action_id: this.state.prod_id,
+                type: 'product',
+                status: "delete"
+            })
+        }).then((response) => response.json())
+            .then((json) => {
+                if (!json.status) {
+                    var msg = json.msg;
+                    // Toast.show(msg);
+
+                }
+                else {
+                    Toast.show("Product deleted")
+                    this.get_vendor_product(0, 1)
+                }
+            }).catch((error) => {
+                console.error(error);
+            }).finally(() => {
+                this.setState({ isloading: false })
+            });
+        this.get_vendor_product(0, 1)
+        this.get_category()
+    }
+
+    editNavigation = () => {
+        this.props.navigation.navigate("EditService",
+            {
+                data: this.state.id,
+                category: this.state.category,
+                get_cat: this.get_category,
+                get_vendor_product: this.get_vendor_product
+            })
+        this.RBSheet.close()
+    }
+
+    sheet = (id) => {
+        this.setState({ id: id })
+        this.RBSheet.open();
+        this.setState({ prod_id: id.id })
+
+    }
+
+    productCard = ({ item }) => {
+        return (
+            <View>
+                <TouchableOpacity style={style.card} onPress={() => this.props.navigation.navigate("ProductDetails", { data: item })}>
+                    <View style={{ flexDirection: "row", width: "100%" }}>
+                        {/* View for Image */}
+                        <View style={{ width: "27%" }}>
+                            {item.is_veg ?
+                                <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
+                                :
+                                <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
+                            }
+                            {
+                                item.product_img == "" ?
+                                    <Image source={require('../img/logo/mp.png')} style={{ width: 80, height: 80, marginTop: 10 }} />
+                                    :
+
+                                    <ProgressiveFastImage
+                                        thumbnailSource={require('../img/logo/mp.png')}
+                                        source={{ uri: item.product_img }}
+                                        style={style.logo}
+
+                                    />
+
+                            }
+
+                        </View>
+                        {/* View for Content */}
+
+                        <View style={style.contentView}>
+                            {/* View for name and heart */}
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                {/* Text View */}
+                                <View style={{ width: 170, }}>
+                                    <Text style={[styles.smallHeading, { top: 10, }]}>
+                                        {item.product_name}
+                                    </Text>
+                                    <Text numberOfLines={3} style={[styles.p, { top: 5, fontSize: RFValue(9.5, 580), }]}>
+                                        {item.description}
+                                    </Text>
+                                </View>
+                                {/* View for toggle icon  */}
+                                <View style={{ margin: 5, marginTop: 10, marginLeft: -5, flexDirection: "row" }}>
+                                    <View style={{ marginRight: 10 }} >
+                                        <Switch
+                                            trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
+                                            thumbColor={this.state.isOn[item.id] ? "white" : "white"}
+                                            value={this.state.object[item.id]}
+                                            onValueChange={() => this.toggle(item.id)}
+
+                                        />
+                                    </View>
+
+                                    <Icon type="ionicon" name="ellipsis-vertical" onPress={() => this.sheet(item)} size={22} />
+                                </View>
+                            </View>
+
+                            {/* Bottom Sheet for edit or delete options */}
+
+                            <RBSheet
+                                ref={ref => { this.RBSheet = ref; }}
+                                closeOnDragDown={true}
+                                closeOnPressMask={true}
+                                height={170}
+                                customStyles={{
+                                    container: {
+                                        borderTopRightRadius: 20,
+                                        borderTopLeftRadius: 20,
+                                    },
+                                    draggableIcon: {
+                                        backgroundColor: ""
+                                    }
+                                }}
+                            >
+                                {/* bottom sheet elements */}
+                                <View >
+                                    {/* new container search view */}
+                                    <View>
+                                        {/* to share */}
+                                        <View style={{ flexDirection: "row", padding: 10 }}>
+                                            <TouchableOpacity style={{ flexDirection: "row" }}
+                                                onPress={() => this.editNavigation()}>
+                                                <View style={{
+                                                    backgroundColor: "#f5f5f5",
+                                                    height: 40, width: 40, alignItems: "center", justifyContent: "center", borderRadius: 50
+                                                }}>
+                                                    <Icon type="ionicon" name="create-outline" />
+                                                </View>
+                                                <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}>
+                                                    Edit </Text>
+                                            </TouchableOpacity>
+                                        </View>
+
+                                        {/* to report */}
+                                        <View style={{ flexDirection: "row", padding: 10 }}>
+
+
+                                            <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.alertFunc()
+                                            }>
+                                                <View style={{
+                                                    backgroundColor: "#f5f5f5",
+                                                    height: 40, width: 40, justifyContent: "center", borderRadius: 50
+                                                }} >
+                                                    <Icon type="ionicon" name="trash-bin" />
+                                                </View>
+                                                <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}
+                                                >Delete</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+                            </RBSheet>
+                            {/* View for Price and offer */}
+                            <View style={{ flexDirection: "row", justifyContent: "space-between", alignSelf: "flex-end", marginTop: 8 }}>
+                                <View style={{ flexDirection: "row" }}>
+                                    {/* <Text style={[styles.p, {
+                                fontFamily: "Roboto-Regular", color: "grey", textDecorationLine: 'line-through',
+                                textDecorationStyle: 'solid'
+                            }]}>
+                                {item.market_price}/-
+                            </Text> */}
+                                    <Text style={[styles.p, { marginLeft: 10, fontFamily: "Roboto-Bold" }]}>
+                                        ₹ {item.our_price}/-
+                                    </Text>
+                                </View>
+                            </View>
+
+                        </View>
+
+                    </View>
+                </TouchableOpacity>
+            </View>
+        )
+    };
+
+
     render() {
 
         return (
@@ -224,55 +428,70 @@ class Services extends Component {
                     </View>
                 </View>
 
-                <ScrollView style={{ flex: 1 }}>
-                    {/* Particular Card Component */}
-                    {this.state.isloading ?
-                        <>
-                            <View >
-                                <Loaders />
-                            </View>
-
-                        </>
-                        :
-                        <>
-                            {
-                                (this.state.data.length > 0) ?
-                                    <Card navigation={this.props.navigation}
-                                        data={this.state.data}
-                                        category={this.state.category}
-                                        load_more={this.load_more}
-                                        load_data={this.state.load_data}
-                                        toggle={this.toggle}
-                                        get_category={this.get_category}
-                                        get_vendor_product={this.get_vendor_product}
-                                        object={this.state.object}
-                                    />
-
-                                    :
-                                    <View style={{ paddingTop: 120, alignItems: "center" }}>
-                                        <View style={{ alignSelf: "center" }}>
-                                            <Image source={require("../img/no-product.webp")}
-                                                style={{ width: 300, height: 250 }} />
-                                            <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
-                                                No Products Found!
-                                            </Text>
-                                        </View>
-                                    </View>
-                            }
-                        </>
-                    }
-
-
-                    {(this.state.load_data) ?
-                        <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
-                            <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
-                            <Text style={styles.p}>Please wait...</Text>
+                {/* <ScrollView style={{ flex: 1 }}> */}
+                {/* Particular Card Component */}
+                {this.state.isloading ?
+                    <>
+                        <View >
+                            <Loaders />
                         </View>
-                        :
-                        <View></View>
-                    }
 
-                </ScrollView>
+                    </>
+                    :
+                    <>
+                        {
+                            (this.state.data.length > 0) ?
+
+                                <>
+
+                                    <FlatList
+                                        navigation={this.props.navigation}
+                                        showsVerticalScrollIndicator={false}
+                                        data={this.state.data}
+                                        renderItem={this.productCard}
+                                        keyExtractor={item => item.id}
+                                        onEndReachedThreshold={0.9}
+                                        onEndReached={() => this.load_more()}
+                                        initialNumToRender={10}
+                                        getItemLayout={(data, index) => (
+                                            { length: 100, offset: 100 * index, index }
+                                        )}
+                                        viewabilityConfig={{
+                                            waitForInteraction: true,
+                                            itemVisiblePercentThreshold: 50,
+                                            minimumViewTime: 1000,
+                                        }}
+                                        estimatedItemSize={500}
+                                    />
+                                </>
+
+
+
+                                :
+                                <View style={{ paddingTop: 120, alignItems: "center" }}>
+                                    <View style={{ alignSelf: "center" }}>
+                                        <Image source={require("../img/no-product.webp")}
+                                            style={{ width: 300, height: 250 }} />
+                                        <Text style={[styles.h3, { top: -5, alignSelf: "center" }]}>
+                                            No Products Found!
+                                        </Text>
+                                    </View>
+                                </View>
+                        }
+                    </>
+                }
+
+
+                {(this.state.load_data) ?
+                    <View style={{ alignItems: "center", flex: 1, backgroundColor: "white", flex: 1, paddingTop: 20 }}>
+                        <ActivityIndicator animating={true} size="small" color="#5BC2C1" />
+                        <Text style={styles.p}>Please wait...</Text>
+                    </View>
+                    :
+                    <View></View>
+                }
+
+                {/* </ScrollView> */}
 
                 {/* fab button */}
                 <View>
@@ -363,7 +582,7 @@ class Categories extends Component {
                         this.props.category.map((cat, id) => {
 
                             return (
-                                <View>
+                                <View key={id}>
                                     {(this.props.active_cat != cat.id) ?
                                         <TouchableOpacity
                                             onPress={() => this.props.filter(cat.id)}>
@@ -462,7 +681,6 @@ class Card extends Component {
     }
 
     editNavigation = () => {
-        console.warn("catres", this.props.category)
         this.props.navigation.navigate("EditService",
             {
                 data: this.state.id,
@@ -524,8 +742,8 @@ class Card extends Component {
                                 <Switch
                                     trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
                                     thumbColor={this.state.isOn[item.id] ? "white" : "white"}
-                                    value={this.props.object[item.id]}
-                                    onValueChange={() => this.props.toggle(item.id)}
+                                    value={this.state.object[item.id]}
+                                    onValueChange={() => this.toggle(item.id)}
 
                                 />
                             </View>

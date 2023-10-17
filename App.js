@@ -148,7 +148,7 @@ global.google_key = "AIzaSyBbEZPYEYtC9sMCTjvDdM1LmlzpibLXOIc";
 // global.google_key = "AIzaSyAb52gzLmGK62in6hPYwulzvjK6xho5sk8";
 
 //for production
-//  global.vendor_api = "https://dine-api.weazy.in/api/";
+ global.vendor_api = "https://dine-api.weazy.in/api/";
 global.qr_link = "https://dine-api.weazy.in"
 
 // global.vendor_api = "https://dine-api.weazy.in/api/";
@@ -159,8 +159,8 @@ global.qr_link = "https://dine-api.weazy.in"
 // global.vendor_api = "http://192.168.1.30:8000/api/";
 
 // for demo 
-global.vendor_api = "https://beta-dine-api.weazy.in/api/";
-// global.image_url = "";
+// global.vendor_api = "https://beta-dine-api.weazy.in/api/";
+global.image_url = "";
 // global.qr_link = ""
 
 global.login_data = true
@@ -310,7 +310,7 @@ class App extends Component {
   };
 
   login = (step, user, role, token) => {
-    console.warn(user)
+    // console.warn(user)
     this.setState({ islogin: true, step: step, user: user, role: role, token: token });
     this.setState({ isloading: false });
     SplashScreen.hide();

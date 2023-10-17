@@ -31,7 +31,6 @@ class MyCategories extends Component {
     }
 
     get_category = () => {
-        console.warn(this.context.user.id)
         fetch(global.vendor_api + 'fetch_vendor_category'
             , {
                 method: 'POST',

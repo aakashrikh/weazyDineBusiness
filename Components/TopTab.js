@@ -15,13 +15,6 @@ class TopTab extends Component{
   
   }
 
-  componentDidMount = ()=>
-    { 
-        this.focusListener=this.props.navigation.addListener('focus', ()=>{
-          console.warn(this.props);
-        })  
-    
-    }
   render(){
     return(
       <Tabs.Navigator 

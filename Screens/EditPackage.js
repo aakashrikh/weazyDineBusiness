@@ -195,7 +195,7 @@ class Fields extends Component {
         this.setState({ market_price: this.props.data.market_price })
         this.setState({ our_price: this.props.data.our_price })
         this.setState({ description: this.props.data.description })
-        this.setState({ image: global.image_url + this.props.data.product_img })
+        this.setState({ image: this.props.data.product_img })
         this.setState({ c_id: this.props.data.vendor_category_id });
         this.setState({ is_veg: this.props.data.is_veg });
         this.setState({ tax: this.props.data.tax });
@@ -208,11 +208,14 @@ class Fields extends Component {
 
     //Create service button
     create = () => {
+        // console.warn(this.state.image, this.state.name, this.state.our_price, this.state.description,
+        //      this.state.c_id, this.state.is_veg, this.state.tax, this.state.type, this.state.prod_id)
+
         var form = new FormData();
         let numberValidation = /^[0-9]+$/;
         let taxValidation = /^[0-9]+$/;
         let isTaxValid = taxValidation.test(this.state.tax);
-        let isnumValid = numberValidation.test(this.state.market_price + this.state.our_price);
+        let isnumValid = numberValidation.test(this.state.our_price);
 
         if (this.state.name == "" || this.state.our_price == "" || this.state.description == "") {
             Toast.show("All fields are required !");
@@ -241,6 +244,7 @@ class Fields extends Component {
                     type: 'image/jpg',
                     name: 'akash.jpg'
                 };
+                console.warn(photo)
                 form.append("product_img", photo);
             }
 
@@ -262,6 +266,7 @@ class Fields extends Component {
                 },
             }).then((response) => response.json())
                 .then((json) => {
+                    console.warn(json)
                     if (!json.status) {
                         var msg = json.msg;
                         Toast.show(msg);

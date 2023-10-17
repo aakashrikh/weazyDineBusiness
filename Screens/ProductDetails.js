@@ -73,7 +73,7 @@ class ProductDetails extends Component {
                         :
                         <ProgressiveFastImage
                                 thumbnailSource={require('../img/logo/mp.png')}
-                                source={{ uri: global.image_url + this.props.route.params.data.product_img }}
+                                source={{ uri: this.props.route.params.data.product_img }}
                                 style={style.productImg}
                             />
                         

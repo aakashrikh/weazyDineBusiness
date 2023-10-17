@@ -37,7 +37,7 @@ class Categories extends Component{
             })
             .then((response) => response.json())
             .then((json) => {
-                console.warn(json)
+                // console.warn(json)
                 this.setState({data:json.data })              
                 return json;
             })
