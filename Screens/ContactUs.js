@@ -164,7 +164,7 @@ class Mail extends Component{
                         Mail us
                     </Text>
                     <Text style={styles.h4} onPress={() => Linking.openURL('mailto:support@weazy.in') }>
-                        support@weazy.in
+                        hello@weazy.in
                     </Text>
                 </View>
 

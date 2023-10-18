@@ -96,18 +96,7 @@ class Services extends PureComponent {
                 else {
                     if (json.data?.data?.length > 0) {
                         var obj = json.data.data;
-                        json.data.data.map((value, key) => {
-                            const object = this.state.object;
-
-                            if (value.status == 'active') {
-                                object[value.id] = true;
-                            }
-                            else {
-                                object[value.id] = false;
-                            }
-
-                            this.setState({ object });
-                        })
+                     
                         if (page == 1) {
                             this.setState({ data: obj })
                         }
@@ -163,18 +152,19 @@ class Services extends PureComponent {
         this.setState({ active_cat: id })
     }
 
-    toggle = (id) => {
-        // alert(id)
-        const object = this.state.object;
-        if (object[id] == true) {
-            object[id] = false;
-            var status = "inactive"
-        }
-        else {
-            object[id] = true;
-            var status = "active"
-        }
-        this.setState({ object });
+    toggle = (id,index) => {
+        
+       if(this.state.isOn){
+              this.setState({isOn:false})
+         }
+            else{
+                this.setState({isOn:true})
+            }
+
+        var status = this.state.data[index].status == "active" ? "inactive" : "active"
+        this.state.data[index].status = status
+        this.setState({ data: this.state.data })
+        
         fetch(global.vendor_api + 'update_status_product_offer', {
             method: 'POST',
             headers: {
@@ -272,7 +262,7 @@ class Services extends PureComponent {
 
     }
 
-    productCard = ({ item }) => {
+    productCard = ({ item,index }) => {
         return (
             <View>
                 <TouchableOpacity style={style.card} onPress={() => this.props.navigation.navigate("ProductDetails", { data: item })}>
@@ -318,9 +308,9 @@ class Services extends PureComponent {
                                     <View style={{ marginRight: 10 }} >
                                         <Switch
                                             trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
-                                            thumbColor={this.state.isOn[item.id] ? "white" : "white"}
-                                            value={this.state.object[item.id]}
-                                            onValueChange={() => this.toggle(item.id)}
+                                            thumbColor={item.status ? "white" : "white"}
+                                            value={item.status == "active" ? true : false}
+                                            onValueChange={() => this.toggle(item.id,index)}
 
                                         />
                                     </View>
@@ -461,7 +451,7 @@ class Services extends PureComponent {
                                             itemVisiblePercentThreshold: 50,
                                             minimumViewTime: 1000,
                                         }}
-                                        estimatedItemSize={500}
+                                        extraData={this.state.isOn}
                                     />
                                 </>
 
@@ -617,237 +607,7 @@ class Categories extends Component {
     }
 }
 
-class Card extends Component {
-    static contextType = AuthContext;
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOn: false,
-            isOff: true,
-            object: {},
-            id: [],
-            prod_id: '',
-        }
-    }
 
-
-    alertFunc = () => {
-        this.RBSheet.close()
-        Alert.alert(
-            "",
-            "Are you sure you want to delete this Menu?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => console.log("Cancel Pressed"),
-                    style: "cancel"
-                },
-                { text: "OK", onPress: () => this.delete_product() }
-            ]
-        )
-    }
-
-    delete_product = () => {
-        fetch(global.vendor_api + 'update_status_product_offer', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': this.context.token
-            },
-            body: JSON.stringify({
-                action_id: this.state.prod_id,
-                type: 'product',
-                status: "delete"
-            })
-        }).then((response) => response.json())
-            .then((json) => {
-                if (!json.status) {
-                    var msg = json.msg;
-                    // Toast.show(msg);
-
-                }
-                else {
-                    Toast.show("Product deleted")
-                    this.props.get_vendor_product(0, 1)
-                }
-            }).catch((error) => {
-                console.error(error);
-            }).finally(() => {
-                this.setState({ isloading: false })
-            });
-        this.props.get_vendor_product(0, 1)
-        this.props.get_category()
-    }
-
-    editNavigation = () => {
-        this.props.navigation.navigate("EditService",
-            {
-                data: this.state.id,
-                category: this.props.category,
-                get_cat: this.props.get_category,
-                get_vendor_product: this.props.get_vendor_product
-            })
-        this.RBSheet.close()
-    }
-
-    sheet = (id) => {
-        this.setState({ id: id })
-        this.RBSheet.open();
-        this.setState({ prod_id: id.id })
-
-    }
-
-    productCard = ({ item }) => (
-        <TouchableOpacity style={style.card} onPress={() => this.props.navigation.navigate("ProductDetails", { data: item })}>
-            <View style={{ flexDirection: "row", width: "100%" }}>
-                {/* View for Image */}
-                <View style={{ width: "27%" }}>
-                    {item.is_veg ?
-                        <Image source={require('../img/veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
-                        :
-                        <Image source={require('../img/non_veg.png')} style={{ width: 15, height: 15, zIndex: 1, top: 5, left: 10 }} />
-                    }
-                    {
-                        item.product_img == "" ?
-                            <Image source={require('../img/logo/mp.png')} style={{ width: 80, height: 80, marginTop: 10 }} />
-                            :
-
-                            <ProgressiveFastImage
-                                thumbnailSource={require('../img/logo/mp.png')}
-                                source={{ uri: global.image_url + item.product_img }}
-                                style={style.logo}
-                            />
-
-                    }
-
-                </View>
-                {/* View for Content */}
-
-                <View style={style.contentView}>
-                    {/* View for name and heart */}
-                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        {/* Text View */}
-                        <View style={{ width: 170, }}>
-                            <Text style={[styles.smallHeading, { top: 10, }]}>
-                                {item.product_name}
-                            </Text>
-                            <Text numberOfLines={3} style={[styles.p, { top: 5, fontSize: RFValue(9.5, 580), }]}>
-                                {item.description}
-                            </Text>
-                        </View>
-                        {/* View for toggle icon  */}
-                        <View style={{ margin: 5, marginTop: 10, marginLeft: -5, flexDirection: "row" }}>
-                            <View style={{ marginRight: 10 }} >
-                                <Switch
-                                    trackColor={{ false: "#d3d3d3", true: "#5BC2C1" }}
-                                    thumbColor={this.state.isOn[item.id] ? "white" : "white"}
-                                    value={this.state.object[item.id]}
-                                    onValueChange={() => this.toggle(item.id)}
-
-                                />
-                            </View>
-
-                            <Icon type="ionicon" name="ellipsis-vertical" onPress={() => this.sheet(item)} size={22} />
-                        </View>
-                    </View>
-
-                    {/* Bottom Sheet for edit or delete options */}
-
-                    <RBSheet
-                        ref={ref => { this.RBSheet = ref; }}
-                        closeOnDragDown={true}
-                        closeOnPressMask={true}
-                        height={170}
-                        customStyles={{
-                            container: {
-                                borderTopRightRadius: 20,
-                                borderTopLeftRadius: 20,
-                            },
-                            draggableIcon: {
-                                backgroundColor: ""
-                            }
-                        }}
-                    >
-                        {/* bottom sheet elements */}
-                        <View >
-                            {/* new container search view */}
-                            <View>
-                                {/* to share */}
-                                <View style={{ flexDirection: "row", padding: 10 }}>
-                                    <TouchableOpacity style={{ flexDirection: "row" }}
-                                        onPress={() => this.editNavigation()}>
-                                        <View style={{
-                                            backgroundColor: "#f5f5f5",
-                                            height: 40, width: 40, alignItems: "center", justifyContent: "center", borderRadius: 50
-                                        }}>
-                                            <Icon type="ionicon" name="create-outline" />
-                                        </View>
-                                        <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}>
-                                            Edit </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                                {/* to report */}
-                                <View style={{ flexDirection: "row", padding: 10 }}>
-
-
-                                    <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => this.alertFunc()
-                                    }>
-                                        <View style={{
-                                            backgroundColor: "#f5f5f5",
-                                            height: 40, width: 40, justifyContent: "center", borderRadius: 50
-                                        }} >
-                                            <Icon type="ionicon" name="trash-bin" />
-                                        </View>
-                                        <Text style={[styles.h4, { alignSelf: "center", marginLeft: 20 }]}
-                                        >Delete</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </RBSheet>
-                    {/* View for Price and offer */}
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", alignSelf: "flex-end", marginTop: 8 }}>
-                        <View style={{ flexDirection: "row" }}>
-                            {/* <Text style={[styles.p, {
-                                fontFamily: "Roboto-Regular", color: "grey", textDecorationLine: 'line-through',
-                                textDecorationStyle: 'solid'
-                            }]}>
-                                {item.market_price}/-
-                            </Text> */}
-                            <Text style={[styles.p, { marginLeft: 10, fontFamily: "Roboto-Bold" }]}>
-                                ₹ {item.our_price}/-
-                            </Text>
-                        </View>
-                    </View>
-
-                </View>
-
-            </View>
-        </TouchableOpacity>
-    );
-
-
-    render() {
-        return (
-            <View>
-                {/* {details} */}
-                <FlatList
-                    navigation={this.props.navigation}
-                    showsVerticalScrollIndicator={false}
-                    data={this.props.data}
-                    renderItem={this.productCard}
-                    keyExtractor={item => item.id}
-                    onEndReachedThreshold={0.5}
-                    onEndReached={() => this.props.load_more()}
-                />
-
-
-            </View>
-        )
-    }
-}
 
 const style = StyleSheet.create({
     card: {
